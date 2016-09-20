@@ -5,7 +5,7 @@ import java.io.*;
 import java.util.*;
 
 /*
- * The Client that can be run both as a console or a GUI
+ * The Client running through console
  */
 public class Client {
 
@@ -38,8 +38,8 @@ public class Client {
 			socket = new Socket(server, port);
 		}
 		// if it failed not much I can so
-		catch (Exception ec) {
-			display("Error connectiong to server:" + ec);
+		catch (Exception e) {
+			display("Error connectiong to server:" + e);
 			return false;
 		}
 
@@ -50,8 +50,8 @@ public class Client {
 		try {
 			sInput = new ObjectInputStream(socket.getInputStream());
 			sOutput = new ObjectOutputStream(socket.getOutputStream());
-		} catch (IOException eIO) {
-			display("Exception creating new Input/output Streams: " + eIO);
+		} catch (IOException e) {
+			display("Exception creating new Input/output Streams: " + e);
 			return false;
 		}
 
@@ -61,7 +61,7 @@ public class Client {
 	}
 
 	/*
-	 * To send a message to the console or the GUI
+	 * To send a message to the console
 	 */
 	private void display(String msg) {
 		System.out.println(msg);
@@ -102,8 +102,8 @@ public class Client {
 
 	/*
 	 * To start the Client in console mode use one of the following command >
-	 * java Client > java Client > java Client portNumber >
-	 * java Client portNumber serverAddress at the console prompt If
+	 * java Client > java Client portNumber >java Client portNumber serverAddress 
+	 * at the console prompt If
 	 * the portNumber is not specified 1500 is used If the serverAddress is not
 	 * specified "localHost" is used 
 	 *
@@ -163,6 +163,7 @@ public class Client {
 				client.sendMessage(new ChatMessage(ChatMessage.MESSAGE, msg));
 			}
 		}
+		scan.close();
 		// done disconnect
 		client.disconnect();
 	}
@@ -184,7 +185,7 @@ public class Client {
 					display("Server has close the connection: " + e);
 					break;
 				}
-				catch (ClassNotFoundException e2) {
+				catch (ClassNotFoundException e) {
 				}
 			}
 		}

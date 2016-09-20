@@ -12,8 +12,6 @@ public class Server {
 	private static int uniqueId;
 	// an ArrayList to keep the list of the Client
 	private ArrayList<ClientThread> al;
-	// to display time
-	private SimpleDateFormat sdf;
 	// the port number to listen for connection
 	private int port;
 	// the boolean that will be turned of to stop the server
@@ -27,8 +25,6 @@ public class Server {
 	public Server(int port) {
 		// the port
 		this.port = port;
-		// to display hh:mm:ss
-		sdf = new SimpleDateFormat("HH:mm:ss");
 		// ArrayList for the Client list
 		al = new ArrayList<ClientThread>();
 	}
@@ -42,8 +38,7 @@ public class Server {
 			ServerSocket serverSocket = new ServerSocket(port);
 
 			// infinite loop to wait for connections
-			while(keepGoing) 
-			{
+			while(keepGoing){
 				// format message saying we are waiting
 				display("Server waiting for Clients on port " + port + ".");
 				
@@ -76,12 +71,11 @@ public class Server {
 		}
 		// something went bad
 		catch (IOException e) {
-            String msg = sdf.format(new Date()) + " Exception on new ServerSocket: " + e + "\n";
-			display(msg);
+			display("Exception on new ServerSocket: " + e + "\n");
 		}
 	}		
     /*
-     * For the GUI to stop the server
+     *stopping the server
      */
 	protected void stop() {
 		keepGoing = false;
@@ -95,30 +89,26 @@ public class Server {
 		}
 	}
 	/*
-	 * Display an event (not a message) to the console or the GUI
+	 * Display an event (not a message) to the console
 	 */
 	private void display(String msg) {
-		String time = sdf.format(new Date()) + " " + msg;
-		System.out.println(time);
+		System.out.println(msg);
 	}
 	/*
 	 *  to broadcast a message to all Clients
 	 */
 	private synchronized void broadcast(String message) {
-		// add HH:mm:ss and \n to the message
-		String time = sdf.format(new Date());
-		String messageLf = time + " " + message + "\n";
-		// display message on console or GUI
-		System.out.print(messageLf);    // append in the room window
+		// display message on console
+		System.out.println(message);    // append in the room window
 		
 		// we loop in reverse order in case we would have to remove a Client
 		// because it has disconnected
 		for(int i = al.size(); --i >= 0;) {
 			ClientThread ct = al.get(i);
 			// try to write to the Client if it fails remove it from the list
-			if(!ct.writeMsg(messageLf)) {
+			if(!ct.writeMsg(message)) {
 				al.remove(i);
-				display("Disconnected Client " + ct.username + " removed from list.");
+				display("Disconnected Client " + ct.id + " removed from list.");
 			}
 		}
 	}
@@ -175,8 +165,6 @@ public class Server {
 		ObjectOutputStream sOutput;
 		// my unique id (easier for deconnection)
 		int id;
-		// the Username of the Client
-		String username;
 		// the only type of message a will receive
 		ChatMessage cm;
 		// the date I connect
@@ -194,19 +182,11 @@ public class Server {
 				// create output first
 				sOutput = new ObjectOutputStream(socket.getOutputStream());
 				sInput  = new ObjectInputStream(socket.getInputStream());
-				// read the username
-				username = (String) sInput.readObject();
-				display(username + " just connected.");
 			}
 			catch (IOException e) {
 				display("Exception creating new Input/output Streams: " + e);
 				return;
 			}
-			// have to catch ClassNotFoundException
-			// but I read a String, I am sure it will work
-			catch (ClassNotFoundException e) {
-			}
-            date = new Date().toString() + "\n";
 		}
 
 		// what will run forever
@@ -219,7 +199,7 @@ public class Server {
 					cm = (ChatMessage) sInput.readObject();
 				}
 				catch (IOException e) {
-					display(username + " Exception reading Streams: " + e);
+					display(id + " Exception reading Streams: " + e);
 					break;				
 				}
 				catch(ClassNotFoundException e2) {
@@ -232,19 +212,14 @@ public class Server {
 				switch(cm.getType()) {
 
 				case ChatMessage.MESSAGE:
-					broadcast(username + ": " + message);
+					broadcast(id + ": " + message);
 					break;
 				case ChatMessage.LOGOUT:
-					display(username + " disconnected with a LOGOUT message.");
+					display(id + " disconnected with a LOGOUT message.");
 					keepGoing = false;
 					break;
 				case ChatMessage.WHOISIN:
-					writeMsg("List of the users connected at " + sdf.format(new Date()) + "\n");
-					// scan al the users connected
-					for(int i = 0; i < al.size(); ++i) {
-						ClientThread ct = al.get(i);
-						writeMsg((i+1) + ") " + ct.username + " since " + ct.date);
-					}
+					writeMsg("List of the users connected at " +"\n");
 					break;
 				}
 			}
@@ -286,7 +261,7 @@ public class Server {
 			}
 			// if an error occurs, do not abort just inform the user
 			catch(IOException e) {
-				display("Error sending message to " + username);
+				display("Error sending message to " + id);
 				display(e.toString());
 			}
 			return true;
