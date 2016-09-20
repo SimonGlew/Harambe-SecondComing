@@ -68,7 +68,7 @@ public class Client {
 	}
 
 	/*
-	 * To send a message to the server
+	 * To send a message to the server, push the object here
 	 */
 	void sendMessage(ChatMessage msg) {
 		try {

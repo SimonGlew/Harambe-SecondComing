@@ -1,11 +1,10 @@
 package ClientServer;
 import java.io.*;
 import java.net.*;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /*
- * The server that can be run both as a console application or a GUI
+ * The server that can be run both as a console application
  */
 public class Server {
 	// a unique ID for each connection
@@ -19,8 +18,8 @@ public class Server {
 	
 
 	/*
-	 *  server constructor that receive the port to listen to for connection as parameter
-	 *  in console
+	 *  Constructor that gets passed a port when starting the java file
+	 *  
 	 */
 	public Server(int port) {
 		// the port
@@ -32,25 +31,21 @@ public class Server {
 	public void start() {
 		keepGoing = true;
 		/* create socket server and wait for connection requests */
-		try 
-		{
+		try {
 			// the socket used by the server
 			ServerSocket serverSocket = new ServerSocket(port);
-
 			// infinite loop to wait for connections
 			while(keepGoing){
 				// format message saying we are waiting
 				display("Server waiting for Clients on port " + port + ".");
-				
 				Socket socket = serverSocket.accept();  	// accept connection
-				// if I was asked to stop
 				if(!keepGoing)
 					break;
-				ClientThread t = new ClientThread(socket);  // make a thread of it
-				al.add(t);									// save it in the ArrayList
+				ClientThread t = new ClientThread(socket);  // Make new thread and add to list
+				al.add(t);									
 				t.start();
 			}
-			// I was asked to stop
+			// Close all connections to the server socket
 			try {
 				serverSocket.close();
 				for(int i = 0; i < al.size(); ++i) {
@@ -60,8 +55,8 @@ public class Server {
 					tc.sOutput.close();
 					tc.socket.close();
 					}
-					catch(IOException ioE) {
-						// not much I can do
+					catch(IOException e) {
+						
 					}
 				}
 			}
@@ -73,19 +68,19 @@ public class Server {
 		catch (IOException e) {
 			display("Exception on new ServerSocket: " + e + "\n");
 		}
-	}		
+	}	
+	
     /*
-     *stopping the server
+     *	Method that has the ability to stop the server by making a client socket on the server socket
      */
+	@SuppressWarnings("resource")
 	protected void stop() {
 		keepGoing = false;
-		// connect to myself as Client to exit statement 
-		// Socket socket = serverSocket.accept();
 		try {
 			new Socket("localhost", port);
 		}
 		catch(Exception e) {
-			// nothing I can really do
+			
 		}
 	}
 	/*
@@ -94,15 +89,14 @@ public class Server {
 	private void display(String msg) {
 		System.out.println(msg);
 	}
+	
 	/*
 	 *  to broadcast a message to all Clients
 	 */
 	private synchronized void broadcast(String message) {
 		// display message on console
-		System.out.println(message);    // append in the room window
+		System.out.println(message);
 		
-		// we loop in reverse order in case we would have to remove a Client
-		// because it has disconnected
 		for(int i = al.size(); --i >= 0;) {
 			ClientThread ct = al.get(i);
 			// try to write to the Client if it fails remove it from the list
@@ -113,7 +107,9 @@ public class Server {
 		}
 	}
 
-	// for a client who logoff using the LOGOUT message
+	/*
+	 * Method that removes the client from the list, due to client being disconnected
+	 */
 	synchronized void remove(int id) {
 		// scan the array list until we found the Id
 		for(int i = 0; i < al.size(); ++i) {
@@ -126,8 +122,7 @@ public class Server {
 		}
 	}
 	
-	/*
-	 *  To run as a console application just open a console window and: 
+	/* 
 	 * > java Server
 	 * > java Server portNumber
 	 * If the port number is not specified 1500 is used
@@ -163,14 +158,12 @@ public class Server {
 		Socket socket;
 		ObjectInputStream sInput;
 		ObjectOutputStream sOutput;
-		// my unique id (easier for deconnection)
+		// my unique id (easier for disconnection)
 		int id;
 		// the only type of message a will receive
 		ChatMessage cm;
-		// the date I connect
-		String date;
-
-		// Constructore
+		
+		// Constructor
 		ClientThread(Socket socket) {
 			// a unique id
 			id = ++uniqueId;
@@ -202,7 +195,7 @@ public class Server {
 					display(id + " Exception reading Streams: " + e);
 					break;				
 				}
-				catch(ClassNotFoundException e2) {
+				catch(ClassNotFoundException e) {
 					break;
 				}
 				// the messaage part of the ChatMessage
@@ -210,7 +203,6 @@ public class Server {
 
 				// Switch on the type of message receive
 				switch(cm.getType()) {
-
 				case ChatMessage.MESSAGE:
 					broadcast(id + ": " + message);
 					break;
