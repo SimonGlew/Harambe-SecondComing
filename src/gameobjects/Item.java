@@ -1,6 +1,6 @@
 package gameobjects;
 
-import core.Tile;
+import tile.Tile;
 
 public class Item extends GameObject {
 

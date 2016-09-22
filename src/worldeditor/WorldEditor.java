@@ -1,8 +1,8 @@
 package worldeditor;
 
 import core.Location;
-import core.Tile;
 import renderer.Renderer;
+import tile.Tile;
 import util.Position;
 
 public class WorldEditor {

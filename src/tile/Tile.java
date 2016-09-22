@@ -1,18 +1,17 @@
-package core;
+package tile;
 
 import gameobjects.GameObject;
 import util.Position;
 
-public class Tile {
+public abstract class Tile {
 
 	private Position pos;
 	private GameObject gameObject;
 	private String floorType;
 
-	public Tile(Position pos, GameObject gameObject, String floorType) {
+	public Tile(Position pos, GameObject gameObject) {
 		this.pos = pos;
 		this.gameObject = gameObject;
-		this.floorType = floorType;
 	}
 
 	public Position getPos() {
@@ -31,13 +30,6 @@ public class Tile {
 		this.gameObject = gameObject;
 	}
 
-	public String getFloorType() {
-		return floorType;
-	}
-
-	public void setFloorType(String floorType) {
-		this.floorType = floorType;
-	}
 	
 	
 }

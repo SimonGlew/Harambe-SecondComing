@@ -1,5 +1,7 @@
 package core;
 
+import tile.Tile;
+
 public class Location {
 	private Tile[][] tiles;
 	private String name;

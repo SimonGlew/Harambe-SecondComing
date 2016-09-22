@@ -12,7 +12,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import core.Location;
-import core.Tile;
+import tile.Tile;
 
 public class Renderer {
 

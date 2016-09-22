@@ -2,7 +2,7 @@ package gameobjects;
 
 import java.awt.image.BufferedImage;
 
-import core.Tile;
+import tile.Tile;
 
 public abstract class GameObject {
 	protected Tile tile;
