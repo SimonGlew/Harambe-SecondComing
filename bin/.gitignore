@@ -1,17 +1,4 @@
-<<<<<<< HEAD
-/treeTile.png
 /renderer/
-=======
-/core/
-/emptyTile.png
-/gameObjects/
-/grassTile.png
-/renderer/
-/util/
-/wallTile.png
-/clientserver/
->>>>>>> 9f82e6fcd9508feaa0427d862d56e9f423baf7e0
-/ClientServer/
-/gameobjects/
-/waterTile.png
-/iohandling/
+/worldeditor/
+/pathTile.png
+/sandTile.png

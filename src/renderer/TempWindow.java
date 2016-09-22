@@ -9,11 +9,13 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import core.Location;
+
 public class TempWindow extends JFrame {
 
 	JPanel panel;
 	BufferedImage image;
-
+	
 	public TempWindow() {
 		panel = new JPanel() {
 			public void paint(Graphics g) {
