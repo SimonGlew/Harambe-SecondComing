@@ -2,7 +2,7 @@ package core;
 
 import java.util.ArrayList;
 
-import gameObjects.Player;
+import gameobjects.Player;
 import iohandling.BoardCreator;
 
 public class GameSystem {

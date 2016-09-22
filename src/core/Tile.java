@@ -1,6 +1,6 @@
 package core;
 
-import gameObjects.GameObject;
+import gameobjects.GameObject;
 import util.Position;
 
 public class Tile {

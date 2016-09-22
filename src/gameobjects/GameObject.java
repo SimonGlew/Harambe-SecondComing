@@ -1,4 +1,4 @@
-package gameObjects;
+package gameobjects;
 
 import core.Tile;
 
