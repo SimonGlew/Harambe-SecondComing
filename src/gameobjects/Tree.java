@@ -5,14 +5,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Wall extends GameObject {
-	
-	public Wall(){
+public class Tree extends GameObject{
+
+	public Tree(){
 		try {
-			image = ImageIO.read(new File("src/wall.png"));
+			image = ImageIO.read(new File("src/tree.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
 }

@@ -1,9 +1,12 @@
 package gameobjects;
 
+import java.awt.image.BufferedImage;
+
 import core.Tile;
 
 public abstract class GameObject {
 	protected Tile tile;
+	protected BufferedImage image;
 
 	public Tile getTile() {
 		return tile;
