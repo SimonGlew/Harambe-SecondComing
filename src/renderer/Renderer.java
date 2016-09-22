@@ -59,12 +59,13 @@ public class Renderer {
 				Point iso = twoDToIso(x, y);
 				try {
 					BufferedImage tile = null;
-					if(board[i][j] == 0){
-						tile = ImageIO.read(new File("src/grassTile.png"));
-					}else{
-						tile = ImageIO.read(new File("src/wallTile.png"));
-					}
+					tile = ImageIO.read(new File("src/grassTile.png"));
 					g.drawImage(tile, iso.x, iso.y - tile.getHeight(), null);
+					if(board[i][j] == 1){
+						tile = ImageIO.read(new File("src/treeTile.png"));
+						g.drawImage(tile, iso.x, iso.y - tile.getHeight(), null);
+
+					}
 
 				} catch (IOException e) {
 					e.printStackTrace();
