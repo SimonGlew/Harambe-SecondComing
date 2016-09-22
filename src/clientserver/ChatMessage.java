@@ -1,4 +1,4 @@
-package ClientServer;
+package clientserver;
 import java.io.*;
 /*
  * Current class holding the things needed to get send from the server to client and vice versa\
