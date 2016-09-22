@@ -1,7 +1,15 @@
+/clientserver/
 /core/
+/emptyTile.png
 /gameobjects/
+/grassTile.png
 /iohandling/
 /renderer/
-/worldeditor/
-/tile/
+/sandTile.png
 /stoneTile.png
+/tile/
+/tree.png
+/util/
+/wall.png
+/waterTile.png
+/worldeditor/

@@ -67,7 +67,7 @@ public class WorldEditor {
 					break;
 				case "sand":
 					newTile = new SandTile(tile.getPos(), tile.getGameObject());
-					break;	
+					break;
 				}
 				loc.getTiles()[i][j] = newTile;
 			}
@@ -95,5 +95,12 @@ public class WorldEditor {
 
 	public void setObjectType(String string) {
 		this.gameObject = string;
+	}
+
+	public void clearTile(int i, int j) {
+		if (i >= 0 && j >= 0 && i < loc.getTiles().length && j < loc.getTiles()[0].length) {
+			loc.getTiles()[i][j].setGameObject(null);
+		}
+		update();
 	}
 }

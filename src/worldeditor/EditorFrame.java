@@ -10,12 +10,13 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class EditorFrame extends JFrame {
 
 	JPanel panel;
 	BufferedImage image;
-	WorldEditor editor;	
+	WorldEditor editor;
 
 	public EditorFrame(WorldEditor editor) {
 		this.editor = editor;
@@ -32,7 +33,7 @@ public class EditorFrame extends JFrame {
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
+
 	public void paintPanel(Graphics2D g) {
 		if (image != null) {
 			g.drawImage(image, 0, 0, null);
@@ -43,13 +44,17 @@ public class EditorFrame extends JFrame {
 		this.image = image;
 		panel.repaint();
 	}
-	
+
 	private class EditorMouseListener implements MouseListener{
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			Point selected = editor.renderer.isoToIndex(e.getX(), e.getY());
-			editor.processTile(selected.x, selected.y);
+			if(e.getButton() == 1){
+				editor.processTile(selected.x, selected.y);
+			}else if(e.getButton()==3){
+				editor.clearTile(selected.x, selected.y);
+			}
 		}
 
 		@Override
@@ -63,6 +68,6 @@ public class EditorFrame extends JFrame {
 
 		@Override
 		public void mouseReleased(MouseEvent e) {}
-		
+
 	}
 }
