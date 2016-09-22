@@ -2,6 +2,8 @@ package worldeditor;
 
 import core.Location;
 import core.Tile;
+import gameobjects.Tree;
+import gameobjects.Wall;
 import renderer.Renderer;
 import util.Position;
 
@@ -12,8 +14,9 @@ public class WorldEditor {
 	Location loc;
 	Renderer renderer;
 
-	String tool = "setFloor";
+	String tool = "none";
 	String floor = "grass";
+	private String gameObject = "tree";
 
 	public WorldEditor() {
 		loc = createBlankLocation();
@@ -46,8 +49,18 @@ public class WorldEditor {
 	public void processTile(int i, int j) {
 		if (i >= 0 && j >= 0 && i < loc.getTiles().length && j < loc.getTiles()[0].length) {
 			Tile tile = loc.getTiles()[i][j];
-			if (tool.equals("setFloor")) {
+			if (tool.equals("Set Floor Type")) {
 				tile.setFloorType(floor);
+			}
+			if (tool.equals("Add Game Object")) {
+				switch (gameObject) {
+				case "tree":
+					tile.setGameObject(new Tree());
+					break;
+				case "wall":
+					tile.setGameObject(new Wall());
+					break;
+				}
 			}
 			update();
 		}
@@ -55,5 +68,13 @@ public class WorldEditor {
 
 	public void setFloorType(String string) {
 		this.floor = string;
+	}
+
+	public void setTool(String string) {
+		this.tool = string;
+	}
+
+	public void setObjectType(String string) {
+		this.gameObject = string;
 	}
 }

@@ -1,6 +1,6 @@
-/renderer/
-/worldeditor/
-/pathTile.png
-/sandTile.png
-/core/
+/tree.png
+/wall.png
 /gameobjects/
+/renderer/
+/core/
+/worldeditor/

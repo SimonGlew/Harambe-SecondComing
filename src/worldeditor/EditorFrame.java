@@ -34,8 +34,6 @@ public class EditorFrame extends JFrame {
 	}
 	
 	public void paintPanel(Graphics2D g) {
-		int width = panel.getWidth();
-		int height = panel.getHeight();
 		if (image != null) {
 			g.drawImage(image, 0, 0, null);
 		}

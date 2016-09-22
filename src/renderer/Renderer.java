@@ -76,8 +76,8 @@ public class Renderer {
 				g.drawImage(floor, pos.x, pos.y - floor.getHeight(), null);
 			}
 			if (tile.getGameObject() != null) {
-				BufferedImage gameObject = ImageIO.read(new File("src/treeTile.png"));
-				g.drawImage(gameObject, pos.x, pos.y - floor.getHeight(), null);
+				BufferedImage gameObject = tile.getGameObject().getImage();
+				g.drawImage(gameObject, pos.x, pos.y - gameObject.getHeight(), null);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
