@@ -1,4 +1,4 @@
-package ClientServer;
+package clientserver;
 
 import java.net.*;
 import java.io.*;

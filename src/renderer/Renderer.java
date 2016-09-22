@@ -64,9 +64,7 @@ public class Renderer {
 					if(board[i][j] == 1){
 						tile = ImageIO.read(new File("src/treeTile.png"));
 						g.drawImage(tile, iso.x, iso.y - tile.getHeight(), null);
-
 					}
-
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
