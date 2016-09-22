@@ -1,19 +1,16 @@
-package gameobjects;
+package gameObjects;
+
+import core.Tile;
 
 public abstract class GameObject {
-	private int x;
-	private int y;
-	public int getX() {
-		return x;
+	protected Tile tile;
+
+	public Tile getTile() {
+		return tile;
 	}
-	public void setX(int x) {
-		this.x = x;
+
+	public void setTile(Tile tile) {
+		this.tile = tile;
 	}
-	public int getY() {
-		return y;
-	}
-	public void setY(int y) {
-		this.y = y;
-	}
-	
+
 }
