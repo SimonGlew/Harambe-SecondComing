@@ -15,16 +15,16 @@ public class Renderer {
 
 	TempWindow window;
 
-	int[][] board = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-			{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-			{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-			{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-			{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-			{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-			{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-			{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-			{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-			{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
+	char[][] board = {{'w', 'w', 'w', 'w', 1, 1, 1, 1, 1, 1},
+			{'w', 'w', 'w', 'w', 0, 0, 0, 0, 0, 1},
+			{'w', 'w', 'w', 0, 0, 0, 0, 0, 0, 0},
+			{'w', 'w', 0, 0, 0, 0, 0, 0, 0, 0},
+			{'w', 'w', 0, 0, 0, 0, 0, 0, 0, 0},
+			{'w', 0, 0, 0, 0, 0, 0, 0, 1, 1},
+			{'w', 0, 0, 0, 0, 0, 0, 0, 1, 1},
+			{0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
+			{0, 0, 0, 0, 0, 0, 1, 1, 1, 1},
+			{0, 0, 1, 1, 1, 1, 1, 1, 1, 1}};
 
 	final int TILE_WIDTH = 45;
 	int xOffset;
@@ -42,7 +42,7 @@ public class Renderer {
 		int h = window.panel.getHeight();
 		BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = image.createGraphics();
-		g.setColor(Color.BLUE);
+		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, image.getWidth(), image.getHeight());
 		drawBoard(g);
 		window.setImage(image);
@@ -50,7 +50,6 @@ public class Renderer {
 	
 	
 	public void drawBoard(Graphics2D g){
-		g.setColor(Color.MAGENTA);
 		calculateOffsets();
 		for(int i = 0; i < board.length; i++){
 			for(int j = 0; j < board[0].length; j++){
@@ -58,12 +57,14 @@ public class Renderer {
 				int y = i*TILE_WIDTH;
 				Point iso = twoDToIso(x, y);
 				try {
-					BufferedImage tile = null;
-					tile = ImageIO.read(new File("src/grassTile.png"));
-					g.drawImage(tile, iso.x, iso.y - tile.getHeight(), null);
-					if(board[i][j] == 1){
-						tile = ImageIO.read(new File("src/treeTile.png"));
-						g.drawImage(tile, iso.x, iso.y - tile.getHeight(), null);
+					BufferedImage floor = ImageIO.read(new File("src/grassTile.png"));
+					if(board[i][j] == 'w'){
+						floor = ImageIO.read(new File("src/waterTile.png"));
+					}
+					g.drawImage(floor, iso.x, iso.y - floor.getHeight(), null);
+					if(board[i][j] == 1){	
+						BufferedImage object = ImageIO.read(new File("src/treeTile.png"));
+						g.drawImage(object, iso.x, iso.y - object.getHeight(), null);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
