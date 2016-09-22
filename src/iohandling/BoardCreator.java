@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import core.Location;
-import core.Tile;
 import gameobjects.Wall;
+import tile.Tile;
 import util.Position;
 
 public class BoardCreator {
@@ -22,26 +22,26 @@ public class BoardCreator {
 		}
 	}
 
-	public Location[] loadBoard() {
-		ArrayList<Location> locations = new ArrayList<Location>();
-
-		while (sc.hasNext()) {
-			Tile[][] tiles = new Tile[10][10];
-			int count = 0;
-			while (count < 100) {
-				for (int y = 0; y < 10; y++) {
-					for (int x = 0; x < 10; x++) {
-						while (count > 0) {
-							if (sc.next().equals("w")) {
-								tiles[x][y] = new Tile(new Position(x,y),new Wall(), "grass");
-							}
-						}
-					}
-				}
-			}
-			locations.add(new Location("tralala", tiles));
-		}
-		
-		return (Location[]) locations.toArray();
-	}
+//	public Location[] loadBoard() {
+//		ArrayList<Location> locations = new ArrayList<Location>();
+//
+//		while (sc.hasNext()) {
+//			Tile[][] tiles = new Tile[10][10];
+//			int count = 0;
+//			while (count < 100) {
+//				for (int y = 0; y < 10; y++) {
+//					for (int x = 0; x < 10; x++) {
+//						while (count > 0) {
+//							if (sc.next().equals("w")) {
+//								tiles[x][y] = new Tile(new Position(x,y),new Wall(), "grass");
+//							}
+//						}
+//					}
+//				}
+//			}
+//			locations.add(new Location("tralala", tiles));
+//		}
+//		
+//		return (Location[]) locations.toArray();
+//	}
 }

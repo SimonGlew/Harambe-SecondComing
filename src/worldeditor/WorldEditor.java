@@ -1,10 +1,14 @@
 package worldeditor;
 
 import core.Location;
+<<<<<<< HEAD
 import core.Tile;
 import gameobjects.Tree;
 import gameobjects.Wall;
+=======
+>>>>>>> 27b804348905b0cc6b4bc8f4f9e690ad111aed28
 import renderer.Renderer;
+import tile.Tile;
 import util.Position;
 
 public class WorldEditor {

@@ -18,7 +18,7 @@ public class GameSystem {
 
 	public GameSystem() {
 		this.boardCreator = new BoardCreator("lalala");
-		this.board = boardCreator.loadBoard();
+//		this.board = boardCreator.loadBoard();
 		this.players = new ArrayList<Player>();
 	}
 

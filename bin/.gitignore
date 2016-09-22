@@ -1,6 +1,5 @@
-/tree.png
-/wall.png
-/gameobjects/
-/renderer/
 /core/
+/gameobjects/
+/iohandling/
+/renderer/
 /worldeditor/
