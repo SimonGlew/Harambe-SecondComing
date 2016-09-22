@@ -18,7 +18,7 @@ public class ToolSelectionFrame {
 	WorldEditor editor;
 	JComboBox toolCombo;
 	String[] tools = { "Set Floor Type", "Add Game Object" };
-	String[] floorTypes = { "grass", "water", "path", "sand" };
+	String[] floorTypes = { "grass", "water", "stone", "sand" };
 	String[] gameObjects = {"tree", "wall"};
 
 	public ToolSelectionFrame(WorldEditor editor) {
@@ -30,7 +30,7 @@ public class ToolSelectionFrame {
 	private void setupFloorPanel() {
 		JFrame floorFrame = new JFrame();
 		JPanel panel = new JPanel();
-		panel.setPreferredSize(new Dimension(400, 200));
+		panel.setPreferredSize(new Dimension(400, 100));
 		panel.add(new JLabel("Select Tool:"));
 		JRadioButton setFloorButton = new JRadioButton("Set Floor Type");
 		setFloorButton.setSelected(true);
@@ -48,6 +48,7 @@ public class ToolSelectionFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				editor.setTool("Add Game Object");
+				floorFrame.dispose();
 				setupObjectPanel();
 			}
 			
@@ -83,7 +84,7 @@ public class ToolSelectionFrame {
 	private void setupObjectPanel() {
 		JFrame objectFrame = new JFrame();
 		JPanel panel = new JPanel();
-		panel.setPreferredSize(new Dimension(400, 200));
+		panel.setPreferredSize(new Dimension(400, 100));
 		panel.add(new JLabel("Select Tool:"));
 		JRadioButton setFloorButton = new JRadioButton("Set Floor Type");
 		setFloorButton.addActionListener(new ActionListener(){
@@ -91,11 +92,13 @@ public class ToolSelectionFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				editor.setTool("Set Floor Type");
+				objectFrame.dispose();
 				setupFloorPanel();
 			}
 			
 		});
 		JRadioButton addObjectButton = new JRadioButton("Add Game Object");
+		addObjectButton.setSelected(true);
 		addObjectButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -110,7 +113,6 @@ public class ToolSelectionFrame {
 		panel.add(setFloorButton);
 		panel.add(addObjectButton);
 		panel.add(Box.createRigidArea(new Dimension(400, 10)));
-		panel.add(new JLabel("Select Floor Type:"));
 		System.out.println("FLOOR TYPE");
 		System.out.println(gameObjects[0]);
 		panel.add(new JLabel("Select Object Type:"));

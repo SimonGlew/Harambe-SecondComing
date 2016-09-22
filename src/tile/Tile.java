@@ -1,14 +1,16 @@
 package tile;
 
+import java.awt.image.BufferedImage;
+
 import gameobjects.GameObject;
 import util.Position;
 
 public abstract class Tile {
 
-	private Position pos;
-	private GameObject gameObject;
-	private String floorType;
-
+	protected Position pos;
+	protected GameObject gameObject;
+	protected BufferedImage image;
+	
 	public Tile(Position pos, GameObject gameObject) {
 		this.pos = pos;
 		this.gameObject = gameObject;
@@ -29,7 +31,10 @@ public abstract class Tile {
 	public void setGameObject(GameObject gameObject) {
 		this.gameObject = gameObject;
 	}
-
+	
+	public BufferedImage getImage(){
+		return image;
+	}
 	
 	
 }

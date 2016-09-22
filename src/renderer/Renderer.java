@@ -54,33 +54,13 @@ public class Renderer {
 	}
 
 	private void drawTile(Graphics2D g, Tile tile, Point pos) {
-		try {
-			BufferedImage floor = null;
-			switch (tile.getFloorType()) {
-			case "grass":
-				floor = ImageIO.read(new File("src/grassTile.png"));
-				break;
-			case "water":
-				floor = ImageIO.read(new File("src/waterTile.png"));
-				break;
-			case "sand":
-				floor = ImageIO.read(new File("src/sandTile.png"));
-				break;
-			case "path":
-				floor = ImageIO.read(new File("src/pathTile.png"));
-				break;
-			default:
-				break;
-			}
-			if (floor != null) {
-				g.drawImage(floor, pos.x, pos.y - floor.getHeight(), null);
-			}
-			if (tile.getGameObject() != null) {
-				BufferedImage gameObject = tile.getGameObject().getImage();
-				g.drawImage(gameObject, pos.x, pos.y - gameObject.getHeight(), null);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		BufferedImage floor = tile.getImage();
+		if (floor != null) {
+			g.drawImage(floor, pos.x, pos.y - floor.getHeight(), null);
+		}
+		if (tile.getGameObject() != null) {
+			BufferedImage gameObject = tile.getGameObject().getImage();
+			g.drawImage(gameObject, pos.x, pos.y - gameObject.getHeight(), null);
 		}
 	}
 

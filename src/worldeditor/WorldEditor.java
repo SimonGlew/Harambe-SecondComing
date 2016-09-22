@@ -1,14 +1,14 @@
 package worldeditor;
 
 import core.Location;
-<<<<<<< HEAD
-import core.Tile;
 import gameobjects.Tree;
 import gameobjects.Wall;
-=======
->>>>>>> 27b804348905b0cc6b4bc8f4f9e690ad111aed28
 import renderer.Renderer;
+import tile.GrassTile;
+import tile.SandTile;
+import tile.StoneTile;
 import tile.Tile;
+import tile.WaterTile;
 import util.Position;
 
 public class WorldEditor {
@@ -34,7 +34,7 @@ public class WorldEditor {
 		Location loc = new Location(null, new Tile[10][10]);
 		for (int i = 0; i < loc.getTiles().length; i++) {
 			for (int j = 0; j < loc.getTiles()[0].length; j++) {
-				loc.getTiles()[i][j] = new Tile(new Position(i, j), null, "grass");
+				loc.getTiles()[i][j] = new GrassTile(new Position(i, j), null);
 			}
 		}
 		return loc;
@@ -54,7 +54,22 @@ public class WorldEditor {
 		if (i >= 0 && j >= 0 && i < loc.getTiles().length && j < loc.getTiles()[0].length) {
 			Tile tile = loc.getTiles()[i][j];
 			if (tool.equals("Set Floor Type")) {
-				tile.setFloorType(floor);
+				Tile newTile = null;
+				switch (floor) {
+				case "grass":
+					newTile = new GrassTile(tile.getPos(), tile.getGameObject());
+					break;
+				case "stone":
+					newTile = new StoneTile(tile.getPos(), tile.getGameObject());
+					break;
+				case "water":
+					newTile = new WaterTile(tile.getPos(), tile.getGameObject());
+					break;
+				case "sand":
+					newTile = new SandTile(tile.getPos(), tile.getGameObject());
+					break;	
+				}
+				loc.getTiles()[i][j] = newTile;
 			}
 			if (tool.equals("Add Game Object")) {
 				switch (gameObject) {

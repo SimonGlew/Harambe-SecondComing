@@ -16,5 +16,7 @@ public abstract class GameObject {
 		this.tile = tile;
 	}
 
-	
+	public BufferedImage getImage(){
+		return image;
+	}
 }
