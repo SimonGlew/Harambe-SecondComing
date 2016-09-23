@@ -1,2 +1,8 @@
 /clientserver/
 /core/
+/gameobjects/
+/renderer/
+/tile/
+/worldeditor/
+/highlightLocation.png
+/highlightTile.png

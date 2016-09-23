@@ -24,4 +24,8 @@ public class Location {
 		return name;
 	}	
 	
+	public Map<GameSystem.Direction, Location> getNeighbours(){
+		return neighbours;
+	}
+	
 }

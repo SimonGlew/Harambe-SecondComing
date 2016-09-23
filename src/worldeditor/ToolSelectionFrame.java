@@ -24,7 +24,6 @@ public class ToolSelectionFrame {
 	public ToolSelectionFrame(WorldEditor editor) {
 		this.editor = editor;
 		setupFloorPanel();
-		
 	}
 
 	private void setupFloorPanel() {
