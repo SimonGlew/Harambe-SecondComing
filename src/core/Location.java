@@ -22,10 +22,14 @@ public class Location {
 
 	public String getName() {
 		return name;
-	}	
-	
-	public Map<GameSystem.Direction, Location> getNeighbours(){
+	}
+
+	public Map<GameSystem.Direction, Location> getNeighbours() {
 		return neighbours;
 	}
+
+	public void setNeighbours(Map<GameSystem.Direction, Location> neighbours) {
+		this.neighbours = neighbours;
+	}	
 	
 }
