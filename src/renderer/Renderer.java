@@ -73,22 +73,22 @@ public class Renderer {
 				int x = xOff + i * TILE_WIDTH;
 				int y = yOff + j * TILE_WIDTH;
 				Point iso = twoDToIso(x, y);
-				drawTile(g, map.get(p).getTiles()[i][j], iso);
+				drawTile(g, map.get(p).getTiles()[i][j], iso, map.get(p), new Position(i, j));
 			}
 		}
 		drawSelected(g);
 		drawSelectedLocation(g);
 	}
 
-	private void drawTile(Graphics2D g, Tile tile, Point pos) {
+	private void drawTile(Graphics2D g, Tile tile, Point iso, Location loc, Position pos) {
 		BufferedImage floor = tile.getImage();
 		if (floor != null) {
-			g.drawImage(floor, pos.x, pos.y - floor.getHeight(), null);
+			g.drawImage(floor, iso.x, iso.y - floor.getHeight(), null);
 		}
 
 		if (tile.getGameObject() != null) {
-			BufferedImage gameObject = tile.getGameObject().getImage();
-			g.drawImage(gameObject, pos.x, pos.y - gameObject.getHeight(), null);
+			BufferedImage gameObject = tile.getGameObject().getImage(loc, pos);
+			g.drawImage(gameObject, iso.x, iso.y - gameObject.getHeight(), null);
 		}
 	}
 
@@ -117,7 +117,6 @@ public class Renderer {
 			case "WEST":
 				iso = twoDToIso((-3 * locationSize * TILE_WIDTH / 2), (locationSize * TILE_WIDTH / 2));
 				g.drawImage(highlightLocation, iso.x + TILE_WIDTH, iso.y - TILE_WIDTH, null);
-				System.out.println(iso.x + "," + iso.y);
 				break;
 			case "SOUTH":
 				iso = twoDToIso((-locationSize * TILE_WIDTH / 2), (3 * locationSize / 2) * TILE_WIDTH);
@@ -154,10 +153,8 @@ public class Renderer {
 
 	public Point isoToIndex(int x, int y) {
 		Point twoD = isoTo2D(x, y);
-		System.out.println(twoD);
 		Point index = new Point((twoD.x + TILE_WIDTH / 2) / TILE_WIDTH,
 				(int) ((twoD.y + 1.5 * TILE_WIDTH)) / TILE_WIDTH);
-		System.out.println(index);
 		return index;
 	}
 
@@ -220,7 +217,6 @@ public class Renderer {
 	
 	public Map<Point, Location> mapLocations(Location origin, int x, int y, Map<Point, Location> map){
 		if(map.containsKey(new Point(x, y))){
-			System.out.println("ABORT");
 			return map;
 		}
 		map.put(new Point(x, y), origin);

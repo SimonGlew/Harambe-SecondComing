@@ -59,7 +59,6 @@ public class ToolSelectionFrame {
 		panel.add(addObjectButton);
 		panel.add(Box.createRigidArea(new Dimension(400, 10)));
 		panel.add(new JLabel("Select Floor Type:"));
-		System.out.println("FLOOR TYPE");
 		JComboBox floorCombo = new JComboBox(floorTypes);
 		floorCombo.setPreferredSize(new Dimension(150, 24));
 		floorCombo.addActionListener(new ActionListener() {
@@ -112,8 +111,6 @@ public class ToolSelectionFrame {
 		panel.add(setFloorButton);
 		panel.add(addObjectButton);
 		panel.add(Box.createRigidArea(new Dimension(400, 10)));
-		System.out.println("FLOOR TYPE");
-		System.out.println(gameObjects[0]);
 		panel.add(new JLabel("Select Object Type:"));
 		JComboBox objectCombo = new JComboBox(gameObjects);
 		objectCombo.setPreferredSize(new Dimension(150, 24));
@@ -123,9 +120,7 @@ public class ToolSelectionFrame {
 				editor.setObjectType(gameObjects[objectCombo.getSelectedIndex()]);
 			}
 		});
-		System.out.println(objectCombo.getItemAt(0));
 		panel.add(objectCombo);
-		System.out.println(objectCombo);
 
 		panel.repaint();
 		objectFrame.add(panel);

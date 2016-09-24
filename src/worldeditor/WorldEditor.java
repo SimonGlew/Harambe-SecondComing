@@ -113,7 +113,6 @@ public class WorldEditor {
 
 	public void selectTile(Point selected) {
 		renderer.selectTile(new Position((int) selected.getX(), (int) selected.getY()), loc);
-		System.out.println(renderer.getSelected());
 		update();
 	}
 
