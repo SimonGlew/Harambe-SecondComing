@@ -17,7 +17,7 @@ public class GameSystem {
 	}
 
 	public GameSystem() {
-		this.board = BoardCreator.loadBoard();
+		this.board = BoardCreator.loadBoard("map.txt");
 		this.players = new ArrayList<Player>();
 	}
 

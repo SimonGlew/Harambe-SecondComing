@@ -14,4 +14,8 @@ public class Chest extends GameObject{
 			e.printStackTrace();
 		}
 	}
+	
+	public String toString() {
+		return "Chest";
+	}
 }

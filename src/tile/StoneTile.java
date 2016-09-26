@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 import gameobjects.GameObject;
 import util.Position;
 
-public class StoneTile extends Tile{
+public class StoneTile extends Tile {
 
 	public StoneTile(Position pos, GameObject gameObject) {
 		super(pos, gameObject);
@@ -16,6 +16,10 @@ public class StoneTile extends Tile{
 			image = ImageIO.read(new File("src/stoneTile.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
-		}	}
+		}
+	}
 
+	public String toString() {
+		return "P";
+	}
 }

@@ -11,6 +11,7 @@ import core.Location;
 import gameobjects.Chest;
 import gameobjects.Tree;
 import gameobjects.Wall;
+import iohandling.BoardCreator;
 import renderer.Renderer;
 import tile.GrassTile;
 import tile.SandTile;
@@ -34,8 +35,9 @@ public class WorldEditor {
 	public WorldEditor() {
 		renderer = new Renderer();
 		//LOAD BOARD
-		board = new Board(new HashMap<Integer, Location>());
-		currentLocation = createBlankLocation();
+		board = BoardCreator.loadBoard("map.txt");
+		//currentLocation = createBlankLocation();
+		currentLocation = 0;
 		
 		frame = new EditorFrame(this);
 		toolSelect = new ToolSelectionFrame(this);
@@ -43,7 +45,7 @@ public class WorldEditor {
 	}
 
 	public int createBlankLocation() {
-		Location loc = new Location(board.getNextUniqueId(), null, new Tile[10][10], board);
+		Location loc = new Location(board.getNextUniqueId(), "", new Tile[10][10], board);
 		for (int i = 0; i < loc.getTiles().length; i++) {
 			for (int j = 0; j < loc.getTiles()[0].length; j++) {
 				loc.getTiles()[i][j] = new GrassTile(new Position(i, j), null);

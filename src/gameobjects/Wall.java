@@ -59,4 +59,8 @@ public class Wall extends GameObject {
 		}
 		return image;
 	}
+	
+	public String toString() {
+		return "Wall";
+	}
 }

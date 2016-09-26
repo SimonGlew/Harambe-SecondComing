@@ -14,4 +14,8 @@ public class Tree extends GameObject{
 			e.printStackTrace();
 		}
 	}
+	
+	public String toString() {
+		return "Tree";
+	}
 }

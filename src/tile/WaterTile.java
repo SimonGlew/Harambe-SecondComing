@@ -19,4 +19,7 @@ public class WaterTile extends Tile {
 		}
 	}
 
+	public String toString(){
+		return "W";
+	}
 }

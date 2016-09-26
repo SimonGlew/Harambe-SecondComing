@@ -7,11 +7,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+
+import iohandling.BoardWriter;
 
 public class ToolSelectionFrame {
 
@@ -29,7 +32,7 @@ public class ToolSelectionFrame {
 	private void setupFloorPanel() {
 		JFrame floorFrame = new JFrame();
 		JPanel panel = new JPanel();
-		panel.setPreferredSize(new Dimension(400, 100));
+		panel.setPreferredSize(new Dimension(400, 140));
 		panel.add(new JLabel("Select Tool:"));
 		JRadioButton setFloorButton = new JRadioButton("Set Floor Type");
 		setFloorButton.setSelected(true);
@@ -69,6 +72,16 @@ public class ToolSelectionFrame {
 			
 		});
 		panel.add(floorCombo);
+		panel.add(Box.createRigidArea(new Dimension(400, 10)));
+		JButton button = new JButton("Save Map");
+		button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BoardWriter.writeBoard(editor.board, "map.txt");
+			}
+		});
+		panel.add(button);
 
 		panel.repaint();
 		floorFrame.add(panel);
@@ -82,7 +95,7 @@ public class ToolSelectionFrame {
 	private void setupObjectPanel() {
 		JFrame objectFrame = new JFrame();
 		JPanel panel = new JPanel();
-		panel.setPreferredSize(new Dimension(400, 100));
+		panel.setPreferredSize(new Dimension(400, 140));
 		panel.add(new JLabel("Select Tool:"));
 		JRadioButton setFloorButton = new JRadioButton("Set Floor Type");
 		setFloorButton.addActionListener(new ActionListener(){
@@ -121,6 +134,17 @@ public class ToolSelectionFrame {
 			}
 		});
 		panel.add(objectCombo);
+		panel.add(Box.createRigidArea(new Dimension(400, 10)));
+
+		JButton button = new JButton("Save Map");
+		button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BoardWriter.writeBoard(editor.board, "map.txt");
+			}
+		});
+		panel.add(button);
 
 		panel.repaint();
 		objectFrame.add(panel);

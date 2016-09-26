@@ -18,5 +18,9 @@ public class SandTile extends Tile{
 			e.printStackTrace();
 		}
 	}
+	
+	public String toString(){
+		return "S";
+	}
 
 }

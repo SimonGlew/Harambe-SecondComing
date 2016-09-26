@@ -18,5 +18,9 @@ public class GrassTile extends Tile{
 			e.printStackTrace();
 		}
 	}
+	
+	public String toString(){
+		return "G";
+	}
 
 }

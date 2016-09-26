@@ -1,15 +1,3 @@
-/clientserver/
-/core/
-/gameobjects/
-<<<<<<< HEAD
-/renderer/
-/tile/
-/worldeditor/
-/highlightLocation.png
-/highlightTile.png
-=======
->>>>>>> 0d909f0b9c4fd76d9bbf7afa4a9f92110ed6b901
-/util/
 /iohandling/
-/testing/
-/chest.png
+/core/
+/worldeditor/
