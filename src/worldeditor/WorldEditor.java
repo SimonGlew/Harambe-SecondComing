@@ -13,7 +13,6 @@ import gameobjects.Tree;
 import gameobjects.Wall;
 import iohandling.BoardCreator;
 import renderer.Renderer;
-import tile.FlowerTile;
 import tile.GrassTile;
 import tile.SandTile;
 import tile.StoneTile;
@@ -83,9 +82,6 @@ public class WorldEditor {
 					break;
 				case "sand":
 					newTile = new SandTile(tile.getPos(), tile.getGameObject());
-					break;
-				case "flower":
-					newTile = new FlowerTile(tile.getPos(), tile.getGameObject());
 					break;
 				}
 				renderer.selectTile(newTile);
