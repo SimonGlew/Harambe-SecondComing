@@ -13,6 +13,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import core.Board;
 import core.GameSystem;
 import core.GameSystem.Direction;
 import core.Location;
@@ -45,35 +46,35 @@ public class Renderer {
 		Graphics2D g = image.createGraphics();
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, image.getWidth(), image.getHeight());
-		Map<Point, Location> map = mapLocations(loc, 0, 0, new HashMap<Point, Location>());
-		linkLocations(map);
-		drawBoard(g, map, w, h, new Point(-1, 1));
-		drawBoard(g, map, w, h, new Point(0, 1));
-		drawBoard(g, map, w, h, new Point(-1, 0));
-		drawBoard(g, map, w, h, new Point(1, 1));
-		drawBoard(g, map, w, h, new Point(0, 0));
-		drawBoard(g, map, w, h, new Point(-1, -1));
-		drawBoard(g, map, w, h, new Point(1, 0));
-		drawBoard(g, map, w, h, new Point(0, -1));
-		drawBoard(g, map, w, h, new Point(1, -1));
+		Map<Point, Integer> map = loc.getBoard().mapLocations(loc.getId(), 0, 0, new HashMap<Point, Integer>());
+		loc.getBoard().linkLocations(map);
+		drawBoard(g, loc.getBoard(), map, w, h, new Point(-1, 1));
+		drawBoard(g, loc.getBoard(), map, w, h, new Point(0, 1));
+		drawBoard(g, loc.getBoard(), map, w, h, new Point(-1, 0));
+		drawBoard(g, loc.getBoard(), map, w, h, new Point(1, 1));
+		drawBoard(g, loc.getBoard(), map, w, h, new Point(0, 0));
+		drawBoard(g, loc.getBoard(), map, w, h, new Point(-1, -1));
+		drawBoard(g, loc.getBoard(), map, w, h, new Point(1, 0));
+		drawBoard(g, loc.getBoard(), map, w, h, new Point(0, -1));
+		drawBoard(g, loc.getBoard(), map, w, h, new Point(1, -1));
 
 		return image;
 	}
 
 
-	public void drawBoard(Graphics2D g, Map<Point, Location> map, int w, int h, Point p) {
+	public void drawBoard(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p) {
 		if(!map.containsKey(p)){
 			return;
 		}
 		int xOff = p.x*10*TILE_WIDTH;
 		int yOff = -p.y*10*TILE_WIDTH;
-		calculateOffsets(map.get(new Point(0, 0)), w, h);
-		for (int i = 0; i < map.get(p).getTiles().length; i++) {
-			for (int j = 0; j < map.get(p).getTiles()[0].length; j++) {
+		calculateOffsets(board.getLocationById(map.get(new Point(0, 0))), w, h);
+		for (int i = 0; i < board.getLocationById(map.get(p)).getTiles().length; i++) {
+			for (int j = 0; j < board.getLocationById(map.get(p)).getTiles()[0].length; j++) {
 				int x = xOff + i * TILE_WIDTH;
 				int y = yOff + j * TILE_WIDTH;
 				Point iso = twoDToIso(x, y);
-				drawTile(g, map.get(p).getTiles()[i][j], iso, map.get(p), new Position(i, j));
+				drawTile(g, board.getLocationById(map.get(p)).getTiles()[i][j], iso, board.getLocationById(map.get(p)), new Position(i, j));
 			}
 		}
 		drawSelected(g);
@@ -184,58 +185,5 @@ public class Renderer {
 
 	public void selectLocation(Direction dir) {
 		this.selectedLocation = dir;
-	}
-	
-	public void linkLocations(Map<Point, Location> map){
-		for(Point point: map.keySet()){
-			for(Point point2: map.keySet()){
-				if(point.x == point2.x){
-					//NORTH OR SOUTH?
-					if(point.y + 1 == point2.y){
-						//NORTH
-						map.get(point).getNeighbours().put(Direction.NORTH, map.get(point2));
-					}
-					if(point.y - 1 == point2.y){
-						//SOUTH
-						map.get(point).getNeighbours().put(Direction.SOUTH, map.get(point2));
-					}
-				}
-				if(point.y == point2.y){
-					//WEST OR EAST?
-					if(point.x + 1 == point2.x){
-						//EAST
-						map.get(point).getNeighbours().put(Direction.EAST, map.get(point2));
-					}
-					if(point.x - 1 == point2.x){
-						//WEST
-						map.get(point).getNeighbours().put(Direction.WEST, map.get(point2));
-					}
-				}
-			}
-		}
-	}
-	
-	public Map<Point, Location> mapLocations(Location origin, int x, int y, Map<Point, Location> map){
-		if(map.containsKey(new Point(x, y))){
-			return map;
-		}
-		map.put(new Point(x, y), origin);
-		if(origin.getNeighbours().keySet().contains(Direction.SOUTH)){
-			if(!map.entrySet().contains(origin.getNeighbours().get(Direction.SOUTH)))
-			mapLocations(origin.getNeighbours().get(Direction.SOUTH), x, y - 1, map);
-		}
-		if(origin.getNeighbours().keySet().contains(Direction.WEST)){
-			if(!map.entrySet().contains(origin.getNeighbours().get(Direction.WEST)))
-			mapLocations(origin.getNeighbours().get(Direction.WEST), x - 1, y, map);
-		}
-		if(origin.getNeighbours().keySet().contains(Direction.NORTH)){
-			if(!map.entrySet().contains(origin.getNeighbours().get(Direction.NORTH)))
-			mapLocations(origin.getNeighbours().get(Direction.NORTH), x, y + 1, map);
-		}
-		if(origin.getNeighbours().keySet().contains(Direction.EAST)){
-			if(!map.entrySet().contains(origin.getNeighbours().get(Direction.EAST)))
-			mapLocations(origin.getNeighbours().get(Direction.EAST), x + 1, y, map);
-		}
-		return map;
 	}
 }

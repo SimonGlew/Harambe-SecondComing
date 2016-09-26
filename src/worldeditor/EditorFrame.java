@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import core.GameSystem;
+import core.Location;
 import tile.Tile;
 import util.Position;
 
@@ -65,24 +66,25 @@ public class EditorFrame extends JFrame {
 
 		@Override
 		public void mouseMoved(MouseEvent e) {
+			Location loc = editor.board.getLocationById(editor.currentLocation);
 			Point selected = editor.renderer.isoToIndex(e.getX(), e.getY());
-			Tile tile = editor.renderer.getTileAtPos(new Position(selected.x, selected.y), editor.loc);
+			Tile tile = editor.renderer.getTileAtPos(new Position(selected.x, selected.y), loc);
 			editor.selectTile(selected);
 			editor.selectLocation(null);
 			if (tile == null) {
-				if (selected.x >= 0 && selected.x < editor.loc.getTiles().length) {
+				if (selected.x >= 0 && selected.x < loc.getTiles().length) {
 					if (selected.y < 0) {
 						editor.selectLocation(GameSystem.Direction.NORTH);
 					}
-					if (selected.y > editor.loc.getTiles()[0].length) {
+					if (selected.y > loc.getTiles()[0].length) {
 						editor.selectLocation(GameSystem.Direction.SOUTH);
 					}
 				}
-				if (selected.y >= 0 && selected.y < editor.loc.getTiles()[0].length) {
+				if (selected.y >= 0 && selected.y < loc.getTiles()[0].length) {
 					if (selected.x < 0) {
 						editor.selectLocation(GameSystem.Direction.WEST);
 					}
-					if (selected.x > editor.loc.getTiles().length) {
+					if (selected.x > loc.getTiles().length) {
 						editor.selectLocation(GameSystem.Direction.EAST);
 					}
 				}
@@ -93,21 +95,22 @@ public class EditorFrame extends JFrame {
 	private class EditorMouseListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			Location loc = editor.board.getLocationById(editor.currentLocation);
 			Point selected = editor.renderer.isoToIndex(e.getX(), e.getY());
-			if(editor.renderer.getTileAtPos(new Position(selected.x, selected.y), editor.loc) == null){
-				if (selected.x >= 0 && selected.x < editor.loc.getTiles().length) {
+			if(editor.renderer.getTileAtPos(new Position(selected.x, selected.y), loc) == null){
+				if (selected.x >= 0 && selected.x < loc.getTiles().length) {
 					if (selected.y < 0) {
 						editor.clickLocation(GameSystem.Direction.NORTH);
 					}
-					if (selected.y > editor.loc.getTiles()[0].length) {
+					if (selected.y > loc.getTiles()[0].length) {
 						editor.clickLocation(GameSystem.Direction.SOUTH);
 					}
 				}
-				if (selected.y >= 0 && selected.y < editor.loc.getTiles()[0].length) {
+				if (selected.y >= 0 && selected.y < loc.getTiles()[0].length) {
 					if (selected.x < 0) {
 						editor.clickLocation(GameSystem.Direction.WEST);
 					}
-					if (selected.x > editor.loc.getTiles().length) {
+					if (selected.x > loc.getTiles().length) {
 						editor.clickLocation(GameSystem.Direction.EAST);
 					}
 				}
