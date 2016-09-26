@@ -9,14 +9,12 @@ import tile.Tile;
 
 public class Player extends GameObject {
 	
-	private String name;
-	
-	private ArrayList<Item> inventory;
-	
-	
-	private Location location;
-	
+	private String name;	
+	private ArrayList<Item> inventory;		
+	private Location location;	
 	private Tile tile;
+	
+	private int numOfBananas;
 	
 	public Player(String name, Location location, Tile tile){
 		this.location = location;
@@ -47,5 +45,17 @@ public class Player extends GameObject {
 
 	public void setTile(Tile tile) {
 		this.tile = tile;
+	}
+
+	public int getNumOfBananas() {
+		return numOfBananas;
+	}
+	
+	public void increaseBananaCount(int i){
+		numOfBananas += i;
+	}
+	
+	public boolean pickUpItem(Item item){
+		return inventory.add(item);	
 	}
 }

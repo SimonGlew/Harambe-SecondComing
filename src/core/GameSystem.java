@@ -2,6 +2,7 @@ package core;
 
 import java.util.ArrayList;
 
+import gameobjects.Item;
 import gameobjects.Player;
 import iohandling.BoardCreator;
 import tile.Tile;
@@ -30,29 +31,46 @@ public class GameSystem {
 	}
 
 	public boolean movePlayer(Player p, Direction d) {
-		if (p == null)
-			return false;
 
 		Location playerLoc = p.getLocation();
 		Tile playerTil = p.getTile();
 		Position playerPos = playerTil.getPos();
-
+		
+		Tile newTile = null;
+		
 		switch (d) {
-
+			
 		case NORTH:
-			Tile t = playerLoc.getTileInDirection(playerPos, Direction.NORTH);
-
-			return true;
-
+			newTile = playerLoc.getTileInDirection(playerPos, Direction.NORTH);
+			
 		case EAST:
-
+			newTile = playerLoc.getTileInDirection(playerPos, Direction.EAST);
+			
 		case WEST:
+			newTile = playerLoc.getTileInDirection(playerPos, Direction.WEST);
 
 		case SOUTH:
-
-			return false;
+			newTile = playerLoc.getTileInDirection(playerPos, Direction.SOUTH);
 
 		}
+		
+		if(newTile != null){
+			if(newTile.getGameObject() == null){
+				playerTil.setGameObject(null);
+				newTile.setGameObject(p);
+				p.setTile(newTile);
+				return true;
+			}
+			else if(newTile.getGameObject() instanceof Item){
+				playerTil.setGameObject(null);
+				p.pickUpItem((Item)newTile.getGameObject());
+				newTile.setGameObject(p);
+				p.setTile(newTile);
+				return true;
+			}
+		}
+		
 		return false;
 	}
+	
 }
