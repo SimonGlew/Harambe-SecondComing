@@ -56,8 +56,10 @@ public class EditorFrame extends JFrame {
 
 		@Override
 		public void mouseDragged(MouseEvent e) {
+			Location loc = editor.board.getLocationById(editor.currentLocation);
 			Point selected = editor.renderer.isoToIndex(e.getX(), e.getY());
-			if (e.getButton() == 1) {
+			editor.selectTile(selected);
+			if (e.getButton() == 1 || e.getButton() == 0) {
 				editor.processTile(selected.x, selected.y);
 			} else if (e.getButton() == 3) {
 				editor.clearTile(selected.x, selected.y);
@@ -95,6 +97,19 @@ public class EditorFrame extends JFrame {
 	private class EditorMouseListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
 			Location loc = editor.board.getLocationById(editor.currentLocation);
 			Point selected = editor.renderer.isoToIndex(e.getX(), e.getY());
 			if(editor.renderer.getTileAtPos(new Position(selected.x, selected.y), loc) == null){
@@ -121,18 +136,6 @@ public class EditorFrame extends JFrame {
 			} else if (e.getButton() == 3) {
 				editor.clearTile(selected.x, selected.y);
 			}
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
 		}
 
 		@Override
