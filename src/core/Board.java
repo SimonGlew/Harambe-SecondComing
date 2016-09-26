@@ -3,18 +3,30 @@ package core;
 import java.util.Map;
 
 public class Board {
-	private Map <String, Location> locations;
+	private Map <Integer, Location> locations;
 	
-	public Board(Map <String, Location> locations){
+	public Board(Map <Integer, Location> locations){
 		this.locations = locations;
 	}
 
-	public Map<String, Location> getLocations() {
+	public Map<Integer, Location> getLocations() {
 		return locations;
 	}
 
-	public void setLocations(Map<String, Location> locations) {
+	public void setLocations(Map<Integer, Location> locations) {
 		this.locations = locations;
+	}
+	
+	public Location getLocationById(int id){
+		return locations.get(id);
+	}
+	
+	public int getNextUniqueId(){
+		int i = 0;
+		while(locations.get(i) != null){
+			i++;
+		}
+		return i;
 	}
 	
 	

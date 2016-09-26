@@ -26,26 +26,26 @@ public class Wall extends GameObject {
 
 	public BufferedImage getImage(Location loc, Position pos){
 		String fname = IMG_PRE;
-		Tile n = Location.getTileInDirection(loc, pos, Direction.NORTH);
+		Tile n = loc.getTileInDirection(pos, Direction.NORTH);
 		if(n != null){
 			if(n.getGameObject() instanceof Wall){
 				fname += "N";
 			}
 		}
-		Tile e = Location.getTileInDirection(loc, pos, Direction.EAST);
+		Tile e = loc.getTileInDirection(pos, Direction.EAST);
 		if(e != null){
 			if(e.getGameObject() instanceof Wall){
 				fname += "E";
 			}
 		}
-		Tile s = Location.getTileInDirection(loc, pos, Direction.SOUTH);
+		Tile s = loc.getTileInDirection(pos, Direction.SOUTH);
 		if(s != null){
 			if(s.getGameObject() instanceof Wall){
 				fname += "S";
 			}
 		}
 		
-		Tile w = Location.getTileInDirection(loc, pos, Direction.WEST);
+		Tile w = loc.getTileInDirection(pos, Direction.WEST);
 		if(w != null){
 			if(w.getGameObject() instanceof Wall){
 				fname += "W";
