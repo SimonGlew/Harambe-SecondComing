@@ -3,7 +3,6 @@ package gameobjects;
 import java.awt.image.BufferedImage;
 
 import core.Location;
-import tile.Tile;
 import util.Position;
 
 public abstract class GameObject {

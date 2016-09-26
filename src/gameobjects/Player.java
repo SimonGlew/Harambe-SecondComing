@@ -13,15 +13,13 @@ public class Player extends GameObject {
 	
 	private ArrayList<Item> inventory;
 	
-	private GameSystem system;
 	
 	private Location location;
 	
 	private Tile tile;
 	
-	public Player(String name, Location location, Tile tile, GameSystem system){
+	public Player(String name, Location location, Tile tile){
 		this.location = location;
-		this.system = system;
 		this.inventory = new ArrayList<Item>();
 		this.tile = tile;
 	}
@@ -49,9 +47,5 @@ public class Player extends GameObject {
 
 	public void setTile(Tile tile) {
 		this.tile = tile;
-	}
-
-	public void move(Direction d){
-		system.movePlayer(this,d);		
 	}
 }

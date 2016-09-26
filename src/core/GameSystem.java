@@ -7,21 +7,19 @@ import iohandling.BoardCreator;
 
 public class GameSystem {
 
-	private Location[] board;
 	private ArrayList<Player> players;
+	private Board board;
 	
-	private BoardCreator boardCreator;
-
 	public enum Direction {
 		NORTH, SOUTH, EAST, WEST
 	}
 
 	public GameSystem() {
-		this.boardCreator = new BoardCreator("lalala");
-//		this.board = boardCreator.loadBoard();
+		this.board = BoardCreator.loadBoard();
 		this.players = new ArrayList<Player>();
 	}
 
 	public void movePlayer(Player p, Direction d) {
+		
 	}
 }
