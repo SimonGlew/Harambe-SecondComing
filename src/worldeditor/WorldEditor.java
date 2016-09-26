@@ -8,6 +8,7 @@ import core.Board;
 import core.GameSystem;
 import core.GameSystem.Direction;
 import core.Location;
+import gameobjects.Chest;
 import gameobjects.Tree;
 import gameobjects.Wall;
 import renderer.Renderer;
@@ -92,7 +93,11 @@ public class WorldEditor {
 				case "wall":
 					tile.setGameObject(new Wall());
 					break;
+				case "chest":
+					tile.setGameObject(new Chest());
+					break;
 				}
+				
 			}
 			update();
 		}
