@@ -2,3 +2,7 @@
 /core/
 /worldeditor/
 /gameobjects/
+/renderer/
+/tile/
+/util/
+/clientserver/
