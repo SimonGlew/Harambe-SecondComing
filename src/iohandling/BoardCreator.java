@@ -15,7 +15,7 @@ import core.Location;
 import gameobjects.Chest;
 import gameobjects.GameObject;
 import gameobjects.Tree;
-import gameobjects.Wall;
+import gameobjects.Fence;
 import tile.GrassTile;
 import tile.SandTile;
 import tile.StoneTile;
@@ -89,8 +89,8 @@ public class BoardCreator {
 						case "Chest":
 							gameObject = new Chest();
 							break;
-						case "Wall":
-							gameObject = new Wall();
+						case "Fence":
+							gameObject = new Fence();
 							break;
 					}
 				}

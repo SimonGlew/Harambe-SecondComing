@@ -9,7 +9,7 @@ public class Tree extends GameObject{
 
 	public Tree(){
 		try {
-			image = ImageIO.read(new File("src/tree.png"));
+			image = ImageIO.read(new File("assets/game_objects/tree/tree.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

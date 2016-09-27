@@ -13,7 +13,7 @@ public class SandTile extends Tile{
 	public SandTile(Position pos, GameObject gameObject) {
 		super(pos, gameObject);
 		try {
-			image = ImageIO.read(new File("src/sandTile.png"));
+			image = ImageIO.read(new File("assets/tiles/sandTile.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

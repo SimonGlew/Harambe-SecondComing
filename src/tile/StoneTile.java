@@ -13,7 +13,7 @@ public class StoneTile extends Tile {
 	public StoneTile(Position pos, GameObject gameObject) {
 		super(pos, gameObject);
 		try {
-			image = ImageIO.read(new File("src/stoneTile.png"));
+			image = ImageIO.read(new File("assets/tiles/stoneTile.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -17,6 +17,7 @@ import core.Board;
 import core.GameSystem;
 import core.GameSystem.Direction;
 import core.Location;
+import gameobjects.Player;
 import tile.Tile;
 import util.Position;
 
@@ -34,11 +35,34 @@ public class Renderer {
 
 	public Renderer() {
 		try {
-			highlightTile = ImageIO.read(new File("src/highlightTile.png"));
-			highlightLocation = ImageIO.read(new File("src/highlightLocation.png"));
+			highlightTile = ImageIO.read(new File("assets/renderer/highlightTile.png"));
+			highlightLocation = ImageIO.read(new File("assets/renderer/highlightLocation.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public BufferedImage paintBoard(Board board, Player player, int w, int h){
+		BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = image.createGraphics();
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, image.getWidth(), image.getHeight());
+		
+		Location loc = player.getLocation();
+		Map<Point, Integer> map = board.mapLocations(loc.getId(), 0, 0, new HashMap<Point, Integer>());
+		board.linkLocations(map);
+		
+		drawBoard(g, board, map, w, h, new Point(-1, 1));
+		drawBoard(g, board, map, w, h, new Point(0, 1));
+		drawBoard(g, board, map, w, h, new Point(-1, 0));
+		drawBoard(g, board, map, w, h, new Point(1, 1));
+		drawBoard(g, board, map, w, h, new Point(0, 0));
+		drawBoard(g, board, map, w, h, new Point(-1, -1));
+		drawBoard(g, board, map, w, h, new Point(1, 0));
+		drawBoard(g, board, map, w, h, new Point(0, -1));
+		drawBoard(g, board, map, w, h, new Point(1, -1));
+
+		return image;
 	}
 
 	public BufferedImage paintLocation(Location loc, int w, int h) {
@@ -86,8 +110,9 @@ public class Renderer {
 		if (floor != null) {
 			g.drawImage(floor, iso.x, iso.y - floor.getHeight(), null);
 		}
-
+		
 		if (tile.getGameObject() != null) {
+			System.out.println(tile.getGameObject());
 			BufferedImage gameObject = tile.getGameObject().getImage(loc, pos);
 			g.drawImage(gameObject, iso.x, iso.y - gameObject.getHeight(), null);
 		}

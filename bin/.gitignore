@@ -1,9 +1,9 @@
-/iohandling/
+/images/
 /core/
-/worldeditor/
 /gameobjects/
+/gui/
+/iohandling/
 /renderer/
 /tile/
 /util/
-/clientserver/
-/flowerTile.png
+/worldeditor/

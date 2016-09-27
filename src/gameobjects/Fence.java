@@ -11,43 +11,39 @@ import core.Location;
 import tile.Tile;
 import util.Position;
 
-public class Wall extends GameObject {
+public class Fence extends GameObject {
 	
-	final String IMG_PRE = "src/wall/wall";
+	final String IMG_PRE = "assets/game_objects/fence/fence";
 	final String IMG_POST = ".png";
 	
-	public Wall(){
-		try {
-			image = ImageIO.read(new File("src/wall/wall.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public Fence(){
+
 	}
 
 	public BufferedImage getImage(Location loc, Position pos){
 		String fname = IMG_PRE;
 		Tile n = loc.getTileInDirection(pos, Direction.NORTH);
 		if(n != null){
-			if(n.getGameObject() instanceof Wall){
+			if(n.getGameObject() instanceof Fence){
 				fname += "N";
 			}
 		}
 		Tile e = loc.getTileInDirection(pos, Direction.EAST);
 		if(e != null){
-			if(e.getGameObject() instanceof Wall){
+			if(e.getGameObject() instanceof Fence){
 				fname += "E";
 			}
 		}
 		Tile s = loc.getTileInDirection(pos, Direction.SOUTH);
 		if(s != null){
-			if(s.getGameObject() instanceof Wall){
+			if(s.getGameObject() instanceof Fence){
 				fname += "S";
 			}
 		}
 		
 		Tile w = loc.getTileInDirection(pos, Direction.WEST);
 		if(w != null){
-			if(w.getGameObject() instanceof Wall){
+			if(w.getGameObject() instanceof Fence){
 				fname += "W";
 			}
 		}
@@ -61,6 +57,6 @@ public class Wall extends GameObject {
 	}
 	
 	public String toString() {
-		return "Wall";
+		return "Fence";
 	}
 }

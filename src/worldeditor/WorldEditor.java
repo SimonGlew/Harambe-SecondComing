@@ -10,7 +10,7 @@ import core.GameSystem.Direction;
 import core.Location;
 import gameobjects.Chest;
 import gameobjects.Tree;
-import gameobjects.Wall;
+import gameobjects.Fence;
 import iohandling.BoardCreator;
 import renderer.Renderer;
 import tile.GrassTile;
@@ -93,7 +93,7 @@ public class WorldEditor {
 					tile.setGameObject(new Tree());
 					break;
 				case "wall":
-					tile.setGameObject(new Wall());
+					tile.setGameObject(new Fence());
 					break;
 				case "chest":
 					tile.setGameObject(new Chest());

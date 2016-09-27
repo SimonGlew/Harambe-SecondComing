@@ -13,7 +13,7 @@ public class WaterTile extends Tile {
 	public WaterTile(Position pos, GameObject gameObject) {
 		super(pos, gameObject);
 		try {
-			image = ImageIO.read(new File("src/waterTile.png"));
+			image = ImageIO.read(new File("assets/tiles/waterTile.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

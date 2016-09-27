@@ -9,8 +9,9 @@ public class Chest extends GameObject{
 	
 	public Chest(){
 		try {
-			image = ImageIO.read(new File("src/chest.png"));
+			image = ImageIO.read(new File("assets/game_objects/chest/chest.png"));
 		} catch (IOException e) {
+			System.out.println("Could not load Chest image");
 			e.printStackTrace();
 		}
 	}
