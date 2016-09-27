@@ -112,7 +112,6 @@ public class Renderer {
 		}
 		
 		if (tile.getGameObject() != null) {
-			System.out.println(tile.getGameObject());
 			BufferedImage gameObject = tile.getGameObject().getImage(loc, pos);
 			g.drawImage(gameObject, iso.x, iso.y - gameObject.getHeight(), null);
 		}

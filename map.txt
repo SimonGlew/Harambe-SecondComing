@@ -5,25 +5,25 @@ w:10
 h:10
 WEST:1
 NORTH:6
-G,G,G,G:Wall,P,P,G:Wall,G,G,G,
+G,G,G,G:Fence,P,P,G:Fence,G,G,G,
 
-G,G:Tree,G:Wall,G:Wall,P,P,G:Wall,G:Wall,G:Tree,G,
+G,G:Tree,G:Fence,G:Fence,P,P,G:Fence,G:Fence,G:Tree,G,
 
-G,G:Wall,P,P,P,P,P,P,G:Wall,G,
+G,G:Fence,P,P,P,P,P,P,G:Fence,G,
 
-G:Wall,G:Wall,P,G:Tree,P,P,G:Tree,P,G:Wall,G:Wall,
-
-P,P,P,P,P,P,P,P,P,P,
+G:Fence,G:Fence,P,G:Tree,P,P,G:Tree,P,G:Fence,G:Fence,
 
 P,P,P,P,P,P,P,P,P,P,
 
-G:Wall,G:Wall,P,G:Tree,P,P,G:Tree,P,G:Wall,G:Wall,
+P,P,P,P,P,P,P,P,P,P,
 
-G,G:Wall,P,P,P,P,P,P,G:Wall,G,
+G:Fence,G:Fence,P,G:Tree,P,P,G:Tree,P,G:Fence,G:Fence,
 
-G,G:Tree,G:Wall,G:Wall,P,P,G:Wall,G:Wall,G:Tree,G,
+G,G:Fence,P,P,P,P,P,P,G:Fence,G,
 
-G,G,G,G:Wall,P,P,G:Wall,G,G,G,
+G,G:Tree,G:Fence,G:Fence,P,P,G:Fence,G:Fence,G:Tree,G,
+
+G,G,G,G:Fence,P,P,G:Fence,G,G,G,
 
 Location
 id:1
@@ -39,19 +39,19 @@ G,G,G,G,G,G,G,G,G,G,
 
 G,G,G:Tree,G,G:Tree,G,G:Tree,G,G:Tree,G,
 
-G:Wall,G:Wall,G:Wall,G:Wall,G:Wall,G:Wall,G:Wall,G:Wall,G:Wall,G:Wall,
+G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,
 
 P,P,P,P,P,P,P,P,P,P,
 
 P,P,P,P,P,P,P,P,P,P,
 
-G:Wall,G:Wall,G:Wall,G:Wall,P,P,G:Wall,G:Wall,G:Wall,G:Wall,
+G:Fence,G:Fence,G:Fence,G:Fence,P,P,G:Fence,G:Fence,G:Fence,G:Fence,
 
-G:Tree,G,G:Tree,G:Wall,P,P,G:Wall,G:Tree,G,G:Tree,
+G:Tree,G,G:Tree,G:Fence,P,P,G:Fence,G:Tree,G,G:Tree,
 
-G,G,G,G:Wall,P,P,G:Wall,G,G,G,
+G,G,G,G:Fence,P,P,G:Fence,G,G,G,
 
-G:Tree,G,G:Tree,G:Wall,P,P,G:Wall,G:Tree,G,G:Tree,
+G:Tree,G,G:Tree,G:Fence,P,P,G:Fence,G:Tree,G,G:Tree,
 
 Location
 id:2
@@ -61,25 +61,25 @@ h:10
 SOUTH:3
 NORTH:4
 EAST:1
-W,W,S,S,S,S,G,G,G:Wall,G,
+W,W,S,S,S,S,G,G,G:Fence,G,
 
-W,W,W,S,S,S,G:Tree,G,G:Wall,G:Wall,
+W,W,W,S,S,S,G:Tree,G,G:Fence,G:Fence,
 
-W,W,W,S,S,S,S,G,G,G:Wall,
+W,W,W,S,S,S,S,G,G,G:Fence,
 
-W,W,W,W,S,S,S,G,G,G:Wall,
+W,W,W,W,S,S,S,G,G,G:Fence,
 
 W,W,W,W,S,S,S,P,P,P,
 
 W,W,W,W,S,S,S,S,P,P,
 
-W,W,W,W,S,S,S,S,G,G:Wall,
+W,W,W,W,S,S,S,S,G,G:Fence,
 
-W,W,W,W,S,S,S,G:Tree,G,G:Wall,
+W,W,W,W,S,S,S,G:Tree,G,G:Fence,
 
-W,W,W,W,W,S,S,S,G,G:Wall,
+W,W,W,W,W,S,S,S,G,G:Fence,
 
-W,W,W,W,W,S,S,S,G,G:Wall,
+W,W,W,W,W,S,S,S,G,G:Fence,
 
 Location
 id:3
@@ -88,21 +88,21 @@ w:10
 h:10
 NORTH:2
 EAST:5
-W,W,W,W,S,S,S,G,G,G:Wall,
+W,W,W,W,S,S,S,G,G,G:Fence,
 
-W,W,W,S,S,S,S,G,G,G:Wall,
+W,W,W,S,S,S,S,G,G,G:Fence,
 
-S,S,S,S,S,S,S,G,G:Wall,G:Wall,
+S,S,S,S,S,S,S,G,G:Fence,G:Fence,
 
-S,S,S,S,S,S,G,G,G:Wall,G,
+S,S,S,S,S,S,G,G,G:Fence,G,
 
-S,S,S,S,S,S,G,G,G:Wall,G:Tree,
+S,S,S,S,S,S,G,G,G:Fence,G:Tree,
 
-G,S:Chest,S,S,G,G,G,G:Wall,G:Wall,G,
+G,S:Chest,S,S,G,G,G,G:Fence,G:Fence,G,
 
-G,G,G,G,G,G,G,G:Wall,G:Tree,G,
+G,G,G,G,G,G,G,G:Fence,G:Tree,G,
 
-G:Wall,G:Wall,G:Wall,G:Wall,G:Wall,G:Wall,G:Wall,G:Wall,G,G,
+G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G,G,
 
 G,G:Tree,G,G:Tree,G,G:Tree,G,G:Tree,G,G,
 
@@ -114,25 +114,25 @@ name:
 w:10
 h:10
 SOUTH:2
-G:Wall,G:Wall,G:Wall,G:Wall,G,G,G,G,G,G,
+G:Fence,G:Fence,G:Fence,G:Fence,G,G,G,G,G,G,
 
-G,G,G,G:Wall,G:Wall,G,G,G,G,G,
+G,G,G,G:Fence,G:Fence,G,G,G,G,G,
 
-G:Tree,G:Tree,G,G:Tree,G:Wall,G:Wall,G,G,G,G,
+G:Tree,G:Tree,G,G:Tree,G:Fence,G:Fence,G,G,G,G,
 
-G,G:Tree,G,G,G,G:Wall,G:Wall,G,G,G,
+G,G:Tree,G,G,G,G:Fence,G:Fence,G,G,G,
 
-S,G,G,G,G,G,G:Wall,G:Wall,G,G,
+S,G,G,G,G,G,G:Fence,G:Fence,G,G,
 
-S,G,G,G,G,G,G,G:Wall,G,G,
+S,G,G,G,G,G,G,G:Fence,G,G,
 
-S,S,G,G,G:Tree,G,G,G:Wall,G:Wall,G,
+S,S,G,G,G:Tree,G,G,G:Fence,G:Fence,G,
 
-W,S,S,S,G:Tree,G:Tree,G,G,G:Wall,G,
+W,S,S,S,G:Tree,G:Tree,G,G,G:Fence,G,
 
-W,W,W,S,S,G,G,G,G:Wall,G,
+W,W,W,S,S,G,G,G,G:Fence,G,
 
-W,W,W,S,S,G,G,G,G:Wall,G,
+W,W,W,S,S,G,G,G,G:Fence,G,
 
 Location
 id:5
@@ -141,25 +141,25 @@ w:10
 h:10
 WEST:3
 NORTH:1
-G:Wall,G:Wall,G:Wall,G:Wall,P,P,G:Wall,G:Wall,G:Wall,G:Wall,
+G:Fence,G:Fence,G:Fence,G:Fence,P,P,G:Fence,G:Fence,G:Fence,G:Fence,
 
-G,G,G,G,P,P,G,G,G,G:Wall,
+G,G,G,G,P,P,G,G,G,G:Fence,
 
-G:Wall,G,G,G,P,P,G,G,G,G:Wall,
+G:Fence,G,G,G,P,P,G,G,G,G:Fence,
 
-G:Wall,G,G,G,P,P,G,G,G,G:Wall,
+G:Fence,G,G,G,P,P,G,G,G,G:Fence,
 
-G:Wall,G,G,G,P,P,G,G,G,G:Wall,
+G:Fence,G,G,G,P,P,G,G,G,G:Fence,
 
-G:Wall,G,G:Tree,G:Tree,P,P,G:Tree,G:Tree,G:Chest,G:Wall,
+G:Fence,G,G:Tree,G:Tree,P,P,G:Tree,G:Tree,G:Chest,G:Fence,
 
-G:Wall,G,G:Tree,G:Tree,P,P,G:Tree,G:Tree,G,G:Wall,
+G:Fence,G,G:Tree,G:Tree,P,P,G:Tree,G:Tree,G,G:Fence,
 
-G:Wall,G,G,G,G,G,G,G,G,G:Wall,
+G:Fence,G,G,G,G,G,G,G,G,G:Fence,
 
-G:Wall,G,G,G,G,G,G,G,G,G:Wall,
+G:Fence,G,G,G,G,G,G,G,G,G:Fence,
 
-G:Wall,G:Wall,G:Wall,G:Wall,G:Wall,G:Wall,G:Wall,G:Wall,G:Wall,G:Wall,
+G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,
 
 Location
 id:6
@@ -179,11 +179,11 @@ P,P,P,P,P,P,G,G,S,S,
 
 P,P,P,P,P,P,G,G,G,S,
 
-G,G,G,G:Wall,P,P,G,G,G,G,
+G,G,G,G:Fence,P,P,G,G,G,G,
 
-G,G,G,G:Wall,P,P,G,G,G,G,
+G,G,G,G:Fence,P,P,G,G,G,G,
 
-G,G,G,G:Wall,P,P,G,G,G:Tree,G,
+G,G,G,G:Fence,P,P,G,G,G:Tree,G,
 
-G,G,G,G:Wall,P,P,G:Wall,G,G,G,
+G,G,G,G:Fence,P,P,G:Fence,G,G,G,
 
