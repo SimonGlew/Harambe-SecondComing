@@ -79,11 +79,14 @@ public class Menu implements MouseListener, ActionListener{
 		else if(imageCount == -1){ change = true; imageCount = 0; }
 	}
 	
+	/**
+	 * Create JDialog asking for port number and connect button
+	 */
 	private void selectPort(){
 		//Create JDialog and setup options
 		JDialog portDialog = new JDialog();
 		portDialog.setTitle("Select a Port");
-		portDialog.setSize(300,70);
+		portDialog.setSize(300,100);
 		portDialog.setLocationRelativeTo(menuFrame);
 		portDialog.setResizable(false);
 		portDialog.setModal(true);
@@ -117,7 +120,7 @@ public class Menu implements MouseListener, ActionListener{
 	 * @param filename
 	 * @return
 	 */
-	private ImageIcon makeImageIcon(String filename) {
+	private static ImageIcon makeImageIcon(String filename) {
 		BufferedImage myPicture = null;
 		try {
 			myPicture = ImageIO.read(new File("assets/menu/"+filename));
@@ -154,7 +157,7 @@ public class Menu implements MouseListener, ActionListener{
 	@Override
 	public void mousePressed(MouseEvent arg0) {}
 
-	private ImageIcon m1 = makeImageIcon("m1.png");
+	static ImageIcon m1 = makeImageIcon("m1.png");
 	private ImageIcon m2 = makeImageIcon("m2.png");
 	private ImageIcon m3 = makeImageIcon("m3.png");
 	private ImageIcon m4 = makeImageIcon("m4.png");
