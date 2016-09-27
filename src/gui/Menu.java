@@ -120,7 +120,7 @@ public class Menu implements MouseListener, ActionListener{
 	private ImageIcon makeImageIcon(String filename) {
 		BufferedImage myPicture = null;
 		try {
-			myPicture = ImageIO.read(new File("src/images/"+filename));
+			myPicture = ImageIO.read(new File("assets/menu/"+filename));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
