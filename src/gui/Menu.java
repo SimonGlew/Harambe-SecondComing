@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -10,9 +11,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.Timer;
 
 /**
@@ -27,13 +31,14 @@ public class Menu implements MouseListener, ActionListener{
 	JLabel menuLabel;
 	Timer imageTimer;
 	boolean change;
+	JTextField portNum;
 
 	/**
 	 * Setup JFrame
 	 */
 	public Menu(){
 		menuFrame = new JFrame("Harambe, Second Coming");
-		menuFrame.setSize(1300, 900);
+		menuFrame.setSize(1300, 930);
 		menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setupGraphics();
 	}
@@ -41,7 +46,8 @@ public class Menu implements MouseListener, ActionListener{
 	/**
 	 * Creates panels and labels for images to be drawn
 	 */
-	public void setupGraphics(){
+	private void setupGraphics(){
+		//Setup panel
 		JPanel menuPanel = new JPanel();
 		menuLabel = new JLabel();
 		menuPanel.add(menuLabel);
@@ -51,6 +57,7 @@ public class Menu implements MouseListener, ActionListener{
 		menuFrame.setResizable(false);
 		menuFrame.setVisible(true);
 
+		//Setup loop timers
 		change = true;
 		imageTimer = new Timer(100, this);
 		imageTimer.start();
@@ -59,16 +66,50 @@ public class Menu implements MouseListener, ActionListener{
 	/**
 	 * Loops images to produce small animation while waiting for user to click
 	 */
-	public void loopImage(){
-		System.out.print(imageCount);
+	private void loopImage(){
+		//Set current loop image and draw
 		menuLabel.setIcon(images[imageCount]);
 		menuFrame.revalidate();
 
+		//Increment count depending on direction
 		if(change) imageCount++;
 		else imageCount--;
+		//Change direction at end of array
 		if(imageCount == 4){ change = false; imageCount = 3; }
 		else if(imageCount == -1){ change = true; imageCount = 0; }
+	}
+	
+	private void selectPort(){
+		//Create JDialog and setup options
+		JDialog portDialog = new JDialog();
+		portDialog.setTitle("Select a Port");
+		portDialog.setSize(300,70);
+		portDialog.setLocationRelativeTo(menuFrame);
+		portDialog.setResizable(false);
+		portDialog.setModal(true);
+		
+		//Jtextfield for name input
+		portNum = new JTextField();
+		portNum.setText("42069");
+		portNum.setPreferredSize(new Dimension(140, 30));
+		
+		//JButton setup
+		JButton connect = new JButton("Connect");
+		connect.addActionListener(this);
+		connect.setPreferredSize(new Dimension(140, 30));
+		
+		//Setup Jpanel
+		JPanel panel = new JPanel();
+		panel.add(portNum);
+		panel.add(connect);
 
+		portDialog.add(panel);
+		portDialog.setVisible(true);
+	}
+	
+	private void connect(){
+		String portNum = this.portNum.getText();
+		System.out.println(portNum);
 	}
 
 	/**
@@ -92,7 +133,16 @@ public class Menu implements MouseListener, ActionListener{
 	 */
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub	
+		selectPort();
+	}
+	
+	/**
+	 * When timer goes off for looping image
+	 */
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		if(arg0.getSource() instanceof Timer) loopImage();
+		else connect();
 	}
 
 	@Override
@@ -112,10 +162,5 @@ public class Menu implements MouseListener, ActionListener{
 
 	public static void main(String[] args) {
 		new Menu();
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		loopImage();
 	}
 }
