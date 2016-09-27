@@ -73,9 +73,7 @@ public class Location {
 			if (withinBounds(p)) {
 				return getTiles()[p.getX()][p.getY()];
 			}
-			System.out.println(board);
-			System.out.println(getNeighbours());
-			System.out.println(getNeighbours().get(Direction.EAST));
+		
 			board.getLocationById(null);
 			Location nextLoc = board.getLocationById(getNeighbours().get(Direction.EAST));
 			if (nextLoc != null) {

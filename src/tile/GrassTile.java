@@ -8,18 +8,23 @@ import javax.imageio.ImageIO;
 import gameobjects.GameObject;
 import util.Position;
 
-public class GrassTile extends Tile{
+public class GrassTile extends Tile {
 
 	public GrassTile(Position pos, GameObject gameObject) {
 		super(pos, gameObject);
 		try {
-			image = ImageIO.read(new File("src/grassTile.png"));
+			double d = Math.random() * 100;
+			if (d > 25) {
+				image = ImageIO.read(new File("src/grassTile.png"));
+			} else {
+				image = ImageIO.read(new File("src/flowerTile.png"));
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		return "G";
 	}
 
