@@ -1,15 +1,20 @@
 package core;
 
 import java.awt.Point;
+import java.util.HashMap;
 import java.util.Map;
 
 import core.GameSystem.Direction;
+import gameobjects.GameObject;
+import gameobjects.Player;
 
 public class Board {
+	private Map <String, Player> players;
 	private Map <Integer, Location> locations;
 	
 	public Board(Map <Integer, Location> locations){
 		this.locations = locations;
+		players = new HashMap<String, Player>();
 	}
 
 	public Map<Integer, Location> getLocations() {
@@ -88,5 +93,13 @@ public class Board {
 			mapLocations(loc.getNeighbours().get(Direction.EAST), x + 1, y, map);
 		}
 		return map;
+	}
+
+	public void addPlayer(String userName, Player player) {
+		players.put(userName, player);
+	}
+
+	public Player getPlayer(String username) {
+		return players.get(username);
 	}
 }

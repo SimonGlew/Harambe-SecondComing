@@ -10,10 +10,12 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import core.Board;
+import core.GameSystem;
 import core.GameSystem.Direction;
 import core.Location;
 import gameobjects.Chest;
 import gameobjects.GameObject;
+import gameobjects.Player;
 import gameobjects.Tree;
 import gameobjects.Wall;
 import gameobjects.Fence;
@@ -31,16 +33,34 @@ public class BoardCreator {
 		Board board = new Board(new HashMap<Integer, Location>());
 		try {
 			Scanner scan = new Scanner(new File(fname));
-			while(scan.hasNext()){
-			if (scan.hasNext("Location")) {
-				Location loc = parseLocation(scan, board);
-				board.addLocation(loc.getId(), loc);
-			}
+			while (scan.hasNext()) {
+				if (scan.hasNext("Player")) {
+					Player player = parsePlayer(scan, board);
+					board.addPlayer(player.getUserName(), player);
+					System.out.println(player.getUserName());
+				}
+				if (scan.hasNext("Location")) {
+					Location loc = parseLocation(scan, board);
+					board.addLocation(loc.getId(), loc);
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return board;
+	}
+
+	private static Player parsePlayer(Scanner scan, Board board) {
+		scan.next();
+		String line = scan.nextLine().trim();
+		String[] split = line.split(",");
+		String username = split[0];
+		System.out.println(username);
+		int locationID = Integer.parseInt(split[1]);
+		Position pos = new Position(Integer.parseInt(split[2]), Integer.parseInt(split[3]));
+		Direction d = parseDirection(split[4]);
+
+		return new Player(username, 0, pos, board);
 	}
 
 	private static Location parseLocation(Scanner scan, Board board) {
@@ -82,9 +102,14 @@ public class BoardCreator {
 				String tile = split[i];
 				String[] tilesplit = tile.split(":");
 				GameObject gameObject = null;
-				if(tilesplit.length > 1){
+				if (tilesplit.length > 1) {
 					String object = tilesplit[1];
-					switch (object){
+					if (object.startsWith("Player|")) {
+						String username = object.substring(7);
+						gameObject = board.getPlayer(username);
+						System.out.println(gameObject);
+					} else {
+						switch (object) {
 						case "Tree":
 							gameObject = new Tree();
 							break;
@@ -97,31 +122,47 @@ public class BoardCreator {
 						case "Wall":
 							gameObject = new Wall();
 							break;
+						}
 					}
 				}
-				
-				switch (tilesplit[0]){
-					case "Grass":
-						tiles[i][j] = new GrassTile(new Position(i, j), gameObject);
-						break;
-					case "Sand":
-						tiles[i][j] = new SandTile(new Position(i, j), gameObject);
-						break;
-					case "Stone":
-						tiles[i][j] = new StoneTile(new Position(i, j), gameObject);
-						break;
-					case "Water":
-						tiles[i][j] = new WaterTile(new Position(i, j), gameObject);
-						break;
-					case "Wood":
-						tiles[i][j] = new WoodTile(new Position(i, j), gameObject);
-						break;
+
+				switch (tilesplit[0]) {
+				case "Grass":
+					tiles[i][j] = new GrassTile(new Position(i, j), gameObject);
+					break;
+				case "Sand":
+					tiles[i][j] = new SandTile(new Position(i, j), gameObject);
+					break;
+				case "Stone":
+					tiles[i][j] = new StoneTile(new Position(i, j), gameObject);
+					break;
+				case "Water":
+					tiles[i][j] = new WaterTile(new Position(i, j), gameObject);
+					break;
+				case "Wood":
+					tiles[i][j] = new WoodTile(new Position(i, j), gameObject);
+					break;
 				}
 			}
 		}
 		Location loc = new Location(id, name, tiles, board);
 		loc.setNeighbours(neighbours);
 		return loc;
+	}
+
+	public static Direction parseDirection(String s) {
+		switch (s) {
+		case "NORTH":
+			return Direction.NORTH;
+		case "EAST":
+			return Direction.EAST;
+		case "SOUTH":
+			return Direction.SOUTH;
+		case "WEST":
+			return Direction.WEST;
+		}
+		return null;
+
 	}
 
 }

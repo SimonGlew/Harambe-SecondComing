@@ -45,7 +45,7 @@ public class Renderer {
 	public BufferedImage paintBoard(Board board, Player player, int w, int h){
 		BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = image.createGraphics();
-		g.setColor(Color.BLACK);
+		g.setColor(new Color(5,26,37));
 		g.fillRect(0, 0, image.getWidth(), image.getHeight());
 		
 		Location loc = player.getLocation();
@@ -68,7 +68,7 @@ public class Renderer {
 	public BufferedImage paintLocation(Location loc, int w, int h) {
 		BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = image.createGraphics();
-		g.setColor(Color.BLACK);
+		g.setColor(new Color(5,26,37));
 		g.fillRect(0, 0, image.getWidth(), image.getHeight());
 		Map<Point, Integer> map = loc.getBoard().mapLocations(loc.getId(), 0, 0, new HashMap<Point, Integer>());
 		loc.getBoard().linkLocations(map);

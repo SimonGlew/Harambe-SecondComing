@@ -98,4 +98,19 @@ public class Location {
 				&& pos.getY() < getTiles()[0].length;
 	}
 
+	public Position getPositionOfTile(Tile tile) {
+		for(int i = 0; i < tiles.length; i++){
+			for(int j = 0; j < tiles[0].length; j++){
+				if(tiles[i][j] == tile){
+					return new Position(i, j);
+				}
+			}
+		}
+		return null;
+	}
+
+	public Tile getTileAtPosition(Position pos) {
+		return tiles[pos.getX()][pos.getY()];
+	}
+
 }

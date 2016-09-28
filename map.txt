@@ -1,3 +1,4 @@
+Player Legendonger,0,0,0,NORTH
 Location
 id:0
 name:
@@ -13,7 +14,7 @@ Grass,Grass:Fence,Stone,Stone,Stone,Stone,Stone,Stone,Grass:Fence,Grass,
 
 Grass:Fence,Grass:Fence,Stone,Grass:Tree,Stone,Stone,Grass:Tree,Stone,Grass:Fence,Grass:Fence,
 
-Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,
+Stone,Stone,Stone,Stone:Player|Legendonger,Stone,Stone,Stone,Stone,Stone,Stone,
 
 Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,
 
