@@ -7,6 +7,7 @@ import java.util.*;
 import javax.swing.JFrame;
 
 import gui.ClientController;
+import gui.GUI;
 import gui.Menu;
 
 /*
@@ -36,7 +37,6 @@ public class Client {
 		this.port = port;
 		
 		if (!this.start()){
-			new Menu();
 			return;
 		}
 
@@ -73,8 +73,6 @@ public class Client {
 	 * To start the dialog
 	 */
 	public boolean start() {
-		menu.dispose();
-		
 		// try to connect to the server
 		try {
 			socket = new Socket(server, port);
@@ -99,6 +97,7 @@ public class Client {
 
 		// creates the Thread to listen from the server
 		new ListenFromServer().start();
+		menu.dispose();
 		clientController = new ClientController(this);
 		return true;
 	}

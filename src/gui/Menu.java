@@ -40,7 +40,7 @@ public class Menu implements MouseListener, ActionListener{
 	JTextField portNum;
 	JTextField address;
 	JTextField playerName;
-	JDialog portDialog;
+	JDialog serverDialog;
 
 	/**
 	 * Setup JFrame
@@ -93,21 +93,21 @@ public class Menu implements MouseListener, ActionListener{
 	 */
 	private void selectPort(){
 		//Create JDialog and setup options
-		portDialog = new JDialog();
-		portDialog.setTitle("Connection Details");
-		portDialog.setSize(450,130);
-		portDialog.setLocationRelativeTo(menuFrame);
-		portDialog.setResizable(false);
-		portDialog.setModal(true);
-
+		serverDialog = new JDialog();
+		serverDialog.setTitle("Connection Details");
+		serverDialog.setSize(450,130);
+		serverDialog.setLocationRelativeTo(menuFrame);
+		serverDialog.setResizable(false);
+		serverDialog.setModal(true);
+		
 		//Jtextfield for name input
 		portNum = new JTextField();
-		portNum.setText("Port Number");
+		portNum.setText("4515");
 		portNum.setPreferredSize(new Dimension(140, 30));
 
 		//Jtextfield for name input
 		address = new JTextField();
-		address.setText("Server Address");
+		address.setText("localhost");
 		address.setPreferredSize(new Dimension(140, 30));
 
 		//Jtextfield for name input
@@ -127,8 +127,8 @@ public class Menu implements MouseListener, ActionListener{
 		panel.add(portNum);
 		panel.add(connect);
 
-		portDialog.add(panel);
-		portDialog.setVisible(true);
+		serverDialog.add(panel);
+		serverDialog.setVisible(true);
 	}
 
 	private void connect(){
@@ -183,6 +183,7 @@ public class Menu implements MouseListener, ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource() instanceof Timer) loopImage();
 		else{
+			serverDialog.dispose();
 			connect();
 		}
 	}
