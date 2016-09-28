@@ -36,39 +36,45 @@ public class Client {
 		this.port = port;
 		
 		if (!this.start()){
+			new Menu();
 			return;
-		}			
+		}
 
 		// wait for messages from user
 		//TODO: Where sending OBject to server (Object currently ChatMessage)
-		Scanner scan = new Scanner(System.in);
+		//Scanner scan = new Scanner(System.in);
 		// loop forever for message from the user
-		while (true) {
-			System.out.print("> ");
-			// read message from user
-			String msg = scan.nextLine();
-			// logout if message is LOGOUT
-			if (msg.equalsIgnoreCase("LOGOUT")) {
-				this.sendMessage(new ChatMessage(ChatMessage.LOGOUT, ""));
-				// break to do the disconnect
-				break;
-			}
-			// message WhoIsIn
-			else if (msg.equalsIgnoreCase("WHOISIN")) {
-				this.sendMessage(new ChatMessage(ChatMessage.WHOISIN, ""));
-			} else { // default to ordinary message
-				this.sendMessage(new ChatMessage(ChatMessage.MESSAGE, msg));
-			}
+		while(true){
+			
 		}
-		scan.close();
+//		while (true) {
+//			System.out.print("> ");
+//			// read message from user
+//			String msg = "Banana";
+//			// logout if message is LOGOUT
+//			if (msg.equalsIgnoreCase("LOGOUT")) {
+//				this.sendMessage(new ChatMessage(ChatMessage.LOGOUT, ""));
+//				// break to do the disconnect
+//				break;
+//			}
+//			// message WhoIsIn
+//			else if (msg.equalsIgnoreCase("WHOISIN")) {
+//				this.sendMessage(new ChatMessage(ChatMessage.WHOISIN, ""));
+//			} else { // default to ordinary message
+//				this.sendMessage(new ChatMessage(ChatMessage.MESSAGE, msg));
+//			}
+//		}
+		//scan.close();
 		// done disconnect
-		this.disconnect();
+		//this.disconnect();
 	}
 
 	/*
 	 * To start the dialog
 	 */
 	public boolean start() {
+		menu.dispose();
+		
 		// try to connect to the server
 		try {
 			socket = new Socket(server, port);
@@ -93,7 +99,6 @@ public class Client {
 
 		// creates the Thread to listen from the server
 		new ListenFromServer().start();
-		menu.dispose();
 		clientController = new ClientController(this);
 		return true;
 	}
