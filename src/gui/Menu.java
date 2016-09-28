@@ -20,6 +20,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import clientserver.Client;
 
@@ -37,6 +39,7 @@ public class Menu implements MouseListener, ActionListener{
 	boolean change;
 	JTextField portNum;
 	JTextField address;
+	JTextField playerName;
 
 	/**
 	 * Setup JFrame
@@ -90,8 +93,8 @@ public class Menu implements MouseListener, ActionListener{
 	private void selectPort(){
 		//Create JDialog and setup options
 		JDialog portDialog = new JDialog();
-		portDialog.setTitle("Select a Port");
-		portDialog.setSize(300,130);
+		portDialog.setTitle("Connection Details");
+		portDialog.setSize(450,130);
 		portDialog.setLocationRelativeTo(menuFrame);
 		portDialog.setResizable(false);
 		portDialog.setModal(true);
@@ -106,6 +109,11 @@ public class Menu implements MouseListener, ActionListener{
 		address.setText("Server Address");
 		address.setPreferredSize(new Dimension(140, 30));
 
+		//Jtextfield for name input
+		playerName = new JTextField();
+		playerName.setText("Username");
+		playerName.setPreferredSize(new Dimension(140, 30));
+
 		//JButton setup
 		JButton connect = new JButton("Connect");
 		connect.addActionListener(this);
@@ -113,6 +121,7 @@ public class Menu implements MouseListener, ActionListener{
 
 		//Setup Jpanel
 		JPanel panel = new JPanel(new FlowLayout());
+		panel.add(playerName);
 		panel.add(address);
 		panel.add(portNum);
 		panel.add(connect);
@@ -123,20 +132,20 @@ public class Menu implements MouseListener, ActionListener{
 
 	private void connect(){
 		Integer portNum = null;
-		String serverAddress = null;
 		try{
 			portNum = Integer.parseInt(this.portNum.getText());
 		}catch(Exception e){
-			new JOptionPane("Enter a integer for port number", JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
+			JOptionPane.showMessageDialog(menuFrame, "Enter a port Number.", "Input Error", JOptionPane.WARNING_MESSAGE);
 		}
-		try{
-			serverAddress = this.address.getText();
-		}catch(Exception e){
-			new JOptionPane("Enter the server address", JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
-		}
-		
-		
-		if(portNum != null && serverAddress != null){
+
+		String serverAddress = this.address.getText();
+		String username = this.playerName.getText();
+
+		System.out.println("PortNum: " + portNum + "\n");
+		System.out.println("Server Address: " + serverAddress + "\n");
+		System.out.println("Username: " + username + "\n");
+
+		if(portNum != null){
 			Client c = new Client(serverAddress, portNum);
 		}
 	}
@@ -183,7 +192,7 @@ public class Menu implements MouseListener, ActionListener{
 	@Override
 	public void mousePressed(MouseEvent arg0) {}
 
-	static ImageIcon m1 = makeImageIcon("m1.png");
+	public static ImageIcon m1 = makeImageIcon("m1.png");
 	private ImageIcon m2 = makeImageIcon("m2.png");
 	private ImageIcon m3 = makeImageIcon("m3.png");
 	private ImageIcon m4 = makeImageIcon("m4.png");
