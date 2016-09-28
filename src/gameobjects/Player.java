@@ -15,7 +15,7 @@ import util.Position;
 
 public class Player extends GameObject {
 	
-	private String name;	
+	private String userName;	
 	private ArrayList<Item> inventory;		
 	private Location location;	
 	private Tile tile;
@@ -32,8 +32,8 @@ public class Player extends GameObject {
 		this.tile = tile;
 	}
 
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return userName;
 	}
 
 	public ArrayList<Item> getInventory() {

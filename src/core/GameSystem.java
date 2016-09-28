@@ -1,6 +1,8 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import gameobjects.Item;
 import gameobjects.Player;
@@ -10,7 +12,7 @@ import util.Position;
 
 public class GameSystem {
 
-	private ArrayList<Player> players;
+	private Map<String, Player> players;
 	private Board board;
 
 	public enum Direction {
@@ -19,10 +21,10 @@ public class GameSystem {
 
 	public GameSystem() {
 		this.board = BoardCreator.loadBoard("map.txt");
-		this.players = new ArrayList<Player>();
+		this.players = new HashMap<String,Player>();
 	}
 
-	public ArrayList<Player> getPlayers() {
+	public Map<String,Player> getPlayers() {
 		return players;
 	}
 
