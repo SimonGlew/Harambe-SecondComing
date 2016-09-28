@@ -27,6 +27,34 @@ public class Client {
 	Client(String server, int port) {
 		this.server = server;
 		this.port = port;
+		
+		if (!this.start())
+			return;
+
+		// wait for messages from user
+		//TODO: Where sending OBject to server (Object currently ChatMessage)
+		Scanner scan = new Scanner(System.in);
+		// loop forever for message from the user
+		while (true) {
+			System.out.print("> ");
+			// read message from user
+			String msg = scan.nextLine();
+			// logout if message is LOGOUT
+			if (msg.equalsIgnoreCase("LOGOUT")) {
+				this.sendMessage(new ChatMessage(ChatMessage.LOGOUT, ""));
+				// break to do the disconnect
+				break;
+			}
+			// message WhoIsIn
+			else if (msg.equalsIgnoreCase("WHOISIN")) {
+				this.sendMessage(new ChatMessage(ChatMessage.WHOISIN, ""));
+			} else { // default to ordinary message
+				this.sendMessage(new ChatMessage(ChatMessage.MESSAGE, msg));
+			}
+		}
+		scan.close();
+		// done disconnect
+		this.disconnect();
 	}
 
 	/*
@@ -98,74 +126,6 @@ public class Client {
 				socket.close();
 		} catch (Exception e) {
 		}
-	}
-
-	/*
-	 * To start the Client in console mode use one of the following command >
-	 * java Client > java Client portNumber >java Client portNumber serverAddress 
-	 * at the console prompt If
-	 * the portNumber is not specified 1500 is used If the serverAddress is not
-	 * specified "localHost" is used 
-	 *
-	 */
-	public static void main(String[] args) {
-		// default values
-		int portNumber = 1500;
-		String serverAddress = "localhost";
-
-		// depending of the number of arguments provided we fall through
-		switch (args.length) {
-		// > javac Client portNumber serverAddr
-		case 2:
-			serverAddress = args[1];
-			// > javac Client portNumber
-		case 1:
-			try {
-				portNumber = Integer.parseInt(args[0]);
-			} catch (Exception e) {
-				System.out.println("Invalid port number.");
-				System.out.println("Usage is: > java Client [username] [portNumber] [serverAddress]");
-				return;
-			}
-			// > java Client
-		case 0:
-			break;
-		// invalid number of arguments
-		default:
-			System.out.println("Usage is: > java Client [portNumber] {serverAddress]");
-			return;
-		}
-		// create the Client object
-		Client client = new Client(serverAddress, portNumber);
-		// test if we can start the connection to the Server
-		// if it failed nothing we can do
-		if (!client.start())
-			return;
-
-		// wait for messages from user
-		//TODO: Where sending OBject to server (Object currently ChatMessage)
-		Scanner scan = new Scanner(System.in);
-		// loop forever for message from the user
-		while (true) {
-			System.out.print("> ");
-			// read message from user
-			String msg = scan.nextLine();
-			// logout if message is LOGOUT
-			if (msg.equalsIgnoreCase("LOGOUT")) {
-				client.sendMessage(new ChatMessage(ChatMessage.LOGOUT, ""));
-				// break to do the disconnect
-				break;
-			}
-			// message WhoIsIn
-			else if (msg.equalsIgnoreCase("WHOISIN")) {
-				client.sendMessage(new ChatMessage(ChatMessage.WHOISIN, ""));
-			} else { // default to ordinary message
-				client.sendMessage(new ChatMessage(ChatMessage.MESSAGE, msg));
-			}
-		}
-		scan.close();
-		// done disconnect
-		client.disconnect();
 	}
 
 	/*
