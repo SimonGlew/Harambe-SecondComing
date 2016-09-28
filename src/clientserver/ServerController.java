@@ -14,7 +14,7 @@ public class ServerController {
 		this.gameSystem = gameSystem;
 	}
 
-	public boolean parseInput(ChatMessage message) {
+	public boolean parseInput(PlayerCommand message) {
 		Scanner s = new Scanner(message.getMessage());
 
 		if (s.hasNext()) {

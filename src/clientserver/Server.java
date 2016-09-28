@@ -163,7 +163,7 @@ public class Server {
 		// my unique id (easier for disconnection)
 		int id;
 		// the only type of message a will receive
-		ChatMessage cm;
+		PlayerCommand cm;
 
 		// Constructor
 		ClientThread(Socket socket) {
@@ -189,7 +189,7 @@ public class Server {
 			while (keepGoing) {
 				// read a String (which is an object)
 				try {
-					cm = (ChatMessage) sInput.readObject();
+					cm = (PlayerCommand) sInput.readObject();
 				} catch (IOException e) {
 					display(id + " Exception reading Streams: " + e);
 					break;
@@ -200,18 +200,7 @@ public class Server {
 				String message = cm.getMessage();
 
 				// Switch on the type of message receive
-				switch (cm.getType()) {
-				case ChatMessage.MESSAGE:
-					broadcast(id + ": " + message, id);
-					break;
-				case ChatMessage.LOGOUT:
-					display(id + " disconnected with a LOGOUT message.");
-					keepGoing = false;
-					break;
-				case ChatMessage.WHOISIN:
-					writeMsg("List of the users connected at " + "\n");
-					break;
-				}
+				broadcast(id + ": " + message, id); 	
 			}
 			// remove myself from the arrayList containing the list of the
 			// connected Clients
