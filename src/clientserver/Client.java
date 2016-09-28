@@ -24,7 +24,7 @@ public class Client {
 	 * port number
 	 */
 
-	Client(String server, int port) {
+	public Client(String server, int port) {
 		this.server = server;
 		this.port = port;
 		

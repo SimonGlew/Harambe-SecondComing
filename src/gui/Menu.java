@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -15,9 +16,12 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
+
+import clientserver.Client;
 
 /**
  * Class for creating the menu to the game which allows the user to select connection port through
@@ -32,6 +36,7 @@ public class Menu implements MouseListener, ActionListener{
 	Timer imageTimer;
 	boolean change;
 	JTextField portNum;
+	JTextField address;
 
 	/**
 	 * Setup JFrame
@@ -78,7 +83,7 @@ public class Menu implements MouseListener, ActionListener{
 		if(imageCount == 4){ change = false; imageCount = 3; }
 		else if(imageCount == -1){ change = true; imageCount = 0; }
 	}
-	
+
 	/**
 	 * Create JDialog asking for port number and connect button
 	 */
@@ -86,33 +91,54 @@ public class Menu implements MouseListener, ActionListener{
 		//Create JDialog and setup options
 		JDialog portDialog = new JDialog();
 		portDialog.setTitle("Select a Port");
-		portDialog.setSize(300,100);
+		portDialog.setSize(300,130);
 		portDialog.setLocationRelativeTo(menuFrame);
 		portDialog.setResizable(false);
 		portDialog.setModal(true);
-		
+
 		//Jtextfield for name input
 		portNum = new JTextField();
-		portNum.setText("42069");
+		portNum.setText("Port Number");
 		portNum.setPreferredSize(new Dimension(140, 30));
-		
+
+		//Jtextfield for name input
+		address = new JTextField();
+		address.setText("Server Address");
+		address.setPreferredSize(new Dimension(140, 30));
+
 		//JButton setup
 		JButton connect = new JButton("Connect");
 		connect.addActionListener(this);
 		connect.setPreferredSize(new Dimension(140, 30));
-		
+
 		//Setup Jpanel
-		JPanel panel = new JPanel();
+		JPanel panel = new JPanel(new FlowLayout());
+		panel.add(address);
 		panel.add(portNum);
 		panel.add(connect);
 
 		portDialog.add(panel);
 		portDialog.setVisible(true);
 	}
-	
+
 	private void connect(){
-		String portNum = this.portNum.getText();
-		System.out.println(portNum);
+		Integer portNum = null;
+		String serverAddress = null;
+		try{
+			portNum = Integer.parseInt(this.portNum.getText());
+		}catch(Exception e){
+			new JOptionPane("Enter a integer for port number", JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
+		}
+		try{
+			serverAddress = this.address.getText();
+		}catch(Exception e){
+			new JOptionPane("Enter the server address", JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
+		}
+		
+		
+		if(portNum != null && serverAddress != null){
+			Client c = new Client(serverAddress, portNum);
+		}
 	}
 
 	/**
@@ -138,7 +164,7 @@ public class Menu implements MouseListener, ActionListener{
 	public void mouseReleased(MouseEvent arg0) {
 		selectPort();
 	}
-	
+
 	/**
 	 * When timer goes off for looping image
 	 */
