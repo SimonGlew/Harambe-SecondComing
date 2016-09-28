@@ -1,13 +1,9 @@
-/tile/
-/iohandling/
-/worldeditor/
-<<<<<<< HEAD
-/gameobjects/
-/renderer/
-=======
 /clientserver/
-/wall/
->>>>>>> f84fab4fe220ff23233ae968db9436d5831148a7
-/gui/
 /core/
+/gameobjects/
+/gui/
+/iohandling/
+/renderer/
+/tile/
 /util/
+/worldeditor/

@@ -4,6 +4,8 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
+import gui.ClientController;
+
 /*
  * The Client running through console
  */
@@ -17,6 +19,7 @@ public class Client {
 	// the server, the port
 	private String server;
 	private int port;
+	private ClientController clientController;
 
 
 	/*
@@ -85,6 +88,7 @@ public class Client {
 
 		// creates the Thread to listen from the server
 		new ListenFromServer().start();
+		clientController = new ClientController(this);
 		return true;
 	}
 
