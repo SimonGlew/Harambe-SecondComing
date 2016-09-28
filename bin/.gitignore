@@ -1,9 +1,5 @@
-/images/
-/core/
-/gameobjects/
-/gui/
-/iohandling/
-/renderer/
 /tile/
-/util/
+/iohandling/
 /worldeditor/
+/gameobjects/
+/renderer/

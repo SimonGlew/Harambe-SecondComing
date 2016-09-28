@@ -101,8 +101,23 @@ public class Renderer {
 				drawTile(g, board.getLocationById(map.get(p)).getTiles()[i][j], iso, board.getLocationById(map.get(p)), new Position(i, j));
 			}
 		}
+		for (int i = 0; i < board.getLocationById(map.get(p)).getTiles().length; i++) {
+			for (int j = 0; j < board.getLocationById(map.get(p)).getTiles()[0].length; j++) {
+				int x = xOff + i * TILE_WIDTH;
+				int y = yOff + j * TILE_WIDTH;
+				Point iso = twoDToIso(x, y);
+				drawObject(g, board.getLocationById(map.get(p)).getTiles()[i][j], iso, board.getLocationById(map.get(p)), new Position(i, j));
+			}
+		}
 		drawSelected(g);
 		drawSelectedLocation(g);
+	}
+
+	private void drawObject(Graphics2D g, Tile tile, Point iso, Location loc, Position pos) {
+		if (tile.getGameObject() != null) {
+			BufferedImage gameObject = tile.getGameObject().getImage(loc, pos);
+			g.drawImage(gameObject, iso.x, iso.y - gameObject.getHeight(), null);
+		}
 	}
 
 	private void drawTile(Graphics2D g, Tile tile, Point iso, Location loc, Position pos) {
@@ -111,10 +126,6 @@ public class Renderer {
 			g.drawImage(floor, iso.x, iso.y - floor.getHeight(), null);
 		}
 		
-		if (tile.getGameObject() != null) {
-			BufferedImage gameObject = tile.getGameObject().getImage(loc, pos);
-			g.drawImage(gameObject, iso.x, iso.y - gameObject.getHeight(), null);
-		}
 	}
 
 	public void drawSelected(Graphics2D g) {

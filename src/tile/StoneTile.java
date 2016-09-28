@@ -20,6 +20,6 @@ public class StoneTile extends Tile {
 	}
 
 	public String toString() {
-		return "P";
+		return "Stone";
 	}
 }

@@ -8,18 +8,19 @@ import javax.imageio.ImageIO;
 import gameobjects.GameObject;
 import util.Position;
 
-public class WaterTile extends Tile {
+public class WoodTile extends Tile{
 
-	public WaterTile(Position pos, GameObject gameObject) {
+	public WoodTile(Position pos, GameObject gameObject) {
 		super(pos, gameObject);
 		try {
-			image = ImageIO.read(new File("assets/tiles/waterTile.png"));
+			image = ImageIO.read(new File("assets/tiles/woodTile.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public String toString(){
-		return "Water";
+		return "Wood";
 	}
+
 }

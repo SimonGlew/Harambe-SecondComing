@@ -20,7 +20,7 @@ public class SandTile extends Tile{
 	}
 	
 	public String toString(){
-		return "S";
+		return "Sand";
 	}
 
 }

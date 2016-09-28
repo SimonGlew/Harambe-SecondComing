@@ -10,6 +10,7 @@ import core.GameSystem.Direction;
 import core.Location;
 import gameobjects.Chest;
 import gameobjects.Tree;
+import gameobjects.Wall;
 import gameobjects.Fence;
 import iohandling.BoardCreator;
 import renderer.Renderer;
@@ -18,6 +19,7 @@ import tile.SandTile;
 import tile.StoneTile;
 import tile.Tile;
 import tile.WaterTile;
+import tile.WoodTile;
 import util.Position;
 
 public class WorldEditor {
@@ -83,6 +85,9 @@ public class WorldEditor {
 				case "sand":
 					newTile = new SandTile(tile.getPos(), tile.getGameObject());
 					break;
+				case "wood":
+					newTile = new WoodTile(tile.getPos(), tile.getGameObject());
+					break;
 				}
 				renderer.selectTile(newTile);
 				board.getLocationById(currentLocation).getTiles()[i][j] = newTile;
@@ -93,6 +98,9 @@ public class WorldEditor {
 					tile.setGameObject(new Tree());
 					break;
 				case "wall":
+					tile.setGameObject(new Wall());
+					break;
+				case "fence":
 					tile.setGameObject(new Fence());
 					break;
 				case "chest":

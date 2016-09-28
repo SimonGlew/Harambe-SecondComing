@@ -5,25 +5,25 @@ w:10
 h:10
 WEST:1
 NORTH:6
-G,G,G,G:Fence,P,P,G:Fence,G,G,G,
+Grass,Grass,Grass,Grass:Fence,Stone,Stone,Grass:Fence,Grass,Grass,Grass,
 
-G,G:Tree,G:Fence,G:Fence,P,P,G:Fence,G:Fence,G:Tree,G,
+Grass,Grass:Tree,Grass:Fence,Grass:Fence,Stone,Stone,Grass:Fence,Grass:Fence,Grass:Tree,Grass,
 
-G,G:Fence,P,P,P,P,P,P,G:Fence,G,
+Grass,Grass:Fence,Stone,Stone,Stone,Stone,Stone,Stone,Grass:Fence,Grass,
 
-G:Fence,G:Fence,P,G:Tree,P,P,G:Tree,P,G:Fence,G:Fence,
+Grass:Fence,Grass:Fence,Stone,Grass:Tree,Stone,Stone,Grass:Tree,Stone,Grass:Fence,Grass:Fence,
 
-P,P,P,P,P,P,P,P,P,P,
+Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,
 
-P,P,P,P,P,P,P,P,P,P,
+Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,
 
-G:Fence,G:Fence,P,G:Tree,P,P,G:Tree,P,G:Fence,G:Fence,
+Grass:Fence,Grass:Fence,Stone,Grass:Tree,Stone,Stone,Grass:Tree,Stone,Grass:Fence,Grass:Fence,
 
-G,G:Fence,P,P,P,P,P,P,G:Fence,G,
+Grass,Grass:Fence,Stone,Stone,Stone,Stone,Stone,Stone,Grass:Fence,Grass,
 
-G,G:Tree,G:Fence,G:Fence,P,P,G:Fence,G:Fence,G:Tree,G,
+Grass,Grass:Tree,Grass:Fence,Grass:Fence,Stone,Stone,Grass:Fence,Grass:Fence,Grass:Tree,Grass,
 
-G,G,G,G:Fence,P,P,G:Fence,G,G,G,
+Grass,Grass,Grass,Grass:Fence,Stone,Stone,Grass:Fence,Grass,Grass,Grass,
 
 Location
 id:1
@@ -33,25 +33,25 @@ h:10
 SOUTH:5
 WEST:2
 EAST:0
-G,G,G,G,G,G,G,G,G,G,
+Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,
 
-G,G,G,G,G,G,G,G,G,G,
+Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,
 
-G,G,G:Tree,G,G:Tree,G,G:Tree,G,G:Tree,G,
+Grass,Grass,Grass:Tree,Grass,Grass:Tree,Grass,Grass:Tree,Grass,Grass:Tree,Grass,
 
-G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,
+Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,
 
-P,P,P,P,P,P,P,P,P,P,
+Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,
 
-P,P,P,P,P,P,P,P,P,P,
+Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,
 
-G:Fence,G:Fence,G:Fence,G:Fence,P,P,G:Fence,G:Fence,G:Fence,G:Fence,
+Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Stone,Stone,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,
 
-G:Tree,G,G:Tree,G:Fence,P,P,G:Fence,G:Tree,G,G:Tree,
+Grass:Tree,Grass,Grass:Tree,Grass:Fence,Stone,Stone,Grass:Fence,Grass:Tree,Grass,Grass:Tree,
 
-G,G,G,G:Fence,P,P,G:Fence,G,G,G,
+Grass,Grass,Grass,Grass:Fence,Stone,Stone,Grass:Fence,Grass,Grass,Grass,
 
-G:Tree,G,G:Tree,G:Fence,P,P,G:Fence,G:Tree,G,G:Tree,
+Grass:Tree,Grass,Grass:Tree,Grass:Fence,Stone,Stone,Grass:Fence,Grass:Tree,Grass,Grass:Tree,
 
 Location
 id:2
@@ -61,25 +61,25 @@ h:10
 SOUTH:3
 NORTH:4
 EAST:1
-W,W,S,S,S,S,G,G,G:Fence,G,
+Water,Water,Sand,Sand,Sand,Sand,Grass,Grass,Grass:Fence,Grass,
 
-W,W,W,S,S,S,G:Tree,G,G:Fence,G:Fence,
+Water,Water,Water,Sand,Sand,Sand,Grass:Tree,Grass,Grass:Fence,Grass:Fence,
 
-W,W,W,S,S,S,S,G,G,G:Fence,
+Water,Water,Water,Sand,Sand,Sand,Sand,Grass,Grass,Grass:Fence,
 
-W,W,W,W,S,S,S,G,G,G:Fence,
+Water,Water,Water,Water,Sand,Sand,Sand,Grass,Grass,Grass:Fence,
 
-W,W,W,W,S,S,S,P,P,P,
+Water,Water,Water,Water,Sand,Sand,Sand,Stone,Stone,Stone,
 
-W,W,W,W,S,S,S,S,P,P,
+Water,Water,Water,Water,Sand,Sand,Sand,Sand,Stone,Stone,
 
-W,W,W,W,S,S,S,S,G,G:Fence,
+Water,Water,Water,Water,Sand,Sand,Sand,Sand,Grass,Grass:Fence,
 
-W,W,W,W,S,S,S,G:Tree,G,G:Fence,
+Water,Water,Water,Water,Sand,Sand,Sand,Grass:Tree,Grass,Grass:Fence,
 
-W,W,W,W,W,S,S,S,G,G:Fence,
+Water,Water,Water,Water,Water,Sand,Sand,Sand,Grass,Grass:Fence,
 
-W,W,W,W,W,S,S,S,G,G:Fence,
+Water,Water,Water,Water,Water,Sand,Sand,Sand,Grass,Grass:Fence,
 
 Location
 id:3
@@ -88,25 +88,25 @@ w:10
 h:10
 NORTH:2
 EAST:5
-W,W,W,W,S,S,S,G,G,G:Fence,
+Water,Water,Water,Water,Sand,Sand,Sand,Grass,Grass,Grass:Fence,
 
-W,W,W,S,S,S,S,G,G,G:Fence,
+Water,Water,Water,Sand,Sand,Sand,Sand,Grass,Grass,Grass:Fence,
 
-S,S,S,S,S,S,S,G,G:Fence,G:Fence,
+Sand,Sand,Sand,Sand,Sand,Sand,Sand,Grass,Grass:Fence,Grass:Fence,
 
-S,S,S,S,S,S,G,G,G:Fence,G,
+Sand,Sand,Sand,Sand,Sand,Sand,Grass,Grass,Grass:Fence,Grass,
 
-S,S,S,S,S,S,G,G,G:Fence,G:Tree,
+Sand,Sand,Sand,Sand,Sand,Sand,Grass,Grass,Grass:Fence,Grass:Tree,
 
-G,S:Chest,S,S,G,G,G,G:Fence,G:Fence,G,
+Grass,Sand:Chest,Sand,Sand,Grass,Grass,Grass,Grass:Fence,Grass:Fence,Grass,
 
-G,G,G,G,G,G,G,G:Fence,G:Tree,G,
+Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass:Fence,Grass:Tree,Grass,
 
-G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G,G,
+Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass,Grass,
 
-G,G:Tree,G,G:Tree,G,G:Tree,G,G:Tree,G,G,
+Grass,Grass:Tree,Grass,Grass:Tree,Grass,Grass:Tree,Grass,Grass:Tree,Grass,Grass,
 
-G,G,G,G,G,G,G,G,G,G,
+Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,
 
 Location
 id:4
@@ -114,25 +114,25 @@ name:
 w:10
 h:10
 SOUTH:2
-G:Fence,G:Fence,G:Fence,G:Fence,G,G,G,G,G,G,
+Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass,Grass,Grass,Grass,Grass,Grass,
 
-G,G,G,G:Fence,G:Fence,G,G,G,G,G,
+Grass,Grass,Grass,Grass:Fence,Grass:Fence,Grass,Grass,Grass,Grass,Grass,
 
-G:Tree,G:Tree,G,G:Tree,G:Fence,G:Fence,G,G,G,G,
+Grass:Tree,Grass:Tree,Grass,Grass:Tree,Grass:Fence,Grass:Fence,Grass,Grass,Grass,Grass,
 
-G,G:Tree,G,G,G,G:Fence,G:Fence,G,G,G,
+Grass,Grass:Tree,Grass,Grass,Grass,Grass:Fence,Grass:Fence,Grass,Grass,Grass,
 
-S,G,G,G,G,G,G:Fence,G:Fence,G,G,
+Sand,Grass,Grass,Grass,Grass,Grass,Grass:Fence,Grass:Fence,Grass,Grass,
 
-S,G,G,G,G,G,G,G:Fence,G,G,
+Sand,Grass,Grass,Grass,Grass,Grass,Grass,Grass:Fence,Grass,Grass,
 
-S,S,G,G,G:Tree,G,G,G:Fence,G:Fence,G,
+Sand,Sand,Grass,Grass,Grass:Tree,Grass,Grass,Grass:Fence,Grass:Fence,Grass,
 
-W,S,S,S,G:Tree,G:Tree,G,G,G:Fence,G,
+Water,Sand,Sand,Sand,Grass:Tree,Grass:Tree,Grass,Grass,Grass:Fence,Grass,
 
-W,W,W,S,S,G,G,G,G:Fence,G,
+Water,Water,Water,Sand,Sand,Grass,Grass,Grass,Grass:Fence,Grass,
 
-W,W,W,S,S,G,G,G,G:Fence,G,
+Water,Water,Water,Sand,Sand,Grass,Grass,Grass,Grass:Fence,Grass,
 
 Location
 id:5
@@ -141,25 +141,25 @@ w:10
 h:10
 WEST:3
 NORTH:1
-G:Fence,G:Fence,G:Fence,G:Fence,P,P,G:Fence,G:Fence,G:Fence,G:Fence,
+Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Stone,Stone,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,
 
-G,G,G,G,P,P,G,G,G,G:Fence,
+Grass,Grass,Grass,Grass,Stone,Stone,Grass,Grass,Grass,Grass:Fence,
 
-G:Fence,G,G,G,P,P,G,G,G,G:Fence,
+Grass:Fence,Grass,Grass,Grass,Stone,Stone,Grass,Grass,Grass,Grass:Fence,
 
-G:Fence,G,G,G,P,P,G,G,G,G:Fence,
+Grass:Fence,Grass,Grass,Grass,Stone,Stone,Grass,Grass,Grass,Grass:Fence,
 
-G:Fence,G,G,G,P,P,G,G,G,G:Fence,
+Grass:Fence,Grass,Grass,Grass,Stone,Stone,Grass,Grass,Grass,Grass:Fence,
 
-G:Fence,G,G:Tree,G:Tree,P,P,G:Tree,G:Tree,G:Chest,G:Fence,
+Grass:Fence,Grass,Grass:Tree,Grass:Tree,Stone,Stone,Grass:Tree,Grass:Tree,Grass:Chest,Grass:Fence,
 
-G:Fence,G,G:Tree,G:Tree,P,P,G:Tree,G:Tree,G,G:Fence,
+Grass:Fence,Grass,Grass:Tree,Grass:Tree,Stone,Stone,Grass:Tree,Grass:Tree,Grass,Grass:Fence,
 
-G:Fence,G,G,G,G,G,G,G,G,G:Fence,
+Grass:Fence,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass:Fence,
 
-G:Fence,G,G,G,G,G,G,G,G,G:Fence,
+Grass:Fence,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass:Fence,
 
-G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,G:Fence,
+Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,
 
 Location
 id:6
@@ -167,23 +167,23 @@ name:
 w:10
 h:10
 SOUTH:0
-G,G,G,G,G,G,W,W,W,W,
+Grass,Grass,Grass,Grass,Grass,Grass,Water,Water,Water,Water,
 
-G,G,G,G,G,G,G,W,W,W,
+Grass,Grass,Grass,Grass,Grass,Grass,Grass,Water,Water,Water,
 
-G,G,G,G,G,G,G,G,W,W,
+Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Water,Water,
 
-G,G,G,G,G,G,G,G,S,W,
+Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Sand,Water,
 
-P,P,P,P,P,P,G,G,S,S,
+Stone,Stone,Stone,Stone,Stone,Stone,Grass,Grass,Sand,Sand,
 
-P,P,P,P,P,P,G,G,G,S,
+Stone,Stone,Stone,Stone,Stone,Stone,Grass,Grass,Grass,Sand,
 
-G,G,G,G:Fence,P,P,G,G,G,G,
+Grass,Grass,Grass,Grass:Fence,Stone,Stone,Grass,Grass,Grass,Grass,
 
-G,G,G,G:Fence,P,P,G,G,G,G,
+Grass,Grass,Grass,Grass:Fence,Stone,Stone,Grass,Grass,Grass,Grass,
 
-G,G,G,G:Fence,P,P,G,G,G:Tree,G,
+Grass,Grass,Grass,Grass:Fence,Stone,Stone,Grass,Grass,Grass:Tree,Grass,
 
-G,G,G,G:Fence,P,P,G:Fence,G,G,G,
+Grass,Grass,Grass,Grass:Fence,Stone,Stone,Grass:Fence,Grass,Grass,Grass,
 

@@ -15,12 +15,14 @@ import core.Location;
 import gameobjects.Chest;
 import gameobjects.GameObject;
 import gameobjects.Tree;
+import gameobjects.Wall;
 import gameobjects.Fence;
 import tile.GrassTile;
 import tile.SandTile;
 import tile.StoneTile;
 import tile.Tile;
 import tile.WaterTile;
+import tile.WoodTile;
 import util.Position;
 
 public class BoardCreator {
@@ -92,21 +94,27 @@ public class BoardCreator {
 						case "Fence":
 							gameObject = new Fence();
 							break;
+						case "Wall":
+							gameObject = new Wall();
+							break;
 					}
 				}
 				
 				switch (tilesplit[0]){
-					case "G":
+					case "Grass":
 						tiles[i][j] = new GrassTile(new Position(i, j), gameObject);
 						break;
-					case "S":
+					case "Sand":
 						tiles[i][j] = new SandTile(new Position(i, j), gameObject);
 						break;
-					case "P":
+					case "Stone":
 						tiles[i][j] = new StoneTile(new Position(i, j), gameObject);
 						break;
-					case "W":
+					case "Water":
 						tiles[i][j] = new WaterTile(new Position(i, j), gameObject);
+						break;
+					case "Wood":
+						tiles[i][j] = new WoodTile(new Position(i, j), gameObject);
 						break;
 				}
 			}
