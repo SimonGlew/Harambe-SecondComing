@@ -156,10 +156,10 @@ public class Menu implements MouseListener, ActionListener{
 	 * @param filename
 	 * @return
 	 */
-	private static ImageIcon makeImageIcon(String filename) {
+	public static ImageIcon makeImageIcon(String filename) {
 		BufferedImage myPicture = null;
 		try {
-			myPicture = ImageIO.read(new File("assets/menu/"+filename));
+			myPicture = ImageIO.read(new File("assets/"+filename));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -196,11 +196,11 @@ public class Menu implements MouseListener, ActionListener{
 	@Override
 	public void mousePressed(MouseEvent arg0) {}
 
-	public static ImageIcon m1 = makeImageIcon("m1.png");
-	private ImageIcon m2 = makeImageIcon("m2.png");
-	private ImageIcon m3 = makeImageIcon("m3.png");
-	private ImageIcon m4 = makeImageIcon("m4.png");
-	private ImageIcon[] images = { m1, m2, m3, m4 };
+	public static ImageIcon m1 = makeImageIcon("menu/m1.png");
+	public static ImageIcon m2 = makeImageIcon("menu/m2.png");
+	public static ImageIcon m3 = makeImageIcon("menu/m3.png");
+	public static ImageIcon m4 = makeImageIcon("menu/m4.png");
+	public static ImageIcon[] images = { m1, m2, m3, m4 };
 
 	public static void main(String[] args) {
 		new Menu();
