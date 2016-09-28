@@ -98,7 +98,7 @@ public class GUI implements KeyListener, ActionListener {
 		namePanel.setBackground(MAINCOLOR);
 
 		JLabel img = new JLabel();
-		img.setIcon(nameImage);
+		img.setIcon(jackImage);
 		JLabel playerName = new JLabel();
 		playerName.setText("Kyal");
 		playerName.setForeground(Color.WHITE);
@@ -219,6 +219,7 @@ public class GUI implements KeyListener, ActionListener {
 	public static ImageIcon nameImage = Menu.makeImageIcon("gui/namebe.png");
 	public static ImageIcon bananaImage = Menu.makeImageIcon("gui/banaga.png");
 	public static ImageIcon arrowImage = Menu.makeImageIcon("gui/arrows.png");
+	public static ImageIcon jackImage = Menu.makeImageIcon("gui/jack.png");
 
 	@Override
 	public void keyPressed(KeyEvent e) {}
