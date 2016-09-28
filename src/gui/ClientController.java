@@ -11,5 +11,8 @@ public class ClientController {
 		gui = new GUI();
 	}
 
-	
+	public String getName(){
+		//Return username from client
+		return "";
+	}
 }
