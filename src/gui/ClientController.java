@@ -1,6 +1,7 @@
 package gui;
 
-import clientserver.Client;
+import clientserver.*;
+import core.Board;
 
 public class ClientController {
 	Client client;
@@ -29,5 +30,13 @@ public class ClientController {
 	public void rotateRight(){
 		//rotate camera right
 		System.out.println("rotate right");
+	}
+	
+	public void sendMessage(PlayerCommand msg){
+		client.sendMessage(msg);
+	}
+	
+	public void sendBoard(Board board){
+		
 	}
 }

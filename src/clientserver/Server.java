@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import core.Board;
 import core.GameSystem;
 
 /*
@@ -99,15 +100,12 @@ public class Server {
 	/*
 	 * to broadcast a message to all Clients
 	 */
-	private synchronized void broadcast(String message) {
-		// display message on console
-		System.out.println(message);
-
+	private synchronized void broadcast(Board board) {
 		for (int i = al.size(); --i >= 0;) {
 			ClientThread ct = al.get(i);
 			// try to write to the Client if it fails remove it from the
 			// list
-			if (!ct.writeMsg(message)) {
+			if (!ct.writeToClient(board)) {
 				al.remove(i);
 				display("Disconnected Client " + ct.id + " removed from list.");
 			}
@@ -203,7 +201,7 @@ public class Server {
 				if (serverController.parseInput(cm)) {
 					// Switch on the type of message receive
 					//TODO: Some way of sending a board back, change broadcast method
-					broadcast(id + ": " + cm.getMessage());
+					broadcast(serverController.requestBoard());
 				}
 			}
 			// remove myself from the arrayList containing the list of the
@@ -236,7 +234,7 @@ public class Server {
 		/*
 		 * Write a String to the Client output stream
 		 */
-		private boolean writeMsg(String msg) {
+		private boolean writeToClient(Board board) {
 			// if Client is still connected send the message to it
 			if (!socket.isConnected()) {
 				close();
@@ -244,7 +242,7 @@ public class Server {
 			}
 			// write the message to the stream
 			try {
-				sOutput.writeObject(msg);
+				sOutput.writeObject(board);
 			}
 			// if an error occurs, do not abort just inform the user
 			catch (IOException e) {

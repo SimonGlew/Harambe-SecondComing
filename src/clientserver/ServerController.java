@@ -2,6 +2,7 @@ package clientserver;
 
 import java.util.Scanner;
 
+import core.Board;
 import core.GameSystem;
 import core.GameSystem.Direction;
 import exceptions.ParserException;
@@ -14,6 +15,10 @@ public class ServerController {
 	public ServerController(Server server, GameSystem gameSystem) {
 		this.server = server;
 		this.gameSystem = gameSystem;
+	}
+	
+	public Board requestBoard(){
+		return gameSystem.getBoard();
 	}
 
 	public boolean parseInput(PlayerCommand message) {

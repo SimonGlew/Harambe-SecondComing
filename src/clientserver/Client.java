@@ -6,6 +6,7 @@ import java.util.*;
 
 import javax.swing.JFrame;
 
+import core.Board;
 import gui.ClientController;
 import gui.GUI;
 import gui.Menu;
@@ -39,32 +40,6 @@ public class Client {
 		if (!this.start()){
 			return;
 		}
-
-		// wait for messages from user
-		//TODO: Where sending OBject to server (Object currently ChatMessage)
-		//Scanner scan = new Scanner(System.in);
-		// loop forever for message from the user
-
-//		while (true) {
-//			System.out.print("> ");
-//			// read message from user
-//			String msg = "Banana";
-//			// logout if message is LOGOUT
-//			if (msg.equalsIgnoreCase("LOGOUT")) {
-//				this.sendMessage(new ChatMessage(ChatMessage.LOGOUT, ""));
-//				// break to do the disconnect
-//				break;
-//			}
-//			// message WhoIsIn
-//			else if (msg.equalsIgnoreCase("WHOISIN")) {
-//				this.sendMessage(new ChatMessage(ChatMessage.WHOISIN, ""));
-//			} else { // default to ordinary message
-//				this.sendMessage(new ChatMessage(ChatMessage.MESSAGE, msg));
-//			}
-//		}
-		//scan.close();
-		// done disconnect
-		//this.disconnect();
 	}
 
 	/*
@@ -77,19 +52,19 @@ public class Client {
 		}
 		// if it failed not much I can so
 		catch (Exception e) {
-			display("Error connectiong to server:" + e);
+			System.out.println("Error connectiong to server:" + e);
 			return false;
 		}
 
 		String msg = "Connection accepted " + socket.getInetAddress() + ":" + socket.getPort();
-		display(msg);
+		System.out.println(msg);
 
 		/* Creating both Data Stream */
 		try {
 			sInput = new ObjectInputStream(socket.getInputStream());
 			sOutput = new ObjectOutputStream(socket.getOutputStream());
 		} catch (IOException e) {
-			display("Exception creating new Input/output Streams: " + e);
+			System.out.println("Exception creating new Input/output Streams: " + e);
 			return false;
 		}
 
@@ -101,20 +76,13 @@ public class Client {
 	}
 
 	/*
-	 * To send a message to the console
-	 */
-	private void display(String msg) {
-		System.out.println(msg);
-	}
-
-	/*
 	 * To send a message to the server, push the object here
 	 */
-	void sendMessage(PlayerCommand msg) {
+	public void sendMessage(PlayerCommand msg) {
 		try {
 			sOutput.writeObject(msg);
 		} catch (IOException e) {
-			display("Exception writing to server: " + e);
+			System.out.println("Exception writing to server: " + e);
 		}
 	}
 
@@ -150,11 +118,10 @@ public class Client {
 			while (true) {
 				try {
 					//TODO: This is where the client listens to server, need to add object here
-					String msg = (String) sInput.readObject();
-					System.out.println(msg);
-					System.out.print("> ");
+					Board board = (Board) sInput.readObject();
+					clientController.sendBoard(board);
 				} catch (IOException e) {
-					display("Server has close the connection: " + e);
+					System.out.println("Server has close the connection: " + e);
 					break;
 				}
 				catch (ClassNotFoundException e) {
