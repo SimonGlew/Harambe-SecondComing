@@ -7,8 +7,10 @@ public class ClientController {
 	GUI gui;
 	
 	public ClientController(Client c){
+		//System.out.println("BANANA");
 		this.client = c;
 		gui = new GUI();
+		System.out.println("BANANA");
 	}
 
 	public String getName(){

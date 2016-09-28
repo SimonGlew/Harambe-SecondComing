@@ -25,8 +25,10 @@ public class GUI implements KeyListener, ActionListener {
 	JLabel gameLabel;
 
 	public GUI(){
+		System.out.println("APPLE");
 		gameFrame = new JFrame("Harambe, Second Coming");
 		gameFrame.setSize(1150, 860);
+		gameFrame.setBackground(new Color(0,0,0));
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setResizable(false);
 
@@ -36,6 +38,7 @@ public class GUI implements KeyListener, ActionListener {
 	}
 
 	public void prepareGUI(){
+		System.out.println("APPLE");
 		//Prepare different areas on gui
 		JPanel windowPanel = new JPanel(new FlowLayout());
 		windowPanel.setBackground(new Color(5,26,37));
