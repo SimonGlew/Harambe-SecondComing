@@ -4,7 +4,10 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
+import javax.swing.JFrame;
+
 import gui.ClientController;
+import gui.Menu;
 
 /*
  * The Client running through console
@@ -20,19 +23,21 @@ public class Client {
 	private String server;
 	private int port;
 	private ClientController clientController;
-
+	private JFrame menu;
 
 	/*
 	 * Constructor called by console mode server: the server address port: the
 	 * port number
 	 */
 
-	public Client(String server, int port) {
+	public Client(String server, int port, JFrame menu) {
+		this.menu = menu;
 		this.server = server;
 		this.port = port;
 		
-		if (!this.start())
+		if (!this.start()){
 			return;
+		}			
 
 		// wait for messages from user
 		//TODO: Where sending OBject to server (Object currently ChatMessage)
@@ -88,6 +93,7 @@ public class Client {
 
 		// creates the Thread to listen from the server
 		new ListenFromServer().start();
+		menu.dispose();
 		clientController = new ClientController(this);
 		return true;
 	}

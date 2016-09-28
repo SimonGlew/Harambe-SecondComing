@@ -40,6 +40,7 @@ public class Menu implements MouseListener, ActionListener{
 	JTextField portNum;
 	JTextField address;
 	JTextField playerName;
+	JDialog portDialog;
 
 	/**
 	 * Setup JFrame
@@ -92,7 +93,7 @@ public class Menu implements MouseListener, ActionListener{
 	 */
 	private void selectPort(){
 		//Create JDialog and setup options
-		JDialog portDialog = new JDialog();
+		portDialog = new JDialog();
 		portDialog.setTitle("Connection Details");
 		portDialog.setSize(450,130);
 		portDialog.setLocationRelativeTo(menuFrame);
@@ -146,7 +147,7 @@ public class Menu implements MouseListener, ActionListener{
 		System.out.println("Username: " + username + "\n");
 
 		if(portNum != null){
-			Client c = new Client(serverAddress, portNum);
+			Client c = new Client(serverAddress, portNum, menuFrame);
 		}
 	}
 
@@ -172,6 +173,7 @@ public class Menu implements MouseListener, ActionListener{
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		selectPort();
+		
 	}
 
 	/**
@@ -180,7 +182,9 @@ public class Menu implements MouseListener, ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource() instanceof Timer) loopImage();
-		else connect();
+		else{
+			connect();
+		}
 	}
 
 	@Override
