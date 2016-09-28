@@ -16,6 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.util.Map;
@@ -32,7 +34,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
-public class GUI implements KeyListener, ActionListener {
+public class GUI implements KeyListener, ActionListener, MouseListener {
+	ClientController controller;
 	JFrame gameFrame;
 	JLabel gameLabel;
 	JPanel UIPanel;
@@ -41,15 +44,18 @@ public class GUI implements KeyListener, ActionListener {
 	public static final Color SECONDARYCOLOR = new Color(255,182,0);
 	public static final Color MAINCOLOR2 = new Color(2, 13, 18);
 
-	public GUI(){
+	public GUI(ClientController c){
+		this.controller = c;
 		gameFrame = new JFrame("Harambe, Second Coming");
 		gameFrame.setSize(1150, 860);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setResizable(false);
+		gameFrame.addMouseListener(this);
 
 		prepareGUI();
 
 		gameFrame.setVisible(true);
+		
 	}
 
 	public void prepareGUI(){
@@ -100,7 +106,7 @@ public class GUI implements KeyListener, ActionListener {
 		JLabel img = new JLabel();
 		img.setIcon(jackImage);
 		JLabel playerName = new JLabel();
-		playerName.setText("Kyal");
+		playerName.setText(controller.getName());
 		playerName.setForeground(Color.WHITE);
 		playerName.setFont(new Font("title", Font.BOLD, 20));
 
@@ -139,7 +145,7 @@ public class GUI implements KeyListener, ActionListener {
 		bananaImg.setIcon(bananaImage);
 		JLabel count = new JLabel();
 		count.setFont(new Font("title", Font.BOLD, 22));
-		count.setText("x 0");
+		count.setText("x " + controller.getBananaCount());
 		count.setForeground(Color.WHITE);
 
 		inventoryPanel.add(inventory);
@@ -202,10 +208,10 @@ public class GUI implements KeyListener, ActionListener {
 		}
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent action) {
-		if("quit".equals(action.getActionCommand())){
-			System.exit(0);
+	private void checkClicked(int x, int y) {
+		if(y >= 780 && y <= 830){
+			if(x >= 1020 && x <= 1070) controller.rotateLeft(); //rotate left
+			else if(x >= 1075 && x <= 1125) controller.rotateRight(); //rotate right
 		}
 	}
 
@@ -214,6 +220,18 @@ public class GUI implements KeyListener, ActionListener {
 		Renderer rend = new Renderer();
 		BufferedImage i = rend.paintLocation(b.getLocationById(0), 1000, 800);
 		gameLabel.setIcon(new ImageIcon(i));
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent action) {
+		if("quit".equals(action.getActionCommand())){
+			System.exit(0);
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		checkClicked(arg0.getX(), arg0.getY());
 	}
 
 	public static ImageIcon nameImage = Menu.makeImageIcon("gui/namebe.png");
@@ -228,8 +246,13 @@ public class GUI implements KeyListener, ActionListener {
 	@Override
 	public void keyTyped(KeyEvent e) {}
 
-	public static void main(String[] args) {
-		new GUI();
-	}
+	@Override
+	public void mouseClicked(MouseEvent arg0) {}
+	@Override
+	public void mouseEntered(MouseEvent arg0) {}
+	@Override
+	public void mouseExited(MouseEvent arg0) {}
+	@Override
+	public void mousePressed(MouseEvent arg0) {}
 
 }

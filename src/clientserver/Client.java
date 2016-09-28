@@ -44,9 +44,7 @@ public class Client {
 		//TODO: Where sending OBject to server (Object currently ChatMessage)
 		//Scanner scan = new Scanner(System.in);
 		// loop forever for message from the user
-		while(true){
-			
-		}
+
 //		while (true) {
 //			System.out.print("> ");
 //			// read message from user
