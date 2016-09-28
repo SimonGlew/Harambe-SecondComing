@@ -9,8 +9,10 @@ import gameobjects.Player;
 
 public class ServerController {
 	private GameSystem gameSystem;
+	private Server server;
 
-	public ServerController(GameSystem gameSystem) {
+	public ServerController(Server server, GameSystem gameSystem) {
+		this.server = server;
 		this.gameSystem = gameSystem;
 	}
 

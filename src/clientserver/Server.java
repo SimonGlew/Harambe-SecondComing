@@ -4,6 +4,8 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import core.GameSystem;
+
 /*
  * The server that can be run both as a console application
  */
@@ -17,6 +19,8 @@ public class Server {
 	// the boolean that will be turned of to stop the server
 	private boolean keepGoing;
 
+	private ServerController serverController;
+
 	/*
 	 * Constructor that gets passed a port when starting the java file
 	 * 
@@ -29,11 +33,13 @@ public class Server {
 	}
 
 	public void start() {
+
 		keepGoing = true;
 		/* create socket server and wait for connection requests */
 		try {
 			// the socket used by the server
 			ServerSocket serverSocket = new ServerSocket(port);
+			serverController = new ServerController(this, new GameSystem());
 			// infinite loop to wait for connections
 			while (keepGoing) {
 				// format message saying we are waiting
@@ -93,19 +99,17 @@ public class Server {
 	/*
 	 * to broadcast a message to all Clients
 	 */
-	private synchronized void broadcast(String message, int id) {
+	private synchronized void broadcast(String message) {
 		// display message on console
 		System.out.println(message);
 
 		for (int i = al.size(); --i >= 0;) {
 			ClientThread ct = al.get(i);
-			if (id == ct.id) {
-				// try to write to the Client if it fails remove it from the
-				// list
-				if (!ct.writeMsg(message)) {
-					al.remove(i);
-					display("Disconnected Client " + ct.id + " removed from list.");
-				}
+			// try to write to the Client if it fails remove it from the
+			// list
+			if (!ct.writeMsg(message)) {
+				al.remove(i);
+				display("Disconnected Client " + ct.id + " removed from list.");
 			}
 		}
 	}
@@ -196,11 +200,11 @@ public class Server {
 				} catch (ClassNotFoundException e) {
 					break;
 				}
-				// the messaage part of the ChatMessage
-				String message = cm.getMessage();
-
-				// Switch on the type of message receive
-				broadcast(id + ": " + message, id); 	
+				if (serverController.parseInput(cm)) {
+					// Switch on the type of message receive
+					//TODO: Some way of sending a board back, change broadcast method
+					broadcast(id + ": " + cm.getMessage());
+				}
 			}
 			// remove myself from the arrayList containing the list of the
 			// connected Clients
