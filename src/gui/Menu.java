@@ -147,7 +147,7 @@ public class Menu implements MouseListener, ActionListener{
 		System.out.println("Username: " + username + "\n");
 
 		if(portNum != null){
-			Client c = new Client(serverAddress, portNum, menuFrame);
+			Client c = new Client(serverAddress, portNum, username, menuFrame);
 		}
 	}
 

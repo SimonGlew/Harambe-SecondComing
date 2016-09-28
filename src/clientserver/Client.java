@@ -26,16 +26,18 @@ public class Client {
 	private int port;
 	private ClientController clientController;
 	private JFrame menu;
+	private String username;
 
 	/*
 	 * Constructor called by console mode server: the server address port: the
 	 * port number
 	 */
 
-	public Client(String server, int port, JFrame menu) {
+	public Client(String server, int port, String username, JFrame menu) {
 		this.menu = menu;
 		this.server = server;
 		this.port = port;
+		this.username = username;
 		
 		if (!this.start()){
 			return;
@@ -84,6 +86,10 @@ public class Client {
 		} catch (IOException e) {
 			System.out.println("Exception writing to server: " + e);
 		}
+	}
+	
+	public String getUsername(){
+		return this.username;
 	}
 
 	/*

@@ -13,8 +13,7 @@ public class ClientController {
 	}
 
 	public String getName(){
-		//Return username from client
-		return "Jack";
+		return client.getUsername();
 	}
 	
 	public int getBananaCount(){
