@@ -22,12 +22,12 @@ public class Server {
 	private boolean keepGoing;
 
 	private ServerController serverController;
-	
+
 	private Map<Integer, String> IDtoUsername;
 
 	/*
 	 * Constructor that gets passed a port when starting the java file
-	 * 
+	 *
 	 */
 	public Server(int port) {
 		// the port
@@ -115,8 +115,6 @@ public class Server {
 				}
 			} else {
 				if (!ct.writeToClient(packet)) {
-					serverController.getPlayerByUserName(IDtoUsername.get(ct.id)).setLoggedIn(false);
-					IDtoUsername.remove(ct.id);
 					al.remove(i);
 					display("Disconnected Client " + ct.id + " removed from list.");
 				}
@@ -215,6 +213,7 @@ public class Server {
 					// TODO: Some way of sending a board back, change broadcast
 					// method
 					if(cm.getMessage().contains("login")){
+						System.out.println("login " + id);
 						IDtoUsername.put(id, cm.getMessage().substring(6));
 					}
 					broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null), id);
@@ -229,6 +228,7 @@ public class Server {
 			// remove myself from the arrayList containing the list of the
 			// connected Clients
 			serverController.getPlayerByUserName(IDtoUsername.get(id)).setLoggedIn(false);
+			//System.out.println(serverController.getPlayerByUserName(IDtoUsername.get(id)).isLoggedIn() + " " + id + " " + serverController.getPlayerByUserName(IDtoUsername.get(id)));
 			IDtoUsername.remove(id);
 			remove(id);
 			close();
@@ -241,19 +241,19 @@ public class Server {
 				if (sOutput != null)
 					sOutput.close();
 			} catch (Exception e) {
-				
+
 			}
 			try {
 				if (sInput != null)
 					sInput.close();
 			} catch (Exception e) {
-				
+
 			}
 			try {
 				if (socket != null)
 					socket.close();
 			} catch (Exception e) {
-				
+
 			}
 		}
 
