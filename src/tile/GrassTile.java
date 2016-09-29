@@ -14,11 +14,9 @@ public class GrassTile extends Tile {
 		super(pos, gameObject);
 		try {
 			double d = Math.random() * 100;
-			if (d > 25) {
+			if (d >= 0) {
 				image = ImageIO.read(new File("assets/tiles/grassTile.png"));
-			} else {
-				image = ImageIO.read(new File("assets/tiles/flowerTile.png"));
-			}
+			} 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
