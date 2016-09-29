@@ -198,12 +198,12 @@ public class Server {
 				} catch (ClassNotFoundException e) {
 					break;
 				}
-				if (serverController.parseInput(cm)) {
+				if (serverController.parseInput(cm).equals("true")) {
 					// Switch on the type of message receive
 					//TODO: Some way of sending a board back, change broadcast method
 					broadcast(new Packet("board",serverController.requestBoard()));
-				}else{
-					broadcast(new Packet("string","login fail"));
+				}else if(serverController.parseInput(cm).equals("login fail")){
+					broadcast(new Packet("string","fail login"));
 				}
 			}
 			// remove myself from the arrayList containing the list of the

@@ -128,7 +128,8 @@ public class Client {
 					Packet packet = (Packet) sInput.readObject();
 					if(packet.type.equals("board")){
 						menu.dispose();
-						clientController.sendBoard(packet.board);
+						Board b = (Board) packet.board;
+						clientController.sendBoard(b);
 						loggedIn = true;
 					}else if(packet.type.equals("string")){
 						menu.dispose();

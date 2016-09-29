@@ -21,7 +21,7 @@ public class ServerController {
 		return gameSystem.getBoard();
 	}
 
-	public boolean parseInput(PlayerCommand message) {
+	public String parseInput(PlayerCommand message) {
 		Scanner s = new Scanner(message.getMessage());
 
 		if (s.hasNext()) {
@@ -32,38 +32,38 @@ public class ServerController {
 			}
 
 			s.close();
-			return false;
+			return "false";
 		}
 
 		s.close();
-		return false;
+		return "false";
 	}
 	
-	public boolean parseLoginCommand(Scanner s){
+	public String parseLoginCommand(Scanner s){
 		try{
 			if(getPlayerByUserName(s.next()) != null){
-				return false;
+				return "fail login";
 			}else{
-				return true;
+				return "true";
 			}
 		}catch(Exception e){
-			return false;
+			return "false";
 		}
 	}
 
-	public boolean parseMoveCommand(Scanner s){
+	public String parseMoveCommand(Scanner s){
 		try{
 		 Player player = getPlayerByUserName(s.next());
 		 Direction direction = convertToDirection(s.next());
 		 
-		 if(direction == null)return false;
-		 if(player == null)return false;		 
+		 if(direction == null)return "false";
+		 if(player == null)return "false";		 
 		 		 
 		 gameSystem.movePlayer(player, direction);
-		 return true;
+		 return "true";
 		 
 		}catch(Exception e){
-			return false;
+			return "false";
 		}
 	}
 	
