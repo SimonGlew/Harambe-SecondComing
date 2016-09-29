@@ -14,7 +14,7 @@ public class PlayerCommand implements Serializable {
 	private String message;
 	
 	// constructor
-	PlayerCommand(String message) {
+	public PlayerCommand(String message) {
 		this.message = message;
 	}
 	

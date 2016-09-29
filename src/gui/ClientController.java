@@ -19,13 +19,12 @@ public class ClientController {
 
 	public ClientController(Client c) {
 		this.client = c;
-		gui = new GUI(this);
 		renderer = new Renderer();
 		drawBoard();
 	}
 
-	public void hideGUI() {
-		gui.hideGUI();
+	public void showGUI() {
+		gui = new GUI(this);
 	}
 
 	public String getName() {
@@ -55,7 +54,7 @@ public class ClientController {
 	}
 
 	public void drawBoard() {
-		if (board != null) {
+		if (board != null && gui != null) {
 			gui.showBoard(renderer.paintBoard(board, board.getPlayer(client.getUsername()), 1000, 800));
 		}
 	}
@@ -82,8 +81,8 @@ public class ClientController {
 			Direction d = loc.getDirOfTile(board.getPlayer(getName()).getPosition(), t);
 			if(d != null){
 				System.out.println(d);
-				String command = "";
-				//SEND MOVE COMMAND HERE
+				String command = "move " + getName() + " " + d.toString();
+				sendMessage(new PlayerCommand(command));
 			}
 			drawBoard();
 		}

@@ -40,8 +40,8 @@ public class Client {
 		this.server = server;
 		this.port = port;
 		this.username = username;
-		
-		if (!this.start()){
+
+		if (!this.start()) {
 			new Menu();
 			return;
 		}
@@ -89,8 +89,8 @@ public class Client {
 			System.out.println("Exception writing to server: " + e);
 		}
 	}
-	
-	public String getUsername(){
+
+	public String getUsername() {
 		return this.username;
 	}
 
@@ -117,8 +117,7 @@ public class Client {
 	}
 
 	/*
-	 * a class that waits for the message and prints it out to the console
-	 * mode
+	 * a class that waits for the message and prints it out to the console mode
 	 */
 	class ListenFromServer extends Thread {
 
@@ -126,14 +125,17 @@ public class Client {
 			while (true) {
 				try {
 					Packet packet = (Packet) sInput.readObject();
-					if(packet.type.equals("board")){
-						menu.dispose();
-						clientController.sendBoard(BoardCreator.loadBoardFromString(packet.board));
-
-						loggedIn = true;
-					}else if(packet.type.equals("string")){
-						if(packet.message.equals("fail login")){
-							clientController.hideGUI();
+					if (packet.type.equals("board")) {
+						if (!loggedIn) {
+							menu.dispose();
+							clientController.sendBoard(BoardCreator.loadBoardFromString(packet.board));
+							clientController.showGUI();
+							loggedIn = true;
+						}else{
+							clientController.sendBoard(BoardCreator.loadBoardFromString(packet.board));
+						}
+					} else if (packet.type.equals("string")) {
+						if (packet.message.equals("fail login")) {
 							menu.dispose();
 							new Menu();
 						}
@@ -141,8 +143,7 @@ public class Client {
 				} catch (IOException e) {
 					System.out.println("Server has close the connection: " + e);
 					break;
-				}
-				catch (ClassNotFoundException e) {
+				} catch (ClassNotFoundException e) {
 				}
 			}
 		}
