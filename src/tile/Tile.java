@@ -10,6 +10,7 @@ public abstract class Tile {
 	protected Position pos;
 	protected GameObject gameObject;
 	protected BufferedImage image;
+	protected int locationID;
 	
 	public Tile(Position pos, GameObject gameObject) {
 		this.pos = pos;
@@ -36,5 +37,12 @@ public abstract class Tile {
 		return image;
 	}
 	
+	public int getLocationID(){
+		return locationID;
+	}
+	
+	public void setLocationID(int i){
+		locationID = i;
+	}
 	
 }

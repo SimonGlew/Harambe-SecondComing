@@ -62,6 +62,10 @@ public class Player extends GameObject {
 		this.locationID = location.getId();
 	}
 
+	public void setLocation(int locationID) {
+		this.locationID = locationID;
+	}
+	
 	public Tile getTile() {
 		return getLocation().getTileAtPosition(pos);
 	}
@@ -101,6 +105,7 @@ public class Player extends GameObject {
 	}
 	
 	public String toSaveString() {
+		System.out.println("Player " + userName + "," + locationID + "," + pos.getX() + "," + pos.getY() + "," + facing.toString());
 		return "Player " + userName + "," + locationID + "," + pos.getX() + "," + pos.getY() + "," + facing.toString();
 	}
 

@@ -42,6 +42,7 @@ public class Client {
 		this.username = username;
 
 		if (!this.start()) {
+			menu.dispose();
 			new Menu();
 			return;
 		}

@@ -74,7 +74,7 @@ public class Location {
 			if (withinBounds(p)) {
 				return getTiles()[p.getX()][p.getY()];
 			}
-		
+
 			board.getLocationById(null);
 			Location nextLoc = board.getLocationById(getNeighbours().get(Direction.EAST));
 			if (nextLoc != null) {
@@ -100,9 +100,9 @@ public class Location {
 	}
 
 	public Position getPositionOfTile(Tile tile) {
-		for(int i = 0; i < tiles.length; i++){
-			for(int j = 0; j < tiles[0].length; j++){
-				if(tiles[i][j] == tile){
+		for (int i = 0; i < tiles.length; i++) {
+			for (int j = 0; j < tiles[0].length; j++) {
+				if (tiles[i][j] == tile) {
 					return new Position(i, j);
 				}
 			}
@@ -111,59 +111,73 @@ public class Location {
 	}
 
 	public Tile getTileAtPosition(Position pos) {
-		Point p = new Point(pos.getX()/10, pos.getY()/10);
-		if(pos.getX() < 0){
+		Point p = new Point(pos.getX() / 10, pos.getY() / 10);
+		System.out.println(p);
+		if (pos.getX() < 0) {
 			p.x = p.x - 1;
 		}
-		if(pos.getY() < 0){
+		if (pos.getY() < 0) {
 			p.y = p.y - 1;
 		}
-		if(p.equals(new Point(0, 0))){
+		System.out.println(p);
+		if (p.equals(new Point(0, 0))) {
 			return tiles[pos.getX()][pos.getY()];
 		}
 		Map<Point, Integer> map = board.mapLocations(id, 0, 0, new HashMap<Point, Integer>());
+		System.out.println(map);
+		System.out.println(p);
+		System.out.println(map.get(p));
 		Location newLoc = board.getLocationById(map.get(p));
-		if(newLoc != null){
-			return newLoc.getTileAtPosition(new Position((int)(pos.getX() + p.getX()), (int)(pos.getY() + p.getY())));
+		if (newLoc != null) {
+			return newLoc
+					.getTileAtPositionInLoc(new Position((int) (-p.getX()*10 + pos.getX()), (int) (-p.getY()*10 + pos.getY())));
 		}
 		return null;
 	}
-	
-	public Direction getDirOfTile(Position from, Tile t){
-		if(getTileInDirection(from, Direction.NORTH)==t){
+
+	public Tile getTileAtPositionInLoc(Position pos) {
+		System.out.println(this);
+		System.out.println(pos);
+		return tiles[pos.getX()][pos.getY()];
+
+		
+	}
+
+	public Direction getDirOfTile(Position from, Tile t) {
+		if (getTileInDirection(from, Direction.NORTH) == t) {
 			return Direction.NORTH;
 		}
-		if(getTileInDirection(from, Direction.SOUTH)==t){
+		if (getTileInDirection(from, Direction.SOUTH) == t) {
 			return Direction.SOUTH;
 		}
-		if(getTileInDirection(from, Direction.EAST)==t){
+		if (getTileInDirection(from, Direction.EAST) == t) {
 			return Direction.EAST;
 		}
-		if(getTileInDirection(from, Direction.WEST)==t){
+		if (getTileInDirection(from, Direction.WEST) == t) {
 			return Direction.WEST;
 		}
-		
+
 		return null;
 	}
-	
-	public static Direction getRelativeDirection(Direction d, Direction viewing){
+
+	public static Direction getRelativeDirection(Direction d, Direction viewing) {
 		int turns = 0;
-		switch (viewing){
-			case NORTH:
-				turns = 0;
-				break;
-			case EAST:
-				turns = 1;
-				break;
-			case SOUTH:
-				turns = 2;
-				break;	
-			case WEST:
-				turns = 3;
-				break;
+		switch (viewing) {
+		case NORTH:
+			turns = 0;
+			break;
+		case EAST:
+			turns = 1;
+			break;
+		case SOUTH:
+			turns = 2;
+			break;
+		case WEST:
+			turns = 3;
+			break;
 		}
 		Direction dir = d;
-		for(int i = 0; i < turns; i++){
+		for (int i = 0; i < turns; i++) {
 			d = clockwiseDir(d);
 		}
 		return d;
@@ -200,7 +214,7 @@ public class Location {
 		}
 		return null;
 	}
-	
+
 	public static Direction oppositeDir(Direction d) {
 		if (d == Direction.NORTH) {
 			return Direction.SOUTH;

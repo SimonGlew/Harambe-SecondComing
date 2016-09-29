@@ -3,27 +3,27 @@ id:0
 name:
 w:10
 h:10
-NORTH:6
 WEST:1
-Grass:Tree,Grass:Tree,Grass:Tree,Grass:Tree,Wood:Tree,Wood:Tree,Grass:Tree,Grass:Tree,Grass:Tree,Grass:Tree,
+NORTH:6
+Grass,Grass,Grass,Grass:Fence,Stone,Stone,Grass:Fence,Grass,Grass,Grass,
 
-Grass:Tree,Grass:Tree,Grass:Fence,Grass:Fence,Stone,Stone,Grass:Fence,Grass:Fence,Grass:Tree,Grass:Tree,
+Grass,Grass:Tree,Grass:Fence,Grass:Fence,Stone,Stone,Grass:Fence,Grass:Fence,Grass:Tree,Grass,
 
-Grass:Tree,Grass:Fence,Stone,Stone,Stone,Stone,Stone,Stone,Grass:Fence,Grass:Tree,
+Grass,Grass:Fence,Stone,Stone,Stone,Stone,Stone,Stone,Grass:Fence,Grass,
 
-Grass:Tree,Grass:Fence,Stone,Grass:Tree,Stone,Stone,Grass:Tree,Stone,Grass:Fence,Grass:Tree,
+Grass:Fence,Grass:Fence,Stone,Grass:Tree,Stone,Stone,Grass:Tree,Stone,Grass:Fence,Grass:Fence,
 
-Sand:Tree,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Grass:Tree,
+Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,
 
-Sand:Tree,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Grass:Tree,
+Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,Stone,
 
-Grass:Tree,Grass:Fence,Stone,Grass:Tree,Stone,Stone,Grass:Tree,Stone,Grass:Fence,Grass:Tree,
+Grass:Fence,Grass:Fence,Stone,Grass:Tree,Stone,Stone,Grass:Tree,Stone,Grass:Fence,Grass:Fence,
 
-Grass:Tree,Grass:Fence,Stone,Stone,Stone,Stone,Stone,Stone,Grass:Fence,Grass:Tree,
+Grass,Grass:Fence,Stone,Stone,Stone,Stone,Stone,Stone,Grass:Fence,Grass,
 
-Grass:Tree,Grass:Tree,Grass:Fence,Grass:Fence,Stone,Stone,Grass:Fence,Grass:Fence,Grass:Tree,Grass:Tree,
+Grass,Grass:Tree,Grass:Fence,Grass:Fence,Stone,Stone,Grass:Fence,Grass:Fence,Grass:Tree,Grass,
 
-Grass:Tree,Grass:Tree,Grass:Tree,Grass:Tree,Water:Tree,Water:Tree,Grass:Tree,Grass:Tree,Grass:Tree,Grass:Tree,
+Grass,Grass,Grass,Grass:Fence,Stone,Stone,Grass:Fence,Grass,Grass,Grass,
 
 Location
 id:1
@@ -31,8 +31,8 @@ name:
 w:10
 h:10
 EAST:0
-SOUTH:5
 WEST:2
+SOUTH:5
 Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,
 
 Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,
@@ -139,8 +139,8 @@ id:5
 name:
 w:10
 h:10
-NORTH:1
 WEST:3
+NORTH:1
 Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Stone,Stone,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,
 
 Grass,Grass,Grass,Grass,Stone,Stone,Grass,Grass,Grass,Grass:Fence,

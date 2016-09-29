@@ -53,6 +53,7 @@ public class Renderer {
 	}
 
 	public BufferedImage paintBoard(Board board, Player player, int w, int h) {
+		System.out.println("loc: " + player.getLocation().getId());
 		BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = image.createGraphics();
 		g.setColor(new Color(5, 26, 37));
@@ -64,7 +65,7 @@ public class Renderer {
 		int[] drawOrderY = null;
 		switch (viewingDir) {
 		case NORTH:
-			int[] tempX1 = {-1, -1, 0, -1, 0, 1, 0, 0, 1};
+			int[] tempX1 = {-1, -1, 0, -1, 0, 1, 0, 1, 1};
 			int[] tempY1 = {1, 0, 1, -1, 0, 1, -1, 0, -1};
 			drawOrderX = tempX1;
 			drawOrderY = tempY1;

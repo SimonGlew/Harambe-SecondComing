@@ -58,7 +58,7 @@ public class BoardCreator {
 		Position pos = new Position(Integer.parseInt(split[2]), Integer.parseInt(split[3]));
 		Direction d = parseDirection(split[4]);
 
-		Player player = new Player(username, 0, pos, board);
+		Player player = new Player(username, locationID, pos, board);
 		player.setFacing(d);
 		return player;
 	}
@@ -143,6 +143,11 @@ public class BoardCreator {
 					tiles[i][j] = new WoodTile(new Position(i, j), gameObject);
 					break;
 				}
+			}
+		}
+		for(int i = 0; i < w; i++){
+			for(int j = 0; j < h; j++){
+				tiles[i][j].setLocationID(id);
 			}
 		}
 		Location loc = new Location(id, name, tiles, board);
