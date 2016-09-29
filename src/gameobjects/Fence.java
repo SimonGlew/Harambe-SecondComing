@@ -20,28 +20,30 @@ public class Fence extends GameObject {
 
 	}
 
-	public BufferedImage getImage(Location loc, Position pos){
+	public BufferedImage getImage(Location loc, Position pos, Direction viewing){
+		
 		String fname = IMG_PRE;
-		Tile n = loc.getTileInDirection(pos, Direction.NORTH);
+
+		Tile n = loc.getTileInDirection(pos, Location.getRelativeDirection(Direction.NORTH, viewing));
 		if(n != null){
 			if(n.getGameObject() instanceof Fence){
 				fname += "N";
 			}
 		}
-		Tile e = loc.getTileInDirection(pos, Direction.EAST);
+		Tile e = loc.getTileInDirection(pos, Location.getRelativeDirection(Direction.EAST, viewing));
 		if(e != null){
 			if(e.getGameObject() instanceof Fence){
 				fname += "E";
 			}
 		}
-		Tile s = loc.getTileInDirection(pos, Direction.SOUTH);
+		Tile s = loc.getTileInDirection(pos, Location.getRelativeDirection(Direction.SOUTH, viewing));
 		if(s != null){
 			if(s.getGameObject() instanceof Fence){
 				fname += "S";
 			}
 		}
 		
-		Tile w = loc.getTileInDirection(pos, Direction.WEST);
+		Tile w = loc.getTileInDirection(pos, Location.getRelativeDirection(Direction.WEST, viewing));
 		if(w != null){
 			if(w.getGameObject() instanceof Fence){
 				fname += "W";

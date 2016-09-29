@@ -66,7 +66,6 @@ public class GUI implements KeyListener, ActionListener, MouseListener {
 		//Create window that game image will be displayed on
 		gameLabel = new JLabel();
 		gameLabel.setPreferredSize(new Dimension(1000,800));
-		tempView();
 
 		//Create menu bar
 		JMenuBar menuBar = new JMenuBar();
@@ -215,10 +214,8 @@ public class GUI implements KeyListener, ActionListener, MouseListener {
 		}
 	}
 
-	public void tempView(){
-		Board b = BoardCreator.loadBoard("map.txt");
-		Renderer rend = new Renderer();
-		BufferedImage i = rend.paintLocation(b.getLocationById(0), 1000, 800);
+	
+	public void showBoard(BufferedImage i){
 		gameLabel.setIcon(new ImageIcon(i));
 	}
 

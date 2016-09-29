@@ -195,36 +195,4 @@ public class WorldEditor {
 		}
 		return null;
 	}
-
-	public Direction clockwiseDir(Direction d) {
-		if (d == Direction.NORTH) {
-			return Direction.EAST;
-		}
-		if (d == Direction.EAST) {
-			return Direction.SOUTH;
-		}
-		if (d == Direction.WEST) {
-			return Direction.NORTH;
-		}
-		if (d == Direction.SOUTH) {
-			return Direction.WEST;
-		}
-		return null;
-	}
-
-	public Direction counterClockwiseDir(Direction d) {
-		if (d == Direction.NORTH) {
-			return Direction.WEST;
-		}
-		if (d == Direction.EAST) {
-			return Direction.NORTH;
-		}
-		if (d == Direction.WEST) {
-			return Direction.SOUTH;
-		}
-		if (d == Direction.SOUTH) {
-			return Direction.EAST;
-		}
-		return null;
-	}
 }

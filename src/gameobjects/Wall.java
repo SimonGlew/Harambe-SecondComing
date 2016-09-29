@@ -20,7 +20,7 @@ public class Wall extends GameObject {
 
 	}
 
-	public BufferedImage getImage(Location loc, Position pos){
+	public BufferedImage getImage(Location loc, Position pos, Direction viewing){
 		String fname = IMG_PRE;
 		Tile n = loc.getTileInDirection(pos, Direction.NORTH);
 		if(n != null){
@@ -41,7 +41,7 @@ public class Wall extends GameObject {
 			}
 		}
 		
-		Tile w = loc.getTileInDirection(pos, Direction.WEST);
+		Tile w = loc.getTileInDirection(pos, Direction.WEST.EAST);
 		if(w != null){
 			if(w.getGameObject() instanceof Wall){
 				fname += "W";

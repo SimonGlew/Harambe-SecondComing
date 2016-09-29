@@ -112,5 +112,59 @@ public class Location {
 	public Tile getTileAtPosition(Position pos) {
 		return tiles[pos.getX()][pos.getY()];
 	}
+	
+	public static Direction getRelativeDirection(Direction d, Direction viewing){
+		int turns = 0;
+		switch (viewing){
+			case NORTH:
+				turns = 0;
+				break;
+			case EAST:
+				turns = 1;
+				break;
+			case SOUTH:
+				turns = 2;
+				break;
+			case WEST:
+				turns = 3;
+				break;
+		}
+		Direction dir = d;
+		for(int i = 0; i < turns; i++){
+			d = counterClockwiseDir(d);
+		}
+		return d;
+	}
 
+	public static Direction clockwiseDir(Direction d) {
+		if (d == Direction.NORTH) {
+			return Direction.EAST;
+		}
+		if (d == Direction.EAST) {
+			return Direction.SOUTH;
+		}
+		if (d == Direction.WEST) {
+			return Direction.NORTH;
+		}
+		if (d == Direction.SOUTH) {
+			return Direction.WEST;
+		}
+		return null;
+	}
+
+	public static Direction counterClockwiseDir(Direction d) {
+		if (d == Direction.NORTH) {
+			return Direction.WEST;
+		}
+		if (d == Direction.EAST) {
+			return Direction.NORTH;
+		}
+		if (d == Direction.WEST) {
+			return Direction.SOUTH;
+		}
+		if (d == Direction.SOUTH) {
+			return Direction.EAST;
+		}
+		return null;
+	}
 }

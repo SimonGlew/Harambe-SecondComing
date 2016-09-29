@@ -27,11 +27,16 @@ public class Renderer {
 	private Tile selected;
 	BufferedImage highlightTile;
 	BufferedImage highlightLocation;
-	Direction selectedLocation = Direction.NORTH;
+	Direction selectedLocation = null;
+	
+	Direction viewingDir = Direction.NORTH;
 
 	final int TILE_WIDTH = 45;
 	int xOffset;
 	int yOffset;
+	
+	int xCenter;
+	int yCenter;
 
 	public Renderer() {
 		try {
@@ -52,15 +57,15 @@ public class Renderer {
 		Map<Point, Integer> map = board.mapLocations(loc.getId(), 0, 0, new HashMap<Point, Integer>());
 		board.linkLocations(map);
 		
-		drawBoard(g, board, map, w, h, new Point(-1, 1));
-		drawBoard(g, board, map, w, h, new Point(0, 1));
-		drawBoard(g, board, map, w, h, new Point(-1, 0));
-		drawBoard(g, board, map, w, h, new Point(1, 1));
+		//drawBoard(g, board, map, w, h, new Point(-1, 1));
+		//drawBoard(g, board, map, w, h, new Point(0, 1));
+		//drawBoard(g, board, map, w, h, new Point(-1, 0));
+		//drawBoard(g, board, map, w, h, new Point(1, 1));
 		drawBoard(g, board, map, w, h, new Point(0, 0));
-		drawBoard(g, board, map, w, h, new Point(-1, -1));
-		drawBoard(g, board, map, w, h, new Point(1, 0));
-		drawBoard(g, board, map, w, h, new Point(0, -1));
-		drawBoard(g, board, map, w, h, new Point(1, -1));
+		//drawBoard(g, board, map, w, h, new Point(-1, -1));
+		//drawBoard(g, board, map, w, h, new Point(1, 0));
+		//drawBoard(g, board, map, w, h, new Point(0, -1));
+		//drawBoard(g, board, map, w, h, new Point(1, -1));
 
 		return image;
 	}
@@ -72,16 +77,17 @@ public class Renderer {
 		g.fillRect(0, 0, image.getWidth(), image.getHeight());
 		Map<Point, Integer> map = loc.getBoard().mapLocations(loc.getId(), 0, 0, new HashMap<Point, Integer>());
 		loc.getBoard().linkLocations(map);
-		drawBoard(g, loc.getBoard(), map, w, h, new Point(-1, 1));
-		drawBoard(g, loc.getBoard(), map, w, h, new Point(0, 1));
-		drawBoard(g, loc.getBoard(), map, w, h, new Point(-1, 0));
-		drawBoard(g, loc.getBoard(), map, w, h, new Point(1, 1));
+//		drawBoard(g, loc.getBoard(), map, w, h, new Point(-1, 1));
+//		drawBoard(g, loc.getBoard(), map, w, h, new Point(0, 1));
+//		drawBoard(g, loc.getBoard(), map, w, h, new Point(-1, 0));
+//		drawBoard(g, loc.getBoard(), map, w, h, new Point(1, 1));
 		drawBoard(g, loc.getBoard(), map, w, h, new Point(0, 0));
-		drawBoard(g, loc.getBoard(), map, w, h, new Point(-1, -1));
-		drawBoard(g, loc.getBoard(), map, w, h, new Point(1, 0));
-		drawBoard(g, loc.getBoard(), map, w, h, new Point(0, -1));
-		drawBoard(g, loc.getBoard(), map, w, h, new Point(1, -1));
-
+//		drawBoard(g, loc.getBoard(), map, w, h, new Point(-1, -1));
+//		drawBoard(g, loc.getBoard(), map, w, h, new Point(1, 0));
+//		drawBoard(g, loc.getBoard(), map, w, h, new Point(0, -1));
+//		drawBoard(g, loc.getBoard(), map, w, h, new Point(1, -1));
+		xCenter = w/2;
+		yCenter = h/2;
 		return image;
 	}
 
@@ -95,9 +101,8 @@ public class Renderer {
 		calculateOffsets(board.getLocationById(map.get(new Point(0, 0))), w, h);
 		for (int i = 0; i < board.getLocationById(map.get(p)).getTiles().length; i++) {
 			for (int j = 0; j < board.getLocationById(map.get(p)).getTiles()[0].length; j++) {
-				int x = xOff + i * TILE_WIDTH;
-				int y = yOff + j * TILE_WIDTH;
-				Point iso = twoDToIso(x, y);
+
+				Point iso = twoDToIso(i, j);
 				drawTile(g, board.getLocationById(map.get(p)).getTiles()[i][j], iso, board.getLocationById(map.get(p)), new Position(i, j));
 			}
 		}
@@ -105,7 +110,7 @@ public class Renderer {
 			for (int j = 0; j < board.getLocationById(map.get(p)).getTiles()[0].length; j++) {
 				int x = xOff + i * TILE_WIDTH;
 				int y = yOff + j * TILE_WIDTH;
-				Point iso = twoDToIso(x, y);
+				Point iso = twoDToIso(i, j);
 				drawObject(g, board.getLocationById(map.get(p)).getTiles()[i][j], iso, board.getLocationById(map.get(p)), new Position(i, j));
 			}
 		}
@@ -115,7 +120,7 @@ public class Renderer {
 
 	private void drawObject(Graphics2D g, Tile tile, Point iso, Location loc, Position pos) {
 		if (tile.getGameObject() != null) {
-			BufferedImage gameObject = tile.getGameObject().getImage(loc, pos);
+			BufferedImage gameObject = tile.getGameObject().getImage(loc, pos, viewingDir);
 			g.drawImage(gameObject, iso.x, iso.y - gameObject.getHeight(), null);
 		}
 	}
@@ -130,9 +135,7 @@ public class Renderer {
 
 	public void drawSelected(Graphics2D g) {
 		if (selected != null) {
-			int x = selected.getPos().getX() * TILE_WIDTH;
-			int y = selected.getPos().getY() * TILE_WIDTH;
-			Point iso = twoDToIso(x, y);
+			Point iso = twoDToIso(selected.getPos().getX(), selected.getPos().getY());
 			g.drawImage(highlightTile, (int) iso.getX(), (int) iso.getY() - highlightTile.getHeight(), null);
 		}
 	}
@@ -176,10 +179,29 @@ public class Renderer {
 		return (tempPt);
 	}
 
-	public Point twoDToIso(int x, int y) {
+	public Point twoDToIso(int i, int j) {
+		int x = 0, y = 0;
+		switch (viewingDir){
+			case NORTH:
+				x = TILE_WIDTH*i;
+				y = TILE_WIDTH*j;
+				break;
+			case SOUTH:
+				x = TILE_WIDTH*(10-i - 1);
+				y = TILE_WIDTH*(10-j - 1);
+				break;
+			case EAST:
+				x = TILE_WIDTH*(10 - j - 1);
+				y = TILE_WIDTH*i;
+				break;
+			case WEST:
+				x = TILE_WIDTH*j;
+				y = TILE_WIDTH*(10 - i - 1);
+				break;
+		}
 		Point tempPt = new Point(0, 0);
-		tempPt.x = xOffset + x - y;
-		tempPt.y = yOffset + (x + y) / 2;
+		tempPt.x = xOffset + (x - y);
+		tempPt.y = yOffset + ((x + y) / 2);
 		return (tempPt);
 	}
 
@@ -220,5 +242,48 @@ public class Renderer {
 
 	public void selectLocation(Direction dir) {
 		this.selectedLocation = dir;
+	}
+	
+	public Direction clockwiseDir(Direction d) {
+		if (d == Direction.NORTH) {
+			return Direction.EAST;
+		}
+		if (d == Direction.EAST) {
+			return Direction.SOUTH;
+		}
+		if (d == Direction.WEST) {
+			return Direction.NORTH;
+		}
+		if (d == Direction.SOUTH) {
+			return Direction.WEST;
+		}
+		return null;
+	}
+
+	public Direction counterClockwiseDir(Direction d) {
+		if (d == Direction.NORTH) {
+			return Direction.WEST;
+		}
+		if (d == Direction.EAST) {
+			return Direction.NORTH;
+		}
+		if (d == Direction.WEST) {
+			return Direction.SOUTH;
+		}
+		if (d == Direction.SOUTH) {
+			return Direction.EAST;
+		}
+		return null;
+	}
+
+	public void rotateCounterClockwise() {
+		viewingDir = counterClockwiseDir(viewingDir);
+		System.out.println(viewingDir);
+	}
+
+	public void rotateClockwise() {
+		viewingDir = clockwiseDir(viewingDir);
+		System.out.println(viewingDir);
+
 	}
 }
