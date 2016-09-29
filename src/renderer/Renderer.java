@@ -31,10 +31,9 @@ public class Renderer {
 	BufferedImage highlightLocation;
 	BufferedImage playerSelect;
 	Direction selectedLocation = null;
-	
+
 	Point selectedPoint = null;
 
-	
 	Direction viewingDir = Direction.NORTH;
 
 	final int TILE_WIDTH = 45;
@@ -67,31 +66,30 @@ public class Renderer {
 		int[] drawOrderY = null;
 		switch (viewingDir) {
 		case NORTH:
-			int[] tempX1 = {-1, -1, 0, -1, 0, 1, 0, 1, 1};
-			int[] tempY1 = {1, 0, 1, -1, 0, 1, -1, 0, -1};
+			int[] tempX1 = { -1, -1, 0, -1, 0, 1, 0, 1, 1 };
+			int[] tempY1 = { 1, 0, 1, -1, 0, 1, -1, 0, -1 };
 			drawOrderX = tempX1;
 			drawOrderY = tempY1;
 			break;
 		case WEST:
-			int[] tempX2 = {-1, 0, -1, 1, 0, -1, 1, 0, 1};
-			int[] tempY2 = {-1, -1, 0, -1, 0, 1, 0, 1, 1};
+			int[] tempX2 = { -1, 0, -1, 1, 0, -1, 1, 0, 1 };
+			int[] tempY2 = { -1, -1, 0, -1, 0, 1, 0, 1, 1 };
 			drawOrderX = tempX2;
 			drawOrderY = tempY2;
 			break;
 		case SOUTH:
-			int[] tempX3 = {1, 1, 0, 1, 0, -1, 0, -1, -1};
-			int[] tempY3 = {-1, 0, -1, 1, 0, -1, 1, 0, 1};
-			drawOrderX = tempX3; 
+			int[] tempX3 = { 1, 1, 0, 1, 0, -1, 0, -1, -1 };
+			int[] tempY3 = { -1, 0, -1, 1, 0, -1, 1, 0, 1 };
+			drawOrderX = tempX3;
 			drawOrderY = tempY3;
 			break;
 		case EAST:
-			int[] tempX4 = {1, 0, 1, -1, 0, 1, -1, 0, -1};
-			int[] tempY4 = {1, 1, 0, 1, 0, -1, 0, -1, -1};
+			int[] tempX4 = { 1, 0, 1, -1, 0, 1, -1, 0, -1 };
+			int[] tempY4 = { 1, 1, 0, 1, 0, -1, 0, -1, -1 };
 			drawOrderX = tempX4;
 			drawOrderY = tempY4;
 			break;
 		}
-		
 
 		for (int i = 0; i < drawOrderX.length; i++) {
 			Point p = new Point(drawOrderX[i], drawOrderY[i]);
@@ -111,32 +109,31 @@ public class Renderer {
 		int[] drawOrderY = null;
 		switch (viewingDir) {
 		case NORTH:
-			int[] tempX1 = {-1, -1, 0, -1, 0, 1, 0, 0, 1};
-			int[] tempY1 = {1, 0, 1, -1, 0, 1, -1, 0, -1};
+			int[] tempX1 = { -1, -1, 0, -1, 0, 1, 0, 1, 1 };
+			int[] tempY1 = { 1, 0, 1, -1, 0, 1, -1, 0, -1 };
 			drawOrderX = tempX1;
 			drawOrderY = tempY1;
 			break;
 		case WEST:
-			int[] tempX2 = {-1, 0, -1, 1, 0, -1, 1, 0, 1};
-			int[] tempY2 = {-1, -1, 0, -1, 0, 1, 0, 1, 1};
+			int[] tempX2 = { -1, 0, -1, 1, 0, -1, 1, 0, 1 };
+			int[] tempY2 = { -1, -1, 0, -1, 0, 1, 0, 1, 1 };
 			drawOrderX = tempX2;
 			drawOrderY = tempY2;
 			break;
 		case SOUTH:
-			int[] tempX3 = {1, 1, 0, 1, 0, -1, 0, -1, -1};
-			int[] tempY3 = {-1, 0, -1, 1, 0, -1, 1, 0, 1};
-			drawOrderX = tempX3; 
+			int[] tempX3 = { 1, 1, 0, 1, 0, -1, 0, -1, -1 };
+			int[] tempY3 = { -1, 0, -1, 1, 0, -1, 1, 0, 1 };
+			drawOrderX = tempX3;
 			drawOrderY = tempY3;
 			break;
 		case EAST:
-			int[] tempX4 = {1, 0, 1, -1, 0, 1, -1, 0, -1};
-			int[] tempY4 = {1, 1, 0, 1, 0, -1, 0, -1, -1};
+			int[] tempX4 = { 1, 0, 1, -1, 0, 1, -1, 0, -1 };
+			int[] tempY4 = { 1, 1, 0, 1, 0, -1, 0, -1, -1 };
 			drawOrderX = tempX4;
 			drawOrderY = tempY4;
 			break;
 		}
 		
-
 		for (int i = 0; i < drawOrderX.length; i++) {
 			Point p = new Point(drawOrderX[i], drawOrderY[i]);
 			drawBoard(g, loc.getBoard(), map, w, h, p, null);
@@ -169,7 +166,8 @@ public class Renderer {
 		drawSelectedLocation(g);
 	}
 
-	public void drawBoardFromNorth(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p, Player player) {
+	public void drawBoardFromNorth(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p,
+			Player player) {
 		for (int i = 0; i < board.getLocationById(map.get(p)).getTiles().length; i++) {
 			for (int j = 0; j < board.getLocationById(map.get(p)).getTiles()[0].length; j++) {
 				Point iso = twoDToIso((int) (i + p.getX() * 10), (int) (j - p.getY() * 10));
@@ -186,7 +184,8 @@ public class Renderer {
 		}
 	}
 
-	public void drawBoardFromEast(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p, Player player) {
+	public void drawBoardFromEast(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p,
+			Player player) {
 		for (int j = 0; j < board.getLocationById(map.get(p)).getTiles()[0].length; j++) {
 			for (int i = 9; i >= 0; i--) {
 				Point iso = twoDToIso((int) (i + p.getX() * 10), (int) (j - p.getY() * 10));
@@ -203,7 +202,8 @@ public class Renderer {
 		}
 	}
 
-	public void drawBoardFromSouth(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p, Player player) {
+	public void drawBoardFromSouth(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p,
+			Player player) {
 		for (int i = 9; i >= 0; i--) {
 			for (int j = 9; j >= 0; j--) {
 				Point iso = twoDToIso((int) (i + p.getX() * 10), (int) (j - p.getY() * 10));
@@ -220,7 +220,8 @@ public class Renderer {
 		}
 	}
 
-	public void drawBoardFromWest(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p, Player player) {
+	public void drawBoardFromWest(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p,
+			Player player) {
 		for (int j = 9; j >= 0; j--) {
 			for (int i = 0; i < board.getLocationById(map.get(p)).getTiles().length; i++) {
 				Point iso = twoDToIso((int) (i + p.getX() * 10), (int) (j - p.getY() * 10));
@@ -239,8 +240,8 @@ public class Renderer {
 
 	private void drawObject(Graphics2D g, Tile tile, Point iso, Location loc, Position pos, Player player) {
 		if (tile.getGameObject() != null) {
-			if(tile.getGameObject() instanceof Player){
-				if(tile.getGameObject() == player){
+			if (tile.getGameObject() instanceof Player) {
+				if (tile.getGameObject() == player) {
 					g.drawImage(playerSelect, iso.x, iso.y - playerSelect.getHeight(), null);
 				}
 			}
@@ -251,7 +252,7 @@ public class Renderer {
 
 	private void drawTile(Graphics2D g, Tile tile, Point iso, Location loc, Position pos) {
 		BufferedImage floor = tile.getImage();
-		if(tile == selected){
+		if (tile == selected) {
 			selectedPoint = iso;
 		}
 		if (floor != null) {
@@ -262,7 +263,8 @@ public class Renderer {
 
 	public void drawSelected(Graphics2D g) {
 		if (selectedPoint != null) {
-			g.drawImage(highlightTile, (int) selectedPoint.getX(), (int) selectedPoint.getY() - highlightTile.getHeight(), null);
+			g.drawImage(highlightTile, (int) selectedPoint.getX(),
+					(int) selectedPoint.getY() - highlightTile.getHeight(), null);
 		}
 	}
 
@@ -270,21 +272,22 @@ public class Renderer {
 		if (selectedLocation != null) {
 			int locationSize = 10;
 			Point iso;
-			switch (selectedLocation.toString()) {
-			case "NORTH":
-				iso = twoDToIso((-locationSize * TILE_WIDTH / 2), -(locationSize / 2) * TILE_WIDTH);
+			switch (selectedLocation) {
+			case NORTH:
+				System.out.println("Ye?");
+				iso = twoDToIso((-locationSize/2), -(locationSize / 2));
 				g.drawImage(highlightLocation, iso.x + TILE_WIDTH, iso.y - TILE_WIDTH, null);
 				break;
-			case "EAST":
-				iso = twoDToIso((locationSize * TILE_WIDTH / 2), (locationSize / 2) * TILE_WIDTH);
+			case EAST:
+				iso = twoDToIso((locationSize/ 2), (locationSize / 2));
 				g.drawImage(highlightLocation, iso.x + TILE_WIDTH, iso.y - TILE_WIDTH, null);
 				break;
-			case "WEST":
-				iso = twoDToIso((-3 * locationSize * TILE_WIDTH / 2), (locationSize * TILE_WIDTH / 2));
+			case WEST:
+				iso = twoDToIso((-3 * locationSize/ 2), (locationSize/ 2));
 				g.drawImage(highlightLocation, iso.x + TILE_WIDTH, iso.y - TILE_WIDTH, null);
 				break;
-			case "SOUTH":
-				iso = twoDToIso((-locationSize * TILE_WIDTH / 2), (3 * locationSize / 2) * TILE_WIDTH);
+			case SOUTH:
+				iso = twoDToIso((-locationSize/ 2), (3 * locationSize / 2));
 				g.drawImage(highlightLocation, iso.x + TILE_WIDTH, iso.y - TILE_WIDTH, null);
 				break;
 			}
@@ -337,10 +340,10 @@ public class Renderer {
 
 	public Position isoToIndex(int x, int y) {
 		Point twoD = isoTo2D(x, y);
-		if(twoD.x < 0){
+		if (twoD.x < 0) {
 			twoD.x = twoD.x - TILE_WIDTH;
 		}
-		if(twoD.y < 0){
+		if (twoD.y < 0) {
 			twoD.y = twoD.y - TILE_WIDTH;
 		}
 		Position index = new Position((twoD.x + TILE_WIDTH / 2) / TILE_WIDTH,

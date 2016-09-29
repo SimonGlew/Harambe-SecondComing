@@ -37,13 +37,13 @@ public class WorldEditor {
 
 	public WorldEditor() {
 		renderer = new Renderer();
-		//LOAD BOARD
+		// LOAD BOARD
 		board = BoardCreator.loadBoard("map.txt");
 		String s = BoardWriter.writeBoardToString(board);
 		board = BoardCreator.loadBoardFromString(s);
-		//currentLocation = createBlankLocation();
+		// currentLocation = createBlankLocation();
 		currentLocation = 0;
-		
+
 		frame = new EditorFrame(this);
 		toolSelect = new ToolSelectionFrame(this);
 		update();
@@ -62,7 +62,8 @@ public class WorldEditor {
 
 	public void update() {
 		if (board.getLocationById(currentLocation) != null) {
-			frame.setImage(renderer.paintLocation(board.getLocationById(currentLocation), frame.panel.getWidth(), frame.panel.getHeight()));
+			frame.setImage(renderer.paintLocation(board.getLocationById(currentLocation), frame.panel.getWidth(),
+					frame.panel.getHeight()));
 		}
 	}
 
@@ -71,7 +72,8 @@ public class WorldEditor {
 	}
 
 	public void processTile(int i, int j) {
-		if (i >= 0 && j >= 0 && i < board.getLocationById(currentLocation).getTiles().length && j < board.getLocationById(currentLocation).getTiles()[0].length) {
+		if (i >= 0 && j >= 0 && i < board.getLocationById(currentLocation).getTiles().length
+				&& j < board.getLocationById(currentLocation).getTiles()[0].length) {
 			Tile tile = board.getLocationById(currentLocation).getTiles()[i][j];
 			if (tool.equals("Set Floor Type")) {
 				Tile newTile = null;
@@ -110,7 +112,7 @@ public class WorldEditor {
 					tile.setGameObject(new Chest());
 					break;
 				}
-				
+
 			}
 			update();
 		}
@@ -129,15 +131,20 @@ public class WorldEditor {
 	}
 
 	public void clearTile(int i, int j) {
-		if (i >= 0 && j >= 0 && i < board.getLocationById(currentLocation).getTiles().length && j < board.getLocationById(currentLocation).getTiles()[0].length) {
+		if (i >= 0 && j >= 0 && i < board.getLocationById(currentLocation).getTiles().length
+				&& j < board.getLocationById(currentLocation).getTiles()[0].length) {
 			board.getLocationById(currentLocation).getTiles()[i][j].setGameObject(null);
 		}
 		update();
 	}
 
 	public void selectTile(Position selected) {
-		renderer.selectTile(new Position((int) selected.getX(), (int) selected.getY()), board.getLocationById(currentLocation));
-		update();
+		if (selected != null) {
+			renderer.selectTile(new Position((int) selected.getX(), (int) selected.getY()),
+					board.getLocationById(currentLocation));
+			update();
+		}
+		selected = null;
 	}
 
 	public void selectLocation(GameSystem.Direction dir) {
@@ -149,7 +156,8 @@ public class WorldEditor {
 		if (dir != null) {
 			if (board.getLocationById(currentLocation).getNeighbours().get(dir) == null) {
 				board.getLocationById(currentLocation).getNeighbours().put(dir, createBlankLocation());
-				board.getLocationById(board.getLocationById(currentLocation).getNeighbours().get(dir)).getNeighbours().put(Location.oppositeDir(dir), currentLocation);
+				board.getLocationById(board.getLocationById(currentLocation).getNeighbours().get(dir)).getNeighbours()
+						.put(Location.oppositeDir(dir), currentLocation);
 				Map<Point, Integer> map = board.mapLocations(currentLocation, 0, 0, new HashMap<Point, Integer>());
 				board.linkLocations(map);
 			} else {
@@ -159,13 +167,12 @@ public class WorldEditor {
 		update();
 	}
 
-	
-	public Map<Point, Location> mergeMaps(Map<Point, Location> map1, Map<Point, Location> map2){
+	public Map<Point, Location> mergeMaps(Map<Point, Location> map1, Map<Point, Location> map2) {
 		Map<Point, Location> mergedMap = new HashMap<Point, Location>();
-		for(Point p: map1.keySet()){
+		for (Point p : map1.keySet()) {
 			mergedMap.put(p, map1.get(p));
 		}
-		for(Point p: map2.keySet()){
+		for (Point p : map2.keySet()) {
 			mergedMap.put(p, map2.get(p));
 		}
 		return mergedMap;
@@ -183,5 +190,4 @@ public class WorldEditor {
 		return board.getLocationById(finalLoc);
 	}
 
-	
 }
