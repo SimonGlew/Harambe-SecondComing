@@ -197,6 +197,11 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		shortcuts.addActionListener(this);
 		helpBar.add(shortcuts);
 	}
+	
+	public void setInventorySlot(int i, String item){
+		JLabel slot = (JLabel) inventorySlots.getComponent(i*2);
+		slot.setIcon(nameImage);
+	}
 
 	private void setupInventorySlots(){
 		int i = 0;
