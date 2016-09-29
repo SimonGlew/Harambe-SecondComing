@@ -165,4 +165,23 @@ public class BoardCreator {
 
 	}
 
+	public static Board loadBoardFromString(String s) {
+		Board board = new Board(new HashMap<Integer, Location>());
+
+		Scanner scan = new Scanner(s);
+		while (scan.hasNext()) {
+			if (scan.hasNext("Player")) {
+				Player player = parsePlayer(scan, board);
+				board.addPlayer(player.getUserName(), player);
+				System.out.println(player.getUserName());
+			}
+			if (scan.hasNext("Location")) {
+				Location loc = parseLocation(scan, board);
+				board.addLocation(loc.getId(), loc);
+			}
+		}
+
+		return board;
+	}
+
 }

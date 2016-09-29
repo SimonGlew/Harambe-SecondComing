@@ -13,6 +13,7 @@ import gameobjects.Tree;
 import gameobjects.Wall;
 import gameobjects.Fence;
 import iohandling.BoardCreator;
+import iohandling.BoardWriter;
 import renderer.Renderer;
 import tile.GrassTile;
 import tile.SandTile;
@@ -38,6 +39,8 @@ public class WorldEditor {
 		renderer = new Renderer();
 		//LOAD BOARD
 		board = BoardCreator.loadBoard("map.txt");
+		String s = BoardWriter.writeBoardToString(board);
+		board = BoardCreator.loadBoardFromString(s);
 		//currentLocation = createBlankLocation();
 		currentLocation = 0;
 		
@@ -147,7 +150,7 @@ public class WorldEditor {
 			if (board.getLocationById(currentLocation).getNeighbours().get(dir) == null) {
 				board.getLocationById(currentLocation).getNeighbours().put(dir, createBlankLocation());
 				board.getLocationById(board.getLocationById(currentLocation).getNeighbours().get(dir)).getNeighbours().put(Location.oppositeDir(dir), currentLocation);
-				Map<Point, Integer> map = board.mapLocations(currentLocation, 0, 0, new HashMap<Point, Integer>());
+				Map<Point, Integer> map = board.mapLocations(currentLocation, 0, 0, new HashMap<Point, Integer>(), Direction.NORTH);
 				board.linkLocations(map);
 			} else {
 				currentLocation = board.getLocationById(currentLocation).getNeighbours().get(dir);

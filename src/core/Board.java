@@ -70,43 +70,35 @@ public class Board {
 		}
 	}
 
-	public Map<Point, Integer> mapLocations(int id, int x, int y, Map<Point, Integer> map, Direction viewingDir) {
+	public Map<Point, Integer> mapLocations(int id, int x, int y, Map<Point, Integer> map) {
 		Location loc = getLocationById(id);
-		
-		if (map.containsKey(new Point(x, y))) {
-			//System.out.println("gtfo");
 
+		if (map.containsKey(new Point(x, y))) {
 			return map;
 		}
-		//System.out.println(x +"," + y);
-//		System.out.println(id);
-//		System.out.println(loc.getNeighbours().get(Direction.SOUTH));
-		map.put(new Point(x, y), loc.getId());
-		/*for (Direction d : GameSystem.Direction.values()) {
+
+		map.put(new Point(x, y), id);
+		for (Direction d : Direction.values()) {
 			if (loc.getNeighbours().keySet().contains(d)) {
 				if (!map.entrySet().contains(loc.getNeighbours().get(d))) {
-					Point offset = getOffset(d, viewingDir, x, y);
-//					System.out.println(d);
-					mapLocations(loc.getNeighbours().get(d), offset.x, offset.y, map, viewingDir);
+					Point offset = getOffset(d);
+					mapLocations(loc.getNeighbours().get(d), x + offset.x, y + offset.y, map);
 				}
 			}
-		}*/
+		}
 		return map;
 	}
-
-	public Point getOffset(Direction d, Direction viewingDirection, int x, int y){
-		Direction relative = Location.getRelativeDirection(d, viewingDirection);
-		System.out.println(d + " ----- " + relative);
-		relative = Location.oppositeDir(relative);
-		switch(relative){
+	
+	public Point getOffset(Direction d){
+		switch(d){
 			case NORTH:
-				return new Point(x, y + 1);
+				return new Point(0, 1);
 			case SOUTH:
-				return new Point(x, y - 1);
+				return new Point(0, -1);
 			case EAST:
-				return new Point(x + 1, y);
+				return new Point(1, 0);
 			case WEST:
-				return new Point(x - 1, y);
+				return new Point(-1, 0);
 		}
 		return null;
 	}
