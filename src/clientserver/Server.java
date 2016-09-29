@@ -228,6 +228,8 @@ public class Server {
 			}
 			// remove myself from the arrayList containing the list of the
 			// connected Clients
+			serverController.getPlayerByUserName(IDtoUsername.get(id)).setLoggedIn(false);
+			IDtoUsername.remove(id);
 			remove(id);
 			close();
 		}
