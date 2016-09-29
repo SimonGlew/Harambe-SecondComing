@@ -124,14 +124,14 @@ public class Location {
 				break;
 			case SOUTH:
 				turns = 2;
-				break;
+				break;	
 			case WEST:
 				turns = 3;
 				break;
 		}
 		Direction dir = d;
 		for(int i = 0; i < turns; i++){
-			d = counterClockwiseDir(d);
+			d = clockwiseDir(d);
 		}
 		return d;
 	}
@@ -164,6 +164,22 @@ public class Location {
 		}
 		if (d == Direction.SOUTH) {
 			return Direction.EAST;
+		}
+		return null;
+	}
+	
+	public static Direction oppositeDir(Direction d) {
+		if (d == Direction.NORTH) {
+			return Direction.SOUTH;
+		}
+		if (d == Direction.EAST) {
+			return Direction.WEST;
+		}
+		if (d == Direction.WEST) {
+			return Direction.EAST;
+		}
+		if (d == Direction.SOUTH) {
+			return Direction.NORTH;
 		}
 		return null;
 	}

@@ -146,7 +146,7 @@ public class WorldEditor {
 		if (dir != null) {
 			if (board.getLocationById(currentLocation).getNeighbours().get(dir) == null) {
 				board.getLocationById(currentLocation).getNeighbours().put(dir, createBlankLocation());
-				board.getLocationById(board.getLocationById(currentLocation).getNeighbours().get(dir)).getNeighbours().put(oppositeDir(dir), currentLocation);
+				board.getLocationById(board.getLocationById(currentLocation).getNeighbours().get(dir)).getNeighbours().put(Location.oppositeDir(dir), currentLocation);
 				Map<Point, Integer> map = board.mapLocations(currentLocation, 0, 0, new HashMap<Point, Integer>());
 				board.linkLocations(map);
 			} else {
@@ -180,19 +180,5 @@ public class WorldEditor {
 		return board.getLocationById(finalLoc);
 	}
 
-	public Direction oppositeDir(Direction d) {
-		if (d == Direction.NORTH) {
-			return Direction.SOUTH;
-		}
-		if (d == Direction.EAST) {
-			return Direction.WEST;
-		}
-		if (d == Direction.WEST) {
-			return Direction.EAST;
-		}
-		if (d == Direction.SOUTH) {
-			return Direction.NORTH;
-		}
-		return null;
-	}
+	
 }
