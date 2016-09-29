@@ -82,7 +82,7 @@ public class Player extends GameObject {
 		return inventory.add(item);
 	}
 
-	public BufferedImage getImage(Location loc, Position pos) {
+	public BufferedImage getImage(Location loc, Position pos, Direction viewingDir) {
 		System.out.println("Draw me?!?!");
 		String fname = IMG_PRE + facing.toString() + IMG_POST;
 		try {

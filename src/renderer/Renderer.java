@@ -86,33 +86,33 @@ public class Renderer {
 		int[] drawOrderY = null;
 		switch (viewingDir) {
 		case NORTH:
-			int[] tempX1 = {1, 1, 1, 0, 0, 0, -1, -1, -1};
-			int[] tempY1 = {-1, 0, 1, -1, 0, 1, -1, 0, 1};
+			int[] tempX1 = {-1, -1, 0, -1, 0, 1, 0, 0, 1};
+			int[] tempY1 = {1, 0, 1, -1, 0, 1, -1, 0, -1};
 			drawOrderX = tempX1;
 			drawOrderY = tempY1;
 			break;
 		case WEST:
-			int[] tempX2 = {0};
-			int[] tempY2 = {0};
+			int[] tempX2 = {-1, 0, -1, 1, 0, -1, 1, 0, 1};
+			int[] tempY2 = {-1, -1, 0, -1, 0, 1, 0, 1, 1};
 			drawOrderX = tempX2;
 			drawOrderY = tempY2;
 			break;
 		case SOUTH:
-			int[] tempX3 = {0};
-			int[] tempY3 = {0};
+			int[] tempX3 = {1, 1, 0, 1, 0, -1, 0, -1, -1};
+			int[] tempY3 = {-1, 0, -1, 1, 0, -1, 1, 0, 1};
 			drawOrderX = tempX3; 
 			drawOrderY = tempY3;
 			break;
 		case EAST:
-			int[] tempX4 = {0};
-			int[] tempY4 = {0};
+			int[] tempX4 = {1, 0, 1, -1, 0, 1, -1, 0, -1};
+			int[] tempY4 = {1, 1, 0, 1, 0, -1, 0, -1, -1};
 			drawOrderX = tempX4;
 			drawOrderY = tempY4;
 			break;
 		}
 		
 
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < drawOrderX.length; i++) {
 			Point p = new Point(drawOrderX[i], drawOrderY[i]);
 			System.out.println(p);
 			drawBoard(g, loc.getBoard(), map, w, h, p);
@@ -216,6 +216,7 @@ public class Renderer {
 	private void drawObject(Graphics2D g, Tile tile, Point iso, Location loc, Position pos) {
 		if (tile.getGameObject() != null) {
 			BufferedImage gameObject = tile.getGameObject().getImage(loc, pos, viewingDir);
+			System.out.println(tile.getGameObject());
 			g.drawImage(gameObject, iso.x, iso.y - gameObject.getHeight(), null);
 		}
 	}
