@@ -86,8 +86,8 @@ public class Renderer {
 		int[] drawOrderY = null;
 		switch (viewingDir) {
 		case NORTH:
-			int[] tempX1 = {1, 0, 1, -1, 0, 1, -1, 0, -1};
-			int[] tempY1 = {1, 1, 0, 0, 0, -1, 0, -1, -1};
+			int[] tempX1 = {1, 1, 1, 0, 0, 0, -1, -1, -1};
+			int[] tempY1 = {-1, 0, 1, -1, 0, 1, -1, 0, 1};
 			drawOrderX = tempX1;
 			drawOrderY = tempY1;
 			break;

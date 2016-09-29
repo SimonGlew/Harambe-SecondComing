@@ -94,7 +94,7 @@ public class Player extends GameObject {
 	}
 
 	public String toString() {
-		return "Player(" + userName + ")";
+		return "Player|" + userName;
 	}
 
 	public Position getPosition(){
