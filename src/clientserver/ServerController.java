@@ -21,35 +21,49 @@ public class ServerController {
 		return gameSystem.getBoard();
 	}
 
-	public boolean parseInput(PlayerCommand message) {
+	public String parseInput(PlayerCommand message) {
 		Scanner s = new Scanner(message.getMessage());
 
 		if (s.hasNext()) {
 			if (s.next().equals("move")) {
 				return parseMoveCommand(s);
+			}else if(s.next().equals("login")){
+				return parseLoginCommand(s);
 			}
 
 			s.close();
-			return false;
+			return "false";
 		}
 
 		s.close();
-		return false;
+		return "false";
+	}
+	
+	public String parseLoginCommand(Scanner s){
+		try{
+			if(getPlayerByUserName(s.next()) != null){
+				return "fail login";
+			}else{
+				return "true";
+			}
+		}catch(Exception e){
+			return "false";
+		}
 	}
 
-	public boolean parseMoveCommand(Scanner s){
+	public String parseMoveCommand(Scanner s){
 		try{
 		 Player player = getPlayerByUserName(s.next());
 		 Direction direction = convertToDirection(s.next());
 		 
-		 if(direction == null)return false;
-		 if(player == null)return false;		 
+		 if(direction == null)return "false";
+		 if(player == null)return "false";		 
 		 		 
 		 gameSystem.movePlayer(player, direction);
-		 return true;
+		 return "true";
 		 
 		}catch(Exception e){
-			return false;
+			return "false";
 		}
 	}
 	

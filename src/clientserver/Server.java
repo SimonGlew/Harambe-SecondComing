@@ -100,12 +100,12 @@ public class Server {
 	/*
 	 * to broadcast a message to all Clients
 	 */
-	private synchronized void broadcast(Board board) {
+	private synchronized void broadcast(Packet packet) {
 		for (int i = al.size(); --i >= 0;) {
 			ClientThread ct = al.get(i);
 			// try to write to the Client if it fails remove it from the
 			// list
-			if (!ct.writeToClient(board)) {
+			if (!ct.writeToClient(packet)) {
 				al.remove(i);
 				display("Disconnected Client " + ct.id + " removed from list.");
 			}
@@ -198,10 +198,12 @@ public class Server {
 				} catch (ClassNotFoundException e) {
 					break;
 				}
-				if (serverController.parseInput(cm)) {
+				if (serverController.parseInput(cm).equals("true")) {
 					// Switch on the type of message receive
 					//TODO: Some way of sending a board back, change broadcast method
-					broadcast(serverController.requestBoard());
+					broadcast(new Packet("board",serverController.requestBoard()));
+				}else if(serverController.parseInput(cm).equals("login fail")){
+					broadcast(new Packet("string","fail login"));
 				}
 			}
 			// remove myself from the arrayList containing the list of the
@@ -234,7 +236,7 @@ public class Server {
 		/*
 		 * Write a String to the Client output stream
 		 */
-		private boolean writeToClient(Board board) {
+		private boolean writeToClient(Packet packet) {
 			// if Client is still connected send the message to it
 			if (!socket.isConnected()) {
 				close();
@@ -242,7 +244,7 @@ public class Server {
 			}
 			// write the message to the stream
 			try {
-				sOutput.writeObject(board);
+				sOutput.writeObject(packet);
 			}
 			// if an error occurs, do not abort just inform the user
 			catch (IOException e) {
