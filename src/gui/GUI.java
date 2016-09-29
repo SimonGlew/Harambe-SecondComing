@@ -57,6 +57,10 @@ public class GUI implements KeyListener, ActionListener, MouseListener {
 		gameFrame.setVisible(true);
 		
 	}
+	
+	public void hideGUI(){
+		gameFrame.dispose();
+	}
 
 	public void prepareGUI(){
 		//Prepare different areas on gui

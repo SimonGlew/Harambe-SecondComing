@@ -6,6 +6,7 @@ import java.util.*;
 
 import core.Board;
 import core.GameSystem;
+import iohandling.BoardWriter;
 
 /*
  * The server that can be run both as a console application
@@ -192,6 +193,7 @@ public class Server {
 				// read a String (which is an object)
 				try {
 					cm = (PlayerCommand) sInput.readObject();
+					System.out.println(cm);
 				} catch (IOException e) {
 					display(id + " Exception reading Streams: " + e);
 					break;
@@ -199,11 +201,15 @@ public class Server {
 					break;
 				}
 				if (serverController.parseInput(cm).equals("true")) {
+					System.out.println("simon");
 					// Switch on the type of message receive
 					//TODO: Some way of sending a board back, change broadcast method
-					broadcast(new Packet("board",serverController.requestBoard()));
-				}else if(serverController.parseInput(cm).equals("login fail")){
-					broadcast(new Packet("string","fail login"));
+					broadcast(new Packet("board",BoardWriter.writeBoardToString(serverController.requestBoard()),null));
+				}else if(serverController.parseInput(cm).equals("fail login")){
+					System.out.println("banana");
+					broadcast(new Packet("string",null,"fail login"));
+				}else{
+					System.out.println("fail");
 				}
 			}
 			// remove myself from the arrayList containing the list of the
