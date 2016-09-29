@@ -27,6 +27,7 @@ public class Client {
 	private ClientController clientController;
 	private JFrame menu;
 	private String username;
+	private boolean loggedIn = false;
 
 	/*
 	 * Constructor called by console mode server: the server address port: the
@@ -40,6 +41,7 @@ public class Client {
 		this.username = username;
 		
 		if (!this.start()){
+			new Menu();
 			return;
 		}
 	}
@@ -54,7 +56,7 @@ public class Client {
 		}
 		// if it failed not much I can so
 		catch (Exception e) {
-			System.out.println("Error connectiong to server:" + e);
+			System.out.println("Error connecting to server:" + e);
 			return false;
 		}
 
@@ -72,7 +74,7 @@ public class Client {
 
 		// creates the Thread to listen from the server
 		new ListenFromServer().start();
-		menu.dispose();
+		sendMessage(new PlayerCommand("login " + this.username));
 		clientController = new ClientController(this);
 		return true;
 	}
@@ -123,9 +125,15 @@ public class Client {
 		public void run() {
 			while (true) {
 				try {
-					//TODO: This is where the client listens to server, need to add object here
-					Board board = (Board) sInput.readObject();
-					clientController.sendBoard(board);
+					Packet packet = (Packet) sInput.readObject();
+					if(packet.type.equals("board")){
+						menu.dispose();
+						clientController.sendBoard(packet.board);
+						loggedIn = true;
+					}else if(packet.type.equals("string")){
+						menu.dispose();
+						new Menu();
+					}
 				} catch (IOException e) {
 					System.out.println("Server has close the connection: " + e);
 					break;

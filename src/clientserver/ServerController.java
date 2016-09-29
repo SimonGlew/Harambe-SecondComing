@@ -27,6 +27,8 @@ public class ServerController {
 		if (s.hasNext()) {
 			if (s.next().equals("move")) {
 				return parseMoveCommand(s);
+			}else if(s.next().equals("login")){
+				return parseLoginCommand(s);
 			}
 
 			s.close();
@@ -35,6 +37,18 @@ public class ServerController {
 
 		s.close();
 		return false;
+	}
+	
+	public boolean parseLoginCommand(Scanner s){
+		try{
+			if(getPlayerByUserName(s.next()) != null){
+				return false;
+			}else{
+				return true;
+			}
+		}catch(Exception e){
+			return false;
+		}
 	}
 
 	public boolean parseMoveCommand(Scanner s){
