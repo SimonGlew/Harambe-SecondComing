@@ -1,10 +1,7 @@
 /clientserver/
-/gameobjects/
-/util/
 /core/
+/gui/
 /iohandling/
 /renderer/
-/exceptions/
-/gui/
-/tile/
 /worldeditor/
+/gameobjects/

@@ -130,7 +130,7 @@ public class Client {
 					System.out.println(packet.type);
 					if(packet.type.equals("board")){
 						menu.dispose();
-						clientController.sendBoard(BoardCreator.loadBoard(packet.board));
+						clientController.sendBoard(BoardCreator.loadBoardFromString((packet.board)));
 						loggedIn = true;
 					}else if(packet.type.equals("string")){
 						if(packet.message.equals("fail login")){
