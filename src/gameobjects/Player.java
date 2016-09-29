@@ -27,6 +27,8 @@ public class Player extends GameObject {
 
 	private final String IMG_PRE = "assets/game_objects/player/player";
 	private final String IMG_POST = ".png";
+	
+	private boolean loggedIn = false;
 
 	public Player(String name, int locationID, Position pos, Board board) {
 		this.locationID = locationID;
@@ -38,6 +40,14 @@ public class Player extends GameObject {
 
 	public String getUserName() {
 		return userName;
+	}	
+
+	public boolean isLoggedIn() {
+		return loggedIn;
+	}
+
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
 	}
 
 	public ArrayList<Item> getInventory() {

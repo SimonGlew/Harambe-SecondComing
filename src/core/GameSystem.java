@@ -12,7 +12,6 @@ import util.Position;
 
 public class GameSystem {
 
-	private Map<String, Player> players;
 	private Board board;
 
 	public enum Direction {
@@ -21,11 +20,6 @@ public class GameSystem {
 
 	public GameSystem() {
 		this.board = BoardCreator.loadBoard("map.txt");
-		this.players = new HashMap<String,Player>();
-	}
-
-	public Map<String,Player> getPlayers() {
-		return players;
 	}
 
 	public Board getBoard() {

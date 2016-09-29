@@ -101,14 +101,20 @@ public class Server {
 	/*
 	 * to broadcast a message to all Clients
 	 */
-	private synchronized void broadcast(Packet packet) {
+	private synchronized void broadcast(Packet packet, int id) {
 		for (int i = al.size(); --i >= 0;) {
 			ClientThread ct = al.get(i);
 			// try to write to the Client if it fails remove it from the
 			// list
-			if (!ct.writeToClient(packet)) {
-				al.remove(i);
-				display("Disconnected Client " + ct.id + " removed from list.");
+			if (packet.message == "fail login") {
+				if (ct.id == id) {
+					ct.writeToClient(packet);
+				}
+			} else {
+				if (!ct.writeToClient(packet)) {
+					al.remove(i);
+					display("Disconnected Client " + ct.id + " removed from list.");
+				}
 			}
 		}
 	}
@@ -203,12 +209,15 @@ public class Server {
 				if (serverController.parseInput(cm).equals("true")) {
 					System.out.println("simon");
 					// Switch on the type of message receive
-					//TODO: Some way of sending a board back, change broadcast method
-					broadcast(new Packet("board",BoardWriter.writeBoardToString(serverController.requestBoard()),null));
-				}else if(serverController.parseInput(cm).equals("fail login")){
+					// TODO: Some way of sending a board back, change broadcast
+					// method
+					broadcast(
+							new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null),
+							id);
+				} else if (serverController.parseInput(cm).equals("fail login")) {
 					System.out.println("banana");
-					broadcast(new Packet("string",null,"fail login"));
-				}else{
+					broadcast(new Packet("string", null, "fail login"), id);
+				} else {
 					System.out.println("fail");
 				}
 			}

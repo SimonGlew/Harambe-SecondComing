@@ -7,6 +7,7 @@ import core.GameSystem;
 import core.GameSystem.Direction;
 import exceptions.ParserException;
 import gameobjects.Player;
+import util.Position;
 
 public class ServerController {
 	private GameSystem gameSystem;
@@ -41,11 +42,25 @@ public class ServerController {
 	}
 	
 	public String parseLoginCommand(Scanner s){
+		System.out.println("yo bb we tryna login");
 		try{
 			String name = s.next();
-			if(false){
+			Player p = gameSystem.getBoard().getPlayer(name);
+			
+			if(p != null && p.isLoggedIn()){
 				return "fail login";
-			}else{
+			}else if(p != null && !p.isLoggedIn()){
+				gameSystem.getBoard().getLocationById(p.getLocation().getId()).getTileAtPosition(p.getTile().getPos()).setGameObject(p);
+				p.setLoggedIn(true);
+				return "true";
+			}
+			else{
+				System.out.println("im making a new player");
+				p = new Player(name,0, new Position(5,5), gameSystem.getBoard());
+				gameSystem.getBoard().addPlayer(name, p);
+				gameSystem.getBoard().getLocationById(p.getLocation().getId()).getTileAtPosition(p.getTile().getPos()).setGameObject(p);
+				System.out.println(gameSystem.getBoard().getLocationById(p.getLocation().getId()).getTileAtPosition(p.getTile().getPos()).getGameObject());
+				p.setLoggedIn(true);
 				return "true";
 			}
 		}catch(Exception e){
@@ -86,11 +101,6 @@ public class ServerController {
 	}
 	
 	public Player getPlayerByUserName(String name){
-		for(String s : gameSystem.getPlayers().keySet()){
-			if(s.equals(name)){
-				return gameSystem.getPlayers().get(s);
-			}
-		}
-		return null;
+		return gameSystem.getBoard().getPlayer(name);
 	}
 }
