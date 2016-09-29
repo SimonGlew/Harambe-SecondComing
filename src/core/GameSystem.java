@@ -39,19 +39,19 @@ public class GameSystem {
 		case NORTH:
 			newTile = playerLoc.getTileInDirection(playerPos, Direction.NORTH);
 			p.setFacing(Direction.NORTH);
-			
+			break;
 		case EAST:
 			newTile = playerLoc.getTileInDirection(playerPos, Direction.EAST);
 			p.setFacing(Direction.EAST);
-			
+			break;
 		case WEST:
 			newTile = playerLoc.getTileInDirection(playerPos, Direction.WEST);
 			p.setFacing(Direction.WEST);
-
+			break;
 		case SOUTH:
 			newTile = playerLoc.getTileInDirection(playerPos, Direction.SOUTH);
 			p.setFacing(Direction.SOUTH);
-
+			break;
 		}
 		
 		if(newTile != null){

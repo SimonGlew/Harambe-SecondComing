@@ -28,7 +28,6 @@ public class ServerController {
 		if (s.hasNext()) {
 			String action = s.next();
 			if (action.equals("move")) {
-				System.out.println("Tier 1");
 				return parseMoveCommand(s);
 			}else if(action.equals("login")){
 				return parseLoginCommand(s);
@@ -70,9 +69,6 @@ public class ServerController {
 		try{
 		 Player player = getPlayerByUserName(s.next());
 		 Direction direction = convertToDirection(s.next());
-		 
-		 System.out.println("Tier 2");
-		 System.out.println(player + " " + direction);
 		 
 		 if(direction == null)return "false";
 		 if(player == null)return "false";		

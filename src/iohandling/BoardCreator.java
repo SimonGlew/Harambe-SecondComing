@@ -58,7 +58,9 @@ public class BoardCreator {
 		Position pos = new Position(Integer.parseInt(split[2]), Integer.parseInt(split[3]));
 		Direction d = parseDirection(split[4]);
 
-		return new Player(username, 0, pos, board);
+		Player player = new Player(username, 0, pos, board);
+		player.setFacing(d);
+		return player;
 	}
 
 	private static Location parseLocation(Scanner scan, Board board) {

@@ -80,7 +80,6 @@ public class ClientController {
 			Tile t = loc.getTileAtPosition(p);
 			Direction d = loc.getDirOfTile(board.getPlayer(getName()).getPosition(), t);
 			if(d != null){
-				System.out.println(d);
 				String command = "move " + getName() + " " + d.toString();
 				sendMessage(new PlayerCommand(command));
 			}
