@@ -199,7 +199,6 @@ public class Server {
 				// read a String (which is an object)
 				try {
 					cm = (PlayerCommand) sInput.readObject();
-					System.out.println(cm);
 				} catch (IOException e) {
 					display(id + " Exception reading Streams: " + e);
 					break;
@@ -207,7 +206,6 @@ public class Server {
 					break;
 				}
 				if (serverController.parseInput(cm).equals("true")) {
-					System.out.println("simon");
 					// Switch on the type of message receive
 					// TODO: Some way of sending a board back, change broadcast
 					// method
@@ -215,7 +213,6 @@ public class Server {
 							new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null),
 							id);
 				} else if (serverController.parseInput(cm).equals("fail login")) {
-					System.out.println("banana");
 					broadcast(new Packet("string", null, "fail login"), id);
 				} else {
 					System.out.println("fail");

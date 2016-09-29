@@ -37,7 +37,6 @@ public class BoardCreator {
 				if (scan.hasNext("Player")) {
 					Player player = parsePlayer(scan, board);
 					board.addPlayer(player.getUserName(), player);
-					System.out.println(player.getUserName());
 				}
 				if (scan.hasNext("Location")) {
 					Location loc = parseLocation(scan, board);
@@ -106,7 +105,6 @@ public class BoardCreator {
 					if (object.startsWith("Player|")) {
 						String username = object.substring(7);
 						gameObject = board.getPlayer(username);
-						System.out.println(gameObject);
 					} else {
 						switch (object) {
 						case "Tree":
@@ -172,7 +170,6 @@ public class BoardCreator {
 			if (scan.hasNext("Player")) {
 				Player player = parsePlayer(scan, board);
 				board.addPlayer(player.getUserName(), player);
-				System.out.println(player.getUserName());
 			}
 			if (scan.hasNext("Location")) {
 				Location loc = parseLocation(scan, board);

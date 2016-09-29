@@ -1,2 +1,5 @@
 /renderer/
 /gameobjects/
+/clientserver/
+/gui/
+/iohandling/

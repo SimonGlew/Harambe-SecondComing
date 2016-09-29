@@ -42,7 +42,6 @@ public class ServerController {
 	}
 	
 	public String parseLoginCommand(Scanner s){
-		System.out.println("yo bb we tryna login");
 		try{
 			String name = s.next();
 			Player p = gameSystem.getBoard().getPlayer(name);
@@ -55,11 +54,9 @@ public class ServerController {
 				return "true";
 			}
 			else{
-				System.out.println("im making a new player");
 				p = new Player(name,0, new Position(5,5), gameSystem.getBoard());
 				gameSystem.getBoard().addPlayer(name, p);
 				gameSystem.getBoard().getLocationById(p.getLocation().getId()).getTileAtPosition(p.getTile().getPos()).setGameObject(p);
-				System.out.println(gameSystem.getBoard().getLocationById(p.getLocation().getId()).getTileAtPosition(p.getTile().getPos()).getGameObject());
 				p.setLoggedIn(true);
 				return "true";
 			}

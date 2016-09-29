@@ -35,7 +35,6 @@ public class ClientController {
 	public void rotateLeft() {
 		// rotate camera left
 		renderer.rotateClockwise();
-		System.out.println("rotate left");
 		drawBoard();
 	}
 
@@ -43,7 +42,6 @@ public class ClientController {
 		renderer.rotateCounterClockwise();
 
 		// rotate camera right
-		System.out.println("rotate right");
 		drawBoard();
 	}
 
@@ -58,7 +56,6 @@ public class ClientController {
 	}
 
 	public void sendBoard(Board board) {
-		System.out.println(board.getLocationById(0).getTileAtPosition(new Position(5,5)).getGameObject());
 		this.board = board;
 		drawBoard();
 	}

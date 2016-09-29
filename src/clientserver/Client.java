@@ -62,7 +62,6 @@ public class Client {
 		}
 
 		String msg = "Connection accepted " + socket.getInetAddress() + ":" + socket.getPort();
-		System.out.println(msg);
 
 		/* Creating both Data Stream */
 		try {
@@ -127,7 +126,6 @@ public class Client {
 			while (true) {
 				try {
 					Packet packet = (Packet) sInput.readObject();
-					System.out.println(packet.type);
 					if(packet.type.equals("board")){
 						menu.dispose();
 						clientController.sendBoard(BoardCreator.loadBoardFromString(packet.board));

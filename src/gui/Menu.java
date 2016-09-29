@@ -142,9 +142,6 @@ public class Menu implements MouseListener, ActionListener{
 		String serverAddress = this.address.getText();
 		String username = this.playerName.getText();
 
-		System.out.println("PortNum: " + portNum + "\n");
-		System.out.println("Server Address: " + serverAddress + "\n");
-		System.out.println("Username: " + username + "\n");
 
 		if(portNum != null){
 			Client c = new Client(serverAddress, portNum, username, menuFrame);

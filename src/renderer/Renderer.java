@@ -81,7 +81,6 @@ public class Renderer {
 		g.setColor(new Color(5, 26, 37));
 		g.fillRect(0, 0, image.getWidth(), image.getHeight());
 		Map<Point, Integer> map = loc.getBoard().mapLocations(loc.getId(), 0, 0, new HashMap<Point, Integer>());
-		System.out.println(map);
 		int[] drawOrderX = null;
 		int[] drawOrderY = null;
 		switch (viewingDir) {
@@ -114,7 +113,6 @@ public class Renderer {
 
 		for (int i = 0; i < drawOrderX.length; i++) {
 			Point p = new Point(drawOrderX[i], drawOrderY[i]);
-			System.out.println(p);
 			drawBoard(g, loc.getBoard(), map, w, h, p);
 		}
 		xCenter = w / 2;
@@ -216,7 +214,6 @@ public class Renderer {
 	private void drawObject(Graphics2D g, Tile tile, Point iso, Location loc, Position pos) {
 		if (tile.getGameObject() != null) {
 			BufferedImage gameObject = tile.getGameObject().getImage(loc, pos, viewingDir);
-			System.out.println(tile.getGameObject());
 			g.drawImage(gameObject, iso.x, iso.y - gameObject.getHeight(), null);
 		}
 	}
@@ -374,12 +371,10 @@ public class Renderer {
 
 	public void rotateCounterClockwise() {
 		viewingDir = clockwiseDir(viewingDir);
-		System.out.println(viewingDir);
 	}
 
 	public void rotateClockwise() {
 		viewingDir = counterClockwiseDir(viewingDir);
-		System.out.println(viewingDir);
 
 	}
 }

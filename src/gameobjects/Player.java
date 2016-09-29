@@ -83,7 +83,6 @@ public class Player extends GameObject {
 	}
 
 	public BufferedImage getImage(Location loc, Position pos, Direction viewingDir) {
-		System.out.println("Draw me?!?!");
 		String fname = IMG_PRE + facing.toString() + IMG_POST;
 		try {
 			image = ImageIO.read(new File(fname));
