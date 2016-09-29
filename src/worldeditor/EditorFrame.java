@@ -73,10 +73,12 @@ public class EditorFrame extends JFrame {
 			editor.selectTile(selected);
 			editor.selectLocation(null);
 			if (tile == null) {
+				editor.selectTile(null);
 				if (selected.getX() >= 0 && selected.getX() < loc.getTiles().length) {
 					if (selected.getY() < 0) {
 						editor.selectLocation(GameSystem.Direction.NORTH);
 					}
+
 					if (selected.getY() > loc.getTiles()[0].length) {
 						editor.selectLocation(GameSystem.Direction.SOUTH);
 					}
@@ -85,6 +87,7 @@ public class EditorFrame extends JFrame {
 					if (selected.getX() < 0) {
 						editor.selectLocation(GameSystem.Direction.WEST);
 					}
+					
 					if (selected.getX() > loc.getTiles().length) {
 						editor.selectLocation(GameSystem.Direction.EAST);
 					}
