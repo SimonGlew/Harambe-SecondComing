@@ -97,7 +97,7 @@ public class Renderer {
 		for (int i = 0; i < drawOrderX.length; i++) {
 			Point p = new Point(drawOrderX[i], drawOrderY[i]);
 			System.out.println(p);
-			drawBoard(g, loc.getBoard(), map, w, h, new Point(drawOrderX[i], drawOrderY[i]));
+			drawBoard(g, loc.getBoard(), map, w, h, p);
 		}
 		xCenter = w / 2;
 		yCenter = h / 2;
@@ -131,6 +131,7 @@ public class Renderer {
 		for (int i = 0; i < board.getLocationById(map.get(p)).getTiles().length; i++) {
 			for (int j = 0; j < board.getLocationById(map.get(p)).getTiles()[0].length; j++) {
 				Point iso = twoDToIso((int) (i + p.getX() * 10), (int) (j - p.getY() * 10));
+				System.out.println(iso);
 				drawTile(g, board.getLocationById(map.get(p)).getTiles()[i][j], iso, board.getLocationById(map.get(p)),
 						new Position(i, j));
 			}

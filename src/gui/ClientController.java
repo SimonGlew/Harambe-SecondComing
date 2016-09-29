@@ -17,6 +17,10 @@ public class ClientController {
 		renderer = new Renderer();
 		drawBoard();
 	}
+	
+	public void hideGUI(){
+		gui.hideGUI();
+	}
 
 	public String getName(){
 		return client.getUsername();

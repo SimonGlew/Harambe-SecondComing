@@ -25,9 +25,10 @@ public class ServerController {
 		Scanner s = new Scanner(message.getMessage());
 
 		if (s.hasNext()) {
-			if (s.next().equals("move")) {
+			String action = s.next();
+			if (action.equals("move")) {
 				return parseMoveCommand(s);
-			}else if(s.next().equals("login")){
+			}else if(action.equals("login")){
 				return parseLoginCommand(s);
 			}
 
@@ -41,7 +42,8 @@ public class ServerController {
 	
 	public String parseLoginCommand(Scanner s){
 		try{
-			if(getPlayerByUserName(s.next()) != null){
+			String name = s.next();
+			if(false){
 				return "fail login";
 			}else{
 				return "true";

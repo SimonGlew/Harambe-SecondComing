@@ -150,7 +150,7 @@ public class WorldEditor {
 			if (board.getLocationById(currentLocation).getNeighbours().get(dir) == null) {
 				board.getLocationById(currentLocation).getNeighbours().put(dir, createBlankLocation());
 				board.getLocationById(board.getLocationById(currentLocation).getNeighbours().get(dir)).getNeighbours().put(Location.oppositeDir(dir), currentLocation);
-				Map<Point, Integer> map = board.mapLocations(currentLocation, 0, 0, new HashMap<Point, Integer>(), Direction.NORTH);
+				Map<Point, Integer> map = board.mapLocations(currentLocation, 0, 0, new HashMap<Point, Integer>());
 				board.linkLocations(map);
 			} else {
 				currentLocation = board.getLocationById(currentLocation).getNeighbours().get(dir);

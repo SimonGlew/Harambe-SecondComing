@@ -10,6 +10,7 @@ import core.Board;
 import gui.ClientController;
 import gui.GUI;
 import gui.Menu;
+import iohandling.BoardCreator;
 
 /*
  * The Client running through console
@@ -73,9 +74,9 @@ public class Client {
 		}
 
 		// creates the Thread to listen from the server
+		clientController = new ClientController(this);
 		new ListenFromServer().start();
 		sendMessage(new PlayerCommand("login " + this.username));
-		clientController = new ClientController(this);
 		return true;
 	}
 
@@ -126,14 +127,17 @@ public class Client {
 			while (true) {
 				try {
 					Packet packet = (Packet) sInput.readObject();
+					System.out.println(packet.type);
 					if(packet.type.equals("board")){
 						menu.dispose();
-						Board b = (Board) packet.board;
-						clientController.sendBoard(b);
+						clientController.sendBoard(BoardCreator.loadBoard(packet.board));
 						loggedIn = true;
 					}else if(packet.type.equals("string")){
-						menu.dispose();
-						new Menu();
+						if(packet.message.equals("fail login")){
+							clientController.hideGUI();
+							menu.dispose();
+							new Menu();
+						}
 					}
 				} catch (IOException e) {
 					System.out.println("Server has close the connection: " + e);
