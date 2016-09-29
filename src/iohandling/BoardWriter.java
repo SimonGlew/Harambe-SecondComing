@@ -7,12 +7,16 @@ import java.io.PrintWriter;
 import core.Board;
 import core.GameSystem.Direction;
 import core.Location;
+import gameobjects.Player;
 
 public class BoardWriter {
 
 	public static void writeBoard(Board b, String fname) {
 		try {
 			PrintWriter print = new PrintWriter(new File(fname));
+			for(Player player : b.getPlayers().values()){
+				print.println(player.toSaveString());
+			}
 			for (Location loc : b.getLocations().values()) {
 				print.println("Location");
 				print.println("id:" + loc.getId());
@@ -44,6 +48,9 @@ public class BoardWriter {
 	public static String writeBoardToString(Board b) {
 
 		StringBuilder print = new StringBuilder();
+		for(Player player : b.getPlayers().values()){
+			print.append(player.toSaveString() + "\n");
+		}
 		for (Location loc : b.getLocations().values()) {
 			print.append("Location" + "\n");
 			print.append("id:" + loc.getId() + "\n");

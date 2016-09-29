@@ -87,8 +87,11 @@ public class Player extends GameObject {
 		return "Player(" + userName + ")";
 	}
 
+	public Position getPosition(){
+		return pos;
+	}
+	
 	public String toSaveString() {
-		return userName + "," + locationID + "," + pos.getX() + "," + pos.getY() + "," + facing.toString()
-				+ "," + numOfBananas;
+		return "Player " + userName + "," + locationID + "," + pos.getX() + "," + pos.getY() + "," + facing.toString();
 	}
 }

@@ -55,7 +55,6 @@ public class BoardCreator {
 		String line = scan.nextLine().trim();
 		String[] split = line.split(",");
 		String username = split[0];
-		System.out.println(username);
 		int locationID = Integer.parseInt(split[1]);
 		Position pos = new Position(Integer.parseInt(split[2]), Integer.parseInt(split[3]));
 		Direction d = parseDirection(split[4]);

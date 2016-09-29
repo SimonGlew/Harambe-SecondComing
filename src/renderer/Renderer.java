@@ -68,7 +68,6 @@ public class Renderer {
 				break;
 		}
 		
-
 		for (int i = 0; i < drawOrderX.length; i++) {
 			drawBoard(g, board, map, w, h, new Point(drawOrderX[i], drawOrderY[i]));
 		}
@@ -82,19 +81,38 @@ public class Renderer {
 		g.setColor(new Color(5, 26, 37));
 		g.fillRect(0, 0, image.getWidth(), image.getHeight());
 		Map<Point, Integer> map = loc.getBoard().mapLocations(loc.getId(), 0, 0, new HashMap<Point, Integer>());
+		System.out.println(map);
 		int[] drawOrderX = null;
 		int[] drawOrderY = null;
 		switch (viewingDir) {
-			case NORTH:
-				int[] tempX = { -1, 0, -1, 1, 0, -1, 1, 0, 1 };
-				int[] tempY = { -1, 0, -1, 1, 0, -1, 1, 0, 1 };
-				drawOrderX = tempX;
-				drawOrderY = tempY;
-				break;
+		case NORTH:
+			int[] tempX1 = {1, 0, 1, -1, 0, 1, -1, 0, -1};
+			int[] tempY1 = {1, 1, 0, 0, 0, -1, 0, -1, -1};
+			drawOrderX = tempX1;
+			drawOrderY = tempY1;
+			break;
+		case WEST:
+			int[] tempX2 = {0};
+			int[] tempY2 = {0};
+			drawOrderX = tempX2;
+			drawOrderY = tempY2;
+			break;
+		case SOUTH:
+			int[] tempX3 = {0};
+			int[] tempY3 = {0};
+			drawOrderX = tempX3; 
+			drawOrderY = tempY3;
+			break;
+		case EAST:
+			int[] tempX4 = {0};
+			int[] tempY4 = {0};
+			drawOrderX = tempX4;
+			drawOrderY = tempY4;
+			break;
 		}
 		
 
-		for (int i = 0; i < drawOrderX.length; i++) {
+		for (int i = 0; i < 9; i++) {
 			Point p = new Point(drawOrderX[i], drawOrderY[i]);
 			System.out.println(p);
 			drawBoard(g, loc.getBoard(), map, w, h, p);
@@ -131,7 +149,6 @@ public class Renderer {
 		for (int i = 0; i < board.getLocationById(map.get(p)).getTiles().length; i++) {
 			for (int j = 0; j < board.getLocationById(map.get(p)).getTiles()[0].length; j++) {
 				Point iso = twoDToIso((int) (i + p.getX() * 10), (int) (j - p.getY() * 10));
-				System.out.println(iso);
 				drawTile(g, board.getLocationById(map.get(p)).getTiles()[i][j], iso, board.getLocationById(map.get(p)),
 						new Position(i, j));
 			}

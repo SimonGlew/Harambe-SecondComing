@@ -72,11 +72,9 @@ public class Board {
 
 	public Map<Point, Integer> mapLocations(int id, int x, int y, Map<Point, Integer> map) {
 		Location loc = getLocationById(id);
-
 		if (map.containsKey(new Point(x, y))) {
 			return map;
 		}
-
 		map.put(new Point(x, y), id);
 		for (Direction d : Direction.values()) {
 			if (loc.getNeighbours().keySet().contains(d)) {
@@ -88,17 +86,17 @@ public class Board {
 		}
 		return map;
 	}
-	
-	public Point getOffset(Direction d){
-		switch(d){
-			case NORTH:
-				return new Point(0, 1);
-			case SOUTH:
-				return new Point(0, -1);
-			case EAST:
-				return new Point(1, 0);
-			case WEST:
-				return new Point(-1, 0);
+
+	public Point getOffset(Direction d) {
+		switch (d) {
+		case NORTH:
+			return new Point(0, 1);
+		case SOUTH:
+			return new Point(0, -1);
+		case EAST:
+			return new Point(1, 0);
+		case WEST:
+			return new Point(-1, 0);
 		}
 		return null;
 	}
@@ -109,5 +107,9 @@ public class Board {
 
 	public Player getPlayer(String username) {
 		return players.get(username);
+	}
+
+	public Map<String, Player> getPlayers() {
+		return players;
 	}
 }
