@@ -6,6 +6,7 @@ import java.util.*;
 
 import core.Board;
 import core.GameSystem;
+import gameobjects.Player;
 import iohandling.BoardWriter;
 
 /*
@@ -227,11 +228,13 @@ public class Server {
 			}
 			// remove myself from the arrayList containing the list of the
 			// connected Clients
-			serverController.getPlayerByUserName(IDtoUsername.get(id)).setLoggedIn(false);
-			//System.out.println(serverController.getPlayerByUserName(IDtoUsername.get(id)).isLoggedIn() + " " + id + " " + serverController.getPlayerByUserName(IDtoUsername.get(id)));
-			IDtoUsername.remove(id);
+			Player p = serverController.getPlayerByUserName(IDtoUsername.get(id));
+			if (p != null) {
+				p.setLoggedIn(false);
+				IDtoUsername.remove(id);
+				p.getTile().setGameObject(null);
+			}
 			remove(id);
-			close();
 		}
 
 		// try to close everything
