@@ -1,5 +1,6 @@
 package core;
 
+import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -110,7 +111,39 @@ public class Location {
 	}
 
 	public Tile getTileAtPosition(Position pos) {
-		return tiles[pos.getX()][pos.getY()];
+		Point p = new Point(pos.getX()/10, pos.getY()/10);
+		if(pos.getX() < 0){
+			p.x = p.x - 1;
+		}
+		if(pos.getY() < 0){
+			p.y = p.y - 1;
+		}
+		if(p.equals(new Point(0, 0))){
+			return tiles[pos.getX()][pos.getY()];
+		}
+		Map<Point, Integer> map = board.mapLocations(id, 0, 0, new HashMap<Point, Integer>());
+		Location newLoc = board.getLocationById(map.get(p));
+		if(newLoc != null){
+			return newLoc.getTileAtPosition(new Position((int)(pos.getX() + p.getX()), (int)(pos.getY() + p.getY())));
+		}
+		return null;
+	}
+	
+	public Direction getDirOfTile(Position from, Tile t){
+		if(getTileInDirection(from, Direction.NORTH)==t){
+			return Direction.NORTH;
+		}
+		if(getTileInDirection(from, Direction.SOUTH)==t){
+			return Direction.SOUTH;
+		}
+		if(getTileInDirection(from, Direction.EAST)==t){
+			return Direction.EAST;
+		}
+		if(getTileInDirection(from, Direction.WEST)==t){
+			return Direction.WEST;
+		}
+		
+		return null;
 	}
 	
 	public static Direction getRelativeDirection(Direction d, Direction viewing){

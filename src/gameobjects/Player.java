@@ -103,4 +103,8 @@ public class Player extends GameObject {
 	public String toSaveString() {
 		return "Player " + userName + "," + locationID + "," + pos.getX() + "," + pos.getY() + "," + facing.toString();
 	}
+
+	public void setPosition(Position position) {
+		pos = position;
+	}
 }

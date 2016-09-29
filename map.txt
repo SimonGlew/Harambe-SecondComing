@@ -3,8 +3,8 @@ id:0
 name:
 w:10
 h:10
-WEST:1
 NORTH:6
+WEST:1
 Grass:Tree,Grass:Tree,Grass:Tree,Grass:Tree,Wood:Tree,Wood:Tree,Grass:Tree,Grass:Tree,Grass:Tree,Grass:Tree,
 
 Grass:Tree,Grass:Tree,Grass:Fence,Grass:Fence,Stone,Stone,Grass:Fence,Grass:Fence,Grass:Tree,Grass:Tree,
@@ -30,8 +30,8 @@ id:1
 name:
 w:10
 h:10
-SOUTH:5
 EAST:0
+SOUTH:5
 WEST:2
 Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,Grass,
 
@@ -58,9 +58,9 @@ id:2
 name:
 w:10
 h:10
-SOUTH:3
 EAST:1
 NORTH:4
+SOUTH:3
 Water,Water,Sand,Sand,Sand,Sand,Grass,Grass,Grass:Fence,Grass,
 
 Water,Water,Water,Sand,Sand,Sand,Grass:Tree,Grass,Grass:Fence,Grass:Fence,
@@ -139,8 +139,8 @@ id:5
 name:
 w:10
 h:10
-WEST:3
 NORTH:1
+WEST:3
 Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,Stone,Stone,Grass:Fence,Grass:Fence,Grass:Fence,Grass:Fence,
 
 Grass,Grass,Grass,Grass,Stone,Stone,Grass,Grass,Grass,Grass:Fence,

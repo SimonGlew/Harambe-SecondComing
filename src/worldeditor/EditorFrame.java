@@ -3,7 +3,6 @@ package worldeditor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -57,36 +56,36 @@ public class EditorFrame extends JFrame {
 		@Override
 		public void mouseDragged(MouseEvent e) {
 			Location loc = editor.board.getLocationById(editor.currentLocation);
-			Point selected = editor.renderer.isoToIndex(e.getX(), e.getY());
+			Position selected = editor.renderer.isoToIndex(e.getX(), e.getY());
 			editor.selectTile(selected);
 			if (e.getButton() == 1 || e.getButton() == 0) {
-				editor.processTile(selected.x, selected.y);
+				editor.processTile(selected.getX(), selected.getY());
 			} else if (e.getButton() == 3) {
-				editor.clearTile(selected.x, selected.y);
+				editor.clearTile(selected.getX(), selected.getY());
 			}
 		}
 
 		@Override
 		public void mouseMoved(MouseEvent e) {
 			Location loc = editor.board.getLocationById(editor.currentLocation);
-			Point selected = editor.renderer.isoToIndex(e.getX(), e.getY());
-			Tile tile = editor.renderer.getTileAtPos(new Position(selected.x, selected.y), loc);
+			Position selected = editor.renderer.isoToIndex(e.getX(), e.getY());
+			Tile tile = editor.renderer.getTileAtPos(selected, loc);
 			editor.selectTile(selected);
 			editor.selectLocation(null);
 			if (tile == null) {
-				if (selected.x >= 0 && selected.x < loc.getTiles().length) {
-					if (selected.y < 0) {
+				if (selected.getX() >= 0 && selected.getX() < loc.getTiles().length) {
+					if (selected.getY() < 0) {
 						editor.selectLocation(GameSystem.Direction.NORTH);
 					}
-					if (selected.y > loc.getTiles()[0].length) {
+					if (selected.getY() > loc.getTiles()[0].length) {
 						editor.selectLocation(GameSystem.Direction.SOUTH);
 					}
 				}
-				if (selected.y >= 0 && selected.y < loc.getTiles()[0].length) {
-					if (selected.x < 0) {
+				if (selected.getY() >= 0 && selected.getY() < loc.getTiles()[0].length) {
+					if (selected.getX() < 0) {
 						editor.selectLocation(GameSystem.Direction.WEST);
 					}
-					if (selected.x > loc.getTiles().length) {
+					if (selected.getX() > loc.getTiles().length) {
 						editor.selectLocation(GameSystem.Direction.EAST);
 					}
 				}
@@ -111,30 +110,30 @@ public class EditorFrame extends JFrame {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			Location loc = editor.board.getLocationById(editor.currentLocation);
-			Point selected = editor.renderer.isoToIndex(e.getX(), e.getY());
-			if(editor.renderer.getTileAtPos(new Position(selected.x, selected.y), loc) == null){
-				if (selected.x >= 0 && selected.x < loc.getTiles().length) {
-					if (selected.y < 0) {
+			Position selected = editor.renderer.isoToIndex(e.getX(), e.getY());
+			if(editor.renderer.getTileAtPos(new Position(selected.getX(), selected.getY()), loc) == null){
+				if (selected.getX() >= 0 && selected.getX() < loc.getTiles().length) {
+					if (selected.getY() < 0) {
 						editor.clickLocation(GameSystem.Direction.NORTH);
 					}
-					if (selected.y > loc.getTiles()[0].length) {
+					if (selected.getY() > loc.getTiles()[0].length) {
 						editor.clickLocation(GameSystem.Direction.SOUTH);
 					}
 				}
-				if (selected.y >= 0 && selected.y < loc.getTiles()[0].length) {
-					if (selected.x < 0) {
+				if (selected.getY() >= 0 && selected.getY() < loc.getTiles()[0].length) {
+					if (selected.getX() < 0) {
 						editor.clickLocation(GameSystem.Direction.WEST);
 					}
-					if (selected.x > loc.getTiles().length) {
+					if (selected.getX() > loc.getTiles().length) {
 						editor.clickLocation(GameSystem.Direction.EAST);
 					}
 				}
 			}
 			editor.selectTile(selected);
 			if (e.getButton() == 1) {
-				editor.processTile(selected.x, selected.y);
+				editor.processTile(selected.getX(), selected.getY());
 			} else if (e.getButton() == 3) {
-				editor.clearTile(selected.x, selected.y);
+				editor.clearTile(selected.getX(), selected.getY());
 			}
 		}
 

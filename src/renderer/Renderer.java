@@ -60,16 +60,36 @@ public class Renderer {
 		int[] drawOrderX = null;
 		int[] drawOrderY = null;
 		switch (viewingDir) {
-			case NORTH:
-				int[] tempX = { -1, 0, -1, 1, 0, -1, 1, 0, 1 };
-				int[] tempY = { -1, 0, -1, 1, 0, -1, 1, 0, 1 };
-				drawOrderX = tempX;
-				drawOrderY = tempY;
-				break;
+		case NORTH:
+			int[] tempX1 = {-1, -1, 0, -1, 0, 1, 0, 0, 1};
+			int[] tempY1 = {1, 0, 1, -1, 0, 1, -1, 0, -1};
+			drawOrderX = tempX1;
+			drawOrderY = tempY1;
+			break;
+		case WEST:
+			int[] tempX2 = {-1, 0, -1, 1, 0, -1, 1, 0, 1};
+			int[] tempY2 = {-1, -1, 0, -1, 0, 1, 0, 1, 1};
+			drawOrderX = tempX2;
+			drawOrderY = tempY2;
+			break;
+		case SOUTH:
+			int[] tempX3 = {1, 1, 0, 1, 0, -1, 0, -1, -1};
+			int[] tempY3 = {-1, 0, -1, 1, 0, -1, 1, 0, 1};
+			drawOrderX = tempX3; 
+			drawOrderY = tempY3;
+			break;
+		case EAST:
+			int[] tempX4 = {1, 0, 1, -1, 0, 1, -1, 0, -1};
+			int[] tempY4 = {1, 1, 0, 1, 0, -1, 0, -1, -1};
+			drawOrderX = tempX4;
+			drawOrderY = tempY4;
+			break;
 		}
 		
+
 		for (int i = 0; i < drawOrderX.length; i++) {
-			drawBoard(g, board, map, w, h, new Point(drawOrderX[i], drawOrderY[i]));
+			Point p = new Point(drawOrderX[i], drawOrderY[i]);
+			drawBoard(g, board, map, w, h, p);
 		}
 
 		return image;
@@ -302,9 +322,15 @@ public class Renderer {
 		new Renderer();
 	}
 
-	public Point isoToIndex(int x, int y) {
+	public Position isoToIndex(int x, int y) {
 		Point twoD = isoTo2D(x, y);
-		Point index = new Point((twoD.x + TILE_WIDTH / 2) / TILE_WIDTH,
+		if(twoD.x < 0){
+			twoD.x = twoD.x - TILE_WIDTH;
+		}
+		if(twoD.y < 0){
+			twoD.y = twoD.y - TILE_WIDTH;
+		}
+		Position index = new Position((twoD.x + TILE_WIDTH / 2) / TILE_WIDTH,
 				(int) ((twoD.y + 1.5 * TILE_WIDTH)) / TILE_WIDTH);
 		return index;
 	}

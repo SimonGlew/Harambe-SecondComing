@@ -105,6 +105,7 @@ public class BoardCreator {
 					if (object.startsWith("Player|")) {
 						String username = object.substring(7);
 						gameObject = board.getPlayer(username);
+						board.getPlayer(username).setPosition(new Position(i, j));
 					} else {
 						switch (object) {
 						case "Tree":

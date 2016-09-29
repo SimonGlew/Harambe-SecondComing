@@ -18,6 +18,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.util.Map;
@@ -34,7 +35,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
-public class GUI implements KeyListener, ActionListener, MouseListener {
+public class GUI implements KeyListener, ActionListener, MouseListener, MouseMotionListener {
 	ClientController controller;
 	JFrame gameFrame;
 	JLabel gameLabel;
@@ -51,6 +52,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener {
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setResizable(false);
 		gameFrame.addMouseListener(this);
+		gameFrame.addMouseMotionListener(this);
 
 		prepareGUI();
 
@@ -216,6 +218,15 @@ public class GUI implements KeyListener, ActionListener, MouseListener {
 			if(x >= 1020 && x <= 1070) controller.rotateLeft(); //rotate left
 			else if(x >= 1075 && x <= 1125) controller.rotateRight(); //rotate right
 		}
+		if(y > gameFrame.getHeight() - gameLabel.getHeight()){
+			if(x > 0 && x < 1000){
+				controller.moveTo(x, y - (gameFrame.getHeight() - gameLabel.getHeight()));
+			}
+		}
+	}
+	
+	private void checkMoved(int x, int y) {
+		controller.selectTile(x, y - (gameFrame.getHeight() - gameLabel.getHeight()));
 	}
 
 	
@@ -255,5 +266,13 @@ public class GUI implements KeyListener, ActionListener, MouseListener {
 	public void mouseExited(MouseEvent arg0) {}
 	@Override
 	public void mousePressed(MouseEvent arg0) {}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		checkMoved(e.getX(), e.getY());
+	}
 
 }

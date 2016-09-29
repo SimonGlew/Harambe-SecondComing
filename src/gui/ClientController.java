@@ -1,9 +1,14 @@
 package gui;
 
+import java.awt.Point;
+
 import clientserver.*;
 import core.Board;
+import core.GameSystem.Direction;
+import core.Location;
 import iohandling.BoardCreator;
 import renderer.Renderer;
+import tile.Tile;
 import util.Position;
 
 public class ClientController {
@@ -51,7 +56,7 @@ public class ClientController {
 
 	public void drawBoard() {
 		if (board != null) {
-			gui.showBoard(renderer.paintLocation(board.getLocationById(0), 1000, 800));
+			gui.showBoard(renderer.paintBoard(board, board.getPlayer(client.getUsername()), 1000, 800));
 		}
 	}
 
@@ -59,4 +64,29 @@ public class ClientController {
 		this.board = board;
 		drawBoard();
 	}
+
+	public void selectTile(int x, int y) {
+		if (board != null) {
+			Position p = renderer.isoToIndex(x, y);
+			Tile t = board.getPlayer(getName()).getLocation().getTileAtPosition(p);
+			renderer.selectTile(t);
+			drawBoard();
+		}
+	}
+
+	public void moveTo(int x, int y) {
+		if (board != null) {
+			Position p = renderer.isoToIndex(x, y);
+			Location loc = board.getPlayer(getName()).getLocation();
+			Tile t = loc.getTileAtPosition(p);
+			Direction d = loc.getDirOfTile(board.getPlayer(getName()).getPosition(), t);
+			if(d != null){
+				System.out.println(d);
+				String command = "";
+				//SEND MOVE COMMAND HERE
+			}
+			drawBoard();
+		}
+	}
+
 }
