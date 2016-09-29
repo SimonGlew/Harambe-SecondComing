@@ -29,8 +29,10 @@ public class Renderer {
 	private Tile selected;
 	BufferedImage highlightTile;
 	BufferedImage highlightLocation;
+	BufferedImage playerSelect;
 	Direction selectedLocation = null;
 
+	
 	Direction viewingDir = Direction.NORTH;
 
 	final int TILE_WIDTH = 45;
@@ -44,6 +46,7 @@ public class Renderer {
 		try {
 			highlightTile = ImageIO.read(new File("assets/renderer/highlightTile.png"));
 			highlightLocation = ImageIO.read(new File("assets/renderer/highlightLocation.png"));
+			playerSelect = ImageIO.read(new File("assets/renderer/playerSelect.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -89,7 +92,7 @@ public class Renderer {
 
 		for (int i = 0; i < drawOrderX.length; i++) {
 			Point p = new Point(drawOrderX[i], drawOrderY[i]);
-			drawBoard(g, board, map, w, h, p);
+			drawBoard(g, board, map, w, h, p, player);
 		}
 
 		return image;
@@ -133,37 +136,37 @@ public class Renderer {
 
 		for (int i = 0; i < drawOrderX.length; i++) {
 			Point p = new Point(drawOrderX[i], drawOrderY[i]);
-			drawBoard(g, loc.getBoard(), map, w, h, p);
+			drawBoard(g, loc.getBoard(), map, w, h, p, null);
 		}
 		xCenter = w / 2;
 		yCenter = h / 2;
 		return image;
 	}
 
-	public void drawBoard(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p) {
+	public void drawBoard(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p, Player player) {
 		if (!map.containsKey(p)) {
 			return;
 		}
 		calculateOffsets(board.getLocationById(map.get(new Point(0, 0))), w, h);
 		switch (viewingDir) {
 		case NORTH:
-			drawBoardFromNorth(g, board, map, w, h, p);
+			drawBoardFromNorth(g, board, map, w, h, p, player);
 			break;
 		case SOUTH:
-			drawBoardFromSouth(g, board, map, w, h, p);
+			drawBoardFromSouth(g, board, map, w, h, p, player);
 			break;
 		case EAST:
-			drawBoardFromEast(g, board, map, w, h, p);
+			drawBoardFromEast(g, board, map, w, h, p, player);
 			break;
 		case WEST:
-			drawBoardFromWest(g, board, map, w, h, p);
+			drawBoardFromWest(g, board, map, w, h, p, player);
 			break;
 		}
 		drawSelected(g);
 		drawSelectedLocation(g);
 	}
 
-	public void drawBoardFromNorth(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p) {
+	public void drawBoardFromNorth(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p, Player player) {
 		for (int i = 0; i < board.getLocationById(map.get(p)).getTiles().length; i++) {
 			for (int j = 0; j < board.getLocationById(map.get(p)).getTiles()[0].length; j++) {
 				Point iso = twoDToIso((int) (i + p.getX() * 10), (int) (j - p.getY() * 10));
@@ -175,12 +178,12 @@ public class Renderer {
 			for (int j = 0; j < board.getLocationById(map.get(p)).getTiles()[0].length; j++) {
 				Point iso = twoDToIso((int) (i + p.getX() * 10), (int) (j - p.getY() * 10));
 				drawObject(g, board.getLocationById(map.get(p)).getTiles()[i][j], iso,
-						board.getLocationById(map.get(p)), new Position(i, j));
+						board.getLocationById(map.get(p)), new Position(i, j), player);
 			}
 		}
 	}
 
-	public void drawBoardFromEast(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p) {
+	public void drawBoardFromEast(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p, Player player) {
 		for (int j = 0; j < board.getLocationById(map.get(p)).getTiles()[0].length; j++) {
 			for (int i = 9; i >= 0; i--) {
 				Point iso = twoDToIso((int) (i + p.getX() * 10), (int) (j - p.getY() * 10));
@@ -192,12 +195,12 @@ public class Renderer {
 			for (int i = 9; i >= 0; i--) {
 				Point iso = twoDToIso((int) (i + p.getX() * 10), (int) (j - p.getY() * 10));
 				drawObject(g, board.getLocationById(map.get(p)).getTiles()[i][j], iso,
-						board.getLocationById(map.get(p)), new Position(i, j));
+						board.getLocationById(map.get(p)), new Position(i, j), player);
 			}
 		}
 	}
 
-	public void drawBoardFromSouth(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p) {
+	public void drawBoardFromSouth(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p, Player player) {
 		for (int i = 9; i >= 0; i--) {
 			for (int j = 9; j >= 0; j--) {
 				Point iso = twoDToIso((int) (i + p.getX() * 10), (int) (j - p.getY() * 10));
@@ -209,12 +212,12 @@ public class Renderer {
 			for (int j = 9; j >= 0; j--) {
 				Point iso = twoDToIso((int) (i + p.getX() * 10), (int) (j - p.getY() * 10));
 				drawObject(g, board.getLocationById(map.get(p)).getTiles()[i][j], iso,
-						board.getLocationById(map.get(p)), new Position(i, j));
+						board.getLocationById(map.get(p)), new Position(i, j), player);
 			}
 		}
 	}
 
-	public void drawBoardFromWest(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p) {
+	public void drawBoardFromWest(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p, Player player) {
 		for (int j = 9; j >= 0; j--) {
 			for (int i = 0; i < board.getLocationById(map.get(p)).getTiles().length; i++) {
 				Point iso = twoDToIso((int) (i + p.getX() * 10), (int) (j - p.getY() * 10));
@@ -226,13 +229,18 @@ public class Renderer {
 			for (int i = 0; i < board.getLocationById(map.get(p)).getTiles().length; i++) {
 				Point iso = twoDToIso((int) (i + p.getX() * 10), (int) (j - p.getY() * 10));
 				drawObject(g, board.getLocationById(map.get(p)).getTiles()[i][j], iso,
-						board.getLocationById(map.get(p)), new Position(i, j));
+						board.getLocationById(map.get(p)), new Position(i, j), player);
 			}
 		}
 	}
 
-	private void drawObject(Graphics2D g, Tile tile, Point iso, Location loc, Position pos) {
+	private void drawObject(Graphics2D g, Tile tile, Point iso, Location loc, Position pos, Player player) {
 		if (tile.getGameObject() != null) {
+			if(tile.getGameObject() instanceof Player){
+				if(tile.getGameObject() == player){
+					g.drawImage(playerSelect, iso.x, iso.y - playerSelect.getHeight(), null);
+				}
+			}
 			BufferedImage gameObject = tile.getGameObject().getImage(loc, pos, viewingDir);
 			g.drawImage(gameObject, iso.x, iso.y - gameObject.getHeight(), null);
 		}
