@@ -57,8 +57,9 @@ public class BoardCreator {
 		int locationID = Integer.parseInt(split[1]);
 		Position pos = new Position(Integer.parseInt(split[2]), Integer.parseInt(split[3]));
 		Direction d = parseDirection(split[4]);
-
+		boolean b = Boolean.parseBoolean(split[5]);
 		Player player = new Player(username, locationID, pos, board);
+		player.setLoggedIn(b);
 		player.setFacing(d);
 		return player;
 	}
@@ -108,6 +109,13 @@ public class BoardCreator {
 						String username = object.substring(7);
 						gameObject = board.getPlayer(username);
 						board.getPlayer(username).setPosition(new Position(i, j));
+						System.out.println(username);
+						if(!board.getPlayer(username).isLoggedIn()){
+							System.out.println("NOT LOGGED IN BITCH");
+							gameObject = null;
+						}else{
+							System.out.println("LOGGED IN BITCH");
+						}
 					} else {
 						switch (object) {
 						case "Tree":

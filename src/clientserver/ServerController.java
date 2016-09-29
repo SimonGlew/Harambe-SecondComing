@@ -49,14 +49,16 @@ public class ServerController {
 			if(p != null && p.isLoggedIn()){
 				return "fail login";
 			}else if(p != null && !p.isLoggedIn()){
-				gameSystem.getBoard().getLocationById(p.getLocation().getId()).getTileAtPosition(p.getTile().getPos()).setGameObject(p);
+				System.out.println("Do I get here?!?!?!");
+				gameSystem.getBoard().getLocationById(p.getLocation().getId()).getTileAtPosition(p.getPosition()).setGameObject(p);
 				p.setLoggedIn(true);
 				return "true";
 			}
 			else{
 				p = new Player(name,0, new Position(5,5), gameSystem.getBoard());
 				gameSystem.getBoard().addPlayer(name, p);
-				gameSystem.getBoard().getLocationById(p.getLocation().getId()).getTileAtPosition(p.getTile().getPos()).setGameObject(p);
+				System.out.println("HEre?!?!?!");
+				gameSystem.getBoard().getLocationById(p.getLocation().getId()).getTileAtPosition(p.getPosition()).setGameObject(p);
 				p.setLoggedIn(true);
 				return "true";
 			}
