@@ -209,12 +209,12 @@ public class Server {
 					// Switch on the type of message receive
 					// TODO: Some way of sending a board back, change broadcast
 					// method
-					broadcast(
-							new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null),
-							id);
+					broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null), id);
 				} else if (serverController.parseInput(cm).equals("fail login")) {
 					broadcast(new Packet("string", null, "fail login"), id);
-				} else {
+				} else if(serverController.parseInput(cm).equals("false") && cm.getMessage().contains("move")) {
+					broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null), id);
+				}else{
 					System.out.println("fail");
 				}
 			}
