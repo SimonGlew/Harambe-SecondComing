@@ -59,7 +59,6 @@ public class GameSystem {
 				playerTil.setGameObject(null);
 				newTile.setGameObject(p);
 				p.setTile(newTile);
-				System.out.println("Set location to " + newTile.getLocationID());
 				p.setLocation(board.getLocationById(newTile.getLocationID()));
 				return true;
 			}

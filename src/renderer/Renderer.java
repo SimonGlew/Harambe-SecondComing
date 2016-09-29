@@ -31,6 +31,8 @@ public class Renderer {
 	BufferedImage highlightLocation;
 	BufferedImage playerSelect;
 	Direction selectedLocation = null;
+	
+	Point selectedPoint = null;
 
 	
 	Direction viewingDir = Direction.NORTH;
@@ -53,7 +55,7 @@ public class Renderer {
 	}
 
 	public BufferedImage paintBoard(Board board, Player player, int w, int h) {
-		System.out.println("loc: " + player.getLocation().getId());
+		selectedPoint = null;
 		BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = image.createGraphics();
 		g.setColor(new Color(5, 26, 37));
@@ -249,6 +251,9 @@ public class Renderer {
 
 	private void drawTile(Graphics2D g, Tile tile, Point iso, Location loc, Position pos) {
 		BufferedImage floor = tile.getImage();
+		if(tile == selected){
+			selectedPoint = iso;
+		}
 		if (floor != null) {
 			g.drawImage(floor, iso.x, iso.y - floor.getHeight(), null);
 		}
@@ -256,9 +261,8 @@ public class Renderer {
 	}
 
 	public void drawSelected(Graphics2D g) {
-		if (selected != null) {
-			Point iso = twoDToIso(selected.getPos().getX(), selected.getPos().getY());
-			g.drawImage(highlightTile, (int) iso.getX(), (int) iso.getY() - highlightTile.getHeight(), null);
+		if (selectedPoint != null) {
+			g.drawImage(highlightTile, (int) selectedPoint.getX(), (int) selectedPoint.getY() - highlightTile.getHeight(), null);
 		}
 	}
 

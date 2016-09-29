@@ -111,34 +111,30 @@ public class Location {
 	}
 
 	public Tile getTileAtPosition(Position pos) {
-		Point p = new Point(pos.getX() / 10, pos.getY() / 10);
-		System.out.println(p);
+		Point p = new Point(pos.getX() / 10, -1*(pos.getY() / 10));
 		if (pos.getX() < 0) {
 			p.x = p.x - 1;
 		}
 		if (pos.getY() < 0) {
-			p.y = p.y - 1;
+			p.y = 1;
 		}
-		System.out.println(p);
 		if (p.equals(new Point(0, 0))) {
 			return tiles[pos.getX()][pos.getY()];
 		}
 		Map<Point, Integer> map = board.mapLocations(id, 0, 0, new HashMap<Point, Integer>());
-		System.out.println(map);
-		System.out.println(p);
-		System.out.println(map.get(p));
 		Location newLoc = board.getLocationById(map.get(p));
 		if (newLoc != null) {
 			return newLoc
-					.getTileAtPositionInLoc(new Position((int) (-p.getX()*10 + pos.getX()), (int) (-p.getY()*10 + pos.getY())));
+					.getTileAtPositionInLoc(new Position((int) (-p.getX()*10 + pos.getX()), (int) (10*p.getY()+pos.getY())));
 		}
 		return null;
 	}
 
 	public Tile getTileAtPositionInLoc(Position pos) {
-		System.out.println(this);
-		System.out.println(pos);
-		return tiles[pos.getX()][pos.getY()];
+		if(withinBounds(pos)){
+			return tiles[pos.getX()][pos.getY()];
+		}
+		return null;
 
 		
 	}

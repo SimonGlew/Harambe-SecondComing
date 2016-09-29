@@ -105,7 +105,6 @@ public class Player extends GameObject {
 	}
 	
 	public String toSaveString() {
-		System.out.println("Player " + userName + "," + locationID + "," + pos.getX() + "," + pos.getY() + "," + facing.toString());
 		return "Player " + userName + "," + locationID + "," + pos.getX() + "," + pos.getY() + "," + facing.toString() + "," + loggedIn;
 	}
 

@@ -109,12 +109,8 @@ public class BoardCreator {
 						String username = object.substring(7);
 						gameObject = board.getPlayer(username);
 						board.getPlayer(username).setPosition(new Position(i, j));
-						System.out.println(username);
 						if(!board.getPlayer(username).isLoggedIn()){
-							System.out.println("NOT LOGGED IN BITCH");
 							gameObject = null;
-						}else{
-							System.out.println("LOGGED IN BITCH");
 						}
 					} else {
 						switch (object) {
