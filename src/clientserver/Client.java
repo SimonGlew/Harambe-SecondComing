@@ -42,6 +42,7 @@ public class Client {
 		this.username = username;
 
 		if (!this.start()) {
+			menu.dispose();
 			new Menu();
 			return;
 		}
@@ -141,9 +142,11 @@ public class Client {
 						}
 					}
 				} catch (IOException e) {
+					clientController.hideGUI();
 					System.out.println("Server has close the connection: " + e);
 					break;
 				} catch (ClassNotFoundException e) {
+					
 				}
 			}
 		}

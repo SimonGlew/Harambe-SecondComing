@@ -24,7 +24,13 @@ public class ClientController {
 	}
 
 	public void showGUI() {
-		gui = new GUI(this);
+		gui = new GUI(this);	
+	}
+	
+	public void hideGUI(){
+		if(gui != null){
+			gui.hideGUI();
+		}
 	}
 
 	public String getName() {
