@@ -8,10 +8,10 @@ public class Packet implements Serializable{
 
 	private static final long serialVersionUID = 7677212855723082352L;
 	
-	String type;
-	String board;
-	String message;
-	int time;
+	private String type;
+	private String board;
+	private String message;
+	private int time;
 	
 	public Packet(String type, String board, String message, int time){
 		this.type = type;
@@ -23,5 +23,16 @@ public class Packet implements Serializable{
 	public int getTime(){
 		return this.time;
 	}
-
+	
+	public String getType(){
+		return this.type;
+	}
+	
+	public String getBoard(){
+		return this.board;
+	}
+	
+	public String getMessage(){
+		return this.message;
+	}
 }

@@ -62,8 +62,6 @@ public class Client {
 			return false;
 		}
 
-		String msg = "Connection accepted " + socket.getInetAddress() + ":" + socket.getPort();
-
 		/* Creating both Data Stream */
 		try {
 			sInput = new ObjectInputStream(socket.getInputStream());
@@ -126,15 +124,15 @@ public class Client {
 			while (true) {
 				try {
 					Packet packet = (Packet) sInput.readObject();
-					if (packet.type.equals("board")) {
+					if (packet.getType().equals("board")) {
 						if (!loggedIn) {
 							menu.dispose();			
 							clientController.showGUI();
 							loggedIn = true;
 						}
-						clientController.sendBoard(BoardCreator.loadBoardFromString(packet.board), packet.getTime());
-					} else if (packet.type.equals("string")) {
-						if (packet.message.equals("fail login")) {
+						clientController.sendBoard(BoardCreator.loadBoardFromString(packet.getBoard()), packet.getTime());
+					} else if (packet.getType().equals("string")) {
+						if (packet.getMessage().equals("fail login")) {
 							menu.dispose();
 							new Menu();
 						}

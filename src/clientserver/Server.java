@@ -113,7 +113,7 @@ public class Server {
 			ClientThread ct = al.get(i);
 			// try to write to the Client if it fails remove it from the
 			// list
-			if (packet.message == "fail login") {
+			if (packet.getMessage() == "fail login") {
 				if (ct.id == id) {
 					ct.writeToClient(packet);
 				}
