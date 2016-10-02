@@ -220,6 +220,7 @@ public class Server {
 					broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null), id);
 				} else if (serverController.parseInput(cm).equals("fail login")) {
 					broadcast(new Packet("string", null, "fail login"), id);
+					this.close();
 				} else if(serverController.parseInput(cm).equals("false") && cm.getMessage().contains("move")) {
 					broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null), id);
 				}else{
