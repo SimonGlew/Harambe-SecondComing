@@ -4,7 +4,6 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-import core.Board;
 import core.GameSystem;
 import gameobjects.Player;
 import iohandling.BoardWriter;
@@ -13,19 +12,16 @@ import iohandling.BoardWriter;
  * The server that can be run both as a console application
  */
 public class Server {
-	// a unique ID for each connection
-	private static int uniqueId;
-	// an ArrayList to keep the list of the Client
-	private ArrayList<ClientThread> al;
-	// the port number to listen for connection
-	private int port;
-	// the boolean that will be turned of to stop the server
-	private boolean keepGoing;
-
-	private ServerController serverController;
-
 	private Map<Integer, String> IDtoUsername;
+	private ArrayList<ClientThread> al;
+	
+	private ServerController serverController;
 	private TimeThread time;
+	
+	private static int uniqueId;	
+	private int port;
+	private boolean keepGoing;
+	
 
 	/*
 	 * Constructor that gets passed a port when starting the java file
@@ -51,15 +47,13 @@ public class Server {
 			time.start();
 			// infinite loop to wait for connections
 			while (keepGoing) {
-				// format message saying we are waiting
-				display("Server waiting for Clients on port " + port + ".");
-				Socket socket = serverSocket.accept(); // accept connection
-				if (!keepGoing)
-					break;
-				ClientThread t = new ClientThread(socket); // Make new thread
-															// and add to list
-				al.add(t);
-				t.start();
+					Socket socket = serverSocket.accept(); // accept connection
+					if (!keepGoing)
+						break;
+					ClientThread t = new ClientThread(socket); // Make new thread
+																// and add to list
+					al.add(t);
+					t.start();
 			}
 			// Close all connections to the server socket
 			try {
@@ -154,14 +148,11 @@ public class Server {
 			try {
 				portNumber = Integer.parseInt(args[0]);
 			} catch (Exception e) {
-				System.out.println("Invalid port number.");
-				System.out.println("Usage is: > java Server [portNumber]");
 				return;
 			}
 		case 0:
 			break;
 		default:
-			System.out.println("Usage is: > java Server [portNumber]");
 			return;
 
 		}
@@ -208,7 +199,6 @@ public class Server {
 			id = ++uniqueId;
 			this.socket = socket;
 			/* Creating both Data Stream */
-			System.out.println("Thread trying to create Object Input/Output Streams");
 			try {
 				// create output first
 				sOutput = new ObjectOutputStream(socket.getOutputStream());
@@ -238,12 +228,19 @@ public class Server {
 					// TODO: Some way of sending a board back, change broadcast
 					// method
 					if(cm.getMessage().contains("login")){
-						System.out.println("login " + id);
-						IDtoUsername.put(id, cm.getMessage().substring(6));
+						if(al.size() < 4){
+							IDtoUsername.put(id, cm.getMessage().substring(6));
+							broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()), id);
+
+						}else{
+							broadcast(new Packet("string", null, "fail login", 0), id);
+							remove(id);
+							this.close();
+						}
 					}
-					broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()), id);
 				} else if (serverController.parseInput(cm).equals("fail login")) {
 					broadcast(new Packet("string", null, "fail login", 0), id);
+					remove(id);
 					this.close();
 				} else if(serverController.parseInput(cm).equals("false") && cm.getMessage().contains("move")) {
 					broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()), id);

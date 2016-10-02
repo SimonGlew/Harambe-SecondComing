@@ -5,7 +5,6 @@ import java.util.Scanner;
 import core.Board;
 import core.GameSystem;
 import core.GameSystem.Direction;
-import exceptions.ParserException;
 import gameobjects.Player;
 import util.Position;
 

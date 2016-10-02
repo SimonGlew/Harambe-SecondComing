@@ -2,13 +2,9 @@ package clientserver;
 
 import java.net.*;
 import java.io.*;
-import java.util.*;
-
 import javax.swing.JFrame;
 
-import core.Board;
 import gui.ClientController;
-import gui.GUI;
 import gui.Menu;
 import iohandling.BoardCreator;
 
@@ -91,28 +87,6 @@ public class Client {
 
 	public String getUsername() {
 		return this.username;
-	}
-
-	/*
-	 * When something goes wrong Close the Input/Output streams and disconnect
-	 * not much to do in the catch clause
-	 */
-	private void disconnect() {
-		try {
-			if (sInput != null)
-				sInput.close();
-		} catch (Exception e) {
-		} // not much else I can do
-		try {
-			if (sOutput != null)
-				sOutput.close();
-		} catch (Exception e) {
-		} // not much else I can do
-		try {
-			if (socket != null)
-				socket.close();
-		} catch (Exception e) {
-		}
 	}
 
 	/*
