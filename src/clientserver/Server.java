@@ -231,12 +231,13 @@ public class Server {
 						if(al.size() < 4){
 							IDtoUsername.put(id, cm.getMessage().substring(6));
 							broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()), id);
-
 						}else{
 							broadcast(new Packet("string", null, "fail login", 0), id);
 							remove(id);
 							this.close();
 						}
+					}else{
+						broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()), id);
 					}
 				} else if (serverController.parseInput(cm).equals("fail login")) {
 					broadcast(new Packet("string", null, "fail login", 0), id);

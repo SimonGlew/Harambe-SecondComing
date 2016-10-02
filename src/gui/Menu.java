@@ -41,6 +41,8 @@ public class Menu implements MouseListener, ActionListener{
 	JTextField address;
 	JTextField playerName;
 	JDialog serverDialog;
+	
+	
 
 	/**
 	 * Setup JFrame
