@@ -16,6 +16,7 @@ public class ClientController {
 	GUI gui;
 	Renderer renderer;
 	Board board;
+	int time;
 
 	public ClientController(Client c) {
 		this.client = c;
@@ -65,8 +66,9 @@ public class ClientController {
 		}
 	}
 
-	public void sendBoard(Board board) {
+	public void sendBoard(Board board, int time) {
 		this.board = board;
+		this.time = time;
 		drawBoard();
 	}
 

@@ -11,11 +11,17 @@ public class Packet implements Serializable{
 	String type;
 	String board;
 	String message;
+	int time;
 	
-	public Packet(String type, String board, String message){
+	public Packet(String type, String board, String message, int time){
 		this.type = type;
 		this.board = board;
 		this.message = message;
+		this.time = time;
+	}
+	
+	public int getTime(){
+		return this.time;
 	}
 
 }

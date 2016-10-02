@@ -25,6 +25,7 @@ public class Server {
 	private ServerController serverController;
 
 	private Map<Integer, String> IDtoUsername;
+	private TimeThread time;
 
 	/*
 	 * Constructor that gets passed a port when starting the java file
@@ -46,6 +47,8 @@ public class Server {
 			// the socket used by the server
 			ServerSocket serverSocket = new ServerSocket(port);
 			serverController = new ServerController(this, new GameSystem());
+			time = new TimeThread();
+			time.start();
 			// infinite loop to wait for connections
 			while (keepGoing) {
 				// format message saying we are waiting
@@ -166,6 +169,27 @@ public class Server {
 		Server server = new Server(portNumber);
 		server.start();
 	}
+	
+	class TimeThread extends Thread {
+		int count;
+		
+		TimeThread(){
+			count = 0;
+		}
+		
+		public void run(){
+			count++;
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+			}
+		}
+		
+		public int getTime(){
+			return count;
+		}
+	}
+	
 
 	/** One instance of this thread will run for each client */
 	class ClientThread extends Thread {
@@ -217,12 +241,12 @@ public class Server {
 						System.out.println("login " + id);
 						IDtoUsername.put(id, cm.getMessage().substring(6));
 					}
-					broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null), id);
+					broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()), id);
 				} else if (serverController.parseInput(cm).equals("fail login")) {
-					broadcast(new Packet("string", null, "fail login"), id);
+					broadcast(new Packet("string", null, "fail login", 0), id);
 					this.close();
 				} else if(serverController.parseInput(cm).equals("false") && cm.getMessage().contains("move")) {
-					broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null), id);
+					broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()), id);
 				}else{
 					System.out.println("fail");
 				}

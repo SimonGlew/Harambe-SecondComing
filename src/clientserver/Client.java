@@ -128,13 +128,11 @@ public class Client {
 					Packet packet = (Packet) sInput.readObject();
 					if (packet.type.equals("board")) {
 						if (!loggedIn) {
-							menu.dispose();
-							clientController.sendBoard(BoardCreator.loadBoardFromString(packet.board));
+							menu.dispose();			
 							clientController.showGUI();
 							loggedIn = true;
-						}else{
-							clientController.sendBoard(BoardCreator.loadBoardFromString(packet.board));
 						}
+						clientController.sendBoard(BoardCreator.loadBoardFromString(packet.board), packet.getTime());
 					} else if (packet.type.equals("string")) {
 						if (packet.message.equals("fail login")) {
 							menu.dispose();
