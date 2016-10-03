@@ -58,7 +58,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		//Start music
 		@SuppressWarnings("unused")
 		JFXPanel fxPanel = new JFXPanel();
-		playSound("assets/audio/jungleaf.wav");
+		playSound("assets/audio/mainAudio.mp3");
 
 		gameFrame.setVisible(true);
 	}
