@@ -20,8 +20,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import clientserver.Client;
 
@@ -41,8 +39,6 @@ public class Menu implements MouseListener, ActionListener{
 	JTextField address;
 	JTextField playerName;
 	JDialog serverDialog;
-	
-	
 
 	/**
 	 * Setup JFrame
@@ -133,6 +129,7 @@ public class Menu implements MouseListener, ActionListener{
 		serverDialog.setVisible(true);
 	}
 
+	@SuppressWarnings("unused")
 	private void connect(){
 		Integer portNum = null;
 		try{

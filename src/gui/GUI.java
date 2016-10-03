@@ -2,16 +2,10 @@ package gui;
 
 import java.awt.BorderLayout;
 
-import core.*;
-import iohandling.BoardCreator;
-import renderer.Renderer;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -21,10 +15,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.URI;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,8 +27,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
+
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 public class GUI implements KeyListener, ActionListener, MouseListener, MouseMotionListener {
 	ClientController controller;
@@ -44,6 +42,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	public static final Color MAINCOLOR = new Color(5,26,37);
 	public static final Color SECONDARYCOLOR = new Color(255,182,0);
 	public static final Color MAINCOLOR2 = new Color(2, 13, 18);
+	MediaPlayer mediaPlayer;
 
 	public GUI(ClientController c){
 		this.controller = c;
@@ -56,10 +55,14 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 		prepareGUI();
 
+		//Start music
+		@SuppressWarnings("unused")
+		JFXPanel fxPanel = new JFXPanel();
+		playSound("assets/audio/jungleaf.wav");
+
 		gameFrame.setVisible(true);
-		
 	}
-	
+
 	public void hideGUI(){
 		gameFrame.dispose();
 	}
@@ -102,6 +105,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		gameFrame.add(windowPanel);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void setupUI(){
 		//Setup up name panel
 		JPanel namePanel = new JPanel(new FlowLayout());
@@ -130,6 +134,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		inventory.setForeground(Color.WHITE);
 		inventory.setFont(new Font("title", Font.BOLD, 22));
 		Font font = inventory.getFont();
+		@SuppressWarnings("rawtypes")
 		Map attributes = font.getAttributes();
 		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 		inventory.setFont(font.deriveFont(attributes));
@@ -197,7 +202,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		shortcuts.addActionListener(this);
 		helpBar.add(shortcuts);
 	}
-	
+
 	public void setInventorySlot(int i, String item){
 		JLabel slot = (JLabel) inventorySlots.getComponent(i*2);
 		slot.setIcon(nameImage);
@@ -229,12 +234,12 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			}
 		}
 	}
-	
+
 	private void checkMoved(int x, int y) {
 		controller.selectTile(x, y - (gameFrame.getHeight() - gameLabel.getHeight()));
 	}
 
-	
+
 	public void showBoard(BufferedImage i){
 		gameLabel.setIcon(new ImageIcon(i));
 	}
@@ -249,6 +254,25 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		checkClicked(arg0.getX(), arg0.getY());
+	}
+
+	private void playSound(String sound){
+		Thread t = new Thread(new Runnable() {
+			// The wrapper thread is unnecessary, unless it blocks on the
+			// Clip finishing; see comments.
+			public void run() {
+				URI file = new File(sound).toURI();
+				Media media = new Media(file.toString());
+				mediaPlayer = new MediaPlayer(media);
+				mediaPlayer.setOnEndOfMedia(new Runnable(){
+					public void run() {
+						mediaPlayer.seek(Duration.ZERO);
+					}
+				});
+				mediaPlayer.play();
+			}
+		});
+		t.start();
 	}
 
 	public static ImageIcon nameImage = Menu.makeImageIcon("gui/namebe.png");

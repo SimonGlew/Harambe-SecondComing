@@ -1,12 +1,9 @@
 package gui;
 
-import java.awt.Point;
-
 import clientserver.*;
 import core.Board;
 import core.GameSystem.Direction;
 import core.Location;
-import iohandling.BoardCreator;
 import renderer.Renderer;
 import tile.Tile;
 import util.Position;
