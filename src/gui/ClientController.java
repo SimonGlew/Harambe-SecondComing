@@ -19,6 +19,7 @@ public class ClientController {
 	public ClientController(Client c) {
 		this.client = c;
 		renderer = new Renderer();
+		dijkstras = null;
 		drawBoard();
 	}
 
@@ -67,6 +68,13 @@ public class ClientController {
 	public void sendBoard(Board board, int time) {
 		this.board = board;
 		this.time = time;
+
+		if(dijkstras != null){
+			if(!dijkstras.path.isEmpty()){
+				moveToPos(dijkstras.path.pop());
+			}
+		}
+
 		drawBoard();
 	}
 
@@ -94,7 +102,7 @@ public class ClientController {
 		}
 	}
 
-	//DIJKSTRA SHIT
+	// DIJKSTRA SHIT
 	public void move(int x, int y){
 		if (board != null) {
 			Position p = renderer.isoToIndex(x, y);
@@ -103,10 +111,12 @@ public class ClientController {
 
 			dijkstras = new Dijkstras(this, board.getPlayer(getName()).getTile(), t, loc);
 			dijkstras.createPath();
+
+			moveToPos(dijkstras.path.pop());
 		}
 	}
-	
-	//DIJKSTRA SHIT X2
+
+	// DIJKSTRA SHIT X2
 	public void moveToPos(Tile t){
 		Location loc = board.getPlayer(getName()).getLocation();
 		Direction d = loc.getDirOfTile(board.getPlayer(getName()).getPosition(), t);
@@ -116,5 +126,4 @@ public class ClientController {
 		}
 		drawBoard();
 	}
-
 }
