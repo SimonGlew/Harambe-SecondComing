@@ -44,6 +44,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	public static final Color MAINCOLOR2 = new Color(2, 13, 18);
 	MediaPlayer mediaPlayer;
 
+	@SuppressWarnings("unused")
 	public GUI(ClientController c){
 		this.controller = c;
 		gameFrame = new JFrame("Harambe, Second Coming");
@@ -56,7 +57,6 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		prepareGUI();
 
 		//Start music
-		@SuppressWarnings("unused")
 		JFXPanel fxPanel = new JFXPanel();
 		playSound("assets/audio/mainAudio.mp3");
 
@@ -230,7 +230,9 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		}
 		if(y > gameFrame.getHeight() - gameLabel.getHeight()){
 			if(x > 0 && x < 1000){
+				//controller.move(x, y - (gameFrame.getHeight() - gameLabel.getHeight()));
 				controller.moveTo(x, y - (gameFrame.getHeight() - gameLabel.getHeight()));
+				
 			}
 		}
 	}

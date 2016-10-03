@@ -14,6 +14,7 @@ public class ClientController {
 	Renderer renderer;
 	Board board;
 	int time;
+	Dijkstras dijkstras;
 
 	public ClientController(Client c) {
 		this.client = c;
@@ -24,7 +25,7 @@ public class ClientController {
 	public void showGUI() {
 		gui = new GUI(this);	
 	}
-	
+
 	public void hideGUI(){
 		if(gui != null){
 			gui.hideGUI();
@@ -84,12 +85,36 @@ public class ClientController {
 			Location loc = board.getPlayer(getName()).getLocation();
 			Tile t = loc.getTileAtPosition(p);
 			Direction d = loc.getDirOfTile(board.getPlayer(getName()).getPosition(), t);
+			System.out.println(t + "/n " + d);
 			if(d != null){
 				String command = "move " + getName() + " " + d.toString();
 				sendMessage(new PlayerCommand(command));
 			}
 			drawBoard();
 		}
+	}
+
+	//DIJKSTRA SHIT
+	public void move(int x, int y){
+		if (board != null) {
+			Position p = renderer.isoToIndex(x, y);
+			Location loc = board.getPlayer(getName()).getLocation();
+			Tile t = loc.getTileAtPosition(p);
+
+			dijkstras = new Dijkstras(this, board.getPlayer(getName()).getTile(), t, loc);
+			dijkstras.createPath();
+		}
+	}
+	
+	//DIJKSTRA SHIT X2
+	public void moveToPos(Tile t){
+		Location loc = board.getPlayer(getName()).getLocation();
+		Direction d = loc.getDirOfTile(board.getPlayer(getName()).getPosition(), t);
+		if(d != null){
+			String command = "move " + getName() + " " + d.toString();
+			sendMessage(new PlayerCommand(command));
+		}
+		drawBoard();
 	}
 
 }
