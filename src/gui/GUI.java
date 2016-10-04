@@ -230,8 +230,8 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		}
 		if(y > gameFrame.getHeight() - gameLabel.getHeight()){
 			if(x > 0 && x < 1000){
-				//controller.move(x, y - (gameFrame.getHeight() - gameLabel.getHeight()));
-				controller.moveTo(x, y - (gameFrame.getHeight() - gameLabel.getHeight()));
+				controller.move(x, y - (gameFrame.getHeight() - gameLabel.getHeight()));
+				//controller.moveTo(x, y - (gameFrame.getHeight() - gameLabel.getHeight()));
 				
 			}
 		}

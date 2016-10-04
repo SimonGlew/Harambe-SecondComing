@@ -6,16 +6,23 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
 
+import javax.swing.Timer;
+
 import core.Location;
 import tile.Tile;
 
-public class Dijkstras{
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Dijkstras implements ActionListener{
 	ClientController controller;
 	Tile start;
 	Tile end;
 	Location location;
 	Node[][] nodes;
 	Stack<Tile> path;
+	Timer timer;
+	int count;
 
 	public Dijkstras(ClientController controller, Tile start, Tile end, Location location){
 		this.controller = controller;
@@ -23,6 +30,9 @@ public class Dijkstras{
 		this.end = end;
 		this.location = location;
 		this.path = null;
+		this.count = 1;
+		timer = new Timer(1000, this);
+
 		setup();
 	}
 
@@ -88,6 +98,7 @@ public class Dijkstras{
 		}
 		path.pop();
 		this.path = path;
+		timer.start();
 	}
 
 	/**
@@ -101,6 +112,17 @@ public class Dijkstras{
 			else return -1;
 		}
 	};
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		if(path.isEmpty()){
+			timer.stop();
+		}else{
+			System.out.println(count + ")" + path.peek().getPos());
+			controller.moveToPos(path.pop());
+			count++;
+		}
+	}
 }
 
 /**

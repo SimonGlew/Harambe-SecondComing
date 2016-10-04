@@ -111,8 +111,6 @@ public class ClientController {
 
 			dijkstras = new Dijkstras(this, board.getPlayer(getName()).getTile(), t, loc);
 			dijkstras.createPath();
-
-			moveToPos(dijkstras.path.pop());
 		}
 	}
 
