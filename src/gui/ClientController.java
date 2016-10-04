@@ -68,13 +68,7 @@ public class ClientController {
 	public void sendBoard(Board board, int time) {
 		this.board = board;
 		this.time = time;
-
-		if(dijkstras != null){
-			if(!dijkstras.path.isEmpty()){
-				moveToPos(dijkstras.path.pop());
-			}
-		}
-
+		
 		drawBoard();
 	}
 
@@ -118,6 +112,8 @@ public class ClientController {
 	public void moveToPos(Tile t){
 		Location loc = board.getPlayer(getName()).getLocation();
 		Direction d = loc.getDirOfTile(board.getPlayer(getName()).getPosition(), t);
+		System.out.println(t.getPos().getX() + ":" + t.getPos().getY());
+		System.out.println(board.getPlayer(getName()).getPosition().getX() + ":" + board.getPlayer(getName()).getPosition().getY() );
 		if(d != null){
 			String command = "move " + getName() + " " + d.toString();
 			sendMessage(new PlayerCommand(command));

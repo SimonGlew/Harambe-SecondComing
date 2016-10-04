@@ -152,7 +152,6 @@ public class Location {
 		if (getTileInDirection(from, Direction.WEST) == t) {
 			return Direction.WEST;
 		}
-
 		return null;
 	}
 

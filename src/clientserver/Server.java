@@ -142,7 +142,7 @@ public class Server {
 	 */
 	public static void main(String[] args) {
 		// start server on port 1500 unless a PortNumber is specified
-		int portNumber = 4520;
+		int portNumber = 4511;
 		switch (args.length) {
 		case 1:
 			try {

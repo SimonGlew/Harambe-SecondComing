@@ -44,7 +44,10 @@ public class Dijkstras implements ActionListener{
 		for(int y = 0; y < length; y++){
 			for(int x = 0; x < length; x++){
 				Tile t = location.getTiles()[x][y];
-				nodes[x][y] = new Node(false, x, y, t);
+			
+					nodes[x][y] = new Node(false, x, y, t);
+
+				
 			}
 		}
 		//Get available neighbours for each node
@@ -82,7 +85,7 @@ public class Dijkstras implements ActionListener{
 					break;
 				}
 				for(Node n: searchNode.node.neighbours){
-					if(!n.visited){
+					if(!n.visited && n.t.getGameObject() == null){
 						int cost = searchNode.costToHere + 1;
 						fringe.offer(new SearchNode(cost, n, searchNode.node));
 					}
@@ -96,7 +99,9 @@ public class Dijkstras implements ActionListener{
 			path.push(found.t);
 			found = found.pathFrom;
 		}
-		path.pop();
+		
+		if(!path.isEmpty()) path.pop();
+		
 		this.path = path;
 		timer.start();
 	}
