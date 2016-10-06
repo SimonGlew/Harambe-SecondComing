@@ -34,6 +34,17 @@ public class Location {
 	public Map<GameSystem.Direction, Integer> getNeighbours() {
 		return neighbours;
 	}
+	
+	public GameSystem.Direction getDirectionOfLocation(int id){
+		for(GameSystem.Direction d: neighbours.keySet()){
+			if(id == neighbours.get(d)) return d;
+		}
+		return null;
+	}
+	
+	public Location getLocationfromDirection(GameSystem.Direction d){
+		return board.getLocationById(neighbours.get(d));
+	}
 
 	public void setNeighbours(Map<GameSystem.Direction, Integer> neighbours) {
 		this.neighbours = neighbours;
@@ -136,7 +147,25 @@ public class Location {
 		}
 		return null;
 
-		
+
+	}
+
+	public Direction getDirDijkstras(Tile player, Tile position){
+		Position from = player.getPos();
+		Position to = position.getPos();
+
+		//Check boundry movement
+		if(from.getX() == 9 && to.getX() == 0) return Direction.EAST;
+		else if(from.getX() == 0 && to.getX() == 9) return Direction.WEST;
+		else if(from.getY() == 0 && to.getY() == 9) return Direction.NORTH;
+		else if(from.getY() == 9 && to.getY() == 0) return Direction.SOUTH;
+
+		//Check normal movement
+		if(from.getX() > to.getX() && from.getY() == to.getY()) return Direction.WEST;
+		else if(from.getX() < to.getX() && from.getY() == to.getY()) return Direction.EAST;
+		else if(from.getY() > to.getY() && from.getX() == to.getX()) return Direction.NORTH;
+		else if(from.getY() < to.getY() && from.getX() == to.getX()) return Direction.SOUTH;
+		else return null;
 	}
 
 	public Direction getDirOfTile(Position from, Tile t) {

@@ -14,12 +14,12 @@ public class ClientController {
 	Renderer renderer;
 	Board board;
 	int time;
-	Dijkstras dijkstras;
+	UltimateDijkstras uDijkstras;
 
 	public ClientController(Client c) {
 		this.client = c;
 		renderer = new Renderer();
-		dijkstras = null;
+		uDijkstras = null;
 		drawBoard();
 	}
 
@@ -68,7 +68,7 @@ public class ClientController {
 	public void sendBoard(Board board, int time) {
 		this.board = board;
 		this.time = time;
-		
+
 		drawBoard();
 	}
 
@@ -81,39 +81,25 @@ public class ClientController {
 		}
 	}
 
-	public void moveTo(int x, int y) {
+	public void moveWithUltimateDijkstras(int x, int y){
+		if(uDijkstras != null) uDijkstras.path = null;
+
 		if (board != null) {
 			Position p = renderer.isoToIndex(x, y);
 			Location loc = board.getPlayer(getName()).getLocation();
 			Tile t = loc.getTileAtPosition(p);
-			Direction d = loc.getDirOfTile(board.getPlayer(getName()).getPosition(), t);
-			System.out.println(t + "/n " + d);
-			if(d != null){
-				String command = "move " + getName() + " " + d.toString();
-				sendMessage(new PlayerCommand(command));
+			if(t != null){
+				uDijkstras = new UltimateDijkstras(this, board.getPlayer(getName()).getTile(), loc, t, board);
+				uDijkstras.createPath();
+				uDijkstras.startTimer();
 			}
-			drawBoard();
 		}
 	}
 
-	// DIJKSTRA SHIT
-	public void move(int x, int y){
-		if (board != null) {
-			Position p = renderer.isoToIndex(x, y);
-			Location loc = board.getPlayer(getName()).getLocation();
-			Tile t = loc.getTileAtPosition(p);
 
-			dijkstras = new Dijkstras(this, board.getPlayer(getName()).getTile(), t, loc);
-			dijkstras.createPath();
-		}
-	}
-
-	// DIJKSTRA SHIT X2
 	public void moveToPos(Tile t){
 		Location loc = board.getPlayer(getName()).getLocation();
-		Direction d = loc.getDirOfTile(board.getPlayer(getName()).getPosition(), t);
-		System.out.println(t.getPos().getX() + ":" + t.getPos().getY());
-		System.out.println(board.getPlayer(getName()).getPosition().getX() + ":" + board.getPlayer(getName()).getPosition().getY() );
+		Direction d = loc.getDirDijkstras(board.getPlayer(getName()).getTile(), t);
 		if(d != null){
 			String command = "move " + getName() + " " + d.toString();
 			sendMessage(new PlayerCommand(command));

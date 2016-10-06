@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import core.GameSystem.Direction;
-import gameobjects.GameObject;
 import gameobjects.Player;
 
 public class Board {
