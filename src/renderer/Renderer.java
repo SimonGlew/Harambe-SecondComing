@@ -34,7 +34,7 @@ public class Renderer {
 
 	Point selectedPoint = null;
 
-	Direction viewingDir = Direction.NORTH;
+	public Direction viewingDir = Direction.NORTH;
 
 	final int TILE_WIDTH = 45;
 	int xOffset;

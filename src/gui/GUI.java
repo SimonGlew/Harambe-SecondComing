@@ -61,6 +61,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		gameFrame.setResizable(false);
 		gameFrame.addMouseListener(this);
 		gameFrame.addMouseMotionListener(this);
+		gameFrame.addKeyListener(this);
 
 		prepareGUI();
 
@@ -283,6 +284,52 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		gameLabel.setIcon(new ImageIcon(i));
 	}
 
+	private void createPopup(int x, int y) {
+
+		if(x < 1000){
+			popup = new JPopupMenu("hello");
+			Tile t = controller.getTile(x, y - (gameFrame.getHeight() - gameLabel.getHeight()));
+
+			if(t != null){
+				if(t.getGameObject() != null){
+					JMenuItem examineObject = new JMenuItem("Examine " + t.getGameObject().toString());
+					examineObject.addActionListener(new ActionListener(){
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							JOptionPane.showMessageDialog(gameFrame, t.getGameObject().getDescription(), "Examining", JOptionPane.INFORMATION_MESSAGE);
+						}
+					});
+					popup.add(examineObject);
+				}
+
+				JMenuItem examineItem = new JMenuItem("Examine ground");
+				examineItem.addActionListener(new ActionListener(){
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						JOptionPane.showMessageDialog(gameFrame, "Just " + t.toString() + " here", "Examining", JOptionPane.INFORMATION_MESSAGE);
+					}
+
+				});
+				popup.add(examineItem);
+
+				if(t.getGameObject() == null){
+					popup.addSeparator();
+					JMenuItem move = new JMenuItem("Move");
+					move.addActionListener(new ActionListener(){
+
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+							checkClicked(x, y);
+						}
+
+					});
+					popup.add(move);
+				}
+			}
+
+		}
+	}
 
 
 	private void playSound(String sound){
@@ -320,6 +367,18 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	public static ImageIcon jackImage = Menu.makeImageIcon("gui/jack.png");
 
 	@Override
+	public void keyReleased(KeyEvent e) {
+		String key = KeyEvent.getKeyText(e.getKeyCode());
+		if(key.equals("Left")) controller.rotateLeft();
+		else if(key.equals("Right")) controller.rotateRight();
+		else if(key.equals("Up")){ controller.rotateRight(); controller.rotateRight(); }
+		else if(key.equals("W")) controller.moveSinglePos("N");
+		else if(key.equals("A")) controller.moveSinglePos("W");
+		else if(key.equals("S")) controller.moveSinglePos("S");
+		else if(key.equals("D")) controller.moveSinglePos("E");
+	}
+
+	@Override
 	public void actionPerformed(ActionEvent action) {
 		if("quit".equals(action.getActionCommand())){
 			System.exit(0);
@@ -344,55 +403,6 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		}
 	}
 
-
-
-	private void createPopup(int x, int y) {
-
-		if(x < 1000){
-			popup = new JPopupMenu("hello");
-			Tile t = controller.getTile(x, y - (gameFrame.getHeight() - gameLabel.getHeight()));
-
-			if(t != null){
-				if(t.getGameObject() != null){
-					JMenuItem examineObject = new JMenuItem("Examine " + t.getGameObject().toString());
-					examineObject.addActionListener(new ActionListener(){
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							JOptionPane.showMessageDialog(gameFrame, t.getGameObject().getDescription(), "Examining", JOptionPane.INFORMATION_MESSAGE);
-						}
-					});
-					popup.add(examineObject);
-				}
-
-				JMenuItem examineItem = new JMenuItem("Examine ground");
-				examineItem.addActionListener(new ActionListener(){
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						JOptionPane.showMessageDialog(gameFrame, "Just " + t.toString() + " here", "Examining", JOptionPane.INFORMATION_MESSAGE);
-					}
-					
-				});
-				popup.add(examineItem);
-
-				if(t.getGameObject() == null){
-					popup.addSeparator();
-					JMenuItem move = new JMenuItem("Move");
-					move.addActionListener(new ActionListener(){
-
-						@Override
-						public void actionPerformed(ActionEvent arg0) {
-							checkClicked(x, y);
-						}
-						
-					});
-					popup.add(move);
-				}
-			}
-		
-		}
-	}
-
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		checkMoved(e.getX(), e.getY());
@@ -400,8 +410,6 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	@Override
 	public void keyPressed(KeyEvent e) {}
-	@Override
-	public void keyReleased(KeyEvent e) {}
 	@Override
 	public void keyTyped(KeyEvent e) {}
 

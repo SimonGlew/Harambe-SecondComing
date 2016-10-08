@@ -79,10 +79,32 @@ public class ClientController {
 			drawBoard();
 		}
 	}
-	
+
 	public Tile getTile(int x, int y){
 		Position p = renderer.isoToIndex(x, y);
 		return board.getPlayer(getName()).getLocation().getTileAtPosition(p);
+	}
+
+	public void moveSinglePos(String dir){
+		Direction d = null;
+		if(dir.equals("N")) d = Direction.NORTH;
+		else if(dir.equals("E")) d = Direction.EAST;
+		else if(dir.equals("S")) d = Direction.SOUTH;
+		else if(dir.equals("W")) d = Direction.WEST;
+
+		Direction temp = Location.getRelativeDirection(d, renderer.viewingDir);
+
+		Location loc = board.getPlayer(getName()).getLocation();
+		Tile t = loc.getTileInDirection(board.getPlayer(getName()).getPosition(), temp);
+
+		if(t != null){
+			Direction direction = loc.getDirDijkstras(board.getPlayer(getName()).getTile(), t);
+			if(direction != null){
+				String command = "move " + getName() + " " + direction.toString();
+				sendMessage(new PlayerCommand(command));
+			}
+			drawBoard();
+		}
 	}
 
 	public void moveWithUltimateDijkstras(int x, int y){
@@ -99,7 +121,6 @@ public class ClientController {
 			}
 		}
 	}
-
 
 	public void moveToPos(Tile t){
 		Location loc = board.getPlayer(getName()).getLocation();
