@@ -28,6 +28,8 @@ public class Player extends GameObject {
 	private final String IMG_PRE = "assets/game_objects/player/player";
 	private final String IMG_POST = ".png";
 	
+	private final Integer INVENTORY_LIMIT = 10;
+	
 	private boolean loggedIn = false;
 
 	public Player(String name, int locationID, Position pos, Board board) {
@@ -52,6 +54,10 @@ public class Player extends GameObject {
 
 	public ArrayList<Item> getInventory() {
 		return inventory;
+	}
+	
+	public boolean inventoryIsFull(){
+		return inventory.size() == INVENTORY_LIMIT;
 	}
 
 	public Location getLocation() {

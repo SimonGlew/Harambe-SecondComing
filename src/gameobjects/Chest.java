@@ -7,15 +7,44 @@ import javax.imageio.ImageIO;
 
 public class Chest extends GameObject{
 	
-	public Chest(){
+	private int code;
+	private Item contents;
+	
+	
+	public Chest(Item contents){
 		try {
 			image = ImageIO.read(new File("assets/game_objects/chest/chest.png"));
 		} catch (IOException e) {
 			System.out.println("Could not load Chest image");
 			e.printStackTrace();
 		}
-	}
+		this.contents = contents;
+	}	
 	
+	public int getCode() {
+		return code;
+	}
+
+
+
+	public void setCode(int code) {
+		this.code = code;
+	}
+
+
+
+	public Item getContents() {
+		return contents;
+	}
+
+
+
+	public void setContents(Item contents) {
+		this.contents = contents;
+	}
+
+
+
 	public String getDescription(){
 		return "Just a Chest";
 	}

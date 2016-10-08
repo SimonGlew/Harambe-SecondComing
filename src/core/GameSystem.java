@@ -31,11 +31,11 @@ public class GameSystem {
 		Location playerLoc = p.getLocation();
 		Tile playerTil = p.getTile();
 		Position playerPos = playerTil.getPos();
-		
+
 		Tile newTile = null;
-		
+
 		switch (d) {
-			
+
 		case NORTH:
 			newTile = playerLoc.getTileInDirection(playerPos, Direction.NORTH);
 			p.setFacing(Direction.NORTH);
@@ -53,25 +53,26 @@ public class GameSystem {
 			p.setFacing(Direction.SOUTH);
 			break;
 		}
-		
-		if(newTile != null){
-			if(newTile.getGameObject() == null){
+
+		if (newTile != null) {
+			if (newTile.getGameObject() == null) {
 				playerTil.setGameObject(null);
 				newTile.setGameObject(p);
 				p.setTile(newTile);
 				p.setLocation(board.getLocationById(newTile.getLocationID()));
 				return true;
-			}
-			else if(newTile.getGameObject() instanceof Item){
+			} else if (newTile.getGameObject() instanceof Item) {
 				playerTil.setGameObject(null);
-				p.pickUpItem((Item)newTile.getGameObject());
-				newTile.setGameObject(p);
-				p.setTile(newTile);
+				if (!p.inventoryIsFull()) {
+					p.pickUpItem((Item) newTile.getGameObject());
+					newTile.setGameObject(p);
+					p.setTile(newTile);
+				}
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 }
