@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import core.Board;
 import core.GameSystem;
 import core.GameSystem.Direction;
+import items.Item;
 import core.Location;
 import tile.Tile;
 import util.Position;

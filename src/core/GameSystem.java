@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import gameobjects.Item;
 import gameobjects.Player;
 import iohandling.BoardCreator;
+import items.Item;
 import tile.Tile;
 import util.Position;
 

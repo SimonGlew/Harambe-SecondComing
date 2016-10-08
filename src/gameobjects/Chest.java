@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import items.Item;
+
 public class Chest extends GameObject{
 	
 	private int code;
