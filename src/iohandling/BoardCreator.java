@@ -18,6 +18,7 @@ import gameobjects.GameObject;
 import gameobjects.Player;
 import gameobjects.Tree;
 import gameobjects.Wall;
+import items.Key;
 import gameobjects.Fence;
 import tile.GrassTile;
 import tile.SandTile;
@@ -104,7 +105,12 @@ public class BoardCreator {
 				String[] tilesplit = tile.split(":");
 				GameObject gameObject = null;
 				if (tilesplit.length > 1) {
-					String object = tilesplit[1];
+					String objectString = tilesplit[1];
+					String object = objectString;
+					if(objectString.contains("|")){
+						int index = objectString.indexOf('|');
+						object = objectString.substring(0, index);
+					}
 					if (object.startsWith("Player|")) {
 						String username = object.substring(7);
 						gameObject = board.getPlayer(username);
@@ -125,6 +131,9 @@ public class BoardCreator {
 							break;
 						case "Wall":
 							gameObject = new Wall();
+							break;
+						case "Key":
+							gameObject = new Key("name", "description", 1);
 							break;
 						}
 					}

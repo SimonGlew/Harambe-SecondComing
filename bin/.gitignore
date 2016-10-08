@@ -1,6 +1,2 @@
-/clientserver/
-/core/
-/gameobjects/
-/gui/
-/renderer/
 /worldeditor/
+/iohandling/

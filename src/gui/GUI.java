@@ -32,10 +32,10 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 import items.Item;
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
+//import javafx.embed.swing.JFXPanel;
+//import javafx.scene.media.Media;
+//import javafx.scene.media.MediaPlayer;
+//import javafx.util.Duration;
 import tile.Tile;
 
 public class GUI implements KeyListener, ActionListener, MouseListener, MouseMotionListener {
@@ -46,7 +46,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	public static final Color MAINCOLOR = new Color(5,26,37);
 	public static final Color SECONDARYCOLOR = new Color(255,182,0);
 	public static final Color MAINCOLOR2 = new Color(2, 13, 18);
-	MediaPlayer mediaPlayer;
+//	MediaPlayer mediaPlayer;
 	ArrayList<JLabel> inventory;
 	JPopupMenu popup;
 
@@ -66,8 +66,8 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		prepareGUI();
 
 		//Start music
-		JFXPanel fxPanel = new JFXPanel();
-		playSound("assets/audio/mainAudio.mp3");
+//		JFXPanel fxPanel = new JFXPanel();
+//		playSound("assets/audio/mainAudio.mp3");
 		addItem(new Item("Key", "Opens something"));
 
 		gameFrame.setVisible(true);
@@ -337,15 +337,15 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			// The wrapper thread is unnecessary, unless it blocks on the
 			// Clip finishing; see comments.
 			public void run() {
-				URI file = new File(sound).toURI();
-				Media media = new Media(file.toString());
-				mediaPlayer = new MediaPlayer(media);
-				mediaPlayer.setOnEndOfMedia(new Runnable(){
-					public void run() {
-						mediaPlayer.seek(Duration.ZERO);
-					}
-				});
-				mediaPlayer.play();
+//				URI file = new File(sound).toURI();
+//				Media media = new Media(file.toString());
+//				mediaPlayer = new MediaPlayer(media);
+//				mediaPlayer.setOnEndOfMedia(new Runnable(){
+//					public void run() {
+//						mediaPlayer.seek(Duration.ZERO);
+//					}
+//				});
+//				mediaPlayer.play();
 			}
 		});
 		t.start();

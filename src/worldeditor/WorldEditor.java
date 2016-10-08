@@ -14,6 +14,7 @@ import gameobjects.Wall;
 import gameobjects.Fence;
 import iohandling.BoardCreator;
 import iohandling.BoardWriter;
+import items.Key;
 import renderer.Renderer;
 import tile.GrassTile;
 import tile.SandTile;
@@ -110,6 +111,9 @@ public class WorldEditor {
 					break;
 				case "chest":
 					tile.setGameObject(new Chest());
+					break;
+				case "key":
+					tile.setGameObject(new Key("name", "description", 0));
 					break;
 				}
 
