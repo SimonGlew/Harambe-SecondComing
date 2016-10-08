@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import gameobjects.Chest;
+import gameobjects.GameObject;
 import gameobjects.Player;
 import iohandling.BoardCreator;
 import items.Item;
@@ -61,18 +63,30 @@ public class GameSystem {
 				p.setTile(newTile);
 				p.setLocation(board.getLocationById(newTile.getLocationID()));
 				return true;
-			} else if (newTile.getGameObject() instanceof Item) {
-				playerTil.setGameObject(null);
-				if (!p.inventoryIsFull()) {
-					p.pickUpItem((Item) newTile.getGameObject());
-					newTile.setGameObject(p);
-					p.setTile(newTile);
-				}
+			} else {
+				triggerInteraction(p,newTile);
 				return true;
 			}
 		}
 
 		return false;
+	}
+	
+	public void triggerInteraction(Player p, Tile newTile){
+		Tile playerTil = p.getTile();
+		GameObject object = newTile.getGameObject();
+		if(object instanceof Item){
+			playerTil.setGameObject(null);
+			if (!p.inventoryIsFull()) {
+				p.pickUpItem((Item) object);
+				newTile.setGameObject(p);
+				p.setTile(newTile);
+			}
+		}	
+		else if(object instanceof Chest){
+			Chest c = (Chest) object;
+			
+		}
 	}
 
 }

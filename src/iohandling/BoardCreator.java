@@ -65,7 +65,7 @@ public class BoardCreator {
 		String[] inventorysplit = inventory.split("-");
 		for(String s: inventorysplit){
 			if(s.startsWith("Key")){
-				player.pickUpItem(new Key("name", "description", 0));
+				player.pickUpItem(new Key("name", 0));
 			}
 		}
 		player.setLoggedIn(b);
@@ -143,7 +143,7 @@ public class BoardCreator {
 							gameObject = new Wall();
 							break;
 						case "Key":
-							gameObject = new Key("name", "description", 1);
+							gameObject = new Key("name", 1);
 							break;
 						}
 					}

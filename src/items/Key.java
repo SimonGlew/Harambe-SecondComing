@@ -9,8 +9,8 @@ public class Key extends Item {
 	
 	int code;
 	
-	public Key(String name, String description, int code) {
-		super(name, description);
+	public Key(String name , int code) {
+		super(name, "A magical key, it may open something??");
 		this.code = code;
 		try {
 			image = ImageIO.read(new File("assets/game_objects/key/key.png"));
