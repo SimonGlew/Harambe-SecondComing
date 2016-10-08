@@ -28,9 +28,9 @@ public class Player extends GameObject {
 
 	private final String IMG_PRE = "assets/game_objects/player/player";
 	private final String IMG_POST = ".png";
-	
+
 	private final Integer INVENTORY_LIMIT = 10;
-	
+
 	private boolean loggedIn = false;
 
 	public Player(String name, int locationID, Position pos, Board board) {
@@ -43,7 +43,7 @@ public class Player extends GameObject {
 
 	public String getUserName() {
 		return userName;
-	}	
+	}
 
 	public boolean isLoggedIn() {
 		return loggedIn;
@@ -56,8 +56,8 @@ public class Player extends GameObject {
 	public ArrayList<Item> getInventory() {
 		return inventory;
 	}
-	
-	public boolean inventoryIsFull(){
+
+	public boolean inventoryIsFull() {
 		return inventory.size() == INVENTORY_LIMIT;
 	}
 
@@ -72,7 +72,7 @@ public class Player extends GameObject {
 	public void setLocation(int locationID) {
 		this.locationID = locationID;
 	}
-	
+
 	public Tile getTile() {
 		return getLocation().getTileAtPosition(pos);
 	}
@@ -107,12 +107,19 @@ public class Player extends GameObject {
 		return "Player|" + userName;
 	}
 
-	public Position getPosition(){
+	public Position getPosition() {
 		return pos;
 	}
-	
+
 	public String toSaveString() {
-		return "Player " + userName + "," + locationID + "," + pos.getX() + "," + pos.getY() + "," + facing.toString() + "," + loggedIn;
+		String s = "Player " + userName + "," + locationID + "," + pos.getX() + "," + pos.getY() + ","
+				+ facing.toString() + "," + loggedIn + ",[";
+		for(Item i: inventory){
+			s += i.toString();
+			s += "-";
+		}
+		s += "]";
+		return s;
 	}
 
 	public void setPosition(Position position) {

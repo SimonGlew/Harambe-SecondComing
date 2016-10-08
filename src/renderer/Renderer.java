@@ -274,7 +274,6 @@ public class Renderer {
 			Point iso;
 			switch (selectedLocation) {
 			case NORTH:
-				System.out.println("Ye?");
 				iso = twoDToIso((-locationSize/2), -(locationSize / 2));
 				g.drawImage(highlightLocation, iso.x + TILE_WIDTH, iso.y - TILE_WIDTH, null);
 				break;

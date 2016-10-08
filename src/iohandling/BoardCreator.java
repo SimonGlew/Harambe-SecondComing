@@ -60,6 +60,14 @@ public class BoardCreator {
 		Direction d = parseDirection(split[4]);
 		boolean b = Boolean.parseBoolean(split[5]);
 		Player player = new Player(username, locationID, pos, board);
+
+		String inventory = split[6].replace("[", "").replace("]", "");	
+		String[] inventorysplit = inventory.split("-");
+		for(String s: inventorysplit){
+			if(s.startsWith("Key")){
+				player.pickUpItem(new Key("name", "description", 0));
+			}
+		}
 		player.setLoggedIn(b);
 		player.setFacing(d);
 		return player;
@@ -107,17 +115,19 @@ public class BoardCreator {
 				if (tilesplit.length > 1) {
 					String objectString = tilesplit[1];
 					String object = objectString;
-					if(objectString.contains("|")){
-						int index = objectString.indexOf('|');
-						object = objectString.substring(0, index);
-					}
-					if (object.startsWith("Player|")) {
+
+					if (object.startsWith("Player")) {
 						String username = object.substring(7);
 						gameObject = board.getPlayer(username);
 						board.getPlayer(username).setPosition(new Position(i, j));
 						if(!board.getPlayer(username).isLoggedIn()){
 							gameObject = null;
 						}
+					}
+					if(objectString.contains("|")){
+						int index = objectString.indexOf('|');
+						object = objectString.substring(0, index);
+					
 					} else {
 						switch (object) {
 						case "Tree":
