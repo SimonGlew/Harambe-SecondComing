@@ -58,6 +58,10 @@ public class Fence extends GameObject {
 		return image;
 	}
 	
+	public String getDescription(){
+		return "Just a Fence";
+	}
+	
 	public String toString() {
 		return "Fence";
 	}

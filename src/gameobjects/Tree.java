@@ -15,6 +15,10 @@ public class Tree extends GameObject{
 		}
 	}
 	
+	public String getDescription(){
+		return "Just a Tree";
+	}
+	
 	public String toString() {
 		return "Tree";
 	}

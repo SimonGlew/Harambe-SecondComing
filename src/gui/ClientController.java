@@ -44,14 +44,13 @@ public class ClientController {
 
 	public void rotateLeft() {
 		// rotate camera left
-		renderer.rotateClockwise();
+		renderer.rotateCounterClockwise();
 		drawBoard();
 	}
 
 	public void rotateRight() {
-		renderer.rotateCounterClockwise();
-
 		// rotate camera right
+		renderer.rotateClockwise();
 		drawBoard();
 	}
 
@@ -79,6 +78,11 @@ public class ClientController {
 			renderer.selectTile(t);
 			drawBoard();
 		}
+	}
+	
+	public Tile getTile(int x, int y){
+		Position p = renderer.isoToIndex(x, y);
+		return board.getPlayer(getName()).getLocation().getTileAtPosition(p);
 	}
 
 	public void moveWithUltimateDijkstras(int x, int y){

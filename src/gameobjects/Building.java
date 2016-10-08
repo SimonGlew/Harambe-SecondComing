@@ -15,6 +15,10 @@ public class Building extends GameObject{
 		}
 	}
 	
+	public String getDescription(){
+		return "Just a building";
+	}
+	
 	public String toString() {
 		return "Building";
 	}

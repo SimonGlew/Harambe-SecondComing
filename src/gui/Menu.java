@@ -39,6 +39,7 @@ public class Menu implements MouseListener, ActionListener{
 	JTextField address;
 	JTextField playerName;
 	JDialog serverDialog;
+	int portNumber = 4517;
 
 	/**
 	 * Setup JFrame
@@ -100,7 +101,7 @@ public class Menu implements MouseListener, ActionListener{
 		
 		//Jtextfield for name input
 		portNum = new JTextField();
-		portNum.setText("4515");
+		portNum.setText(portNumber + "");
 		portNum.setPreferredSize(new Dimension(140, 30));
 
 		//Jtextfield for name input

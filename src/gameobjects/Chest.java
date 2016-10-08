@@ -16,6 +16,10 @@ public class Chest extends GameObject{
 		}
 	}
 	
+	public String getDescription(){
+		return "Just a Chest";
+	}
+	
 	public String toString() {
 		return "Chest";
 	}
