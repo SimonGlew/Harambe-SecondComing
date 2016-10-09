@@ -11,6 +11,7 @@ import java.util.Queue;
 import java.util.Stack;
 import javax.swing.Timer;
 
+import clientserver.ClientController;
 import core.Board;
 import core.GameSystem;
 import core.Location;
@@ -23,7 +24,7 @@ public class UltimateDijkstras implements ActionListener {
 	Tile end;
 	Location startLocation;
 	Node[][] nodes;
-	Stack<Tile> path;
+	private Stack<Tile> path;
 	Timer timer;
 	Board board;
 	int length;
@@ -35,7 +36,7 @@ public class UltimateDijkstras implements ActionListener {
 		this.end = end;
 		this.startLocation = startLocation;
 		this.board = board;
-		this.path = null;
+		this.setPath(null);
 		this.length = 30;
 		this.zoneLocId = new HashMap<Integer, Integer>();
 		timer = new Timer(400, this);
@@ -101,7 +102,7 @@ public class UltimateDijkstras implements ActionListener {
 		}
 
 		if(!path.isEmpty()) path.pop();
-		this.path = path;
+		this.setPath(path);
 	}
 
 	public void startTimer(){
@@ -230,11 +231,11 @@ public class UltimateDijkstras implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if(path != null){
-			if(path.isEmpty()){
+		if(getPath() != null){
+			if(getPath().isEmpty()){
 				timer.stop();
 			}else{
-				controller.moveToPos(path.pop());
+				controller.moveToPos(getPath().pop());
 			}
 		}
 	}
@@ -254,6 +255,14 @@ public class UltimateDijkstras implements ActionListener {
 			map += "\n";
 		}
 		return map;
+	}
+
+	public Stack<Tile> getPath() {
+		return path;
+	}
+
+	public void setPath(Stack<Tile> path) {
+		this.path = path;
 	}
 }
 

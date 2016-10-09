@@ -4,7 +4,6 @@ import java.net.*;
 import java.io.*;
 import javax.swing.JFrame;
 
-import gui.ClientController;
 import gui.Menu;
 import iohandling.BoardCreator;
 
