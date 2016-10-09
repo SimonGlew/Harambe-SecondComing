@@ -75,12 +75,13 @@ public class GameSystem {
 	public void triggerInteraction(Player p, Tile newTile){
 		Tile playerTil = p.getTile();
 		GameObject object = newTile.getGameObject();
-		if(object instanceof Item){
-			playerTil.setGameObject(null);
+		if(object instanceof Item){			
 			if (!p.inventoryIsFull()) {
+				playerTil.setGameObject(null);
 				p.pickUpItem((Item) object);
 				newTile.setGameObject(p);
 				p.setTile(newTile);
+				p.setLocation(board.getLocationById(newTile.getLocationID()));
 			}
 		}	
 		else if(object instanceof Chest){
