@@ -136,9 +136,8 @@ public class ClientController {
 		return null;
 	}
 
-	public void dropItemPlayer(){
+	public void dropItemPlayer(int index){
 		String name = getName();
-		int index = 0; //TODO: Give index to player
 
 		String command = "drop " + name + " " + index;
 		sendMessage(new PlayerCommand(command));

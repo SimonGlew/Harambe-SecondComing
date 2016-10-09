@@ -10,13 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -48,6 +47,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	public static final Color SECONDARYCOLOR = new Color(255,182,0);
 	public static final Color MAINCOLOR2 = new Color(2, 13, 18);
 	ArrayList<JLabel> inventory;
+	JPanel inventorySlots;
 	JPopupMenu popup;
 
 	public GUI(ClientController c){
@@ -145,10 +145,10 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		inventory.setFont(font.deriveFont(attributes));
 
 		//Setup inventory slots
-		JPanel inventorySlots = new JPanel(new FlowLayout());
+		inventorySlots = new JPanel(new FlowLayout());
 		inventorySlots.setPreferredSize(new Dimension(120, 320));
 		inventorySlots.setBackground(MAINCOLOR);
-		setupInventorySlots(inventorySlots);
+		setupInventorySlots();
 
 		//Add banana count
 		JLabel bananaLabel = new JLabel();
@@ -235,11 +235,9 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	public void addItem(Item i){
 		for(JLabel j: inventory){
-			if(j.getName() == null){
-				j.setName(i.getName());
+			if(j.getToolTipText() == null){
 				j.setToolTipText(i.getName() + ": " + i.getDescription());
 				j.setIcon(getInventoryImage(i));
-				j.setName(null);
 				return;
 			}
 		}
@@ -252,12 +250,23 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		}
 	}
 
-	private void setupInventorySlots(JPanel inventorySlots){
+	private void setupInventorySlots(){
 		int i = 0;
 		while(i < 10){
 			JLabel slot = new JLabel();
 			slot.setBorder(BorderFactory.createLineBorder(new Color(255, 182, 0), 4));
 			slot.setPreferredSize(new Dimension(50, 50));
+			slot.setName(i +"");
+			slot.addMouseListener(new MouseAdapter(){
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					if(e.isPopupTrigger()){
+						JLabel src = (JLabel)e.getSource();
+						createPopupUI(e.getX(), e.getY(), Integer.parseInt(src.getName()));
+						
+					}
+				}
+			});
 			inventorySlots.add(slot);
 			inventory.add(slot);
 			JLabel slot2 = new JLabel();
@@ -287,10 +296,38 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		displayInventory();
 	}
 
-	private void createPopup(int x, int y) {
+	protected void createPopupUI(int x, int y, int parseInt) {
+		JLabel label = inventory.get(parseInt);
+		if(label.getToolTipText() != null){
+			popup = new JPopupMenu("tile");
+			
+			String desc = inventory.get(parseInt).getToolTipText();
+			
+			JMenuItem examineObject = new JMenuItem("Examine");
+			examineObject.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showMessageDialog(gameFrame, desc, "Examining", JOptionPane.INFORMATION_MESSAGE);
+				}
+			});
+			popup.add(examineObject);
+			popup.addSeparator();
+			
+			JMenuItem dropObject = new JMenuItem("Drop");
+			dropObject.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					controller.dropItemPlayer(parseInt);
+				}
+			});
+			popup.add(dropObject);
+			popup.show(label, x, y);
+		}
+	}
 
-		if(x < 1000){
-			popup = new JPopupMenu("hello");
+	private void createPopupGame(int x, int y) {
+		if(x < 1020){
+			popup = new JPopupMenu("tile");
 			Tile t = controller.getTile(x, y - (gameFrame.getHeight() - gameLabel.getHeight()));
 
 			if(t != null){
@@ -330,7 +367,6 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 					popup.add(move);
 				}
 			}
-
 		}
 	}
 
@@ -376,9 +412,11 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			else controller.rotateRight();
 		}
 		else{
-			if(e.isPopupTrigger()){
-				createPopup(e.getX(), e.getY());
-				popup.show(e.getComponent(), e.getX(), e.getY());
+			if(e.isPopupTrigger() || (e.getX() >= 1025 && e.getX() <= 1135 && e.getY() >= 270 && e.getY() <= 585)){
+				createPopupGame(e.getX(), e.getY());
+				if(popup !=null){
+					popup.show(e.getComponent(), e.getX(), e.getY());
+				}
 			}else{
 				checkClicked(e.getX(), e.getY());
 			}
