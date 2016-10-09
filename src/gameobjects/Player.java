@@ -130,6 +130,10 @@ public class Player extends GameObject {
 	public void setPosition(Position position) {
 		pos = position;
 	}
+	
+	public String getDescription(){
+		return "This is Player: " + userName;
+	}
 
 	public void setFacing(Direction dir) {
 		facing = dir;
