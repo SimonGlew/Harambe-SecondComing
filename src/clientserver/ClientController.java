@@ -30,7 +30,7 @@ public class ClientController {
 	}
 
 	public void showGUI() {
-		gui = new GUI(this);	
+		gui = new GUI(this);
 	}
 
 	public void hideGUI(){
@@ -141,6 +141,14 @@ public class ClientController {
 
 		String command = "drop " + name + " " + index;
 		sendMessage(new PlayerCommand(command));
+	}
+
+	public void pickupItemPlayer(Tile t){
+		String name = getName();
+		if(t.getGameObject() != null){
+			String command = "pickup " + name;
+			sendMessage(new PlayerCommand(command));
+		}
 	}
 
 	public void moveToPos(Tile t){
