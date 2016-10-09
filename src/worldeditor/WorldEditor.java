@@ -14,6 +14,7 @@ import gameobjects.Wall;
 import gameobjects.Fence;
 import iohandling.BoardParser;
 import iohandling.BoardWriter;
+import items.FloatingDevice;
 import items.Key;
 import renderer.Renderer;
 import tile.GrassTile;
@@ -115,6 +116,9 @@ public class WorldEditor {
 					break;
 				case "key":
 					tile.setGameObject(new Key("name", 0));
+					break;
+				case "floatie":
+					tile.setGameObject(new FloatingDevice("Floating Device"));
 					break;
 				}
 

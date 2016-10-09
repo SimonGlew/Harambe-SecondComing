@@ -15,5 +15,9 @@ public class FloatingDevice extends Item {
 			e.printStackTrace();
 		}
 	}
+	
+	public String toString(){
+		return "FloatingDevice";
+	}
 
 }

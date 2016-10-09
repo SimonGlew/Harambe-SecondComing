@@ -17,6 +17,7 @@ import gameobjects.GameObject;
 import gameobjects.Player;
 import gameobjects.Tree;
 import gameobjects.Wall;
+import items.FloatingDevice;
 import items.Item;
 import items.Key;
 import tile.GrassTile;
@@ -197,6 +198,8 @@ public class BoardParser {
 			return parseChest(s, board);
 		} else if (checkFor("Key", s)) {
 			return parseKey(s);
+		} else if (checkFor("FloatingDevice", s)){
+			return new FloatingDevice("Floating Device");
 		} else {
 			fail("Not a GameObject", s);
 		}
@@ -222,7 +225,9 @@ public class BoardParser {
 	private static Item parseItem(Scanner s) {
 		if (checkFor("Key", s)) {
 			return parseKey(s);
-		} else {
+		} else if(checkFor("FloatingDevice", s)){
+			return new FloatingDevice("Floating Device");
+		}else{
 			fail("Not an Item", s);
 		}
 		return null;

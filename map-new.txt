@@ -9,7 +9,7 @@ WEST: 1
 SOUTH: 7
 (Grass)(Grass)(Grass(Key(name, 0)))(Grass(Fence))(Stone)(Stone)(Grass(Fence))(Grass)(Grass)(Grass)
 (Grass)(Grass(Tree))(Grass(Fence))(Grass(Fence))(Stone)(Stone)(Grass(Fence))(Grass(Fence))(Grass(Tree))(Grass)
-(Grass)(Grass(Fence))(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Grass(Fence))(Grass)
+(Grass)(Grass(Fence))(Stone)(Stone)(Stone)(Grass)(Stone)(Stone)(Grass(Fence))(Grass)
 (Grass(Fence))(Grass(Fence))(Stone)(Grass(Tree))(Stone)(Stone)(Grass(Tree))(Stone)(Grass(Fence))(Grass(Fence))
 (Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)
 (Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)
@@ -86,7 +86,7 @@ SOUTH: 2
 (Grass)(Grass(Chest))(Grass)(Grass(Fence))(Grass(Fence))(Grass)(Grass)(Grass)(Grass)(Grass)
 (Grass(Tree))(Grass(Tree))(Grass)(Grass(Tree))(Grass(Fence))(Grass(Fence))(Grass)(Grass)(Grass)(Grass)
 (Grass)(Grass(Tree))(Grass)(Grass)(Grass)(Grass(Fence))(Grass(Fence))(Grass)(Grass)(Grass)
-(Sand)(Grass)(Grass)(Grass)(Grass)(Grass(Key(name, 0)))(Grass(Fence))(Grass(Fence))(Grass)(Grass)
+(Sand(FloatingDevice))(Grass)(Grass)(Grass)(Grass)(Grass(Key(name, 0)))(Grass(Fence))(Grass(Fence))(Grass)(Grass)
 (Sand)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass(Fence))(Grass)(Grass)
 (Sand)(Sand)(Grass)(Grass)(Grass(Tree))(Grass)(Grass)(Grass(Fence))(Grass(Fence))(Grass)
 (Water)(Sand)(Sand)(Sand)(Grass(Tree))(Grass(Tree))(Grass)(Grass)(Grass(Fence))(Grass)

@@ -1,8 +1,9 @@
+/iohandling/
+/items/
 /renderer/
 /tile/
+/util/
 /worldeditor/
 /clientserver/
-/core/
 /gameobjects/
 /gui/
-/iohandling/
