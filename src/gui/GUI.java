@@ -31,6 +31,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
+import clientserver.ClientController;
 import items.Item;
 //import javafx.embed.swing.JFXPanel;
 //import javafx.scene.media.Media;

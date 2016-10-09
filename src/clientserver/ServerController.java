@@ -31,6 +31,8 @@ public class ServerController {
 				return parseMoveCommand(s);
 			}else if(action.equals("login")){
 				return parseLoginCommand(s);
+			}else if(action.equals("drop")){
+				return parseDropItemCommand(s);
 			}
 
 			s.close();
@@ -110,7 +112,6 @@ public class ServerController {
 		catch(Exception e){
 			return "false";
 		}
-		
 	}
 	
 	public Player getPlayerByUserName(String name){
