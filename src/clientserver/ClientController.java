@@ -1,5 +1,7 @@
 package clientserver;
 
+import java.util.ArrayList;
+
 import clientserver.*;
 import core.Board;
 import core.GameSystem.Direction;
@@ -7,6 +9,7 @@ import gui.GUI;
 import gui.UltimateDijkstras;
 import core.Location;
 import iohandling.BoardWriter;
+import items.Item;
 import renderer.Renderer;
 import tile.Tile;
 import util.Position;
@@ -125,11 +128,18 @@ public class ClientController {
 			}
 		}
 	}
-	
+
+	public ArrayList<Item> getInventory(){
+		if(board != null){
+			return board.getPlayer(getName()).getInventory();
+		}
+		return null;
+	}
+
 	public void dropItemPlayer(){
 		String name = getName();
 		int index = 0; //TODO: Give index to player
-		
+
 		String command = "drop " + name + " " + index;
 		sendMessage(new PlayerCommand(command));
 	}

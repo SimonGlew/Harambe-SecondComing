@@ -15,6 +15,8 @@ import clientserver.ClientController;
 import core.Board;
 import core.GameSystem;
 import core.Location;
+import gameobjects.GameObject;
+import items.Item;
 import tile.Tile;
 import util.Position;
 
@@ -85,7 +87,8 @@ public class UltimateDijkstras implements ActionListener {
 				}
 				for(Node n: searchNode.node.neighbours){
 					if(n != null){
-						if(!n.visited && n.t.getGameObject() == null){
+						GameObject o = n.t.getGameObject();
+						if(!n.visited && (o == null || o instanceof Item)){
 							int cost = searchNode.costToHere + 1;
 							fringe.offer(new SearchNode(cost, n, searchNode.node));
 						}

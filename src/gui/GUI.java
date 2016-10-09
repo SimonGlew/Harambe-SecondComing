@@ -47,11 +47,9 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	public static final Color MAINCOLOR = new Color(5,26,37);
 	public static final Color SECONDARYCOLOR = new Color(255,182,0);
 	public static final Color MAINCOLOR2 = new Color(2, 13, 18);
-//	MediaPlayer mediaPlayer;
 	ArrayList<JLabel> inventory;
 	JPopupMenu popup;
 
-	@SuppressWarnings("unused")
 	public GUI(ClientController c){
 		this.controller = c;
 		this.inventory = new ArrayList<JLabel>();
@@ -65,11 +63,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		gameFrame.addKeyListener(this);
 
 		prepareGUI();
-
-		//Start music
-//		JFXPanel fxPanel = new JFXPanel();
-//		playSound("assets/audio/mainAudio.mp3");
-		addItem(new Item("Key", "Opens something"));
+		displayInventory();
 
 		gameFrame.setVisible(true);
 	}
@@ -228,26 +222,33 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		helpBar.add(shortcuts);
 	}
 
+
+	private void displayInventory() {
+		clearInventory();
+		ArrayList<Item> items = controller.getInventory();
+		if(items != null){
+			for(Item i: items){
+				addItem(i);
+			}
+		}
+	}
+
 	public void addItem(Item i){
 		for(JLabel j: inventory){
 			if(j.getName() == null){
 				j.setName(i.getName());
 				j.setToolTipText(i.getName() + ": " + i.getDescription());
-				j.setIcon(getInventoryImage(i.getName()));
+				j.setIcon(getInventoryImage(i));
+				j.setName(null);
 				return;
 			}
 		}
 	}
 
-	public void removeItem(Item item){
-		for(int i = 0; i < inventory.size(); i++){
-			JLabel j = inventory.get(i);
-			if(j.getName().equals(item.getName())){
-				j.setName(null);
-				j.setName(null);
-				j.setToolTipText(null);
-				j.setIcon(null);
-			}
+	private void clearInventory() {
+		for(JLabel j: inventory){
+			j.setToolTipText(null);
+			j.setIcon(null);
 		}
 	}
 
@@ -283,6 +284,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	public void showBoard(BufferedImage i){
 		gameLabel.setIcon(new ImageIcon(i));
+		displayInventory();
 	}
 
 	private void createPopup(int x, int y) {
@@ -332,28 +334,8 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		}
 	}
 
-
-	private void playSound(String sound){
-		Thread t = new Thread(new Runnable() {
-			// The wrapper thread is unnecessary, unless it blocks on the
-			// Clip finishing; see comments.
-			public void run() {
-//				URI file = new File(sound).toURI();
-//				Media media = new Media(file.toString());
-//				mediaPlayer = new MediaPlayer(media);
-//				mediaPlayer.setOnEndOfMedia(new Runnable(){
-//					public void run() {
-//						mediaPlayer.seek(Duration.ZERO);
-//					}
-//				});
-//				mediaPlayer.play();
-			}
-		});
-		t.start();
-	}
-
-	public ImageIcon getInventoryImage(String s){
-		if(s.equals("Key")){
+	public ImageIcon getInventoryImage(Item i){
+		if(i instanceof items.Key){
 			return keyImage;
 		}
 		return null;
