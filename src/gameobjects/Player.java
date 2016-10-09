@@ -44,6 +44,11 @@ public class Player extends GameObject {
 	public String getUserName() {
 		return userName;
 	}
+	
+
+	public Direction getFacing() {
+		return facing;
+	}
 
 	public boolean isLoggedIn() {
 		return loggedIn;

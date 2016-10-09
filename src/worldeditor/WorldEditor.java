@@ -113,7 +113,7 @@ public class WorldEditor {
 					tile.setGameObject(new Chest());
 					break;
 				case "key":
-					tile.setGameObject(new Key("name", "description", 0));
+					tile.setGameObject(new Key("name", 0));
 					break;
 				}
 

@@ -6,6 +6,7 @@ import core.Board;
 import core.GameSystem;
 import core.GameSystem.Direction;
 import gameobjects.Player;
+import items.Item;
 import util.Position;
 
 public class ServerController {
@@ -95,6 +96,21 @@ public class ServerController {
 			return Direction.WEST;
 		}
 		return null;
+	}
+	
+	public String parseDropItemCommand(Scanner s){
+		try{
+			Player player = getPlayerByUserName(s.next());
+			int indexOfItem = s.nextInt();
+			Item item = player.getInventory().get(indexOfItem);
+			
+			gameSystem.playerDropItem(player,item);
+			return "true";
+		}
+		catch(Exception e){
+			return "false";
+		}
+		
 	}
 	
 	public Player getPlayerByUserName(String name){

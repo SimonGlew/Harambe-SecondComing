@@ -85,8 +85,20 @@ public class GameSystem {
 		}	
 		else if(object instanceof Chest){
 			Chest c = (Chest) object;
-			
+			if(!p.inventoryIsFull() && c.getContents() != null){
+				p.pickUpItem(c.getContents());
+				c.setContents(null);
+			}
 		}
+	}
+	
+	public void playerDropItem(Player p, Item i){
+		Tile tileInFront = p.getLocation().getTileInDirection(p.getPosition(), p.getFacing());
+		
+		if(tileInFront.getGameObject() == null){
+			tileInFront.setGameObject(i);
+		}
+		
 	}
 
 }
