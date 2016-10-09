@@ -331,6 +331,18 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			Tile t = controller.getTile(x, y - (gameFrame.getHeight() - gameLabel.getHeight()));
 
 			if(t != null){
+				if(t.getGameObject() instanceof Item){
+					Item i = (Item)t.getGameObject();
+					JMenuItem pickupObject = new JMenuItem("Pickup " + i.getName());
+					pickupObject.addActionListener(new ActionListener(){
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							checkClicked(x, y);
+							controller.pickupItemPlayer(t);
+						}
+					});
+					popup.add(pickupObject);
+				}
 				if(t.getGameObject() != null){
 					JMenuItem examineObject = new JMenuItem("Examine " + t.getGameObject().toString());
 					examineObject.addActionListener(new ActionListener(){
