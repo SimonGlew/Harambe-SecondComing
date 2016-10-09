@@ -6,6 +6,7 @@ import core.Board;
 import core.GameSystem;
 import core.GameSystem.Direction;
 import gameobjects.Player;
+import items.Banana;
 import items.Item;
 import tile.Tile;
 import util.Position;
@@ -34,8 +35,15 @@ public class ServerController {
 				return parseLoginCommand(s);
 			}else if(action.equals("drop")){
 				return parseDropItemCommand(s);
+<<<<<<< HEAD
+			}else if(action.equals("siphon")){
+				return parseSiphonBananaCommand(s);
+			}else if(action.equals("use")){
+				return parseUseItemCommand(s);
+=======
 			}else if(action.equals("pickup")){
 				return parsePickupItemCommand(s);
+>>>>>>> e3e630b9f7a6ae53e05885901ab60375453e2d78
 			}
 
 			s.close();
@@ -130,7 +138,41 @@ public class ServerController {
 			return "false";
 		}
 	}
+<<<<<<< HEAD
+	
+	public String parseSiphonBananaCommand(Scanner s){
+		try{
+			Player player = getPlayerByUserName(s.next());
+			int indexOfItem = s.nextInt();
+			Item item = player.getInventory().get(indexOfItem);
+			
+			Banana  b = (Banana)item;
+			gameSystem.playerSiphonBanana(player,b);
+			return "true";
+		}
+		catch(Exception e){
+			return "false";
+		}
+		
+	}
+	
+	public String parseUseItemCommand(Scanner s){
+		try{
+			Player player = getPlayerByUserName(s.next());
+			int indexOfItem = s.nextInt();
+			Item item = player.getInventory().get(indexOfItem);
+			
+			gameSystem.playerUseItem(player,item);
+			return "true";
+		}
+		catch(Exception e){
+			return "false";
+		}
+	}
+	
+=======
 
+>>>>>>> e3e630b9f7a6ae53e05885901ab60375453e2d78
 	public Player getPlayerByUserName(String name){
 		return gameSystem.getBoard().getPlayer(name);
 	}
