@@ -26,6 +26,7 @@ public class Player extends GameObject {
 	private Direction facing = Direction.SOUTH;
 
 	private int numOfBananas;
+	private boolean hasFloatingDevice = false;
 
 	private final String IMG_PRE = "assets/game_objects/player/player";
 	private final String IMG_POST = ".png";
@@ -41,6 +42,13 @@ public class Player extends GameObject {
 		this.board = board;
 		this.userName = name;
 	}
+	
+	
+
+	public void setNumOfBananas(int numOfBananas) {
+		this.numOfBananas = numOfBananas;
+	}
+
 
 	public String getUserName() {
 		return userName;
@@ -140,12 +148,11 @@ public class Player extends GameObject {
 		facing = dir;
 	}
 	
-	public boolean hasFloatingDevice(){
-		for(Item i : inventory){
-			if (i instanceof FloatingDevice){
-				return true;
-			}
-		}
-		return false;
+	public void setHasFloatingDevice(boolean b){
+		hasFloatingDevice = b;
+	}
+	
+	public boolean getHasFloatingDevice(){
+		return hasFloatingDevice;
 	}
 }

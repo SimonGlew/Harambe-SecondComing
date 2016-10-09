@@ -8,6 +8,8 @@ import gameobjects.Chest;
 import gameobjects.GameObject;
 import gameobjects.Player;
 import iohandling.BoardParser;
+import items.Banana;
+import items.FloatingDevice;
 import items.Item;
 import tile.Tile;
 import tile.WaterTile;
@@ -16,6 +18,8 @@ import util.Position;
 public class GameSystem {
 
 	private Board board;
+	
+	public final Integer WINNING_BANANA_COUNT = 5;
 
 	public enum Direction {
 		NORTH, SOUTH, EAST, WEST
@@ -60,7 +64,7 @@ public class GameSystem {
 		if (newTile != null) {
 			if (newTile.getGameObject() == null) {
 				if(newTile instanceof WaterTile){
-					if(!p.hasFloatingDevice()){
+					if(!p.getHasFloatingDevice()){
 						return false;
 					}
 				}
@@ -107,6 +111,22 @@ public class GameSystem {
 			p.getInventory().remove(i);
 		}
 		
+	}
+	
+	public void playerSiphonBanana(Player p, Banana b){
+		if(p != null && b != null){
+			p.setNumOfBananas(p.getNumOfBananas()+1);
+			if(p.getNumOfBananas() == WINNING_BANANA_COUNT){
+				//end game show winner
+			}
+		}
+	}
+	
+	public void playerUseItem(Player player, Item item){
+		if(item instanceof FloatingDevice){
+			player.setHasFloatingDevice(true);
+			player.getInventory().remove(item);
+		}
 	}
 
 }

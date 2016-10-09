@@ -6,6 +6,7 @@ import core.Board;
 import core.GameSystem;
 import core.GameSystem.Direction;
 import gameobjects.Player;
+import items.Banana;
 import items.Item;
 import util.Position;
 
@@ -33,6 +34,10 @@ public class ServerController {
 				return parseLoginCommand(s);
 			}else if(action.equals("drop")){
 				return parseDropItemCommand(s);
+			}else if(action.equals("siphon")){
+				return parseSiphonBananaCommand(s);
+			}else if(action.equals("use")){
+				return parseUseItemCommand(s);
 			}
 
 			s.close();
@@ -107,6 +112,36 @@ public class ServerController {
 			Item item = player.getInventory().get(indexOfItem);
 			
 			gameSystem.playerDropItem(player,item);
+			return "true";
+		}
+		catch(Exception e){
+			return "false";
+		}
+	}
+	
+	public String parseSiphonBananaCommand(Scanner s){
+		try{
+			Player player = getPlayerByUserName(s.next());
+			int indexOfItem = s.nextInt();
+			Item item = player.getInventory().get(indexOfItem);
+			
+			Banana  b = (Banana)item;
+			gameSystem.playerSiphonBanana(player,b);
+			return "true";
+		}
+		catch(Exception e){
+			return "false";
+		}
+		
+	}
+	
+	public String parseUseItemCommand(Scanner s){
+		try{
+			Player player = getPlayerByUserName(s.next());
+			int indexOfItem = s.nextInt();
+			Item item = player.getInventory().get(indexOfItem);
+			
+			gameSystem.playerUseItem(player,item);
 			return "true";
 		}
 		catch(Exception e){
