@@ -78,7 +78,7 @@ public class ToolSelectionFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BoardWriter.writeBoard(editor.board, "map.txt");
+				BoardWriter.writeBoard(editor.board, "map-new.txt");
 			}
 		});
 		panel.add(button);
@@ -141,7 +141,7 @@ public class ToolSelectionFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BoardWriter.writeBoard(editor.board, "map.txt");
+				BoardWriter.writeBoard(editor.board, "map-new.txt");
 			}
 		});
 		panel.add(button);

@@ -389,7 +389,6 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	public void mouseReleased(MouseEvent e) {
 		if(e.getSource() instanceof JLabel){
 			JLabel src = (JLabel) e.getSource();
-			System.out.println("hi");
 			if(src.getName().equals("left")) controller.rotateLeft();
 			else controller.rotateRight();
 		}

@@ -109,7 +109,7 @@ public class Player extends GameObject {
 	}
 
 	public String toString() {
-		return "Player|" + userName;
+		return "Player(" + userName + ")";
 	}
 
 	public Position getPosition() {
@@ -117,13 +117,13 @@ public class Player extends GameObject {
 	}
 
 	public String toSaveString() {
-		String s = "Player " + userName + "," + locationID + "," + pos.getX() + "," + pos.getY() + ","
-				+ facing.toString() + "," + loggedIn + ",[";
+		String s = "Player\n{\n" + userName + "," + locationID + "," + pos.getX() + "," + pos.getY() + ","
+				+ facing.toString() + "," + loggedIn + ",Inventory(";
 		for(Item i: inventory){
 			s += i.toString();
-			s += "-";
+			s += ",";
 		}
-		s += "]";
+		s += ")\n}";
 		return s;
 	}
 

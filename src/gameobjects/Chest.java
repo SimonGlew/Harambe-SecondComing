@@ -61,6 +61,10 @@ public class Chest extends GameObject{
 	}
 	
 	public String toString() {
-		return "Chest";
+		String s = "Chest";
+		if(contents != null){
+			s += "(" + contents.toString() + ")";
+		}
+		return s;
 	}
 }

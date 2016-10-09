@@ -19,8 +19,12 @@ public class WoodTile extends Tile{
 		}
 	}
 	
-	public String toString(){
-		return "Wood";
+	public String toString() {
+		String s = "Wood";
+		if(gameObject!=null){
+			s+= "(" + gameObject.toString() + ")";
+		}
+		return s;
 	}
 
 }

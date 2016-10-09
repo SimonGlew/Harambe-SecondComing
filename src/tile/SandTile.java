@@ -19,8 +19,12 @@ public class SandTile extends Tile{
 		}
 	}
 	
-	public String toString(){
-		return "Sand";
+	public String toString() {
+		String s = "Sand";
+		if(gameObject!=null){
+			s+= "(" + gameObject.toString() + ")";
+		}
+		return s;
 	}
 
 }

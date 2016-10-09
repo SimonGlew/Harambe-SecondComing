@@ -7,7 +7,7 @@ import java.util.Map;
 import gameobjects.Chest;
 import gameobjects.GameObject;
 import gameobjects.Player;
-import iohandling.BoardCreator;
+import iohandling.BoardParser;
 import items.Item;
 import tile.Tile;
 import util.Position;
@@ -21,7 +21,7 @@ public class GameSystem {
 	}
 
 	public GameSystem() {
-		this.board = BoardCreator.loadBoard("map.txt");
+		this.board = BoardParser.parseBoardFName("map-new.txt");
 	}
 
 	public Board getBoard() {

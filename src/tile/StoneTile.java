@@ -20,6 +20,10 @@ public class StoneTile extends Tile {
 	}
 
 	public String toString() {
-		return "Stone";
+		String s = "Stone";
+		if(gameObject!=null){
+			s+= "(" + gameObject.toString() + ")";
+		}
+		return s;
 	}
 }

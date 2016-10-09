@@ -23,7 +23,11 @@ public class GrassTile extends Tile {
 	}
 
 	public String toString() {
-		return "Grass";
+		String s = "Grass";
+		if(gameObject!=null){
+			s+= "(" + gameObject.toString() + ")";
+		}
+		return s;
 	}
 
 }

@@ -28,7 +28,7 @@ public class Key extends Item {
 	}
 	
 	public String toString(){
-		return "Key|"+code;
+		return "Key(" + name + ", " + code + ")";
 	}
 
 }

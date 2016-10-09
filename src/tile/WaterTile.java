@@ -19,7 +19,11 @@ public class WaterTile extends Tile {
 		}
 	}
 
-	public String toString(){
-		return "Water";
+	public String toString() {
+		String s = "Water";
+		if(gameObject!=null){
+			s+= "(" + gameObject.toString() + ")";
+		}
+		return s;
 	}
 }

@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 
 import gui.ClientController;
 import gui.Menu;
-import iohandling.BoardCreator;
+import iohandling.BoardParser;
 
 /*
  * The Client running through console
@@ -104,7 +104,7 @@ public class Client {
 							clientController.showGUI();
 							loggedIn = true;
 						}
-						clientController.sendBoard(BoardCreator.loadBoardFromString(packet.getBoard()), packet.getTime());
+						clientController.sendBoard(BoardParser.parseBoardString(packet.getBoard()), packet.getTime());
 					} else if (packet.getType().equals("string")) {
 						if (packet.getMessage().equals("fail login")) {
 							menu.dispose();

@@ -12,7 +12,7 @@ import gameobjects.Chest;
 import gameobjects.Tree;
 import gameobjects.Wall;
 import gameobjects.Fence;
-import iohandling.BoardCreator;
+import iohandling.BoardParser;
 import iohandling.BoardWriter;
 import items.Key;
 import renderer.Renderer;
@@ -38,10 +38,11 @@ public class WorldEditor {
 
 	public WorldEditor() {
 		renderer = new Renderer();
-		// LOAD BOARD
-		board = BoardCreator.loadBoard("map.txt");
-		String s = BoardWriter.writeBoardToString(board);
-		board = BoardCreator.loadBoardFromString(s);
+		 //LOAD BOARD
+		board = BoardParser.parseBoardFName("map-new.txt");
+		//board = BoardCreator.loadBoard("map.txt");
+		//String s = BoardWriter.writeBoardToString(board);
+		//board = BoardCreator.loadBoardFromString(s);
 		// currentLocation = createBlankLocation();
 		currentLocation = 0;
 

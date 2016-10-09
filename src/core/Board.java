@@ -11,9 +11,9 @@ public class Board {
 	private Map<String, Player> players;
 	private Map<Integer, Location> locations;
 
-	public Board(Map<Integer, Location> locations) {
-		this.locations = locations;
-		players = new HashMap<String, Player>();
+	public Board() {
+		this.locations = new HashMap<Integer, Location>();
+		this.players = new HashMap<String, Player>();
 	}
 
 	public Map<Integer, Location> getLocations() {
