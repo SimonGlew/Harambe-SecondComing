@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import core.Board;
 import core.GameSystem;
 import core.GameSystem.Direction;
+import items.FloatingDevice;
 import items.Item;
 import core.Location;
 import tile.Tile;
@@ -137,5 +138,14 @@ public class Player extends GameObject {
 
 	public void setFacing(Direction dir) {
 		facing = dir;
+	}
+	
+	public boolean hasFloatingDevice(){
+		for(Item i : inventory){
+			if (i instanceof FloatingDevice){
+				return true;
+			}
+		}
+		return false;
 	}
 }

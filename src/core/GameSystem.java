@@ -10,6 +10,7 @@ import gameobjects.Player;
 import iohandling.BoardParser;
 import items.Item;
 import tile.Tile;
+import tile.WaterTile;
 import util.Position;
 
 public class GameSystem {
@@ -58,6 +59,11 @@ public class GameSystem {
 
 		if (newTile != null) {
 			if (newTile.getGameObject() == null) {
+				if(newTile instanceof WaterTile){
+					if(!p.hasFloatingDevice()){
+						return false;
+					}
+				}
 				playerTil.setGameObject(null);
 				newTile.setGameObject(p);
 				p.setTile(newTile);
@@ -98,6 +104,7 @@ public class GameSystem {
 		
 		if(tileInFront.getGameObject() == null){
 			tileInFront.setGameObject(i);
+			p.getInventory().remove(i);
 		}
 		
 	}

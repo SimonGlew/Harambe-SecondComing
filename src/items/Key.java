@@ -9,7 +9,7 @@ public class Key extends Item {
 	
 	int code;
 	
-	public Key(String name , int code) {
+	public Key(String name, int code) {
 		super(name, "A magical key, it may open something??");
 		this.code = code;
 		try {
