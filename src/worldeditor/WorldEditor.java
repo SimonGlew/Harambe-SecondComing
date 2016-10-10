@@ -94,9 +94,19 @@ public class WorldEditor {
 				&& j < board.getLocationById(currentLocation).getTiles()[0].length) {
 			Tile tile = board.getLocationById(currentLocation).getTiles()[i][j];
 			if (tile.getGameObject() instanceof Door) {
+<<<<<<< HEAD
 				System.out.println("Yay?");
 				currentLocation = ((Door) tile.getGameObject()).getLocationID();
 				System.out.print(currentLocation);
+=======
+				currentLocation = ((Door) tile.getGameObject()).getLocationID();
+				update();
+				return;
+			}
+			if (tile instanceof DoorOutTile) {
+				currentLocation = ((DoorOutTile) tile).getOutLocationID();
+				System.out.println(currentLocation);
+>>>>>>> e57948c0e3f0b516ba21b59543b98eee52e9b050
 				update();
 				return;
 			}
@@ -150,7 +160,12 @@ public class WorldEditor {
 					break;
 				case "door":
 					int id = createIndoorLocation();
+<<<<<<< HEAD
 					DoorOutTile doorOut = new DoorOutTile(new Position(10, 5), null, currentLocation, board.getLocationById(currentLocation).getTileInDirection(new Position(i, j),  Direction.SOUTH).getPos());
+=======
+					DoorOutTile doorOut = new DoorOutTile(new Position(5, 9), null, currentLocation, board.getLocationById(currentLocation).getTileInDirection(new Position(i, j),  Direction.SOUTH).getPos());
+					System.out.println(currentLocation);
+>>>>>>> e57948c0e3f0b516ba21b59543b98eee52e9b050
 					board.getLocationById(id).getTiles()[5][9] = doorOut;
 					tile.setGameObject(new Door(0, id));
 					
