@@ -312,7 +312,11 @@ public class ClientController {
 		return board.getPlayer(client.getUsername());
 	}
 	
-	
+	/**
+	 * Shows a message onto the popup on the renderer screen
+	 * 
+	 * @param s - String to be shown
+	 */
 	public void showMessage(String s){
 		renderer.setMessage(s, time, 4);
 	}

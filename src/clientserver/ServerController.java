@@ -10,11 +10,21 @@ import items.Banana;
 import items.Item;
 import tile.Tile;
 import util.Position;
-
+/**
+ * Class that is the controller between the server and game logic of the program, this holds the link between two main parts of the program, the server and 
+ * the game logic
+ * 
+ * @author Simon Glew and Jack Slater
+ */
 public class ServerController {
 	private GameSystem gameSystem;
 	private Server server;
-
+	
+	/**
+	 * Constructor that gets called when a server is made and creates a new game system object
+	 * 
+	 * @param server - the server that the controller is connected to
+	 */
 	public ServerController(Server server) {
 		this.server = server;
 		this.gameSystem = new GameSystem(this);

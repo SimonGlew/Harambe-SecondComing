@@ -114,6 +114,12 @@ public class Server {
 		}
 	}
 	
+	/**
+	 * Method that returns the ID that is joined to a specific username
+	 * 
+	 * @param username - Username that we want to find the ID for
+	 * @return ID - ID that is joined the specific Username
+	 */
 	public int getID(String username){
 		for(int i : IDtoUsername.keySet()){
 			if(IDtoUsername.get(i).equals(username)){
@@ -138,6 +144,11 @@ public class Server {
 		}
 	}
 	
+	/**
+	 * Gets the current server time
+	 * 
+	 * @return time - current server time
+	 */
 	public int getServerTime(){
 		return time.getTime();
 	}

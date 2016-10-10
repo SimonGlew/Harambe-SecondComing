@@ -117,17 +117,17 @@ public class Client {
 				try {
 					Packet packet = (Packet) sInput.readObject();
 					if (packet.getType().equals("board")) {
-						if (!loggedIn) {
+						if (!loggedIn) { //Initial login
 							menu.dispose();			
 							clientController.showGUI();
 							loggedIn = true;
 						}
-						clientController.sendBoard(BoardParser.parseBoardString(packet.getBoard()));
+						clientController.sendBoard(BoardParser.parseBoardString(packet.getBoard())); //send board away to be draw
 					} else if (packet.getType().equals("string")) {
-						if (packet.getMessage().equals("fail login")) {
+						if (packet.getMessage().equals("fail login")) { //Failed to log in, creates a new menu to attempt to login again
 							menu.dispose();
 							new Menu();
-						}else if(packet.getMessage().contains("endgame")){
+						}else if(packet.getMessage().contains("endgame")){ //When the game is over, gets the winning username and calls a method
 							String playerName = null;
 							try{
 								Scanner s = new Scanner(packet.getMessage());
@@ -141,9 +141,9 @@ public class Client {
 								clientController.showEndGameScreen(playerName);
 							}
 						}
-					}else if(packet.getType().equals("time")){
+					}else if(packet.getType().equals("time")){ //Updates the time of the server in client controller
 						clientController.updateTime(packet.getTime());
-					}else if(packet.getType().equals("popup")){
+					}else if(packet.getType().equals("popup")){ //Creates a popup with the correct message
 						clientController.showMessage(packet.getMessage());
 					}
 				} catch (IOException e) {
