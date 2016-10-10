@@ -14,6 +14,7 @@ import gameobjects.Wall;
 import gameobjects.Fence;
 import iohandling.BoardParser;
 import iohandling.BoardWriter;
+import items.Banana;
 import items.FloatingDevice;
 import items.Key;
 import renderer.Renderer;

@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 public class FloatingDevice extends Item {
 
 	public FloatingDevice(String name) {
-		super(name, "A floating device, perhaps this will help you swim.. not like you're a penguin or anything");
+		super(name, "A floating device, perhaps this will help you swim.. not like you're a penguin or anything", true);
 		try {
 			image = ImageIO.read(new File("assets/game_objects/floatingDevice/floatingDevice.png"));
 		} catch (IOException e) {
