@@ -3,6 +3,8 @@ package worldeditor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -33,6 +35,7 @@ public class EditorFrame extends JFrame {
 		panel.setPreferredSize(new Dimension(1000, 800));
 		panel.addMouseListener(new EditorMouseListener());
 		panel.addMouseMotionListener(new EditorMouseMotionListener());
+		addKeyListener(new EditorKeyListener());
 		add(panel);
 		pack();
 		setResizable(false);
@@ -51,6 +54,27 @@ public class EditorFrame extends JFrame {
 		panel.repaint();
 	}
 
+	private class EditorKeyListener implements KeyListener{
+		@Override
+		public void keyPressed(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			if(e.getKeyChar() == 'h'){
+				editor.resetView();
+			}
+		}
+
+		@Override
+		public void keyTyped(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
 	private class EditorMouseMotionListener implements MouseMotionListener {
 
 		@Override

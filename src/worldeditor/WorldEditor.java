@@ -8,7 +8,9 @@ import core.Board;
 import core.GameSystem;
 import core.GameSystem.Direction;
 import core.Location;
+import gameobjects.Building;
 import gameobjects.Chest;
+import gameobjects.Door;
 import gameobjects.Tree;
 import gameobjects.Wall;
 import gameobjects.Fence;
@@ -64,6 +66,17 @@ public class WorldEditor {
 		return loc.getId();
 	}
 
+	public int createIndoorLocation() {
+		Location loc = new Location(board.getNextUniqueId(), "", new Tile[10][10], board);
+		for (int i = 0; i < loc.getTiles().length; i++) {
+			for (int j = 0; j < loc.getTiles()[0].length; j++) {
+				loc.getTiles()[i][j] = new WoodTile(new Position(i, j), null);
+			}
+		}
+		board.addLocation(loc.getId(), loc);
+		return loc.getId();
+	}
+
 	public void update() {
 		if (board.getLocationById(currentLocation) != null) {
 			frame.setImage(renderer.paintLocation(board.getLocationById(currentLocation), frame.panel.getWidth(),
@@ -79,6 +92,13 @@ public class WorldEditor {
 		if (i >= 0 && j >= 0 && i < board.getLocationById(currentLocation).getTiles().length
 				&& j < board.getLocationById(currentLocation).getTiles()[0].length) {
 			Tile tile = board.getLocationById(currentLocation).getTiles()[i][j];
+			if(tile.getGameObject() instanceof Door){
+				System.out.println("Yay?");
+				currentLocation = ((Door)tile.getGameObject()).getLocationID();
+				System.out.print(currentLocation);
+				update();
+				return;
+			}
 			if (tool.equals("Set Floor Type")) {
 				Tile newTile = null;
 				switch (floor) {
@@ -124,8 +144,22 @@ public class WorldEditor {
 				case "banana":
 					tile.setGameObject(new Banana("Banana"));
 					break;
+				case "building":
+					tile.setGameObject(new Building());
+					break;
+				case "door":
+					if(tile.getGameObject() instanceof Door){
+						System.out.println("Yay?");
+						currentLocation = ((Door)tile.getGameObject()).getLocationID();
+						System.out.print(currentLocation);
+						update();
+					}else{
+						int id = createIndoorLocation();
+						System.out.println(id);
+						tile.setGameObject(new Door(0, id));
+						break;
+					}
 				}
-
 			}
 			update();
 		}
@@ -201,6 +235,11 @@ public class WorldEditor {
 			}
 		}
 		return board.getLocationById(finalLoc);
+	}
+
+	public void resetView() {
+		currentLocation = 0;
+		update();
 	}
 
 }

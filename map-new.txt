@@ -138,8 +138,8 @@ h: 10
 NORTH: 0
 EAST: 8
 WEST: 5
-(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))
-(Grass)(Grass)(Grass(Key(name, 0)))(Grass)(Grass)(Grass)(Grass)(Grass(Tree))(Grass)(Grass)
+(Grass(Building))(Grass(Building))(Grass)(Grass)(Grass)(Grass)(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))
+(Grass(Building))(Grass(Door(0,14,0,5)))(Grass(Key(name, 0)))(Grass)(Grass)(Grass)(Grass)(Grass(Tree))(Grass)(Grass)
 (Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)
 (Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass(Tree))(Grass)(Grass)(Grass)
 (Grass)(Grass(Tree))(Grass)(Grass)(Grass)(Grass)(Grass)(Stone)(Stone)(Stone)
@@ -259,4 +259,20 @@ SOUTH: 12
 (Water)(Water)(Water)(Grass(Fence))(Sand)(Stone)(Grass(Fence))(Water)(Water)(Water)
 (Water)(Water)(Water)(Grass(Fence))(Stone)(Sand)(Grass(Fence))(Water)(Water)(Water)
 (Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))(Sand)(Stone)(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))
+}
+Location{
+id: 14
+name: ?
+w: 10
+h: 10
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
 }
