@@ -39,20 +39,21 @@ import items.Item;
 //import javafx.scene.media.MediaPlayer;
 //import javafx.util.Duration;
 import tile.Tile;
+import tile.WaterTile;
 
 public class GUI implements KeyListener, ActionListener, MouseListener, MouseMotionListener {
 	ClientController controller;
 	JFrame gameFrame;
 	JLabel gameLabel;
 	JPanel UIPanel;
-	public static final Color MAINCOLOR = new Color(5,26,37);
-	public static final Color SECONDARYCOLOR = new Color(255,182,0);
+	public static final Color MAINCOLOR = new Color(5, 26, 37);
+	public static final Color SECONDARYCOLOR = new Color(255, 182, 0);
 	public static final Color MAINCOLOR2 = new Color(2, 13, 18);
 	ArrayList<JLabel> inventory;
 	JPanel inventorySlots;
 	JPopupMenu popup;
 
-	public GUI(ClientController c){
+	public GUI(ClientController c) {
 		this.controller = c;
 		this.inventory = new ArrayList<JLabel>();
 
@@ -69,42 +70,42 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		gameFrame.setVisible(true);
 	}
 
-	public void hideGUI(){
+	public void hideGUI() {
 		gameFrame.dispose();
 	}
 
-	public void prepareGUI(){
-		//Prepare different areas on gui
+	public void prepareGUI() {
+		// Prepare different areas on gui
 		JPanel windowPanel = new JPanel(new FlowLayout());
 		windowPanel.setBackground(MAINCOLOR);
 
-		//Create window that game image will be displayed on
+		// Create window that game image will be displayed on
 		gameLabel = new JLabel();
-		gameLabel.setPreferredSize(new Dimension(1000,800));
+		gameLabel.setPreferredSize(new Dimension(1000, 800));
 
-		//Create menu bar
+		// Create menu bar
 		JMenuBar menuBar = new JMenuBar();
 		JMenu gameBar = new JMenu("Game");
 		JMenu helpBar = new JMenu("Help");
 
-		//Sets each jmenu components
+		// Sets each jmenu components
 		createMenuBar(gameBar, helpBar);
 
-		//Add the jmenus to menu bar
+		// Add the jmenus to menu bar
 		menuBar.add(gameBar);
 		menuBar.add(helpBar);
 		gameFrame.setJMenuBar(menuBar);
 
-		//Create items window
+		// Create items window
 		UIPanel = new JPanel();
-		UIPanel.setPreferredSize(new Dimension(130,800));
+		UIPanel.setPreferredSize(new Dimension(130, 800));
 		UIPanel.setBackground(MAINCOLOR);
 		UIPanel.setBorder(BorderFactory.createLineBorder(MAINCOLOR2, 3));
 
-		//Setup UI pane
+		// Setup UI pane
 		setupUI();
 
-		//Add components to window panel
+		// Add components to window panel
 		windowPanel.add(gameLabel, BorderLayout.CENTER);
 		windowPanel.add(UIPanel, BorderLayout.EAST);
 
@@ -112,8 +113,8 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	}
 
 	@SuppressWarnings("unchecked")
-	private void setupUI(){
-		//Setup up name panel
+	private void setupUI() {
+		// Setup up name panel
 		JPanel namePanel = new JPanel(new FlowLayout());
 		namePanel.setPreferredSize(new Dimension(120, 160));
 		namePanel.setBackground(MAINCOLOR);
@@ -128,13 +129,13 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		namePanel.add(img);
 		namePanel.add(playerName);
 
-		//Setup inventory panel
+		// Setup inventory panel
 		JPanel inventoryPanel = new JPanel();
 		inventoryPanel.setPreferredSize(new Dimension(128, 490));
 		inventoryPanel.setBorder(BorderFactory.createLineBorder(MAINCOLOR2, 2));
 		inventoryPanel.setBackground(MAINCOLOR);
 
-		//Setup Title
+		// Setup Title
 		JLabel inventory = new JLabel();
 		inventory.setText("Inventory");
 		inventory.setForeground(Color.WHITE);
@@ -145,13 +146,13 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 		inventory.setFont(font.deriveFont(attributes));
 
-		//Setup inventory slots
+		// Setup inventory slots
 		inventorySlots = new JPanel(new FlowLayout());
 		inventorySlots.setPreferredSize(new Dimension(120, 320));
 		inventorySlots.setBackground(MAINCOLOR);
 		setupInventorySlots();
 
-		//Add banana count
+		// Add banana count
 		JLabel bananaLabel = new JLabel();
 		bananaLabel.setText("Bananas");
 		bananaLabel.setForeground(Color.WHITE);
@@ -170,7 +171,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		inventoryPanel.add(bananaImg);
 		inventoryPanel.add(count);
 
-		//Setup view panel
+		// Setup view panel
 		JLabel viewLabel = new JLabel();
 		viewLabel.setText("View");
 		viewLabel.setForeground(Color.WHITE);
@@ -183,13 +184,11 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		leftArrowImg.setName("left");
 		leftArrowImg.addMouseListener(this);
 
-
 		JLabel rightArrowImg = new JLabel();
 		rightArrowImg.setIcon(rightArrowImage);
 		rightArrowImg.setToolTipText("Rotate view Right");
 		rightArrowImg.setName("right");
 		rightArrowImg.addMouseListener(this);
-
 
 		JPanel viewPanel = new JPanel(new FlowLayout());
 		viewPanel.setPreferredSize(new Dimension(120, 125));
@@ -204,39 +203,38 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	}
 
 	private void createMenuBar(JMenu gameBar, JMenu helpBar) {
-		//Game Bar setup
+		// Game Bar setup
 		JMenuItem quit = new JMenuItem("Quit");
 		quit.setActionCommand("quit");
 		quit.addActionListener(this);
 		gameBar.add(quit);
 
-		//Help Bar setup
+		// Help Bar setup
 		JMenuItem rules = new JMenuItem("Help");
 		rules.setActionCommand("help");
 		rules.addActionListener(this);
 		helpBar.add(rules);
 
-		//Shortcuts setup
+		// Shortcuts setup
 		JMenuItem shortcuts = new JMenuItem("Shortcuts");
 		shortcuts.setActionCommand("shortcuts");
 		shortcuts.addActionListener(this);
 		helpBar.add(shortcuts);
 	}
 
-
 	private void displayInventory() {
 		clearInventory();
 		ArrayList<Item> items = controller.getInventory();
-		if(items != null){
-			for(Item i: items){
+		if (items != null) {
+			for (Item i : items) {
 				addItem(i);
 			}
 		}
 	}
 
-	public void addItem(Item i){
-		for(JLabel j: inventory){
-			if(j.getToolTipText() == null){
+	public void addItem(Item i) {
+		for (JLabel j : inventory) {
+			if (j.getToolTipText() == null) {
 				j.setToolTipText(i.getName() + ": " + i.getDescription());
 				j.setIcon(getInventoryImage(i));
 				return;
@@ -245,68 +243,69 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	}
 
 	private void clearInventory() {
-		for(JLabel j: inventory){
+		for (JLabel j : inventory) {
 			j.setToolTipText(null);
 			j.setIcon(null);
 		}
 	}
 
-	private void setupInventorySlots(){
+	private void setupInventorySlots() {
 		int i = 0;
-		while(i < 10){
+		while (i < 10) {
 			JLabel slot = new JLabel();
 			slot.setBorder(BorderFactory.createLineBorder(new Color(255, 182, 0), 4));
 			slot.setPreferredSize(new Dimension(50, 50));
-			slot.setName(i +"");
-			slot.addMouseListener(new MouseAdapter(){
+			slot.setName(i + "");
+			slot.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseReleased(MouseEvent e) {
-					if(e.isPopupTrigger()){
-						JLabel src = (JLabel)e.getSource();
+					if (e.isPopupTrigger()) {
+						JLabel src = (JLabel) e.getSource();
 						createPopupUI(e.getX(), e.getY(), Integer.parseInt(src.getName()));
-						
+
 					}
 				}
 			});
 			inventorySlots.add(slot);
 			inventory.add(slot);
 			JLabel slot2 = new JLabel();
-			slot2.setPreferredSize(new Dimension(100,5));
+			slot2.setPreferredSize(new Dimension(100, 5));
 			slot2.setBackground(MAINCOLOR);
-			if(i%2 == 1) inventorySlots.add(slot2);
+			if (i % 2 == 1)
+				inventorySlots.add(slot2);
 			i++;
 		}
 	}
 
 	private void checkClicked(int x, int y) {
-			if(x < 1000){
-				controller.moveWithUltimateDijkstras(x, y);
-			}
-		
+		if (x < 1000) {
+			controller.moveWithUltimateDijkstras(x, y);
+		}
+
 	}
 
 	private void checkMoved(int x, int y) {
-		if(x < 1000){
+		if (x < 1000) {
 			controller.selectTile(x, y);
 		}
 	}
 
-	public void showBoard(BufferedImage i){
+	public void showBoard(BufferedImage i) {
 		gameLabel.setIcon(new ImageIcon(i));
 		displayInventory();
 	}
 
 	protected void createPopupUI(int x, int y, int parseInt) {
 		JLabel label = inventory.get(parseInt);
-		if(label.getToolTipText() != null){
+		if (label.getToolTipText() != null) {
 			Item i = controller.getInventoryItem(parseInt);
-			
+
 			popup = new JPopupMenu("tile");
-			
+
 			String desc = inventory.get(parseInt).getToolTipText();
-			
+
 			JMenuItem examineObject = new JMenuItem("Examine");
-			examineObject.addActionListener(new ActionListener(){
+			examineObject.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					JOptionPane.showMessageDialog(gameFrame, desc, "Examining", JOptionPane.INFORMATION_MESSAGE);
@@ -314,72 +313,90 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			});
 			popup.add(examineObject);
 			popup.addSeparator();
-			
-			if(i.isUsable()){
-				JMenuItem useObject = new JMenuItem("Use");
-				useObject.addActionListener(new ActionListener(){
+
+			if (i.isUsable()) {
+
+				JMenuItem useObject;
+				if (i instanceof FloatingDevice) {
+
+					if (controller.getPlayer().getHasFloatingDevice()) {
+						useObject = new JMenuItem("Unequip");
+					} else {
+						useObject = new JMenuItem("Equip");
+					}
+				} else {
+					useObject = new JMenuItem("Use");
+				}
+
+				useObject.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						controller.useItem(parseInt);
 					}
 				});
-				popup.add(useObject);
+				if (!(i instanceof FloatingDevice && controller.getPlayer().getTile() instanceof WaterTile)) {
+					popup.add(useObject);
+				}
 			}
-			
-			if(i instanceof Banana){
+
+			if (i instanceof Banana) {
 				JMenuItem siphonObject = new JMenuItem("Siphon");
-				siphonObject.addActionListener(new ActionListener(){
+				siphonObject.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						controller.siphonBananaPlayer(parseInt);
 					}
 				});
 			}
-			
+
 			JMenuItem dropObject = new JMenuItem("Drop");
-			dropObject.addActionListener(new ActionListener(){
+			dropObject.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					controller.dropItemPlayer(parseInt);
 				}
 			});
-			popup.add(dropObject);
+			if (!(i instanceof FloatingDevice && controller.getPlayer().getHasFloatingDevice())) {
+				popup.add(dropObject);
+			}
 			popup.show(label, x, y);
 		}
 	}
 
 	private void createPopupGame(int x, int y) {
-		if(x < 1020){
+		if (x < 1020) {
 			popup = new JPopupMenu("tile");
 			Tile t = controller.getTile(x, y);
 
-			if(t != null){
-				if(t.getGameObject() != null){
+			if (t != null) {
+				if (t.getGameObject() != null) {
 					JMenuItem examineObject = new JMenuItem("Examine " + t.getGameObject().toString());
-					examineObject.addActionListener(new ActionListener(){
+					examineObject.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							JOptionPane.showMessageDialog(gameFrame, t.getGameObject().getDescription(), "Examining", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(gameFrame, t.getGameObject().getDescription(), "Examining",
+									JOptionPane.INFORMATION_MESSAGE);
 						}
 					});
 					popup.add(examineObject);
 				}
 
 				JMenuItem examineItem = new JMenuItem("Examine ground");
-				examineItem.addActionListener(new ActionListener(){
+				examineItem.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						JOptionPane.showMessageDialog(gameFrame, "Just " + t.toString() + " here", "Examining", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(gameFrame, "Just " + t.toString() + " here", "Examining",
+								JOptionPane.INFORMATION_MESSAGE);
 					}
 
 				});
 				popup.add(examineItem);
 
-				if(t.getGameObject() == null){
+				if (t.getGameObject() == null) {
 					popup.addSeparator();
 					JMenuItem move = new JMenuItem("Move");
-					move.addActionListener(new ActionListener(){
+					move.addActionListener(new ActionListener() {
 
 						@Override
 						public void actionPerformed(ActionEvent arg0) {
@@ -393,11 +410,11 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		}
 	}
 
-	public ImageIcon getInventoryImage(Item i){
-		if(i instanceof items.Key){
+	public ImageIcon getInventoryImage(Item i) {
+		if (i instanceof items.Key) {
 			return keyImage;
 		}
-		if(i instanceof FloatingDevice){
+		if (i instanceof FloatingDevice) {
 			return floatingDeviceImage;
 		}
 		return null;
@@ -415,36 +432,45 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	@Override
 	public void keyReleased(KeyEvent e) {
 		String key = KeyEvent.getKeyText(e.getKeyCode());
-		if(key.equals("Left")) controller.rotateLeft();
-		else if(key.equals("Right")) controller.rotateRight();
-		else if(key.equals("Up")){ controller.rotateRight(); controller.rotateRight(); }
-		else if(key.equals("W")) controller.moveSinglePos("N");
-		else if(key.equals("A")) controller.moveSinglePos("W");
-		else if(key.equals("S")) controller.moveSinglePos("S");
-		else if(key.equals("D")) controller.moveSinglePos("E");
+		if (key.equals("Left"))
+			controller.rotateLeft();
+		else if (key.equals("Right"))
+			controller.rotateRight();
+		else if (key.equals("Up")) {
+			controller.rotateRight();
+			controller.rotateRight();
+		} else if (key.equals("W"))
+			controller.moveSinglePos("N");
+		else if (key.equals("A"))
+			controller.moveSinglePos("W");
+		else if (key.equals("S"))
+			controller.moveSinglePos("S");
+		else if (key.equals("D"))
+			controller.moveSinglePos("E");
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent action) {
-		if("quit".equals(action.getActionCommand())){
+		if ("quit".equals(action.getActionCommand())) {
 			System.exit(0);
 		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if(e.getSource() != gameLabel){
+		if (e.getSource() != gameLabel) {
 			JLabel src = (JLabel) e.getSource();
-			if(src.getName().equals("left")) controller.rotateLeft();
-			else controller.rotateRight();
-		}
-		else{
-			if(e.isPopupTrigger() || (e.getX() >= 1025 && e.getX() <= 1135 && e.getY() >= 270 && e.getY() <= 585)){
+			if (src.getName().equals("left"))
+				controller.rotateLeft();
+			else
+				controller.rotateRight();
+		} else {
+			if (e.isPopupTrigger() || (e.getX() >= 1025 && e.getX() <= 1135 && e.getY() >= 270 && e.getY() <= 585)) {
 				createPopupGame(e.getX(), e.getY());
-				if(popup !=null){
+				if (popup != null) {
 					popup.show(e.getComponent(), e.getX(), e.getY());
 				}
-			}else{
+			} else {
 				checkClicked(e.getX(), e.getY());
 			}
 		}
@@ -456,19 +482,30 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {}
-	@Override
-	public void keyTyped(KeyEvent e) {}
+	public void keyPressed(KeyEvent e) {
+	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {}
-	@Override
-	public void mouseEntered(MouseEvent arg0) {}
-	@Override
-	public void mouseExited(MouseEvent arg0) {}
-	@Override
-	public void mousePressed(MouseEvent arg0) {}
+	public void keyTyped(KeyEvent e) {
+	}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {}
+	public void mouseClicked(MouseEvent arg0) {
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+	}
 }

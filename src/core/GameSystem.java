@@ -124,8 +124,9 @@ public class GameSystem {
 	
 	public void playerUseItem(Player player, Item item){
 		if(item instanceof FloatingDevice){
-			player.setHasFloatingDevice(true);
-			player.getInventory().remove(item);
+			
+			player.setHasFloatingDevice(!player.getHasFloatingDevice());
+			System.out.println("UGG"+player.getHasFloatingDevice());
 		}
 	}
 

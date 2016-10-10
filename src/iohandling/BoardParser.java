@@ -81,6 +81,9 @@ public class BoardParser {
 		player.setLoggedIn(loggedIn);
 
 		require(",", s);
+		boolean floatingDevice = s.nextBoolean();
+		player.setHasFloatingDevice(floatingDevice);
+		require(",", s);
 		require("Inventory", s);
 		require("\\(", s);
 		while (!checkFor("\\)", s)) {

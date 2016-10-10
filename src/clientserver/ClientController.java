@@ -8,6 +8,7 @@ import core.GameSystem.Direction;
 import gui.GUI;
 import gui.UltimateDijkstras;
 import core.Location;
+import gameobjects.Player;
 import iohandling.BoardWriter;
 import items.Item;
 import renderer.Renderer;
@@ -180,5 +181,9 @@ public class ClientController {
 			sendMessage(new PlayerCommand(command));
 		}
 		drawBoard();
+	}
+	
+	public Player getPlayer(){
+		return board.getPlayer(client.getUsername());
 	}
 }
