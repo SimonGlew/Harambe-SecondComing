@@ -48,7 +48,7 @@ public class Server {
 		try {
 			ServerSocket serverSocket = new ServerSocket(port);
 			System.out.println("Waiting for clients on port " + port);
-			serverController = new ServerController(this, new GameSystem());
+			serverController = new ServerController(this);
 			time = new TimeThread();
 			time.start();
 			while (keepGoing) {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import clientserver.ServerController;
 import gameobjects.Chest;
 import gameobjects.Door;
 import gameobjects.GameObject;
@@ -22,6 +23,8 @@ import util.Position;
 public class GameSystem {
 
 	private Board board;
+	
+	public ServerController serverController;
 
 	public final Integer WINNING_BANANA_COUNT = 5;
 	public final Integer PLAYER_KEY_LIMIT = 3;
@@ -30,7 +33,8 @@ public class GameSystem {
 		NORTH, SOUTH, EAST, WEST
 	}
 
-	public GameSystem() {
+	public GameSystem(ServerController serverController) {
+		this.serverController = serverController;
 		this.board = BoardParser.parseBoardFName("map-new.txt");
 		generateCodes();
 	}
