@@ -2,9 +2,12 @@ package renderer;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +33,8 @@ public class Renderer {
 	BufferedImage highlightTile;
 	BufferedImage highlightLocation;
 	BufferedImage playerSelect;
+	BufferedImage speechBubble;
+
 	Direction selectedLocation = null;
 
 	Point selectedPoint = null;
@@ -42,7 +47,10 @@ public class Renderer {
 
 	int xCenter;
 	int yCenter;
-	
+
+	String message = "";
+	int messageTimer = 0;
+
 	Map<String, BufferedImage> images;
 
 	public Renderer() {
@@ -51,12 +59,18 @@ public class Renderer {
 			highlightTile = ImageIO.read(new File("assets/renderer/highlightTile.png"));
 			highlightLocation = ImageIO.read(new File("assets/renderer/highlightLocation.png"));
 			playerSelect = ImageIO.read(new File("assets/renderer/playerSelect.png"));
+			speechBubble = ImageIO.read(new File("assets/renderer/speechBubble.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public BufferedImage paintBoard(Board board, Player player, int w, int h) {
+	public void setMessage(String msg, int currentTime, int duration) {
+		message = msg;
+		messageTimer = currentTime + duration;
+	}
+
+	public BufferedImage paintBoard(Board board, Player player, int w, int h, int time) {
 		selectedPoint = null;
 		BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = image.createGraphics();
@@ -98,7 +112,29 @@ public class Renderer {
 			Point p = new Point(drawOrderX[i], drawOrderY[i]);
 			drawBoard(g, board, map, w, h, p, player);
 		}
-		g.setColor(Color.MAGENTA);
+		System.out.println(time);
+		if (messageTimer >= time) {
+			g.setColor(Color.BLACK);
+			g.setFont(new Font("Arial", Font.BOLD, 28));
+			g.drawImage(speechBubble, 0, 0, null);
+			String text = message;
+			for (int i = 45; i < text.length(); i++) {
+				if (text.charAt(i) == ' ') {
+					text = text.substring(0, i) + "\n" + text.substring(i + 1);
+					i += 45;
+				}
+			}
+			int linenum = 0;
+			for(String line: text.split("\n")){
+				FontMetrics fm = g.getFontMetrics();
+				Rectangle2D r = fm.getStringBounds(line, g);
+				int x = (speechBubble.getWidth() - (int) r.getWidth()) / 2;
+				int y = (speechBubble.getHeight() - (int) r.getHeight()) / 2 + fm.getAscent();
+				g.drawString(line, x, y + linenum*35);
+				linenum++;
+			}
+			
+		}
 		return image;
 	}
 
@@ -136,7 +172,7 @@ public class Renderer {
 			drawOrderY = tempY4;
 			break;
 		}
-		
+
 		for (int i = 0; i < drawOrderX.length; i++) {
 			Point p = new Point(drawOrderX[i], drawOrderY[i]);
 			drawBoard(g, loc.getBoard(), map, w, h, p, null);
@@ -254,9 +290,9 @@ public class Renderer {
 	}
 
 	private BufferedImage getImage(String fname) {
-		if(images.containsKey(fname)){
+		if (images.containsKey(fname)) {
 			return images.get(fname);
-		}else{
+		} else {
 			try {
 				images.put(fname, ImageIO.read(new File(fname)));
 				return images.get(fname);
@@ -291,19 +327,19 @@ public class Renderer {
 			Point iso;
 			switch (selectedLocation) {
 			case NORTH:
-				iso = twoDToIso((-locationSize/2), -(locationSize / 2));
+				iso = twoDToIso((-locationSize / 2), -(locationSize / 2));
 				g.drawImage(highlightLocation, iso.x + TILE_WIDTH, iso.y - TILE_WIDTH, null);
 				break;
 			case EAST:
-				iso = twoDToIso((locationSize/ 2), (locationSize / 2));
+				iso = twoDToIso((locationSize / 2), (locationSize / 2));
 				g.drawImage(highlightLocation, iso.x + TILE_WIDTH, iso.y - TILE_WIDTH, null);
 				break;
 			case WEST:
-				iso = twoDToIso((-3 * locationSize/ 2), (locationSize/ 2));
+				iso = twoDToIso((-3 * locationSize / 2), (locationSize / 2));
 				g.drawImage(highlightLocation, iso.x + TILE_WIDTH, iso.y - TILE_WIDTH, null);
 				break;
 			case SOUTH:
-				iso = twoDToIso((-locationSize/ 2), (3 * locationSize / 2));
+				iso = twoDToIso((-locationSize / 2), (3 * locationSize / 2));
 				g.drawImage(highlightLocation, iso.x + TILE_WIDTH, iso.y - TILE_WIDTH, null);
 				break;
 			}
@@ -344,7 +380,7 @@ public class Renderer {
 			y = TILE_WIDTH * i;
 			break;
 		}
-		Point tempPt = new Point(0, 0);	
+		Point tempPt = new Point(0, 0);
 		tempPt.x = xOffset + (x - y);
 		tempPt.y = yOffset + ((x + y) / 2);
 		return (tempPt);
@@ -355,30 +391,30 @@ public class Renderer {
 	}
 
 	public Position isoToIndex(int x, int y) {
-		double a = (x - xOffset)/2 + y - yOffset;
+		double a = (x - xOffset) / 2 + y - yOffset;
 		double b = 2 * (y - yOffset) - a;
-		
+
 		int i = 0, j = 0;
-		switch(viewingDir){
-			case NORTH:
-				i = (int) Math.round(a / TILE_WIDTH);
-				j = (int) Math.round(b / TILE_WIDTH + 1);
-				break;
-			case SOUTH:
-				i = (int) Math.round(-1 * a / TILE_WIDTH + 9);
-				j = (int) Math.round(-1 * b / TILE_WIDTH + 8);
-				break;
-			case EAST:
-				i = (int) Math.round(-1 * b / TILE_WIDTH + 8);
-				j = (int) Math.round(a / TILE_WIDTH);
-				break;
-			case WEST:
-				i = (int) Math.round(b / TILE_WIDTH + 1);
-				j = (int) Math.round(-1 * a / TILE_WIDTH + 9);
-				break;
+		switch (viewingDir) {
+		case NORTH:
+			i = (int) Math.round(a / TILE_WIDTH);
+			j = (int) Math.round(b / TILE_WIDTH + 1);
+			break;
+		case SOUTH:
+			i = (int) Math.round(-1 * a / TILE_WIDTH + 9);
+			j = (int) Math.round(-1 * b / TILE_WIDTH + 8);
+			break;
+		case EAST:
+			i = (int) Math.round(-1 * b / TILE_WIDTH + 8);
+			j = (int) Math.round(a / TILE_WIDTH);
+			break;
+		case WEST:
+			i = (int) Math.round(b / TILE_WIDTH + 1);
+			j = (int) Math.round(-1 * a / TILE_WIDTH + 9);
+			break;
 		}
-		//System.out.println(viewingDir.toString());
-		//System.out.println(i + ", " + j);
+		// System.out.println(viewingDir.toString());
+		// System.out.println(i + ", " + j);
 
 		Position index = new Position(i, j);
 		return index;

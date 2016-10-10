@@ -30,7 +30,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
@@ -320,7 +319,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			examineObject.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showMessageDialog(gameFrame, desc, "Examining", JOptionPane.INFORMATION_MESSAGE);
+					controller.showMessage(desc);
 				}
 			});
 			popup.add(examineObject);
@@ -387,8 +386,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 					examineObject.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							JOptionPane.showMessageDialog(gameFrame, t.getGameObject().getDescription(), "Examining",
-									JOptionPane.INFORMATION_MESSAGE);
+							controller.showMessage(t.getGameObject().getDescription());
 						}
 					});
 					popup.add(examineObject);
@@ -399,8 +397,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						JOptionPane.showMessageDialog(gameFrame, "Just " + t.toString() + " here", "Examining",
-								JOptionPane.INFORMATION_MESSAGE);
+						controller.showMessage("Just " + t.toString() + " here");
 					}
 
 				});
