@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 /gameobjects/
 /iohandling/
 /clientserver/
 /gui/
 /worldeditor/
+=======
+/gui/
+/clientserver/
+>>>>>>> 6f5f4ad5d54f01118c36acb5c412db82f63bdc44

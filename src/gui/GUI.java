@@ -314,7 +314,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 				}
 			});
 			popup.add(examineObject);
-			popup.addSeparator();
+			
 
 			if (i.isUsable()) {
 
@@ -415,18 +415,23 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	public ImageIcon getInventoryImage(Item i) {
 		if (i instanceof items.Key) {
-			return keyImage;
+			return keyInventoryImage;
 		}
 		if (i instanceof FloatingDevice) {
-			return floatingDeviceImage;
+			return floatingDeviceInventoryImage;
+		}
+		if(i instanceof Banana){
+			return bananaInventoryImage;
 		}
 		return null;
 	}
 
-	public static ImageIcon keyImage = Menu.makeImageIcon("gui/inventory/key.png");
-
+	public static ImageIcon keyInventoryImage = Menu.makeImageIcon("gui/inventory/key.png");
+	public static ImageIcon floatingDeviceInventoryImage = Menu.makeImageIcon("gui/inventory/floatingDevice.png");
+	public static ImageIcon bananaInventoryImage = Menu.makeImageIcon("gui/inventory/banana.png");
+	
+	
 	public static ImageIcon nameImage = Menu.makeImageIcon("gui/namebe.png");
-	public static ImageIcon floatingDeviceImage = Menu.makeImageIcon("gui/inventory/floatingDevice.png");
 	public static ImageIcon bananaImage = Menu.makeImageIcon("gui/banaga.png");
 	public static ImageIcon leftArrowImage = Menu.makeImageIcon("gui/leftArrow.png");
 	public static ImageIcon rightArrowImage = Menu.makeImageIcon("gui/rightArrow.png");

@@ -132,8 +132,7 @@ public class ClientController {
 			if (t != null) {
 				uDijkstras = new UltimateDijkstras(this, board.getPlayer(getName()).getTile(), loc, t, board);
 				uDijkstras.createPath();
-				System.out.println(uDijkstras);
-				System.out.println(uDijkstras.getPath());
+
 				uDijkstras.startTimer();
 			}
 		}
@@ -180,12 +179,22 @@ public class ClientController {
 	}
 
 	public void moveToPos(Tile t) {
-		Location loc = board.getPlayer(getName()).getLocation();
-		Direction d = loc.getDirDijkstras(board.getPlayer(getName()).getTile(), t);
+		
+		Tile from = null;
+		if(uDijkstras.oldTile == null){
+			from = board.getPlayer(getName()).getTile();
+			uDijkstras.oldTile = from;
+		}else{
+			from = uDijkstras.oldTile;
+		}
+		
+		Direction d = Location.getDirDijkstras(from, t);
+		
 		if (d != null) {
 			String command = "move " + getName() + " " + d.toString();
 			sendMessage(new PlayerCommand(command));
 		}
+		uDijkstras.oldTile = t;
 		drawBoard();
 	}
 

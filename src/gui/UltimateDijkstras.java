@@ -33,6 +33,7 @@ public class UltimateDijkstras implements ActionListener {
 	Board board;
 	int length;
 	Map<Integer, Integer> zoneLocId;
+	public Tile oldTile;
 
 	public UltimateDijkstras(ClientController controller, Tile start, Location startLocation, Tile end, Board board){
 		this.controller = controller;
@@ -43,6 +44,7 @@ public class UltimateDijkstras implements ActionListener {
 		this.setPath(null);
 		this.length = 30;
 		this.zoneLocId = new HashMap<Integer, Integer>();
+		this.oldTile = null;
 		timer = new Timer(400, this);
 
 		setup();
@@ -92,7 +94,7 @@ public class UltimateDijkstras implements ActionListener {
 						GameObject o = n.t.getGameObject();
 						if(!n.visited){
 							if(o == null || o instanceof Item){
-								if(!(n.t instanceof WaterTile)){
+								if(!(n.t instanceof WaterTile) || controller.getPlayer().getHasFloatingDevice()){
 									int cost = searchNode.costToHere + 1;
 									fringe.offer(new SearchNode(cost, n, searchNode.node));
 								}
