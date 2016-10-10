@@ -23,6 +23,7 @@ public class GameSystem {
 	private Board board;
 
 	public final Integer WINNING_BANANA_COUNT = 5;
+	public final Integer PLAYER_KEY_LIMIT = 3;
 
 	public enum Direction {
 		NORTH, SOUTH, EAST, WEST
@@ -143,6 +144,18 @@ public class GameSystem {
 		GameObject object = newTile.getGameObject();
 		if (object instanceof Item) {
 			if (!p.inventoryIsFull()) {
+				if(object instanceof Key){
+					int keyCount = 0;
+					for(Item i : p.getInventory()){
+						if(i instanceof Key){
+							keyCount++;
+						}
+					}
+					
+					if(keyCount >= PLAYER_KEY_LIMIT){
+						return;
+					}
+				}
 				playerTil.setGameObject(null);
 				p.pickUpItem((Item) object);
 				newTile.setGameObject(p);
@@ -195,9 +208,7 @@ public class GameSystem {
 
 	public void playerUseItem(Player player, Item item) {
 		if (item instanceof FloatingDevice) {
-
 			player.setHasFloatingDevice(!player.getHasFloatingDevice());
-			System.out.println("UGG" + player.getHasFloatingDevice());
 		}
 	}
 

@@ -15,7 +15,6 @@ import clientserver.ClientController;
 import core.Board;
 import core.GameSystem;
 import core.Location;
-import gameobjects.Chest;
 import gameobjects.GameObject;
 import items.Item;
 import tile.Tile;
