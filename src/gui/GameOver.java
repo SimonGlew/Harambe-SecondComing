@@ -35,7 +35,7 @@ public class GameOver implements ActionListener{
 		winner.setPreferredSize(new Dimension(1150, 30));
 		winner.setForeground(Color.WHITE);
 		winner.setFont(new Font("title", Font.BOLD, 22));
-		winner.setText("                                                                   " + name + " IS THE WINNER");
+		winner.setText("                                                                   " + name + " is the WINNER!");
 		
 		image = new JLabel();
 		image.setPreferredSize(new Dimension(1150, 710));

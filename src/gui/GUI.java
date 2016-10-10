@@ -398,7 +398,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						controller.showMessage("Just " + t.toString() + " here");
+						controller.showMessage("Just a " + t.getClass().getSimpleName() + " here");
 					}
 
 				});

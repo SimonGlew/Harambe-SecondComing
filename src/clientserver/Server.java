@@ -271,7 +271,7 @@ public class Server {
 				/* Broadcast endgame */	
 				} else if (parsed.equals("endgame")) {
 					System.out.println("a");
-					broadcast(new Packet("string", null, "endgame " + serverController.getPlayerByUserName(IDtoUsername.get(id)), time.getTime()), id);
+					broadcast(new Packet("string", null, "endgame " + IDtoUsername.get(id), time.getTime()), id);
 				/* Should not get here */
 				} else {
 					System.out.println("fail");
