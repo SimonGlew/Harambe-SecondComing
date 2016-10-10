@@ -31,6 +31,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 import clientserver.ClientController;
+import items.Banana;
 import items.FloatingDevice;
 import items.Item;
 //import javafx.embed.swing.JFXPanel;
@@ -324,6 +325,17 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 						controller.useItem(parseInt);
 					}
 				});
+				popup.add(useObject);
+			}
+			
+			if(i instanceof Banana){
+				JMenuItem siphonObject = new JMenuItem("Siphon");
+				siphonObject.addActionListener(new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						controller.siphonBananaPlayer(parseInt);
+					}
+				});
 			}
 			
 			JMenuItem dropObject = new JMenuItem("Drop");
@@ -344,18 +356,6 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			Tile t = controller.getTile(x, y - (gameFrame.getHeight() - gameLabel.getHeight()));
 
 			if(t != null){
-				if(t.getGameObject() instanceof Item){
-					Item i = (Item)t.getGameObject();
-					JMenuItem pickupObject = new JMenuItem("Pickup " + i.getName());
-					pickupObject.addActionListener(new ActionListener(){
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							checkClicked(x, y);
-							controller.pickupItemPlayer(t);
-						}
-					});
-					popup.add(pickupObject);
-				}
 				if(t.getGameObject() != null){
 					JMenuItem examineObject = new JMenuItem("Examine " + t.getGameObject().toString());
 					examineObject.addActionListener(new ActionListener(){

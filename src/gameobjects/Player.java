@@ -42,8 +42,6 @@ public class Player extends GameObject {
 		this.board = board;
 		this.userName = name;
 	}
-	
-	
 
 	public void setNumOfBananas(int numOfBananas) {
 		this.numOfBananas = numOfBananas;
