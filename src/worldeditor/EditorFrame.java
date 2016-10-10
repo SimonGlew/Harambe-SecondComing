@@ -57,7 +57,6 @@ public class EditorFrame extends JFrame {
 	private class EditorKeyListener implements KeyListener{
 		@Override
 		public void keyPressed(KeyEvent arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 
@@ -70,7 +69,6 @@ public class EditorFrame extends JFrame {
 
 		@Override
 		public void keyTyped(KeyEvent arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 	}

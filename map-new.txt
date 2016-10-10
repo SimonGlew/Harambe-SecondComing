@@ -139,7 +139,7 @@ NORTH: 0
 EAST: 8
 WEST: 5
 (Grass(Building))(Grass(Building))(Grass)(Grass)(Grass)(Grass)(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))
-(Grass(Building))(Grass(Door(0,14,0,5)))(Grass(Key(name, 0)))(Grass)(Grass)(Grass)(Grass)(Grass(Tree))(Grass)(Grass)
+(Grass(Building))(Grass(Door(0,15,0,5)))(Grass(Key(name, 0)))(Grass)(Grass)(Grass)(Grass)(Grass(Tree))(Grass)(Grass)
 (Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)
 (Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass(Tree))(Grass)(Grass)(Grass)
 (Grass)(Grass(Tree))(Grass)(Grass)(Grass)(Grass)(Grass)(Stone)(Stone)(Stone)
@@ -275,4 +275,20 @@ h: 10
 (Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
 (Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
 (Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+}
+Location{
+id: 15
+name: ?
+w: 10
+h: 10
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)(Wood)
+(Wood)(Wood)(Wood)(Wood)(Wood)(DoorOut(0,1,2))(Wood)(Wood)(Wood)(Wood)
 }

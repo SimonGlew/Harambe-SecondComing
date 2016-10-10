@@ -20,6 +20,7 @@ import items.Banana;
 import items.FloatingDevice;
 import items.Key;
 import renderer.Renderer;
+import tile.DoorOutTile;
 import tile.GrassTile;
 import tile.SandTile;
 import tile.StoneTile;
@@ -42,11 +43,11 @@ public class WorldEditor {
 
 	public WorldEditor() {
 		renderer = new Renderer();
-		 //LOAD BOARD
+		// LOAD BOARD
 		board = BoardParser.parseBoardFName("map-new.txt");
-		//board = BoardCreator.loadBoard("map.txt");
-		//String s = BoardWriter.writeBoardToString(board);
-		//board = BoardCreator.loadBoardFromString(s);
+		// board = BoardCreator.loadBoard("map.txt");
+		// String s = BoardWriter.writeBoardToString(board);
+		// board = BoardCreator.loadBoardFromString(s);
 		// currentLocation = createBlankLocation();
 		currentLocation = 0;
 
@@ -92,9 +93,9 @@ public class WorldEditor {
 		if (i >= 0 && j >= 0 && i < board.getLocationById(currentLocation).getTiles().length
 				&& j < board.getLocationById(currentLocation).getTiles()[0].length) {
 			Tile tile = board.getLocationById(currentLocation).getTiles()[i][j];
-			if(tile.getGameObject() instanceof Door){
+			if (tile.getGameObject() instanceof Door) {
 				System.out.println("Yay?");
-				currentLocation = ((Door)tile.getGameObject()).getLocationID();
+				currentLocation = ((Door) tile.getGameObject()).getLocationID();
 				System.out.print(currentLocation);
 				update();
 				return;
@@ -148,17 +149,12 @@ public class WorldEditor {
 					tile.setGameObject(new Building());
 					break;
 				case "door":
-					if(tile.getGameObject() instanceof Door){
-						System.out.println("Yay?");
-						currentLocation = ((Door)tile.getGameObject()).getLocationID();
-						System.out.print(currentLocation);
-						update();
-					}else{
-						int id = createIndoorLocation();
-						System.out.println(id);
-						tile.setGameObject(new Door(0, id));
-						break;
-					}
+					int id = createIndoorLocation();
+					DoorOutTile doorOut = new DoorOutTile(new Position(10, 5), null, currentLocation, board.getLocationById(currentLocation).getTileInDirection(new Position(i, j),  Direction.SOUTH).getPos());
+					board.getLocationById(id).getTiles()[5][9] = doorOut;
+					tile.setGameObject(new Door(0, id));
+					
+					break;
 				}
 			}
 			update();
