@@ -69,7 +69,7 @@ EAST: 5
 (Sand)(Sand)(Sand)(Sand)(Sand)(Sand)(Sand)(Grass)(Grass(Fence))(Grass(Fence))
 (Sand)(Sand(Key(name, 0)))(Sand)(Sand)(Sand)(Sand)(Grass)(Grass)(Grass(Fence))(Grass)
 (Sand)(Sand)(Sand)(Sand)(Sand)(Sand)(Grass)(Grass)(Grass(Fence))(Grass(Tree))
-(Grass)(Sand(Chest(Banana)))(Sand)(Sand)(Grass)(Grass)(Grass)(Grass(Fence))(Grass(Fence))(Grass)
+(Grass)(Sand(Chest(0,Banana)))(Sand)(Sand)(Grass)(Grass)(Grass)(Grass(Fence))(Grass(Fence))(Grass)
 (Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass(Fence))(Grass(Tree))(Grass)
 (Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass)(Grass)
 (Grass)(Grass(Tree))(Grass)(Grass(Tree))(Grass)(Grass(Tree))(Grass)(Grass(Tree))(Grass)(Grass)
@@ -82,8 +82,8 @@ w: 10
 h: 10
 EAST: 12
 SOUTH: 2
-(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass)(Grass(Chest))(Grass)(Grass)(Grass)(Grass)
-(Grass)(Grass(Chest))(Grass)(Grass(Fence))(Grass(Fence))(Grass)(Grass)(Grass)(Grass)(Grass)
+(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass)(Grass(Chest(0)))(Grass)(Grass)(Grass)(Grass)
+(Grass)(Grass(Chest(0)))(Grass)(Grass(Fence))(Grass(Fence))(Grass)(Grass)(Grass)(Grass)(Grass)
 (Grass(Tree))(Grass(Tree))(Grass)(Grass(Tree))(Grass(Fence))(Grass(Fence))(Grass)(Grass)(Grass)(Grass)
 (Grass)(Grass(Tree))(Grass)(Grass)(Grass)(Grass(Fence))(Grass(Fence))(Grass)(Grass)(Grass)
 (Sand(FloatingDevice))(Grass)(Grass)(Grass)(Grass)(Grass(Key(name, 0)))(Grass(Fence))(Grass(Fence))(Grass)(Grass)
@@ -106,7 +106,7 @@ WEST: 3
 (Grass(Fence))(Grass)(Grass)(Grass)(Stone)(Stone)(Grass)(Grass)(Grass)(Grass(Fence))
 (Grass(Fence))(Grass)(Grass)(Grass)(Stone)(Stone)(Grass)(Grass)(Grass)(Grass(Fence))
 (Grass(Fence))(Grass)(Grass)(Grass)(Stone)(Stone)(Grass)(Grass)(Grass)(Grass(Fence))
-(Grass(Fence))(Grass)(Grass(Tree))(Grass(Tree))(Stone)(Stone)(Grass(Tree))(Grass(Tree))(Grass(Chest))(Grass(Fence))
+(Grass(Fence))(Grass)(Grass(Tree))(Grass(Tree))(Stone)(Stone)(Grass(Tree))(Grass(Tree))(Grass(Chest(0)))(Grass(Fence))
 (Grass(Fence))(Grass)(Grass(Tree))(Grass(Tree))(Stone)(Stone)(Grass(Tree))(Grass(Tree))(Grass)(Grass(Fence))
 (Grass(Fence))(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass(Fence))
 (Grass(Fence))(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass(Fence))
@@ -158,7 +158,7 @@ NORTH: 9
 EAST: 11
 WEST: 7
 (Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))(Grass(Fence))
-(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass(Tree))(Grass(Tree))(Grass(Chest))(Grass(Fence))
+(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass(Tree))(Grass(Tree))(Grass(Chest(0)))(Grass(Fence))
 (Grass)(Grass)(Grass)(Grass(Tree))(Grass)(Grass)(Grass)(Grass)(Grass)(Grass(Fence))
 (Grass(Tree))(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass(Tree))(Grass(Fence))
 (Stone)(Stone)(Stone)(Grass)(Grass)(Grass(Tree))(Grass(Tree))(Grass)(Grass)(Grass(Fence))
@@ -194,7 +194,7 @@ w: 10
 h: 10
 WEST: 9
 SOUTH: 11
-(Grass(Fence))(Grass)(Grass)(Sand)(Sand)(Water)(Water)(Water)(Stone(Chest))(Stone(Key(name, 0)))
+(Grass(Fence))(Grass)(Grass)(Sand)(Sand)(Water)(Water)(Water)(Stone(Chest(0)))(Stone(Key(name, 0)))
 (Grass(Fence))(Grass)(Grass)(Sand)(Sand)(Water)(Water)(Water)(Water)(Stone)
 (Grass(Fence))(Grass)(Grass(Tree))(Grass)(Sand)(Sand)(Water)(Water)(Water)(Water)
 (Grass(Fence))(Grass)(Grass)(Grass(Tree))(Grass)(Sand)(Sand)(Water)(Water)(Water)
@@ -240,7 +240,7 @@ SOUTH: 1
 (Grass)(Grass)(Grass)(Water)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)
 (Grass)(Grass(Tree))(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)
 (Grass)(Grass)(Grass(Tree))(Grass(Tree))(Grass)(Grass)(Grass)(Grass)(Grass)(Grass)
-(Grass)(Grass(Chest))(Grass)(Grass)(Grass(Tree))(Grass(Tree))(Grass(Tree))(Grass(Tree))(Grass)(Grass(Tree))
+(Grass)(Grass(Chest(0)))(Grass)(Grass)(Grass(Tree))(Grass(Tree))(Grass(Tree))(Grass(Tree))(Grass)(Grass(Tree))
 (Grass)(Grass(Tree))(Grass)(Water)(Water)(Water)(Water)(Water)(Water)(Water)
 }
 Location{

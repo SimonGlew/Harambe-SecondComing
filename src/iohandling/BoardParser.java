@@ -205,9 +205,9 @@ public class BoardParser {
 			return parseChest(s, board);
 		} else if (checkFor("Key", s)) {
 			return parseKey(s);
-		} else if (checkFor("FloatingDevice", s)){
+		} else if (checkFor("FloatingDevice", s)) {
 			return new FloatingDevice("Floating Device");
-		} else if (checkFor("Banana", s)){
+		} else if (checkFor("Banana", s)) {
 			return new Banana("Banana");
 		} else {
 			fail("Not a GameObject", s);
@@ -224,21 +224,24 @@ public class BoardParser {
 
 	private static Chest parseChest(Scanner s, Board board) {
 		Chest chest = new Chest();
-		if (checkFor("\\(", s)) {
+		require("\\(", s);
+		int code = s.nextInt();
+		chest.setCode(code);
+		if (checkFor(",", s)){
 			chest.setContents(parseItem(s));
-			require("\\)", s);
 		}
+		require("\\)", s);
 		return chest;
 	}
 
 	private static Item parseItem(Scanner s) {
 		if (checkFor("Key", s)) {
 			return parseKey(s);
-		} else if(checkFor("FloatingDevice", s)){
+		} else if (checkFor("FloatingDevice", s)) {
 			return new FloatingDevice("Floating Device");
-		}else if(checkFor("Banana", s)){
+		} else if (checkFor("Banana", s)) {
 			return new Banana("Banana");
-		}else{
+		} else {
 			fail("Not an Item", s);
 		}
 		return null;
