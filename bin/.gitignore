@@ -1,12 +1,20 @@
-<<<<<<< HEAD
-/gameobjects/
-/iohandling/
 /clientserver/
+/core/
+/exceptions/
+/gameobjects/
 /gui/
+/iohandling/
+/items/
+/renderer/
+/tile/
+/util/
 /worldeditor/
+<<<<<<< HEAD
 =======
 /gui/
 /clientserver/
 >>>>>>> 6f5f4ad5d54f01118c36acb5c412db82f63bdc44
 /core/
 /tile/
+=======
+>>>>>>> a3dfe59090b7f223fbe24e46641e04edf737d486
