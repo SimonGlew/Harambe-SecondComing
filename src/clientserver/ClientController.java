@@ -200,7 +200,6 @@ public class ClientController {
 	}
 
 	public void showEndGameScreen(String playerName) {
-		Player p = board.getPlayer(playerName);
 		new GameOver(playerName);
 		sendMessage(new PlayerCommand("close"));
 	}
