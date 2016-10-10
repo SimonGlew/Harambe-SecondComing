@@ -111,6 +111,9 @@ public class GameSystem {
 					if (!p.getHasFloatingDevice()) {
 						return false;
 					}
+					else{
+						serverController.broadcastPlayerMessage("It's a deep blue and cold as ice, perhaps something to float on?", p);
+					}
 				}
 				if (newTile instanceof DoorOutTile) {
 					DoorOutTile dot = (DoorOutTile) newTile;
