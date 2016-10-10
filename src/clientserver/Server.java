@@ -217,6 +217,9 @@ public class Server {
 				// read a String (which is an object)
 				try {
 					cm = (PlayerCommand) sInput.readObject();
+					if(cm.getMessage().equals("close")){
+						close();
+					}
 				} catch (IOException e) {
 					display(id + " Exception reading Streams: " + e);
 					break;

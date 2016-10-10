@@ -12,6 +12,7 @@ import core.GameSystem.Direction;
 import core.Location;
 import gameobjects.Building;
 import gameobjects.Chest;
+import gameobjects.Door;
 import gameobjects.Fence;
 import gameobjects.GameObject;
 import gameobjects.Player;
@@ -201,6 +202,8 @@ public class BoardParser {
 			return parsePlayerOnBoard(s, board);
 		} else if (checkFor("Building", s)) {
 			return new Building();
+		}else if (checkFor("Door", s)) {
+			return parseDoor(s, board);
 		} else if (checkFor("Chest", s)) {
 			return parseChest(s, board);
 		} else if (checkFor("Key", s)) {
@@ -213,6 +216,21 @@ public class BoardParser {
 			fail("Not a GameObject", s);
 		}
 		return null;
+	}
+
+	private static Door parseDoor(Scanner s, Board b) {
+		require("\\(", s);
+		int code = s.nextInt();
+		require(",", s);
+		int locationID = s.nextInt();
+		require(",", s);
+		int x = s.nextInt();
+		require(",", s);
+		int y = s.nextInt();
+		require("\\)", s);
+		Door door = new Door(code, locationID);
+		door.setDoorPosition(new Position(x, y));
+		return door;
 	}
 
 	private static Player parsePlayerOnBoard(Scanner s, Board board) {

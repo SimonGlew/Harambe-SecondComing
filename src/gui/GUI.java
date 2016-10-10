@@ -320,7 +320,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 				}
 			});
 			popup.add(examineObject);
-			popup.addSeparator();
+			
 
 			if (i.isUsable()) {
 

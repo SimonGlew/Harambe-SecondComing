@@ -6,6 +6,7 @@ import clientserver.*;
 import core.Board;
 import core.GameSystem.Direction;
 import gui.GUI;
+import gui.GameOver;
 import gui.UltimateDijkstras;
 import core.Location;
 import gameobjects.Player;
@@ -179,8 +180,6 @@ public class ClientController {
 	}
 
 	public void moveToPos(Tile t) {
-		Location loc = board.getPlayer(getName()).getLocation();
-		Direction d = loc.getDirDijkstras(board.getPlayer(getName()).getTile(), t);
 		
 		Tile from = null;
 		if(uDijkstras.oldTile == null){
@@ -189,6 +188,8 @@ public class ClientController {
 		}else{
 			from = uDijkstras.oldTile;
 		}
+		
+		Direction d = Location.getDirDijkstras(from, t);
 		
 		if (d != null) {
 			String command = "move " + getName() + " " + d.toString();
@@ -200,6 +201,8 @@ public class ClientController {
 
 	public void showEndGameScreen(String playerName) {
 		Player p = board.getPlayer(playerName);
+		new GameOver(playerName);
+		sendMessage(new PlayerCommand("close"));
 	}
 
 	public Player getPlayer() {

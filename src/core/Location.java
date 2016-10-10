@@ -150,7 +150,7 @@ public class Location {
 
 	}
 
-	public Direction getDirDijkstras(Tile player, Tile position){
+	public static Direction getDirDijkstras(Tile player, Tile position){
 		Position from = player.getPos();
 		Position to = position.getPos();
 

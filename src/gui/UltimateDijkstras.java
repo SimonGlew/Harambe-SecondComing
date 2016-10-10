@@ -94,7 +94,7 @@ public class UltimateDijkstras implements ActionListener {
 						GameObject o = n.t.getGameObject();
 						if(!n.visited){
 							if(o == null || o instanceof Item){
-								if(!(n.t instanceof WaterTile)){
+								if(!(n.t instanceof WaterTile) || controller.getPlayer().getHasFloatingDevice()){
 									int cost = searchNode.costToHere + 1;
 									fringe.offer(new SearchNode(cost, n, searchNode.node));
 								}
