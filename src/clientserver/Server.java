@@ -245,6 +245,8 @@ public class Server {
 					this.close();
 				} else if(serverController.parseInput(cm).equals("false") && cm.getMessage().contains("move")) {
 					broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()), id);
+				}else if(serverController.parseInput(cm).equals("endgame")){
+					broadcast(new Packet("string", null, "endgame " + serverController.getPlayerByUserName(IDtoUsername.get(id)), time.getTime()), id);
 				}else{
 					System.out.println("fail");
 				}

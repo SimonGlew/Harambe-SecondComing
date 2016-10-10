@@ -1,6 +1,7 @@
 package clientserver;
 
 import java.net.*;
+import java.util.Scanner;
 import java.io.*;
 import javax.swing.JFrame;
 
@@ -108,6 +109,18 @@ public class Client {
 						if (packet.getMessage().equals("fail login")) {
 							menu.dispose();
 							new Menu();
+						}else if(packet.getMessage().equals("endgame")){
+							String playerName = null;
+							try{
+								Scanner s = new Scanner(packet.getMessage());
+								s.next();
+								playerName = s.next();
+							}catch(Exception e){
+								System.out.println(e);
+							}
+							if(playerName != null){
+								clientController.showEndGameScreen(playerName);
+							}
 						}
 					}
 				} catch (IOException e) {
