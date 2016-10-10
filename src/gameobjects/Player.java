@@ -14,6 +14,7 @@ import items.FloatingDevice;
 import items.Item;
 import core.Location;
 import tile.Tile;
+import tile.WaterTile;
 import util.Position;
 
 public class Player extends GameObject {
@@ -106,7 +107,14 @@ public class Player extends GameObject {
 	}
 
 	public BufferedImage getImage(Location loc, Position pos, Direction viewingDir) {
-		String fname = IMG_PRE + facing.toString() + IMG_POST;
+		String fname = IMG_PRE;
+		if(hasFloatingDevice){
+			fname += "F";
+		}
+		if(getTile() instanceof WaterTile){
+			fname+="W";
+		}
+		fname += facing.toString() + IMG_POST;
 		try {
 			image = ImageIO.read(new File(fname));
 		} catch (IOException e) {
@@ -124,7 +132,7 @@ public class Player extends GameObject {
 	}
 
 	public String toSaveString() {
-		String s = "Player\n{\n" + userName + "," + locationID + "," + pos.getX() + "," + pos.getY() + ","
+		String s = "Player\n{\n" + userName + "," + numOfBananas + "," + locationID + "," + pos.getX() + "," + pos.getY() + ","
 				+ facing.toString() + "," + loggedIn + "," + hasFloatingDevice + ",Inventory(";
 		for(Item i: inventory){
 			s += i.toString();

@@ -66,6 +66,8 @@ public class BoardParser {
 		require("\\{", s);
 		String username = s.next().trim();
 		require(",", s);
+		int bananas = s.nextInt();
+		require(",", s);
 		int locationID = s.nextInt();
 		require(",", s);
 		int posX = s.nextInt();
@@ -79,6 +81,7 @@ public class BoardParser {
 		Player player = new Player(username, locationID, new Position(posX, posY), board);
 		player.setFacing(facing);
 		player.setLoggedIn(loggedIn);
+		player.setNumOfBananas(bananas);
 
 		require(",", s);
 		boolean floatingDevice = s.nextBoolean();

@@ -34,8 +34,8 @@ public class ClientController {
 		gui = new GUI(this);
 	}
 
-	public void hideGUI(){
-		if(gui != null){
+	public void hideGUI() {
+		if (gui != null) {
 			gui.hideGUI();
 		}
 	}
@@ -45,8 +45,15 @@ public class ClientController {
 	}
 
 	public int getBananaCount() {
+<<<<<<< HEAD
 		if(board == null)return 0;
 		return board.getPlayer(getName()).getNumOfBananas();
+=======
+		if (board != null) {
+			return board.getPlayer(getName()).getNumOfBananas();
+		}
+		return 0;
+>>>>>>> 99ed367f7327865801f2ca4e12ce22aa871748f2
 	}
 
 	public void rotateLeft() {
@@ -67,7 +74,7 @@ public class ClientController {
 
 	public void drawBoard() {
 		if (board != null && gui != null) {
-			//System.out.println(board.getPlayer(client.getUsername()).getInventory());
+			// System.out.println(board.getPlayer(client.getUsername()).getInventory());
 			gui.showBoard(renderer.paintBoard(board, board.getPlayer(client.getUsername()), 1000, 800));
 		}
 	}
@@ -88,26 +95,30 @@ public class ClientController {
 		}
 	}
 
-	public Tile getTile(int x, int y){
+	public Tile getTile(int x, int y) {
 		Position p = renderer.isoToIndex(x, y);
 		return board.getPlayer(getName()).getLocation().getTileAtPosition(p);
 	}
 
-	public void moveSinglePos(String dir){
+	public void moveSinglePos(String dir) {
 		Direction d = null;
-		if(dir.equals("N")) d = Direction.NORTH;
-		else if(dir.equals("E")) d = Direction.EAST;
-		else if(dir.equals("S")) d = Direction.SOUTH;
-		else if(dir.equals("W")) d = Direction.WEST;
+		if (dir.equals("N"))
+			d = Direction.NORTH;
+		else if (dir.equals("E"))
+			d = Direction.EAST;
+		else if (dir.equals("S"))
+			d = Direction.SOUTH;
+		else if (dir.equals("W"))
+			d = Direction.WEST;
 
 		Direction temp = Location.getRelativeDirection(d, renderer.viewingDir);
 
 		Location loc = board.getPlayer(getName()).getLocation();
 		Tile t = loc.getTileInDirection(board.getPlayer(getName()).getPosition(), temp);
 
-		if(t != null){
+		if (t != null) {
 			Direction direction = loc.getDirDijkstras(board.getPlayer(getName()).getTile(), t);
-			if(direction != null){
+			if (direction != null) {
 				String command = "move " + getName() + " " + direction.toString();
 				sendMessage(new PlayerCommand(command));
 			}
@@ -115,15 +126,16 @@ public class ClientController {
 		}
 	}
 
-	public void moveWithUltimateDijkstras(int x, int y){
-		if(uDijkstras != null) uDijkstras.setPath(null);
+	public void moveWithUltimateDijkstras(int x, int y) {
+		if (uDijkstras != null)
+			uDijkstras.setPath(null);
 
 		if (board != null) {
 			Position p = renderer.isoToIndex(x, y);
 			Location loc = board.getPlayer(getName()).getLocation();
 			Tile t = loc.getTileAtPosition(p);
 			renderer.selectTile(t);
-			if(t != null){
+			if (t != null) {
 				uDijkstras = new UltimateDijkstras(this, board.getPlayer(getName()).getTile(), loc, t, board);
 				uDijkstras.createPath();
 				System.out.println(uDijkstras);
@@ -133,61 +145,61 @@ public class ClientController {
 		}
 	}
 
-	public ArrayList<Item> getInventory(){
-		if(board != null){
+	public ArrayList<Item> getInventory() {
+		if (board != null) {
 			return board.getPlayer(getName()).getInventory();
 		}
 		return null;
 	}
 
-	public void dropItemPlayer(int index){
+	public void dropItemPlayer(int index) {
 		String name = getName();
 
 		String command = "drop " + name + " " + index;
 		sendMessage(new PlayerCommand(command));
 	}
-	
-	public void useItem(int index){
+
+	public void useItem(int index) {
 		String name = getName();
-		
+
 		String command = "use " + name + " " + index;
 		sendMessage(new PlayerCommand(command));
 	}
-	
-	public void siphonBananaPlayer(int index){
+
+	public void siphonBananaPlayer(int index) {
 		String name = getName();
-		
+
 		String command = "siphon " + name + " " + index;
 		sendMessage(new PlayerCommand(command));
 	}
-	
-	public Item getInventoryItem(int i){
+
+	public Item getInventoryItem(int i) {
 		return board.getPlayer(getName()).getInventory().get(i);
 	}
 
-	public void pickupItemPlayer(Tile t){
+	public void pickupItemPlayer(Tile t) {
 		String name = getName();
-		if(t.getGameObject() != null){
+		if (t.getGameObject() != null) {
 			String command = "pickup " + name;
 			sendMessage(new PlayerCommand(command));
 		}
 	}
 
-	public void moveToPos(Tile t){
+	public void moveToPos(Tile t) {
 		Location loc = board.getPlayer(getName()).getLocation();
 		Direction d = loc.getDirDijkstras(board.getPlayer(getName()).getTile(), t);
-		if(d != null){
+		if (d != null) {
 			String command = "move " + getName() + " " + d.toString();
 			sendMessage(new PlayerCommand(command));
 		}
 		drawBoard();
 	}
-	
-	public void showEndGameScreen(String playerName){
+
+	public void showEndGameScreen(String playerName) {
 		Player p = board.getPlayer(playerName);
 	}
-	
-	public Player getPlayer(){
+
+	public Player getPlayer() {
 		return board.getPlayer(client.getUsername());
 	}
 }
