@@ -8,17 +8,18 @@ import javax.swing.JFrame;
 import gui.Menu;
 import iohandling.BoardParser;
 
-/*
- * The Client running through console
+/**
+ * This is the class that holds all the information for the client, for the client server exchange, this holds connection and the streams used for 
+ * communicating with the server
+ * 
+ * @author Simon Glew
+ *
  */
 public class Client {
-
-	// for I/O
-	private ObjectInputStream sInput; // to read from the socket
-	private ObjectOutputStream sOutput; // to write on the socket
+	private ObjectInputStream sInput; 
+	private ObjectOutputStream sOutput; 
 	private Socket socket;
 
-	// the server, the port
 	private String server;
 	private int port;
 	private ClientController clientController;
@@ -26,11 +27,14 @@ public class Client {
 	private String username;
 	private boolean loggedIn = false;
 
-	/*
-	 * Constructor called by console mode server: the server address port: the
-	 * port number
+	/**
+	 * Constructor for the client, that gets called when a method within the menu class is called
+	 * 
+	 * @param server - The server that the client is trying to connect to
+	 * @param port - The port that the client is connecting to the server through
+	 * @param username - The username that the user has entered that is going to correspond to the client
+	 * @param menu - The menu frame that the client is using
 	 */
-
 	public Client(String server, int port, String username, JFrame menu) {
 		this.menu = menu;
 		this.server = server;
@@ -44,21 +48,21 @@ public class Client {
 		}
 	}
 
-	/*
-	 * To start the dialog
+	/**
+	 * This method is the method that initially gets called when the client tries and connects to the server, it sets up a new socket, sets up the data 
+	 * streams for the server and client to use and sends through an initial connect message
+	 *  
+	 * @return successful login boolean
 	 */
 	public boolean start() {
-		// try to connect to the server
 		try {
 			socket = new Socket(server, port);
 		}
-		// if it failed not much I can so
 		catch (Exception e) {
 			System.out.println("Error connecting to server:" + e);
 			return false;
 		}
-
-		/* Creating both Data Stream */
+		
 		try {
 			sInput = new ObjectInputStream(socket.getInputStream());
 			sOutput = new ObjectOutputStream(socket.getOutputStream());
@@ -67,15 +71,16 @@ public class Client {
 			return false;
 		}
 
-		// creates the Thread to listen from the server
 		clientController = new ClientController(this);
 		new ListenFromServer().start();
 		sendMessage(new PlayerCommand("login " + this.username));
 		return true;
 	}
 
-	/*
-	 * To send a message to the server, push the object here
+	/**
+	 * Helper method that sends a player command through to the server
+	 * 
+	 * @param msg - message getting sent through to the server
 	 */
 	public void sendMessage(PlayerCommand msg) {
 		try {
@@ -84,16 +89,29 @@ public class Client {
 			System.out.println("Exception writing to server: " + e);
 		}
 	}
-
+	
+	/**
+	 * Helper method to get the username of the player/client
+	 * 
+	 * @return username
+	 */
 	public String getUsername() {
 		return this.username;
 	}
 
-	/*
-	 * a class that waits for the message and prints it out to the console mode
+	/**
+	 * Class that creates a thread that listens through the input stream waiting for a packet to come back from the server and do things to depending on 
+	 * what is send through the packet to the client
+	 * 
+	 * @author Simon Glew
 	 */
 	class ListenFromServer extends Thread {
-
+		
+		/**
+		 * Method that gets called that listens to the input stream for messages coming in from the server
+		 * 
+		 * See class javadoc for more information 
+		 */
 		public void run() {
 			while (true) {
 				try {
