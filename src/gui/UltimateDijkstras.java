@@ -90,14 +90,19 @@ public class UltimateDijkstras implements ActionListener {
 				for(Node n: searchNode.node.neighbours){
 					if(n != null){
 						GameObject o = n.t.getGameObject();
-						if(!n.visited && (o == null || o instanceof Item || o instanceof Chest) 
-								&& (!(n.t instanceof WaterTile) || board.getPlayer(controller.getName()).getHasFloatingDevice())){
-							int cost = searchNode.costToHere + 1;
-							fringe.offer(new SearchNode(cost, n, searchNode.node));
+						if(!n.visited){
+							if(o == null || o instanceof Item){
+								if(!(n.t instanceof WaterTile)){
+									int cost = searchNode.costToHere + 1;
+									fringe.offer(new SearchNode(cost, n, searchNode.node));
+								}
+							}
 						}
+
 					}
 				}
 			}
+
 		}
 
 		//Create path for nodes using stack

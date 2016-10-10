@@ -362,8 +362,8 @@ public class Renderer {
 				j = (int) Math.round(-1 * a / TILE_WIDTH + 9);
 				break;
 		}
-		System.out.println(viewingDir.toString());
-		System.out.println(i + ", " + j);
+		//System.out.println(viewingDir.toString());
+		//System.out.println(i + ", " + j);
 
 		Position index = new Position(i, j);
 		lastPoint = new Point(index.getX(), index.getY());

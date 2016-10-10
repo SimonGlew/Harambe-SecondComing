@@ -121,9 +121,12 @@ public class ClientController {
 			Position p = renderer.isoToIndex(x, y);
 			Location loc = board.getPlayer(getName()).getLocation();
 			Tile t = loc.getTileAtPosition(p);
+			renderer.selectTile(t);
 			if(t != null){
 				uDijkstras = new UltimateDijkstras(this, board.getPlayer(getName()).getTile(), loc, t, board);
 				uDijkstras.createPath();
+				System.out.println(uDijkstras);
+				System.out.println(uDijkstras.getPath());
 				uDijkstras.startTimer();
 			}
 		}

@@ -279,11 +279,10 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	}
 
 	private void checkClicked(int x, int y) {
-		if(y > gameFrame.getHeight() - gameLabel.getHeight()){
-			if(x > 0 && x < 1000){
+			if(x < 1000){
 				controller.moveWithUltimateDijkstras(x, y);
 			}
-		}
+		
 	}
 
 	private void checkMoved(int x, int y) {
@@ -352,7 +351,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	private void createPopupGame(int x, int y) {
 		if(x < 1020){
 			popup = new JPopupMenu("tile");
-			Tile t = controller.getTile(x, y - (gameFrame.getHeight() - gameLabel.getHeight()));
+			Tile t = controller.getTile(x, y);
 
 			if(t != null){
 				if(t.getGameObject() != null){
@@ -434,7 +433,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if(e.getSource() instanceof JLabel){
+		if(e.getSource() != gameLabel){
 			JLabel src = (JLabel) e.getSource();
 			if(src.getName().equals("left")) controller.rotateLeft();
 			else controller.rotateRight();
