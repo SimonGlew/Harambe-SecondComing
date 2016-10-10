@@ -137,6 +137,10 @@ public class Server {
 			}
 		}
 	}
+	
+	public int getServerTime(){
+		return time.getTime();
+	}
 
 	/**
 	 * Main method of the server, this is the method that gets called that makes the server 

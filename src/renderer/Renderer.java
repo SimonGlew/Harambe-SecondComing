@@ -23,6 +23,7 @@ import core.GameSystem;
 import core.GameSystem.Direction;
 import core.Location;
 import gameobjects.Player;
+import tile.DoorOutTile;
 import tile.Tile;
 import util.Position;
 
@@ -49,9 +50,9 @@ public class Renderer {
 	int yCenter;
 
 	String message = "";
-	int messageTimer = 0;
-	
-	int dayCycle = 60;
+	int messageTimer = -1;
+
+	int dayCycle = 180;
 
 	Map<String, BufferedImage> images;
 
@@ -114,10 +115,40 @@ public class Renderer {
 			Point p = new Point(drawOrderX[i], drawOrderY[i]);
 			drawBoard(g, board, map, w, h, p, player);
 		}
-		int alpha = (Math.abs((time)%dayCycle-30)*127/30);
-		g.setColor(new Color(0, 0, 0, alpha));
-		System.out.println(alpha);
-		g.fillRect(0, 0, w, h);
+		int alpha = 0;
+
+		// Check if player is indoors.
+		boolean indoor = false;
+		Location playerLoc = player.getLocation();
+		Map<Point, Integer> locations = board.mapLocations(playerLoc.getId(), 0, 0, new HashMap<Point, Integer>());
+		for (Integer i : locations.values()) {
+			for (Tile[] ta : board.getLocationById(i).getTiles()) {
+				for (Tile t : ta) {
+					if (t instanceof DoorOutTile) {
+						indoor = true;
+					}
+				}
+			}
+		}
+		// 3 minute day cycle
+		if (!indoor) {
+			int dayPhase = time % dayCycle;
+			// One minutes of daytime
+			if (dayPhase <= 60)
+				alpha = 0;
+			// Fade to dark over one 30 seconds
+			if (dayPhase > 60 && dayPhase <= 90)
+				alpha = ((dayPhase - 60) * 127 / 30);
+			// One minute of darkness
+			if (dayPhase > 90 && dayPhase <= 150)
+				alpha = 127;
+			// Fade back to light over 30 seconds
+			if (dayPhase > 150 && dayPhase <= 180)
+				alpha = 127 - ((dayPhase - 150) * 127 / 30);
+			g.setColor(new Color(0, 0, 0, alpha));
+			System.out.println(time + "," + alpha);
+			g.fillRect(0, 0, w, h);
+		}
 		if (messageTimer >= time) {
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("Arial", Font.BOLD, 28));
@@ -130,15 +161,15 @@ public class Renderer {
 				}
 			}
 			int linenum = 0;
-			for(String line: text.split("\n")){
+			for (String line : text.split("\n")) {
 				FontMetrics fm = g.getFontMetrics();
 				Rectangle2D r = fm.getStringBounds(line, g);
 				int x = (speechBubble.getWidth() - (int) r.getWidth()) / 2;
 				int y = (speechBubble.getHeight() - (int) r.getHeight()) / 2 + fm.getAscent();
-				g.drawString(line, x, y + linenum*35);
+				g.drawString(line, x, y + linenum * 35);
 				linenum++;
 			}
-			
+
 		}
 		return image;
 	}

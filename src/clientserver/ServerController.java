@@ -191,6 +191,10 @@ public class ServerController {
 		return gameSystem.getBoard().getPlayer(name);
 	}
 	
+	public int getServerTime(){
+		return server.getServerTime();
+	}
+	
 	public void broadcastPlayerMessage(String message, Player p){
 		server.broadcast(new Packet("popup", null ,message, 0), server.getID(p.getUserName()));
 	}
