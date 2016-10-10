@@ -2,6 +2,7 @@ package tile;
 
 import java.awt.image.BufferedImage;
 
+import core.GameSystem.Direction;
 import gameobjects.GameObject;
 import util.Position;
 
@@ -33,7 +34,7 @@ public abstract class Tile {
 		this.gameObject = gameObject;
 	}
 	
-	public BufferedImage getImage(){
+	public BufferedImage getImage(Direction viewing){
 		return image;
 	}
 	

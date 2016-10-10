@@ -253,7 +253,7 @@ public class Renderer {
 	}
 
 	private void drawTile(Graphics2D g, Tile tile, Point iso, Location loc, Position pos) {
-		BufferedImage floor = tile.getImage();
+		BufferedImage floor = tile.getImage(viewingDir);
 		if (tile == selected) {
 			selectedPoint = iso;
 		}
