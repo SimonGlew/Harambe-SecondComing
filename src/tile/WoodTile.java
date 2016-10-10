@@ -12,11 +12,7 @@ public class WoodTile extends Tile{
 
 	public WoodTile(Position pos, GameObject gameObject) {
 		super(pos, gameObject);
-		try {
-			image = ImageIO.read(new File("assets/tiles/woodTile.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		fname = "assets/tiles/woodTile.png";
 	}
 	
 	public String toString() {

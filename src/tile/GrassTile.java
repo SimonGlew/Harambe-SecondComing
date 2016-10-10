@@ -12,20 +12,13 @@ public class GrassTile extends Tile {
 
 	public GrassTile(Position pos, GameObject gameObject) {
 		super(pos, gameObject);
-		try {
-			double d = Math.random() * 100;
-			if (d >= 0) {
-				image = ImageIO.read(new File("assets/tiles/grassTile.png"));
-			} 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		fname = "assets/tiles/grassTile.png";
 	}
 
 	public String toString() {
 		String s = "Grass";
-		if(gameObject!=null){
-			s+= "(" + gameObject.toString() + ")";
+		if (gameObject != null) {
+			s += "(" + gameObject.toString() + ")";
 		}
 		return s;
 	}

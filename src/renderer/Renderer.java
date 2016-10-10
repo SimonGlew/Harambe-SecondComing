@@ -43,9 +43,10 @@ public class Renderer {
 	int xCenter;
 	int yCenter;
 	
-	Point lastPoint;
+	Map<String, BufferedImage> images;
 
 	public Renderer() {
+		images = new HashMap<String, BufferedImage>();
 		try {
 			highlightTile = ImageIO.read(new File("assets/renderer/highlightTile.png"));
 			highlightLocation = ImageIO.read(new File("assets/renderer/highlightLocation.png"));
@@ -247,13 +248,27 @@ public class Renderer {
 					g.drawImage(playerSelect, iso.x, iso.y - playerSelect.getHeight(), null);
 				}
 			}
-			BufferedImage gameObject = tile.getGameObject().getImage(loc, pos, viewingDir);
+			BufferedImage gameObject = getImage(tile.getGameObject().getImage(loc, pos, viewingDir));
 			g.drawImage(gameObject, iso.x, iso.y - gameObject.getHeight(), null);
 		}
 	}
 
+	private BufferedImage getImage(String fname) {
+		if(images.containsKey(fname)){
+			return images.get(fname);
+		}else{
+			try {
+				images.put(fname, ImageIO.read(new File(fname)));
+				return images.get(fname);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
 	private void drawTile(Graphics2D g, Tile tile, Point iso, Location loc, Position pos) {
-		BufferedImage floor = tile.getImage();
+		BufferedImage floor = getImage(tile.getImage(viewingDir));
 		if (tile == selected) {
 			selectedPoint = iso;
 		}
@@ -366,7 +381,6 @@ public class Renderer {
 		//System.out.println(i + ", " + j);
 
 		Position index = new Position(i, j);
-		lastPoint = new Point(index.getX(), index.getY());
 		return index;
 	}
 

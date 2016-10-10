@@ -20,7 +20,7 @@ public class Wall extends GameObject {
 
 	}
 
-	public BufferedImage getImage(Location loc, Position pos, Direction viewing){
+	public String getImage(Location loc, Position pos, Direction viewing){
 		String fname = IMG_PRE;
 		Tile n = loc.getTileInDirection(pos, Direction.NORTH);
 		if(n != null){
@@ -48,12 +48,7 @@ public class Wall extends GameObject {
 			}
 		}
 		fname+=IMG_POST;
-		try {
-			image = ImageIO.read(new File(fname));
-		} catch (IOException error) {
-			error.printStackTrace();
-		}
-		return image;
+		return fname;
 	}
 	
 	public String getDescription(){
