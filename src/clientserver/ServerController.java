@@ -6,6 +6,7 @@ import core.Board;
 import core.GameSystem;
 import core.GameSystem.Direction;
 import gameobjects.Player;
+import iohandling.BoardWriter;
 import items.Banana;
 import items.Item;
 import tile.Tile;
@@ -303,4 +304,8 @@ public class ServerController {
 	public void broadcastGameMessage(String message){
 		server.broadcast(new Packet("popup", null ,message, 0), 0);
 	} 
+	
+	public void broadcastBoard(Board b){
+		server.broadcast(new Packet("board", BoardWriter.writeBoardToString(b), null, getServerTime()), 0);
+	}
 }
