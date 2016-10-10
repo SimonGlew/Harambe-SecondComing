@@ -35,15 +35,12 @@ public class ServerController {
 				return parseLoginCommand(s);
 			}else if(action.equals("drop")){
 				return parseDropItemCommand(s);
-<<<<<<< HEAD
 			}else if(action.equals("siphon")){
 				return parseSiphonBananaCommand(s);
 			}else if(action.equals("use")){
 				return parseUseItemCommand(s);
-=======
 			}else if(action.equals("pickup")){
 				return parsePickupItemCommand(s);
->>>>>>> e3e630b9f7a6ae53e05885901ab60375453e2d78
 			}
 
 			s.close();
@@ -57,11 +54,18 @@ public class ServerController {
 	public String parsePickupItemCommand(Scanner s){
 		try{
 			Player player = getPlayerByUserName(s.next());
+			
 			Tile t = gameSystem.getBoard().getLocationById(player.getLocation().getId()).getTileAtPosition(player.getPosition());
+			
 			if(t.getGameObject() == null){
 				return "false";
 			}
-			//TODO: get item, add item to inventory
+			if(!(t.getGameObject() instanceof Item)){
+				return "false";
+			}
+			Item i = (Item)t.getGameObject();
+			
+			player.getInventory().add(i);
 			return "true";
 		}catch(Exception e){
 			return "false";
@@ -138,7 +142,6 @@ public class ServerController {
 			return "false";
 		}
 	}
-<<<<<<< HEAD
 	
 	public String parseSiphonBananaCommand(Scanner s){
 		try{
@@ -170,9 +173,6 @@ public class ServerController {
 		}
 	}
 	
-=======
-
->>>>>>> e3e630b9f7a6ae53e05885901ab60375453e2d78
 	public Player getPlayerByUserName(String name){
 		return gameSystem.getBoard().getPlayer(name);
 	}

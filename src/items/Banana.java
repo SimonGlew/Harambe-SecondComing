@@ -18,5 +18,8 @@ public class Banana extends Item{
 		}
 	}
 	
-
+	public String toString(){
+		
+		return "Banana";
+	}
 }

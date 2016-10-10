@@ -66,7 +66,7 @@ public class ClientController {
 
 	public void drawBoard() {
 		if (board != null && gui != null) {
-			System.out.println(board.getPlayer(client.getUsername()).getInventory());
+			//System.out.println(board.getPlayer(client.getUsername()).getInventory());
 			gui.showBoard(renderer.paintBoard(board, board.getPlayer(client.getUsername()), 1000, 800));
 		}
 	}
