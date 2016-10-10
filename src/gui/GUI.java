@@ -347,6 +347,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 						controller.siphonBananaPlayer(parseInt);
 					}
 				});
+				popup.add(siphonObject);
 			}
 
 			JMenuItem dropObject = new JMenuItem("Drop");
