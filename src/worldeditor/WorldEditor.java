@@ -141,7 +141,7 @@ public class WorldEditor {
 					tile.setGameObject(new Chest());
 					break;
 				case "key":
-					tile.setGameObject(new Key("name", 0));
+					tile.setGameObject(new Key("Key", 0));
 					break;
 				case "floaty":
 					tile.setGameObject(new FloatingDevice("Floating Device"));

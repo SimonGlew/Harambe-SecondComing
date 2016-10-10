@@ -21,7 +21,7 @@ public class BoardWriter {
 			for (Location loc : b.getLocations().values()) {
 				print.println("Location{");
 				print.println("id: " + loc.getId());
-				print.println("name: ?");// + loc.getName());
+				print.println("name: ?");
 				print.println("w: " + loc.getTiles().length);
 				print.println("h: " + loc.getTiles()[0].length);
 				if(loc.getNeighbours().get(Direction.NORTH) != null){

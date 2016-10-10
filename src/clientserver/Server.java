@@ -227,7 +227,6 @@ public class Server {
 					break;
 				}
 				String parsed = serverController.parseInput(cm);
-				System.out.println(parsed);
 				if (parsed.equals("true")) {
 					// Switch on the type of message receive
 					// TODO: Some way of sending a board back, change broadcast

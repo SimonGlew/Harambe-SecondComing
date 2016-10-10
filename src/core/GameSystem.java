@@ -12,6 +12,7 @@ import iohandling.BoardParser;
 import items.Banana;
 import items.FloatingDevice;
 import items.Item;
+import items.Key;
 import tile.DoorOutTile;
 import tile.Tile;
 import tile.WaterTile;
@@ -29,10 +30,47 @@ public class GameSystem {
 
 	public GameSystem() {
 		this.board = BoardParser.parseBoardFName("map-new.txt");
+		generateCodes();
 	}
 
 	public Board getBoard() {
 		return board;
+	}
+
+	public void generateCodes() {
+		System.out.println("GENBERATIN");
+		ArrayList<Chest> chests = new ArrayList<Chest>();
+		ArrayList<Key> keys = new ArrayList<Key>();
+
+		for (Location location : board.getLocations().values()) {
+			for (Tile ta[] : location.getTiles()) {
+				for (Tile t : ta) {
+					if (t.getGameObject() instanceof Chest) {
+						chests.add((Chest) t.getGameObject());
+					}
+					else if(t.getGameObject() instanceof Key){
+						keys.add((Key) t.getGameObject());
+					}
+				}
+			}
+		}
+		
+		if(keys.size() != chests.size()){
+			throw new RuntimeException("must have same numer of keys and chests");
+		}
+		
+		int num = keys.size();
+		for(int i = 0; i < num; i++){
+			int randy = (int)(Math.random()*keys.size());
+			int orton = (int)(Math.random()*keys.size());
+			
+			keys.get(randy).setCode(i);
+			chests.get(orton).setCode(i);
+			keys.remove(randy);
+			chests.remove(orton);
+		}
+		
+		
 	}
 
 	public boolean movePlayer(Player p, Direction d) {
@@ -72,13 +110,13 @@ public class GameSystem {
 				}
 				if (newTile instanceof DoorOutTile) {
 					DoorOutTile dot = (DoorOutTile) newTile;
-					
+
 					if (board.getLocationById(dot.getOutLocationID()).getTileAtPosition(dot.getDoorPos())
 							.getGameObject() != null) {
 						return false;
 					}
 					playerTil.setGameObject(null);
-					
+
 					p.setLocation(dot.getOutLocationID());
 					p.setTile(board.getLocationById(dot.getOutLocationID()).getTileAtPosition(dot.getDoorPos()));
 
@@ -113,10 +151,20 @@ public class GameSystem {
 			}
 		} else if (object instanceof Chest) {
 			Chest c = (Chest) object;
-			if (!p.inventoryIsFull() && c.getContents() != null) {
-				p.pickUpItem(c.getContents());
-				c.setContents(null);
+			for(Item i : p.getInventory()){
+				if(i instanceof Key){
+					Key k = ((Key)i);
+					if(k.getCode() == c.getCode()){
+						if (!p.inventoryIsFull() && c.getContents() != null) {
+							p.pickUpItem(c.getContents());
+							c.setContents(null);
+							p.getInventory().remove(i);
+							return;
+						}
+					}
+				}
 			}
+			
 		} else if (object instanceof Door) {
 			Door door = (Door) object;
 			p.getTile().setGameObject(null);

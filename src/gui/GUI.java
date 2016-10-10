@@ -35,9 +35,11 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 import clientserver.ClientController;
+import gameobjects.Chest;
 import items.Banana;
 import items.FloatingDevice;
 import items.Item;
+import items.Key;
 //import javafx.embed.swing.JFXPanel;
 //import javafx.scene.media.Media;
 //import javafx.scene.media.MediaPlayer;
@@ -310,7 +312,14 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 			popup = new JPopupMenu("tile");
 
-			String desc = inventory.get(parseInt).getToolTipText();
+			String desc;
+			if(i instanceof Key){
+				Key k = (Key)i;
+				desc = k.getDescription() +" Code: "+ k.getCode();
+			}
+			else{
+				desc = i.getDescription();
+			}
 
 			JMenuItem examineObject = new JMenuItem("Examine");
 			examineObject.addActionListener(new ActionListener() {
@@ -379,7 +388,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 			if (t != null) {
 				if (t.getGameObject() != null) {
-					JMenuItem examineObject = new JMenuItem("Examine " + t.getGameObject().toString());
+					JMenuItem examineObject = new JMenuItem("Examine " + t.getGameObject().getClass().getSimpleName());
 					examineObject.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
