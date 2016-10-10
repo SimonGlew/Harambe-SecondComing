@@ -8,6 +8,7 @@ import clientserver.ServerController;
 import gameobjects.Chest;
 import gameobjects.Door;
 import gameobjects.GameObject;
+import gameobjects.NPC;
 import gameobjects.Player;
 import iohandling.BoardParser;
 import items.Banana;
@@ -23,8 +24,10 @@ import util.Position;
 public class GameSystem {
 
 	private Board board;
-	
+
 	public ServerController serverController;
+
+	public Map<NPC, Location> NPCs;
 
 	public final Integer WINNING_BANANA_COUNT = 5;
 	public final Integer PLAYER_KEY_LIMIT = 3;
@@ -37,10 +40,26 @@ public class GameSystem {
 		this.serverController = serverController;
 		this.board = BoardParser.parseBoardFName("map-new.txt");
 		generateCodes();
+		storeNpcs();
 	}
 
 	public Board getBoard() {
 		return board;
+	}
+
+	public void storeNpcs() {
+		NPCs = new HashMap<NPC, Location>();
+
+		for (Location location : board.getLocations().values()) {
+			for (Tile ta[] : location.getTiles()) {
+				for (Tile t : ta) {
+					if (t.getGameObject() instanceof NPC) {
+						NPCs.put((NPC) t.getGameObject(), location);
+					}
+				}
+			}
+		}
+
 	}
 
 	public void generateCodes() {
@@ -110,9 +129,9 @@ public class GameSystem {
 				if (newTile instanceof WaterTile) {
 					if (!p.getHasFloatingDevice()) {
 						return false;
-					}
-					else{
-						serverController.broadcastPlayerMessage("It's a deep blue and cold as ice, perhaps something to float on?", p);
+					} else {
+						serverController.broadcastPlayerMessage(
+								"It's a deep blue and cold as ice, perhaps something to float on?", p);
 					}
 				}
 				if (newTile instanceof DoorOutTile) {
@@ -144,9 +163,14 @@ public class GameSystem {
 
 		return false;
 	}
-	
-	public void tick(int time){
-		
+
+	public void tick(int time) {
+		for (NPC n : NPCs.keySet()) {
+			int randy = (int) (Math.random() * 4);
+			if (randy == 0) {
+				moveNPC(n);
+			}
+		}
 	}
 
 	public void triggerInteraction(Player p, Tile newTile) {
@@ -163,7 +187,9 @@ public class GameSystem {
 					}
 
 					if (keyCount >= PLAYER_KEY_LIMIT) {
-						serverController.broadcastPlayerMessage("You already have 3 keys, Harambe does not appreciate your greed, sharpen up soldier!", p);
+						serverController.broadcastPlayerMessage(
+								"You already have 3 keys, Harambe does not appreciate your greed, sharpen up soldier!",
+								p);
 						return;
 					}
 				}
@@ -188,8 +214,8 @@ public class GameSystem {
 					}
 				}
 			}
-			serverController.broadcastPlayerMessage("You don't have a key with the correct code to open this chest soldier!", p);
-		
+			serverController.broadcastPlayerMessage(
+					"You don't have a key with the correct code to open this chest soldier!", p);
 
 		} else if (object instanceof Door) {
 			Door door = (Door) object;
@@ -197,6 +223,8 @@ public class GameSystem {
 			p.setLocation(door.getLocationID());
 			p.setTile(p.getLocation().getTileAtPosition(door.getDoorPosition()));
 			p.getTile().setGameObject(p);
+		} else if (object instanceof NPC){
+			p.pickUpItem(new Banana("Banana"));
 		}
 	}
 
@@ -208,12 +236,13 @@ public class GameSystem {
 		}
 
 	}
-	
+
 	public boolean playerSiphonBanana(Player p, Banana b) {
 		if (p != null && b != null) {
 			p.setNumOfBananas(p.getNumOfBananas() + 1);
-			p.getInventory().remove(b);			
-			serverController.broadcastGameMessage(p.getUserName() + " has siphoned "+ p.getNumOfBananas() + " banana/s, step it up soldier!");
+			p.getInventory().remove(b);
+			serverController.broadcastGameMessage(
+					p.getUserName() + " has siphoned " + p.getNumOfBananas() + " banana/s, step it up soldier!");
 			return p.getNumOfBananas() == WINNING_BANANA_COUNT;
 		}
 		return false;
@@ -227,24 +256,51 @@ public class GameSystem {
 			player.setLocation(0);
 			Tile t;
 			if (!(player.getLocation().getTileAtPosition(new Position(5, 5)).getGameObject() instanceof Player)) {
-				player.setTile(player.getLocation().getTileAtPosition(new Position(5,5)));
+				player.setTile(player.getLocation().getTileAtPosition(new Position(5, 5)));
 				player.getTile().setGameObject(player);
-			}
-			else if (!(player.getLocation().getTileAtPosition(new Position(4, 5)).getGameObject() instanceof Player)) {
-				player.setTile(player.getLocation().getTileAtPosition(new Position(4,5)));
+			} else if (!(player.getLocation().getTileAtPosition(new Position(4, 5))
+					.getGameObject() instanceof Player)) {
+				player.setTile(player.getLocation().getTileAtPosition(new Position(4, 5)));
 				player.getTile().setGameObject(player);
-			}
-			else if (!(player.getLocation().getTileAtPosition(new Position(4, 4)).getGameObject() instanceof Player)) {
-				player.setTile(player.getLocation().getTileAtPosition(new Position(4,4)));
+			} else if (!(player.getLocation().getTileAtPosition(new Position(4, 4))
+					.getGameObject() instanceof Player)) {
+				player.setTile(player.getLocation().getTileAtPosition(new Position(4, 4)));
 				player.getTile().setGameObject(player);
-			}
-			else if (!(player.getLocation().getTileAtPosition(new Position(5, 4)).getGameObject() instanceof Player)) {
-				player.setTile(player.getLocation().getTileAtPosition(new Position(5,4)));
+			} else if (!(player.getLocation().getTileAtPosition(new Position(5, 4))
+					.getGameObject() instanceof Player)) {
+				player.setTile(player.getLocation().getTileAtPosition(new Position(5, 4)));
 				player.getTile().setGameObject(player);
 			}
 			player.getInventory().remove(item);
 
 		}
+	}
+
+	public void moveNPC(NPC npc) {
+		Tile npcTile = null;
+		outer: for (Tile[] ta : NPCs.get(npc).getTiles()) {
+			for (Tile t : ta) {
+				if (t.getGameObject() != null && t.getGameObject().equals(npc)) {
+					npcTile = t;
+					break outer;
+				}
+			}
+		}
+
+		if (npcTile != null) {
+			Direction dir = npc.getDirection();
+			npc.setFacing(dir);
+			Tile newTile = NPCs.get(npc).getTileInDirection(npcTile.getPos(), dir);
+			if (newTile != null) {
+				if (newTile.getGameObject() == null) {
+					npcTile.setGameObject(null);
+					newTile.setGameObject(npc);
+					NPCs.put(npc, board.getLocationById(newTile.getLocationID()));
+					serverController.broadcastBoard(board);
+				}
+			}
+		}
+
 	}
 
 }

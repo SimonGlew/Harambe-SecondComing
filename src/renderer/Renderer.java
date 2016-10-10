@@ -146,7 +146,7 @@ public class Renderer {
 			if (dayPhase > 150 && dayPhase <= 180)
 				alpha = 127 - ((dayPhase - 150) * 127 / 30);
 			g.setColor(new Color(0, 0, 0, alpha));
-			System.out.println(time + "," + alpha);
+			//System.out.println(time + "," + alpha);
 			g.fillRect(0, 0, w, h);
 		}
 		if (messageTimer >= time) {

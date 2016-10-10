@@ -11,7 +11,7 @@ SOUTH: 7
 (Grass)(Grass(Tree))(Grass(Fence))(Grass(Fence))(Stone)(Stone)(Grass(Fence))(Grass(Fence))(Grass(Tree))(Grass)
 (Grass)(Grass(Fence))(Stone)(Stone)(Stone)(Grass)(Stone)(Stone)(Grass(Fence))(Grass)
 (Grass(Fence))(Grass(Fence))(Stone)(Grass(Tree))(Stone)(Stone)(Grass(Tree))(Stone)(Grass(Fence))(Grass(Fence))
-(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)
+(Stone)(Stone)(Stone)(Stone)(Stone(NPC(random,NORTH)))(Stone)(Stone)(Stone)(Stone)(Stone)
 (Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)
 (Grass(Fence))(Grass(Fence))(Stone)(Grass(Tree))(Stone)(Stone)(Grass(Tree))(Stone)(Grass(Fence))(Grass(Fence))
 (Grass)(Grass(Fence))(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)(Grass(Fence))(Grass)
