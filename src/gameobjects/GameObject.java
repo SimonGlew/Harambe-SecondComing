@@ -7,11 +7,11 @@ import core.Location;
 import util.Position;
 
 public abstract class GameObject {
-	protected BufferedImage image;
+	protected String fname;
 	private String description;
 
-	public BufferedImage getImage(Location loc, Position pos, Direction viewingDir){
-		return image;
+	public String getImage(Location loc, Position pos, Direction viewingDir){
+		return fname;
 	}
 	
 	public String getDescription(){

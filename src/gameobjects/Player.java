@@ -106,7 +106,7 @@ public class Player extends GameObject {
 		return inventory.add(item);
 	}
 
-	public BufferedImage getImage(Location loc, Position pos, Direction viewingDir) {
+	public String getImage(Location loc, Position pos, Direction viewingDir) {
 		String fname = IMG_PRE;
 		if(hasFloatingDevice){
 			fname += "F";
@@ -115,12 +115,8 @@ public class Player extends GameObject {
 			fname+="W";
 		}
 		fname += facing.toString() + IMG_POST;
-		try {
-			image = ImageIO.read(new File(fname));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return image;
+
+		return fname;
 	}
 
 	public String toString() {

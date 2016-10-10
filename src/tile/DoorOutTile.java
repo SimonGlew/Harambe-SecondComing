@@ -14,7 +14,7 @@ public class DoorOutTile extends Tile {
 
 	int outLocationID;
 	Position doorPos;
-	
+
 	final String IMG_PRE = "assets/tiles/doorOut/doorOut";
 	final String IMG_POST = ".png";
 
@@ -22,14 +22,7 @@ public class DoorOutTile extends Tile {
 		super(pos, gameObject);
 		this.outLocationID = locationID;
 		this.doorPos = doorPos;
-		try {
-			double d = Math.random() * 100;
-			if (d >= 0) {
-				image = ImageIO.read(new File("assets/tiles/doorOutTile.png"));
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		fname = "assets/tiles/doorOut/doorOutNORTH.png";
 	}
 
 	public int getOutLocationID() {
@@ -48,13 +41,8 @@ public class DoorOutTile extends Tile {
 		return s;
 	}
 
-	public BufferedImage getImage(Direction viewing){
-		String fname = IMG_PRE + viewing.toString() + IMG_POST;
-		try {
-			image = ImageIO.read(new File(fname));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return image;
+	public String getImage(Direction viewing) {
+		fname = IMG_PRE + viewing.toString() + IMG_POST;
+		return fname;
 	}
 }

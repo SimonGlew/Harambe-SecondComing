@@ -11,11 +11,8 @@ public class Banana extends Item{
 
 	public Banana(String name) {
 		super(name, "A sentient being taking form in a material object, behold the force of thy Harambe!" ,false);
-		try {
-			image = ImageIO.read(new File("assets/game_objects/banana/banana.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			fname = "assets/game_objects/banana/banana.png";
+
 	}
 	
 	public String toString(){

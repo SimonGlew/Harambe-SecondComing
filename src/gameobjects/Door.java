@@ -17,11 +17,9 @@ public class Door extends GameObject {
 		this.doorPosition = new Position(5, 9);
 		this.code = code;
 		this.locationID = locationid;
-		try {
-			image = ImageIO.read(new File("assets/game_objects/door/door.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+		fname = "assets/game_objects/door/door.png";
+
 	}
 
 	public String getDescription() {

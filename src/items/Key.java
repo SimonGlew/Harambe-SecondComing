@@ -12,11 +12,7 @@ public class Key extends Item {
 	public Key(String name, int code) {
 		super(name, "A magical key, it may open something??",false);
 		this.code = code;
-		try {
-			image = ImageIO.read(new File("assets/game_objects/key/key.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		fname = "assets/game_objects/key/key.png";
 	}
 
 	public int getCode() {

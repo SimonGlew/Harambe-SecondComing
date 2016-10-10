@@ -8,21 +8,17 @@ import javax.imageio.ImageIO;
 import gameobjects.GameObject;
 import util.Position;
 
-public class SandTile extends Tile{
+public class SandTile extends Tile {
 
 	public SandTile(Position pos, GameObject gameObject) {
 		super(pos, gameObject);
-		try {
-			image = ImageIO.read(new File("assets/tiles/sandTile.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		fname = "assets/tiles/sandTile.png";
 	}
-	
+
 	public String toString() {
 		String s = "Sand";
-		if(gameObject!=null){
-			s+= "(" + gameObject.toString() + ")";
+		if (gameObject != null) {
+			s += "(" + gameObject.toString() + ")";
 		}
 		return s;
 	}
