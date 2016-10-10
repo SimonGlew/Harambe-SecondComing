@@ -15,9 +15,9 @@ public class ServerController {
 	private GameSystem gameSystem;
 	private Server server;
 
-	public ServerController(Server server, GameSystem gameSystem) {
+	public ServerController(Server server) {
 		this.server = server;
-		this.gameSystem = gameSystem;
+		this.gameSystem = new GameSystem(this);
 	}
 
 	public Board requestBoard() {
