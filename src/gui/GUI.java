@@ -38,6 +38,7 @@ import items.Banana;
 import items.FloatingDevice;
 import items.Item;
 import items.Key;
+import items.Teleporter;
 import tile.Tile;
 import tile.WaterTile;
 
@@ -430,12 +431,17 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		if(i instanceof Banana){
 			return bananaInventoryImage;
 		}
+		if(i instanceof Teleporter){
+			return teleporterInventoryImage;
+		}
 		return null;
 	}
 
 	public static ImageIcon keyInventoryImage = Menu.makeImageIcon("gui/inventory/key.png");
 	public static ImageIcon floatingDeviceInventoryImage = Menu.makeImageIcon("gui/inventory/floatingDevice.png");
 	public static ImageIcon bananaInventoryImage = Menu.makeImageIcon("gui/inventory/banana.png");
+	public static ImageIcon teleporterInventoryImage = Menu.makeImageIcon("gui/inventory/teleporter.png");
+	
 	
 	
 	public static ImageIcon nameImage = Menu.makeImageIcon("gui/namebe.png");

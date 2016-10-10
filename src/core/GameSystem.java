@@ -228,6 +228,7 @@ public class GameSystem {
 				player.setTile(player.getLocation().getTileAtPosition(new Position(5,4)));
 				player.getTile().setGameObject(player);
 			}
+			player.getInventory().remove(item);
 
 		}
 	}
