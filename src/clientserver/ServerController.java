@@ -186,8 +186,16 @@ public class ServerController {
 			return "false";
 		}
 	}
-
+	
 	public Player getPlayerByUserName(String name) {
 		return gameSystem.getBoard().getPlayer(name);
 	}
+	
+	public void broadcastPlayerMessage(String message, Player p){
+		server.broadcast(new Packet("popup", null ,message, 0), server.getID(p.getUserName()));
+	}
+	
+	public void broadcastGameMessage(String message){
+		server.broadcast(new Packet("popup", null ,message, 0), 0);
+	} 
 }

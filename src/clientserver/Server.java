@@ -97,7 +97,7 @@ public class Server {
 	 * @param packet - the packet object to get broadcasted to clients
 	 * @param id - id of client thread that the broadcast is coming from
 	 */
-	private synchronized void broadcast(Packet packet, int id) {
+	synchronized void broadcast(Packet packet, int id) {
 		for (int i = al.size(); --i >= 0;) {
 			ClientThread ct = al.get(i);
 			/* If login fail we want to only call it on the id that broke */
@@ -112,6 +112,15 @@ public class Server {
 				}
 			}
 		}
+	}
+	
+	public int getID(String username){
+		for(int i : IDtoUsername.keySet()){
+			if(IDtoUsername.get(i).equals(username)){
+				return i;
+			}
+		}
+		return 0;
 	}
 
 	/**
@@ -250,6 +259,7 @@ public class Server {
 							IDtoUsername.put(id, cm.getMessage().substring(6));
 							/* Broadcast new board */
 							broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()),id);
+							broadcast(new Packet("popup", null, IDtoUsername.get(id) + ", has joined the game", time.getTime()), id);
 						} else {
 							/* broadcast if you fail to login */
 							broadcast(new Packet("string", null, "fail login", 0), id);
