@@ -17,6 +17,7 @@ import gameobjects.GameObject;
 import gameobjects.Player;
 import gameobjects.Tree;
 import gameobjects.Wall;
+import items.Banana;
 import items.FloatingDevice;
 import items.Item;
 import items.Key;
@@ -200,6 +201,8 @@ public class BoardParser {
 			return parseKey(s);
 		} else if (checkFor("FloatingDevice", s)){
 			return new FloatingDevice("Floating Device");
+		} else if (checkFor("Banana", s)){
+			return new Banana("Banana");
 		} else {
 			fail("Not a GameObject", s);
 		}
@@ -227,6 +230,8 @@ public class BoardParser {
 			return parseKey(s);
 		} else if(checkFor("FloatingDevice", s)){
 			return new FloatingDevice("Floating Device");
+		}else if(checkFor("Banana", s)){
+			return new Banana("Banana");
 		}else{
 			fail("Not an Item", s);
 		}

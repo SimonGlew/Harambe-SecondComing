@@ -117,8 +117,11 @@ public class WorldEditor {
 				case "key":
 					tile.setGameObject(new Key("name", 0));
 					break;
-				case "floatie":
+				case "floaty":
 					tile.setGameObject(new FloatingDevice("Floating Device"));
+					break;
+				case "banana":
+					tile.setGameObject(new Banana("Banana"));
 					break;
 				}
 
