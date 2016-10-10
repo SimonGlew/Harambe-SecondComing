@@ -14,6 +14,7 @@ import gameobjects.Door;
 import gameobjects.Tree;
 import gameobjects.Wall;
 import gameobjects.Fence;
+import gameobjects.NPC;
 import iohandling.BoardParser;
 import iohandling.BoardWriter;
 import items.Banana;
@@ -158,15 +159,21 @@ public class WorldEditor {
 					break;
 				case "door":
 					int id = createIndoorLocation();
-					DoorOutTile doorOut = new DoorOutTile(new Position(5, 9), null, currentLocation, board.getLocationById(currentLocation).getTileInDirection(new Position(i, j),  Direction.SOUTH).getPos());
+					DoorOutTile doorOut = new DoorOutTile(new Position(5, 9), null, currentLocation,
+							board.getLocationById(currentLocation)
+									.getTileInDirection(new Position(i, j), Direction.SOUTH).getPos());
 					System.out.println(currentLocation);
 
 					board.getLocationById(id).getTiles()[5][9] = doorOut;
 					tile.setGameObject(new Door(0, id));
-					
+
 					break;
 				case "teleporter":
 					tile.setGameObject(new Teleporter("Teleporter"));
+					break;
+
+				case "NPC":
+					tile.setGameObject(new NPC("random", Direction.NORTH));
 					break;
 				}
 			}

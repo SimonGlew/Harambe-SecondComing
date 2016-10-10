@@ -156,6 +156,7 @@ public class GameSystem {
 					}
 
 					if (keyCount >= PLAYER_KEY_LIMIT) {
+						serverController.broadcastPlayerMessage("You already have 3 keys, Harambe does not appreciate your greed, sharpen up soldier!", p);
 						return;
 					}
 				}
@@ -180,6 +181,7 @@ public class GameSystem {
 					}
 				}
 			}
+			serverController.broadcastPlayerMessage("You don't have a key with the correct code to open this chest soldier!", p);
 		
 
 		} else if (object instanceof Door) {
@@ -193,7 +195,6 @@ public class GameSystem {
 
 	public void playerDropItem(Player p, Item i) {
 		Tile tileInFront = p.getLocation().getTileInDirection(p.getPosition(), p.getFacing());
-
 		if (tileInFront.getGameObject() == null) {
 			tileInFront.setGameObject(i);
 			p.getInventory().remove(i);
@@ -204,13 +205,8 @@ public class GameSystem {
 	public boolean playerSiphonBanana(Player p, Banana b) {
 		if (p != null && b != null) {
 			p.setNumOfBananas(p.getNumOfBananas() + 1);
-			p.getInventory().remove(b);
-			
-<<<<<<< HEAD
-			serverController.broadcastMessage(p.getUserName() + " has siphoned "+ p.getNumOfBananas() + " banana/s, step it up soldier!");
-=======
-			serverController.broadcastGameMessage(p + " has siphoned his "+ p.getNumOfBananas() + " banana, step it up soldier!");
->>>>>>> fe86eb0f9683e6f56f38993ca72c304205834487
+			p.getInventory().remove(b);			
+			serverController.broadcastGameMessage(p.getUserName() + " has siphoned "+ p.getNumOfBananas() + " banana/s, step it up soldier!");
 			return p.getNumOfBananas() == WINNING_BANANA_COUNT;
 		}
 		return false;

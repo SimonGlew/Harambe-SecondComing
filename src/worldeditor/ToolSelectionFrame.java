@@ -22,7 +22,7 @@ public class ToolSelectionFrame {
 	JComboBox toolCombo;
 	String[] tools = { "Set Floor Type", "Add Game Object" };
 	String[] floorTypes = { "grass", "water", "stone", "sand", "wood"};
-	String[] gameObjects = {"tree", "fence", "chest", "wall", "key", "floaty", "banana", "building", "door", "teleporter"};
+	String[] gameObjects = {"tree", "fence", "chest", "wall", "key", "floaty", "banana", "building", "door", "teleporter", "NPC"};
 
 	public ToolSelectionFrame(WorldEditor editor) {
 		this.editor = editor;

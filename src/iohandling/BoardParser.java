@@ -15,6 +15,7 @@ import gameobjects.Chest;
 import gameobjects.Door;
 import gameobjects.Fence;
 import gameobjects.GameObject;
+import gameobjects.NPC;
 import gameobjects.Player;
 import gameobjects.Tree;
 import gameobjects.Wall;
@@ -179,9 +180,9 @@ public class BoardParser {
 			tile = new WoodTile(new Position(i, j), null);
 		} else if (checkFor("Water", s)) {
 			tile = new WaterTile(new Position(i, j), null);
-		} else if(checkFor("DoorOut", s)) {
+		} else if (checkFor("DoorOut", s)) {
 			tile = parseDoorOut(s, i, j);
-		}else {
+		} else {
 			fail("Not a valid tile type", s);
 		}
 
@@ -218,7 +219,7 @@ public class BoardParser {
 			return parsePlayerOnBoard(s, board);
 		} else if (checkFor("Building", s)) {
 			return new Building();
-		}else if (checkFor("Door", s)) {
+		} else if (checkFor("Door", s)) {
 			return parseDoor(s, board);
 		} else if (checkFor("Chest", s)) {
 			return parseChest(s, board);
@@ -228,12 +229,23 @@ public class BoardParser {
 			return new FloatingDevice("Floating Device");
 		} else if (checkFor("Banana", s)) {
 			return new Banana("Banana");
-		}else if (checkFor("Teleporter", s)){
+		} else if (checkFor("Teleporter", s)) {
 			return new Teleporter("Teleporter");
+		} else if (checkFor("NPC", s)) {
+			return parseNPC(s, board);
 		} else {
 			fail("Not a GameObject", s);
 		}
 		return null;
+	}
+
+	private static GameObject parseNPC(Scanner s, Board board) {
+		require("\\(", s);
+		String type = s.next();
+		require("\\,", s);
+		Direction d = parseDirection(s);
+		require("\\)", s);
+		return new NPC(type, d);
 	}
 
 	private static Door parseDoor(Scanner s, Board b) {
@@ -263,7 +275,7 @@ public class BoardParser {
 		require("\\(", s);
 		int code = s.nextInt();
 		chest.setCode(code);
-		if (checkFor(",", s)){
+		if (checkFor(",", s)) {
 			chest.setContents(parseItem(s));
 		}
 		require("\\)", s);
@@ -277,7 +289,7 @@ public class BoardParser {
 			return new FloatingDevice("Floating Device");
 		} else if (checkFor("Banana", s)) {
 			return new Banana("Banana");
-		}else if (checkFor("Teleporter", s)){
+		} else if (checkFor("Teleporter", s)) {
 			return new Teleporter("Teleporter");
 		} else {
 			fail("Not an Item", s);

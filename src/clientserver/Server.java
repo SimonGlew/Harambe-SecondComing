@@ -101,7 +101,7 @@ public class Server {
 		for (int i = al.size(); --i >= 0;) {
 			ClientThread ct = al.get(i);
 			/* If login fail we want to only call it on the id that broke */
-			if (packet.getMessage() == "fail login") {
+			if (packet.getMessage() == "fail login" || packet.getType() == "popup") {
 				if (ct.id == id) {
 					ct.writeToClient(packet);
 				}
