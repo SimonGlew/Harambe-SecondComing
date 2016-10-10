@@ -27,20 +27,7 @@ public class DoorOutTile extends Tile {
 		this.locationID = this.locationID;
 		this.outLocationID = locationID;
 		this.doorPos = doorPos;
-<<<<<<< HEAD
 		fname = "assets/tiles/doorOut/doorOutNORTH.png";
-=======
-		
-		try {
-			double d = Math.random() * 100;
-			if (d >= 0) {
-				image = ImageIO.read(new File("assets/tiles/doorOutTile.png"));
-
-			} 
-		}catch(IOException e){
-			e.printStackTrace();
-		}
->>>>>>> refs/remotes/origin/master
 	}
 
 	public int getOutLocationID() {

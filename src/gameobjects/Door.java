@@ -17,7 +17,6 @@ public class Door extends GameObject {
 		this.doorPosition = new Position(5, 9);
 		this.code = code;
 		this.locationID = locationid;
-
 		fname = "assets/game_objects/door/door.png";
 
 	}
