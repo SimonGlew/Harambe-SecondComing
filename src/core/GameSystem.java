@@ -206,7 +206,11 @@ public class GameSystem {
 			p.setNumOfBananas(p.getNumOfBananas() + 1);
 			p.getInventory().remove(b);
 			
+<<<<<<< HEAD
 			serverController.broadcastMessage(p.getUserName() + " has siphoned "+ p.getNumOfBananas() + " banana/s, step it up soldier!");
+=======
+			serverController.broadcastGameMessage(p + " has siphoned his "+ p.getNumOfBananas() + " banana, step it up soldier!");
+>>>>>>> fe86eb0f9683e6f56f38993ca72c304205834487
 			return p.getNumOfBananas() == WINNING_BANANA_COUNT;
 		}
 		return false;

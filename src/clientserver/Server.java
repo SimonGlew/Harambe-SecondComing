@@ -113,6 +113,15 @@ public class Server {
 			}
 		}
 	}
+	
+	public int getID(String username){
+		for(int i : IDtoUsername.keySet()){
+			if(IDtoUsername.get(i).equals(username)){
+				return i;
+			}
+		}
+		return 0;
+	}
 
 	/**
 	 * Method that removes the client from the list, due to client being disconnected
@@ -250,6 +259,7 @@ public class Server {
 							IDtoUsername.put(id, cm.getMessage().substring(6));
 							/* Broadcast new board */
 							broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()),id);
+							broadcast(new Packet("popup", null, IDtoUsername.get(id) + ", has joined the game", time.getTime()), id);
 						} else {
 							/* broadcast if you fail to login */
 							broadcast(new Packet("string", null, "fail login", 0), id);
