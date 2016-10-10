@@ -201,7 +201,11 @@ public class GameSystem {
 		}
 
 	}
-
+	
+	public void tick(int time){
+		
+	}
+	
 	public boolean playerSiphonBanana(Player p, Banana b) {
 		if (p != null && b != null) {
 			p.setNumOfBananas(p.getNumOfBananas() + 1);

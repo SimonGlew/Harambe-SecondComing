@@ -191,6 +191,10 @@ public class ServerController {
 		return gameSystem.getBoard().getPlayer(name);
 	}
 	
+	public void tick(int time){
+		gameSystem.tick(time);
+	}
+	
 	public int getServerTime(){
 		return server.getServerTime();
 	}

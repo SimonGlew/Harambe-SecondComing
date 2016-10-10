@@ -186,6 +186,7 @@ public class Server {
 			while (true) {
 				broadcast(new Packet("time", null, null, getTime()), 0);
 				count++;
+				serverController.tick(count);
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
