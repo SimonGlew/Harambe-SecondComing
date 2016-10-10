@@ -31,6 +31,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 import clientserver.ClientController;
+import items.FloatingDevice;
 import items.Item;
 //import javafx.embed.swing.JFXPanel;
 //import javafx.scene.media.Media;
@@ -386,12 +387,16 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		if(i instanceof items.Key){
 			return keyImage;
 		}
+		if(i instanceof FloatingDevice){
+			return floatingDeviceImage;
+		}
 		return null;
 	}
 
 	public static ImageIcon keyImage = Menu.makeImageIcon("gui/inventory/key.png");
 
 	public static ImageIcon nameImage = Menu.makeImageIcon("gui/namebe.png");
+	public static ImageIcon floatingDeviceImage = Menu.makeImageIcon("gui/inventory/floatingDevice.png");
 	public static ImageIcon bananaImage = Menu.makeImageIcon("gui/banaga.png");
 	public static ImageIcon leftArrowImage = Menu.makeImageIcon("gui/leftArrow.png");
 	public static ImageIcon rightArrowImage = Menu.makeImageIcon("gui/rightArrow.png");
