@@ -32,6 +32,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.Timer;
 
 import clientserver.ClientController;
 import items.Banana;
@@ -54,6 +55,9 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	JPanel inventorySlots;
 	JPopupMenu popup;
 	JLabel bananaCount;
+	JLabel harambeImage;
+	Timer harambeTimer;
+	int harambeCount;
 
 	public GUI(ClientController c) {
 		this.controller = c;
@@ -70,6 +74,9 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		gameLabel.addMouseListener(this);
 		gameLabel.addMouseMotionListener(this);
 		gameFrame.setVisible(true);
+		
+		harambeTimer = new Timer(250, this);
+		harambeCount = 0;
 		
 		playSound();
 	}
@@ -123,14 +130,14 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		namePanel.setPreferredSize(new Dimension(120, 160));
 		namePanel.setBackground(MAINCOLOR);
 
-		JLabel img = new JLabel();
-		img.setIcon(jackImage);
+		harambeImage = new JLabel();
+		harambeImage.setIcon(closeImage);
 		JLabel playerName = new JLabel();
 		playerName.setText(controller.getName());
 		playerName.setForeground(Color.WHITE);
 		playerName.setFont(new Font("title", Font.BOLD, 20));
 
-		namePanel.add(img);
+		namePanel.add(harambeImage);
 		namePanel.add(playerName);
 
 		// Setup inventory panel
@@ -420,6 +427,25 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			}
 		}
 	}
+	
+	public void beginHarambeAnimation() {
+		harambeTimer.start();
+	}
+	
+	public void changeHarambeImage(){
+		harambeCount++;
+		int temp = harambeCount%2;
+		if(temp == 1) harambeImage.setIcon(openImage);
+		else harambeImage.setIcon(closeImage);
+		
+		if(harambeCount == 16) endHarambeAnimation();
+	}
+	
+	public void endHarambeAnimation(){
+		harambeTimer.stop();
+		harambeImage.setIcon(closeImage);
+		harambeCount = 0;
+	}
 
 	public ImageIcon getInventoryImage(Item i) {
 		if (i instanceof items.Key) {
@@ -442,13 +468,11 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	public static ImageIcon bananaInventoryImage = Menu.makeImageIcon("gui/inventory/banana.png");
 	public static ImageIcon teleporterInventoryImage = Menu.makeImageIcon("gui/inventory/teleporter.png");
 	
-	
-	
-	public static ImageIcon nameImage = Menu.makeImageIcon("gui/namebe.png");
-	public static ImageIcon bananaImage = Menu.makeImageIcon("gui/banaga.png");
 	public static ImageIcon leftArrowImage = Menu.makeImageIcon("gui/leftArrow.png");
 	public static ImageIcon rightArrowImage = Menu.makeImageIcon("gui/rightArrow.png");
-	public static ImageIcon jackImage = Menu.makeImageIcon("gui/jack.png");
+	public static ImageIcon closeImage = Menu.makeImageIcon("gui/closeMouth.png");
+	public static ImageIcon openImage = Menu.makeImageIcon("gui/openMouth.png");
+	public static ImageIcon bananaImage = Menu.makeImageIcon("gui/banaga.png");
 
 	@Override
 	public void keyReleased(KeyEvent e) {
@@ -474,6 +498,8 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	public void actionPerformed(ActionEvent action) {
 		if ("quit".equals(action.getActionCommand())) {
 			System.exit(0);
+		}else{
+			changeHarambeImage();
 		}
 	}
 
