@@ -127,12 +127,13 @@ public class Client {
 						if (packet.getMessage().equals("fail login")) {
 							menu.dispose();
 							new Menu();
-						}else if(packet.getMessage().equals("endgame")){
+						}else if(packet.getMessage().contains("endgame")){
 							String playerName = null;
 							try{
 								Scanner s = new Scanner(packet.getMessage());
 								s.next();
 								playerName = s.next();
+								s.close();
 							}catch(Exception e){
 								System.out.println(e);
 							}

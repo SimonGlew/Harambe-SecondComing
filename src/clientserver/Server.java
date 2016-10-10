@@ -223,7 +223,9 @@ public class Server {
 				} catch (ClassNotFoundException e) {
 					break;
 				}
-				if (serverController.parseInput(cm).equals("true")) {
+				String parsed = serverController.parseInput(cm);
+				System.out.println(parsed);
+				if (parsed.equals("true")) {
 					// Switch on the type of message receive
 					// TODO: Some way of sending a board back, change broadcast
 					// method
@@ -239,13 +241,14 @@ public class Server {
 					}else{
 						broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()), id);
 					}
-				} else if (serverController.parseInput(cm).equals("fail login")) {
+				} else if (parsed.equals("fail login")) {
 					broadcast(new Packet("string", null, "fail login", 0), id);
 					remove(id);
 					this.close();
-				} else if(serverController.parseInput(cm).equals("false") && cm.getMessage().contains("move")) {
+				} else if(parsed.equals("false") && cm.getMessage().contains("move")) {
 					broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()), id);
-				}else if(serverController.parseInput(cm).equals("endgame")){
+				}else if(parsed.equals("endgame")){
+					System.out.println("a");
 					broadcast(new Packet("string", null, "endgame " + serverController.getPlayerByUserName(IDtoUsername.get(id)), time.getTime()), id);
 				}else{
 					System.out.println("fail");
