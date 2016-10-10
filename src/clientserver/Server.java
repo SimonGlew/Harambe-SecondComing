@@ -97,7 +97,7 @@ public class Server {
 	 * @param packet - the packet object to get broadcasted to clients
 	 * @param id - id of client thread that the broadcast is coming from
 	 */
-	private synchronized void broadcast(Packet packet, int id) {
+	synchronized void broadcast(Packet packet, int id) {
 		for (int i = al.size(); --i >= 0;) {
 			ClientThread ct = al.get(i);
 			/* If login fail we want to only call it on the id that broke */

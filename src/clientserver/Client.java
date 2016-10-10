@@ -143,6 +143,8 @@ public class Client {
 						}
 					}else if(packet.getType().equals("time")){
 						clientController.updateTime(packet.getTime());
+					}else if(packet.getType().equals("popup")){
+						clientController.showMessage(packet.getMessage());
 					}
 				} catch (IOException e) {
 					clientController.hideGUI();
