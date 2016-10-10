@@ -99,7 +99,7 @@ public class WorldEditor {
 				return;
 			}
 			if (tile instanceof DoorOutTile) {
-				currentLocation = ((DoorOutTile) tile).getLocationID();
+				currentLocation = ((DoorOutTile) tile).getOutLocationID();
 				System.out.println(currentLocation);
 				update();
 				return;
