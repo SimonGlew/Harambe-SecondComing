@@ -207,6 +207,29 @@ public class Location {
 		return d;
 	}
 
+	public static Direction getOtherRelativeDirection(Direction d, Direction viewing) {
+		int turns = 0;
+		switch (viewing) {
+		case NORTH:
+			turns = 0;
+			break;
+		case EAST:
+			turns = 1;
+			break;
+		case SOUTH:
+			turns = 2;
+			break;
+		case WEST:
+			turns = 3;
+			break;
+		}
+		Direction dir = d;
+		for (int i = 0; i < turns; i++) {
+			d = counterClockwiseDir(d);
+		}
+		return d;
+	}
+	
 	public static Direction clockwiseDir(Direction d) {
 		if (d == Direction.NORTH) {
 			return Direction.EAST;

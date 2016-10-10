@@ -114,7 +114,7 @@ public class Player extends GameObject {
 		if(getTile() instanceof WaterTile){
 			fname+="W";
 		}
-		fname += facing.toString() + IMG_POST;
+		fname += Location.getOtherRelativeDirection(facing, viewingDir).toString() + IMG_POST;
 
 		return fname;
 	}
