@@ -281,14 +281,14 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	private void checkClicked(int x, int y) {
 		if(y > gameFrame.getHeight() - gameLabel.getHeight()){
 			if(x > 0 && x < 1000){
-				controller.moveWithUltimateDijkstras(x, y - (gameFrame.getHeight() - gameLabel.getHeight()));
+				controller.moveWithUltimateDijkstras(x, y);
 			}
 		}
 	}
 
 	private void checkMoved(int x, int y) {
 		if(x < 1000){
-			controller.selectTile(x, y - (gameFrame.getHeight() - gameLabel.getHeight()));
+			controller.selectTile(x, y);
 		}
 	}
 

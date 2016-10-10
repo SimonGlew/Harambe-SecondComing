@@ -42,6 +42,8 @@ public class Renderer {
 
 	int xCenter;
 	int yCenter;
+	
+	Point lastPoint;
 
 	public Renderer() {
 		try {
@@ -95,7 +97,7 @@ public class Renderer {
 			Point p = new Point(drawOrderX[i], drawOrderY[i]);
 			drawBoard(g, board, map, w, h, p, player);
 		}
-
+		g.setColor(Color.MAGENTA);
 		return image;
 	}
 
@@ -327,7 +329,7 @@ public class Renderer {
 			y = TILE_WIDTH * i;
 			break;
 		}
-		Point tempPt = new Point(0, 0);
+		Point tempPt = new Point(0, 0);	
 		tempPt.x = xOffset + (x - y);
 		tempPt.y = yOffset + ((x + y) / 2);
 		return (tempPt);
@@ -338,15 +340,33 @@ public class Renderer {
 	}
 
 	public Position isoToIndex(int x, int y) {
-		Point twoD = isoTo2D(x, y);
-		if (twoD.x < 0) {
-			twoD.x = twoD.x - TILE_WIDTH;
+		double a = (x - xOffset)/2 + y - yOffset;
+		double b = 2 * (y - yOffset) - a;
+		
+		int i = 0, j = 0;
+		switch(viewingDir){
+			case NORTH:
+				i = (int) Math.round(a / TILE_WIDTH);
+				j = (int) Math.round(b / TILE_WIDTH + 1);
+				break;
+			case SOUTH:
+				i = (int) Math.round(-1 * a / TILE_WIDTH + 9);
+				j = (int) Math.round(-1 * b / TILE_WIDTH + 8);
+				break;
+			case EAST:
+				i = (int) Math.round(-1 * b / TILE_WIDTH + 8);
+				j = (int) Math.round(a / TILE_WIDTH);
+				break;
+			case WEST:
+				i = (int) Math.round(b / TILE_WIDTH + 1);
+				j = (int) Math.round(-1 * a / TILE_WIDTH + 9);
+				break;
 		}
-		if (twoD.y < 0) {
-			twoD.y = twoD.y - TILE_WIDTH;
-		}
-		Position index = new Position((twoD.x + TILE_WIDTH / 2) / TILE_WIDTH,
-				(int) ((twoD.y + 1.5 * TILE_WIDTH)) / TILE_WIDTH);
+		System.out.println(viewingDir.toString());
+		System.out.println(i + ", " + j);
+
+		Position index = new Position(i, j);
+		lastPoint = new Point(index.getX(), index.getY());
 		return index;
 	}
 
