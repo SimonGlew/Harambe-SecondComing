@@ -50,6 +50,8 @@ public class Renderer {
 
 	String message = "";
 	int messageTimer = 0;
+	
+	int dayCycle = 60;
 
 	Map<String, BufferedImage> images;
 
@@ -112,7 +114,10 @@ public class Renderer {
 			Point p = new Point(drawOrderX[i], drawOrderY[i]);
 			drawBoard(g, board, map, w, h, p, player);
 		}
-		System.out.println(time);
+		int alpha = (Math.abs((time)%dayCycle-30)*127/30);
+		g.setColor(new Color(0, 0, 0, alpha));
+		System.out.println(alpha);
+		g.fillRect(0, 0, w, h);
 		if (messageTimer >= time) {
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("Arial", Font.BOLD, 28));
