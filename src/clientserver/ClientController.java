@@ -1,4 +1,4 @@
-package clientserver;
+ package clientserver;
 
 import java.util.ArrayList;
 
@@ -68,10 +68,11 @@ public class ClientController {
 		client.sendMessage(msg);
 	}
 
+	
+	
 	public void drawBoard() {
 		if (board != null && gui != null) {
-			// System.out.println(board.getPlayer(client.getUsername()).getInventory());
-			gui.showBoard(renderer.paintBoard(board, board.getPlayer(client.getUsername()), 1000, 800));
+			gui.showBoard(renderer.paintBoard(board, board.getPlayer(client.getUsername()), 1000, 800, time));
 		}
 	}
 
@@ -147,6 +148,7 @@ public class ClientController {
 	
 	public void updateTime(int time){
 		this.time = time;
+		sendBoard(board);
 	}
 	
 	public int getTime(){
@@ -213,4 +215,5 @@ public class ClientController {
 	public Player getPlayer() {
 		return board.getPlayer(client.getUsername());
 	}
+
 }
