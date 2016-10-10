@@ -22,6 +22,7 @@ import items.Banana;
 import items.FloatingDevice;
 import items.Item;
 import items.Key;
+import tile.DoorOutTile;
 import tile.GrassTile;
 import tile.SandTile;
 import tile.StoneTile;
@@ -177,7 +178,9 @@ public class BoardParser {
 			tile = new WoodTile(new Position(i, j), null);
 		} else if (checkFor("Water", s)) {
 			tile = new WaterTile(new Position(i, j), null);
-		} else {
+		} else if(checkFor("DoorOut", s)) {
+			tile = parseDoorOut(s, i, j);
+		}else {
 			fail("Not a valid tile type", s);
 		}
 
@@ -189,6 +192,18 @@ public class BoardParser {
 
 		require("\\)", s);
 		return tile;
+	}
+
+	private static DoorOutTile parseDoorOut(Scanner s, int i, int j) {
+		require("\\(", s);
+		int locationID = s.nextInt();
+		require(",", s);
+		int x = s.nextInt();
+		require(",", s);
+		int y = s.nextInt();
+		require("\\)", s);
+		DoorOutTile doorOut = new DoorOutTile(new Position(i, j), null, locationID, new Position(x, y));
+		return doorOut;
 	}
 
 	private static GameObject parseGameObject(Scanner s, Board board) {

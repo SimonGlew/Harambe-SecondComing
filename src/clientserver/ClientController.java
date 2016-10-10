@@ -17,18 +17,19 @@ import tile.Tile;
 import util.Position;
 
 public class ClientController {
-	Client client;
-	GUI gui;
-	Renderer renderer;
-	Board board;
-	int time;
-	UltimateDijkstras uDijkstras;
+	private Client client;
+	private GUI gui;
+	private Renderer renderer;
+	private Board board;
+	private int time;
+	private UltimateDijkstras uDijkstras;
 
 	public ClientController(Client c) {
 		this.client = c;
 		renderer = new Renderer();
 		uDijkstras = null;
 		drawBoard();
+		time = 0;
 	}
 
 	public void showGUI() {
@@ -74,10 +75,8 @@ public class ClientController {
 		}
 	}
 
-	public void sendBoard(Board board, int time) {
+	public void sendBoard(Board board) {
 		this.board = board;
-		this.time = time;
-
 		drawBoard();
 	}
 
@@ -145,6 +144,14 @@ public class ClientController {
 		}
 		return null;
 	}
+	
+	public void updateTime(int time){
+		this.time = time;
+	}
+	
+	public int getTime(){
+		return this.time;
+	}
 
 	public void dropItemPlayer(int index) {
 		String name = getName();
@@ -180,7 +187,6 @@ public class ClientController {
 	}
 
 	public void moveToPos(Tile t) {
-		
 		Tile from = null;
 		if(uDijkstras.oldTile == null){
 			from = board.getPlayer(getName()).getTile();
@@ -203,7 +209,7 @@ public class ClientController {
 		new GameOver(playerName);
 		sendMessage(new PlayerCommand("close"));
 	}
-
+	
 	public Player getPlayer() {
 		return board.getPlayer(client.getUsername());
 	}
