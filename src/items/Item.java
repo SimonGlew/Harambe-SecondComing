@@ -15,6 +15,10 @@ public class Item extends GameObject {
 		this.usable = usable;
 	}
 
+	public boolean isUsable() {
+		return usable;
+	}
+
 	public String getDescription() {
 		return description;
 	}

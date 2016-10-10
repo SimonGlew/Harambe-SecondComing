@@ -142,6 +142,12 @@ public class ClientController {
 		String command = "drop " + name + " " + index;
 		sendMessage(new PlayerCommand(command));
 	}
+	
+	public void useItem(int i){}
+	
+	public Item getInventoryItem(int i){
+		return board.getPlayer(getName()).getInventory().get(i);
+	}
 
 	public void pickupItemPlayer(Tile t){
 		String name = getName();

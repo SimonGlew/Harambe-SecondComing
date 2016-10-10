@@ -300,6 +300,8 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	protected void createPopupUI(int x, int y, int parseInt) {
 		JLabel label = inventory.get(parseInt);
 		if(label.getToolTipText() != null){
+			Item i = controller.getInventoryItem(parseInt);
+			
 			popup = new JPopupMenu("tile");
 			
 			String desc = inventory.get(parseInt).getToolTipText();
@@ -313,6 +315,16 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			});
 			popup.add(examineObject);
 			popup.addSeparator();
+			
+			if(i.isUsable()){
+				JMenuItem useObject = new JMenuItem("Use");
+				useObject.addActionListener(new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						controller.useItem(parseInt);
+					}
+				});
+			}
 			
 			JMenuItem dropObject = new JMenuItem("Drop");
 			dropObject.addActionListener(new ActionListener(){
