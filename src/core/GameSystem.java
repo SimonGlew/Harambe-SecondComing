@@ -204,6 +204,8 @@ public class GameSystem {
 		if (p != null && b != null) {
 			p.setNumOfBananas(p.getNumOfBananas() + 1);
 			p.getInventory().remove(b);
+			
+			serverController.broadcastMessage(p + " has siphoned his "+ p.getNumOfBananas() + " banana, step it up soldier!");
 			return p.getNumOfBananas() == WINNING_BANANA_COUNT;
 		}
 		return false;
