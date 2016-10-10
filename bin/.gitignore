@@ -2,5 +2,15 @@
 /iohandling/
 /clientserver/
 /core/
+<<<<<<< HEAD
 /items/
 /gui/
+=======
+/gui/
+/items/
+/renderer/
+/tile/
+/util/
+/exceptions/
+/worldeditor/
+>>>>>>> b28219e92a9412fde30e1ee99970015f38b09d74
