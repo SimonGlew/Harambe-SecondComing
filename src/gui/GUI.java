@@ -16,9 +16,13 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -69,6 +73,8 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		gameLabel.addMouseListener(this);
 		gameLabel.addMouseMotionListener(this);
 		gameFrame.setVisible(true);
+		
+		playSound();
 	}
 
 	public void hideGUI() {
@@ -482,6 +488,19 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 				checkClicked(e.getX(), e.getY());
 			}
 		}
+	}
+	
+	public static synchronized void playSound(){
+		try{
+		File file = new File("assets/audio/audio.wav");
+		Clip clip = AudioSystem.getClip();
+		AudioInputStream Audio = AudioSystem.getAudioInputStream(file);
+		clip.open(Audio);
+		clip.loop(Clip.LOOP_CONTINUOUSLY);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
