@@ -1,4 +1,4 @@
-package clientserver;
+ package clientserver;
 
 import java.util.ArrayList;
 
@@ -103,13 +103,13 @@ public class ClientController {
 	public void sendMessage(PlayerCommand msg) {
 		client.sendMessage(msg);
 	}
-	
+
 	/**
 	 * Method that draws the board using the renderer and showing it onto the GUI
 	 */
 	public void drawBoard() {
 		if (board != null && gui != null) {
-			gui.showBoard(renderer.paintBoard(board, board.getPlayer(client.getUsername()), 1000, 800));
+			gui.showBoard(renderer.paintBoard(board, board.getPlayer(client.getUsername()), 1000, 800, time));
 		}
 	}
 	
@@ -203,6 +203,7 @@ public class ClientController {
 	 */
 	public void updateTime(int time){
 		this.time = time;
+		sendBoard(board);
 	}
 	
 	/**
@@ -310,4 +311,10 @@ public class ClientController {
 	public Player getPlayer() {
 		return board.getPlayer(client.getUsername());
 	}
+	
+	
+	public void showMessage(String s){
+		renderer.setMessage(s, time, 4);
+	}
+
 }

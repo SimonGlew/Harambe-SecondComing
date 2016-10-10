@@ -22,6 +22,7 @@ import items.Banana;
 import items.FloatingDevice;
 import items.Item;
 import items.Key;
+import items.Teleporter;
 import tile.DoorOutTile;
 import tile.GrassTile;
 import tile.SandTile;
@@ -227,6 +228,8 @@ public class BoardParser {
 			return new FloatingDevice("Floating Device");
 		} else if (checkFor("Banana", s)) {
 			return new Banana("Banana");
+		}else if (checkFor("Teleporter", s)){
+			return new Teleporter("Teleporter");
 		} else {
 			fail("Not a GameObject", s);
 		}
@@ -274,6 +277,8 @@ public class BoardParser {
 			return new FloatingDevice("Floating Device");
 		} else if (checkFor("Banana", s)) {
 			return new Banana("Banana");
+		}else if (checkFor("Teleporter", s)){
+			return new Teleporter("Teleporter");
 		} else {
 			fail("Not an Item", s);
 		}

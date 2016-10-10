@@ -24,7 +24,7 @@ public class DoorOutTile extends Tile {
 	public DoorOutTile(Position pos, GameObject gameObject, int locationID, Position doorPos) {
 		super(pos, gameObject);
 		
-		this.locationID = this.locationID;
+		this.locationID = locationID;
 		this.outLocationID = locationID;
 		this.doorPos = doorPos;
 		fname = "assets/tiles/doorOut/doorOutNORTH.png";

@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import core.Location;
+import core.GameSystem.Direction;
 import util.Position;
 
 public class Door extends GameObject {
@@ -17,12 +19,12 @@ public class Door extends GameObject {
 		this.doorPosition = new Position(5, 9);
 		this.code = code;
 		this.locationID = locationid;
-		fname = "assets/game_objects/door/door.png";
+		fname = "assets/game_objects/door/doorNORTH.png";
 
 	}
 
 	public String getDescription() {
-		return "Damian McKenzie is bae";
+		return "This is a door. I wonder what's inside.";
 	}
 
 	public Position getDoorPosition() {
@@ -40,4 +42,10 @@ public class Door extends GameObject {
 	public void setDoorPosition(Position position) {
 		doorPosition = position;
 	}
+	
+	public String getImage(Location loc, Position pos, Direction viewingDir){
+		fname = "assets/game_objects/door/door" + viewingDir.toString() + ".png";
+		return fname;
+	}
 }
+	

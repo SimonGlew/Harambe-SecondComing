@@ -19,6 +19,7 @@ import iohandling.BoardWriter;
 import items.Banana;
 import items.FloatingDevice;
 import items.Key;
+import items.Teleporter;
 import renderer.Renderer;
 import tile.DoorOutTile;
 import tile.GrassTile;
@@ -163,6 +164,9 @@ public class WorldEditor {
 					board.getLocationById(id).getTiles()[5][9] = doorOut;
 					tile.setGameObject(new Door(0, id));
 					
+					break;
+				case "teleporter":
+					tile.setGameObject(new Teleporter("Teleporter"));
 					break;
 				}
 			}
