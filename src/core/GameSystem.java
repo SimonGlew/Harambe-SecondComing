@@ -144,6 +144,10 @@ public class GameSystem {
 
 		return false;
 	}
+	
+	public void tick(int time){
+		
+	}
 
 	public void triggerInteraction(Player p, Tile newTile) {
 		Tile playerTil = p.getTile();
