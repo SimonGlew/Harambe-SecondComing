@@ -95,6 +95,9 @@ public class ClientController {
 	}
 
 	public void moveSinglePos(String dir) {
+		if(uDijkstras != null ){
+			uDijkstras.setPath(null);
+		}
 		Direction d = null;
 		if (dir.equals("N"))
 			d = Direction.NORTH;

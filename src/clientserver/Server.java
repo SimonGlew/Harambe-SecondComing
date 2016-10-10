@@ -41,6 +41,7 @@ public class Server {
 		try {
 			// the socket used by the server
 			ServerSocket serverSocket = new ServerSocket(port);
+			System.out.println("Waiting for clients on port " + port);
 			serverController = new ServerController(this, new GameSystem());
 			time = new TimeThread();
 			time.start();
@@ -197,6 +198,7 @@ public class Server {
 
 		// Constructor
 		ClientThread(Socket socket) {
+			System.out.println("Client accepted");
 			// a unique id
 			id = ++uniqueId;
 			this.socket = socket;

@@ -85,6 +85,8 @@ public class ToolSelectionFrame {
 
 		panel.repaint();
 		floorFrame.add(panel);
+		floorFrame.setAlwaysOnTop(true);
+		floorFrame.setLocation(1100, 0);
 		floorFrame.pack();
 		floorFrame.setVisible(true);
 		floorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -148,6 +150,8 @@ public class ToolSelectionFrame {
 
 		panel.repaint();
 		objectFrame.add(panel);
+		objectFrame.setAlwaysOnTop(true);
+		objectFrame.setLocation(1100, 0);
 		objectFrame.pack();
 		objectFrame.setVisible(true);
 		objectFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
