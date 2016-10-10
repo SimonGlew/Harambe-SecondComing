@@ -20,7 +20,7 @@ public class ServerController {
 		this.gameSystem = gameSystem;
 	}
 
-	public Board requestBoard(){
+	public Board requestBoard() {
 		return gameSystem.getBoard();
 	}
 
@@ -31,15 +31,15 @@ public class ServerController {
 			String action = s.next();
 			if (action.equals("move")) {
 				return parseMoveCommand(s);
-			}else if(action.equals("login")){
+			} else if (action.equals("login")) {
 				return parseLoginCommand(s);
-			}else if(action.equals("drop")){
+			} else if (action.equals("drop")) {
 				return parseDropItemCommand(s);
-			}else if(action.equals("siphon")){
+			} else if (action.equals("siphon")) {
 				return parseSiphonBananaCommand(s);
-			}else if(action.equals("use")){
+			} else if (action.equals("use")) {
 				return parseUseItemCommand(s);
-			}else if(action.equals("pickup")){
+			} else if (action.equals("pickup")) {
 				return parsePickupItemCommand(s);
 			}
 
@@ -51,131 +51,143 @@ public class ServerController {
 		return "false";
 	}
 
-	public String parsePickupItemCommand(Scanner s){
-		try{
+	public String parsePickupItemCommand(Scanner s) {
+		try {
 			Player player = getPlayerByUserName(s.next());
-			
-			Tile t = gameSystem.getBoard().getLocationById(player.getLocation().getId()).getTileAtPosition(player.getPosition());
-			
-			if(t.getGameObject() == null){
+
+			Tile t = gameSystem.getBoard().getLocationById(player.getLocation().getId())
+					.getTileAtPosition(player.getPosition());
+
+			if (t.getGameObject() == null) {
 				return "false";
 			}
-			if(!(t.getGameObject() instanceof Item)){
+			if (!(t.getGameObject() instanceof Item)) {
 				return "false";
 			}
-			Item i = (Item)t.getGameObject();
-			
+			Item i = (Item) t.getGameObject();
+
 			player.getInventory().add(i);
 			return "true";
-		}catch(Exception e){
+		} catch (Exception e) {
 			return "false";
 		}
 	}
 
-	public String parseLoginCommand(Scanner s){
-		try{
+	public String parseLoginCommand(Scanner s) {
+		try {
 			String name = s.next();
 			Player p = gameSystem.getBoard().getPlayer(name);
 
-			if(p != null && p.isLoggedIn()){
+			if (p != null && p.isLoggedIn()) {
 				return "fail login";
-			}else if(p != null && !p.isLoggedIn()){
-				gameSystem.getBoard().getLocationById(p.getLocation().getId()).getTileAtPosition(p.getPosition()).setGameObject(p);
+			} else if (p != null && !p.isLoggedIn()) {
+				gameSystem.getBoard().getLocationById(p.getLocation().getId()).getTileAtPosition(p.getPosition())
+						.setGameObject(p);
 				p.setLoggedIn(true);
 				return "true";
-			}
-			else{
-				p = new Player(name,0, new Position(5,5), gameSystem.getBoard());
+			} else {
+				if (!(gameSystem.getBoard().getLocationById(0).getTileAtPosition(new Position(5, 5))
+						.getGameObject() instanceof Player)) {
+					p = new Player(name, 0, new Position(5, 5), gameSystem.getBoard());
+				} else if (!(gameSystem.getBoard().getLocationById(0).getTileAtPosition(new Position(4, 5))
+						.getGameObject() instanceof Player)) {
+					p = new Player(name, 0, new Position(4, 5), gameSystem.getBoard());
+				} else if (!(gameSystem.getBoard().getLocationById(0).getTileAtPosition(new Position(4, 4))
+						.getGameObject() instanceof Player)) {
+					p = new Player(name, 0, new Position(4, 4), gameSystem.getBoard());
+				} else if (!(gameSystem.getBoard().getLocationById(0).getTileAtPosition(new Position(5, 4))
+						.getGameObject() instanceof Player)) {
+					p = new Player(name, 0, new Position(5, 4), gameSystem.getBoard());
+				}
 				gameSystem.getBoard().addPlayer(name, p);
-				gameSystem.getBoard().getLocationById(p.getLocation().getId()).getTileAtPosition(p.getPosition()).setGameObject(p);
+				gameSystem.getBoard().getLocationById(p.getLocation().getId()).getTileAtPosition(p.getPosition())
+						.setGameObject(p);
 				p.setLoggedIn(true);
 				return "true";
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			return "false";
 		}
 	}
 
-	public String parseMoveCommand(Scanner s){
-		try{
-		 Player player = getPlayerByUserName(s.next());
-		 Direction direction = convertToDirection(s.next());
+	public String parseMoveCommand(Scanner s) {
+		try {
+			Player player = getPlayerByUserName(s.next());
+			Direction direction = convertToDirection(s.next());
 
-		 if(direction == null)return "false";
-		 if(player == null)return "false";
+			if (direction == null)
+				return "false";
+			if (player == null)
+				return "false";
 
+			gameSystem.movePlayer(player, direction);
+			return "true";
 
-		 gameSystem.movePlayer(player, direction);
-		 return "true";
-
-		}catch(Exception e){
+		} catch (Exception e) {
 			return "false";
 		}
 	}
 
-	public Direction convertToDirection(String s){
-		if(s.toLowerCase().equals("north")){
+	public Direction convertToDirection(String s) {
+		if (s.toLowerCase().equals("north")) {
 			return Direction.NORTH;
 		}
-		if(s.toLowerCase().equals("south")){
+		if (s.toLowerCase().equals("south")) {
 			return Direction.SOUTH;
 		}
-		if(s.toLowerCase().equals("east")){
+		if (s.toLowerCase().equals("east")) {
 			return Direction.EAST;
 		}
-		if(s.toLowerCase().equals("west")){
+		if (s.toLowerCase().equals("west")) {
 			return Direction.WEST;
 		}
 		return null;
 	}
 
-	public String parseDropItemCommand(Scanner s){
-		try{
+	public String parseDropItemCommand(Scanner s) {
+		try {
 			Player player = getPlayerByUserName(s.next());
 			int indexOfItem = s.nextInt();
 			Item item = player.getInventory().get(indexOfItem);
 
-			gameSystem.playerDropItem(player,item);
+			gameSystem.playerDropItem(player, item);
 			return "true";
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			return "false";
 		}
 	}
-	
-	public String parseSiphonBananaCommand(Scanner s){
-		try{
+
+	public String parseSiphonBananaCommand(Scanner s) {
+		try {
 			Player player = getPlayerByUserName(s.next());
 			int indexOfItem = s.nextInt();
 			Item item = player.getInventory().get(indexOfItem);
-			
-			Banana  b = (Banana)item;
-			if(gameSystem.playerSiphonBanana(player,b)){
+
+			Banana b = (Banana) item;
+			if (gameSystem.playerSiphonBanana(player, b)) {
 				return "endgame";
 			}
 			return "true";
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			return "false";
 		}
-		
+
 	}
-	
-	public String parseUseItemCommand(Scanner s){
-		try{
+
+	public String parseUseItemCommand(Scanner s) {
+		try {
 			Player player = getPlayerByUserName(s.next());
 			int indexOfItem = s.nextInt();
 			Item item = player.getInventory().get(indexOfItem);
-			
-			gameSystem.playerUseItem(player,item);
+
+			gameSystem.playerUseItem(player, item);
 			return "true";
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			return "false";
 		}
 	}
-	
-	public Player getPlayerByUserName(String name){
+
+	public Player getPlayerByUserName(String name) {
 		return gameSystem.getBoard().getPlayer(name);
 	}
 }
