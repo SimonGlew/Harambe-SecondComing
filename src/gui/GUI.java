@@ -35,15 +35,10 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 import clientserver.ClientController;
-import gameobjects.Chest;
 import items.Banana;
 import items.FloatingDevice;
 import items.Item;
 import items.Key;
-//import javafx.embed.swing.JFXPanel;
-//import javafx.scene.media.Media;
-//import javafx.scene.media.MediaPlayer;
-//import javafx.util.Duration;
 import tile.Tile;
 import tile.WaterTile;
 
