@@ -45,6 +45,7 @@ public class ClientController {
 	}
 
 	public int getBananaCount() {
+		if(board == null)return 0;
 		return board.getPlayer(getName()).getNumOfBananas();
 	}
 

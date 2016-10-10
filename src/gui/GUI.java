@@ -52,6 +52,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	ArrayList<JLabel> inventory;
 	JPanel inventorySlots;
 	JPopupMenu popup;
+	JLabel bananaCount;
 
 	public GUI(ClientController c) {
 		this.controller = c;
@@ -160,16 +161,16 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 		JLabel bananaImg = new JLabel();
 		bananaImg.setIcon(bananaImage);
-		JLabel count = new JLabel();
-		count.setFont(new Font("title", Font.BOLD, 22));
-		count.setText("x " + controller.getBananaCount());
-		count.setForeground(Color.WHITE);
+		bananaCount = new JLabel();
+		bananaCount.setFont(new Font("title", Font.BOLD, 22));
+		bananaCount.setText("x " + controller.getBananaCount());
+		bananaCount.setForeground(Color.WHITE);
 
 		inventoryPanel.add(inventory);
 		inventoryPanel.add(inventorySlots);
 		inventoryPanel.add(bananaLabel);
 		inventoryPanel.add(bananaImg);
-		inventoryPanel.add(count);
+		inventoryPanel.add(bananaCount);
 
 		// Setup view panel
 		JLabel viewLabel = new JLabel();
@@ -292,6 +293,8 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	public void showBoard(BufferedImage i) {
 		gameLabel.setIcon(new ImageIcon(i));
+		System.out.println(controller.getBananaCount());
+		bananaCount.setText("x " + controller.getBananaCount());
 		displayInventory();
 	}
 
