@@ -13,6 +13,7 @@ import items.Banana;
 import items.FloatingDevice;
 import items.Item;
 import items.Key;
+import items.Teleporter;
 import tile.DoorOutTile;
 import tile.Tile;
 import tile.WaterTile;
@@ -47,31 +48,29 @@ public class GameSystem {
 				for (Tile t : ta) {
 					if (t.getGameObject() instanceof Chest) {
 						chests.add((Chest) t.getGameObject());
-					}
-					else if(t.getGameObject() instanceof Key){
+					} else if (t.getGameObject() instanceof Key) {
 						keys.add((Key) t.getGameObject());
 					}
 				}
 			}
 		}
-		
-		if(keys.size() != chests.size()){
+
+		if (keys.size() != chests.size()) {
 			throw new RuntimeException("must have same numer of keys and chests");
 		}
-		
+
 		int num = keys.size();
-		for(int i = 0; i < num; i++){
-			int randy = (int)(Math.random()*keys.size());
-			int orton = (int)(Math.random()*keys.size());
-			
+		for (int i = 0; i < num; i++) {
+			int randy = (int) (Math.random() * keys.size());
+			int orton = (int) (Math.random() * keys.size());
+
 			keys.get(randy).setCode(i);
 			chests.get(orton).setCode(i);
 			chests.get(orton).setContents(new Banana("Banana"));
 			keys.remove(randy);
 			chests.remove(orton);
 		}
-		
-		
+
 	}
 
 	public boolean movePlayer(Player p, Direction d) {
@@ -144,15 +143,15 @@ public class GameSystem {
 		GameObject object = newTile.getGameObject();
 		if (object instanceof Item) {
 			if (!p.inventoryIsFull()) {
-				if(object instanceof Key){
+				if (object instanceof Key) {
 					int keyCount = 0;
-					for(Item i : p.getInventory()){
-						if(i instanceof Key){
+					for (Item i : p.getInventory()) {
+						if (i instanceof Key) {
 							keyCount++;
 						}
 					}
-					
-					if(keyCount >= PLAYER_KEY_LIMIT){
+
+					if (keyCount >= PLAYER_KEY_LIMIT) {
 						return;
 					}
 				}
@@ -164,10 +163,10 @@ public class GameSystem {
 			}
 		} else if (object instanceof Chest) {
 			Chest c = (Chest) object;
-			for(Item i : p.getInventory()){
-				if(i instanceof Key){
-					Key k = ((Key)i);
-					if(k.getCode() == c.getCode()){
+			for (Item i : p.getInventory()) {
+				if (i instanceof Key) {
+					Key k = ((Key) i);
+					if (k.getCode() == c.getCode()) {
 						if (!p.inventoryIsFull() && c.getContents() != null) {
 							p.pickUpItem(c.getContents());
 							c.setContents(null);
@@ -177,7 +176,7 @@ public class GameSystem {
 					}
 				}
 			}
-			
+
 		} else if (object instanceof Door) {
 			Door door = (Door) object;
 			p.getTile().setGameObject(null);
@@ -209,6 +208,27 @@ public class GameSystem {
 	public void playerUseItem(Player player, Item item) {
 		if (item instanceof FloatingDevice) {
 			player.setHasFloatingDevice(!player.getHasFloatingDevice());
+		} else if (item instanceof Teleporter) {
+			player.getTile().setGameObject(null);
+			player.setLocation(0);
+			Tile t;
+			if (!(player.getLocation().getTileAtPosition(new Position(5, 5)).getGameObject() instanceof Player)) {
+				player.setTile(player.getLocation().getTileAtPosition(new Position(5,5)));
+				player.getTile().setGameObject(player);
+			}
+			else if (!(player.getLocation().getTileAtPosition(new Position(4, 5)).getGameObject() instanceof Player)) {
+				player.setTile(player.getLocation().getTileAtPosition(new Position(4,5)));
+				player.getTile().setGameObject(player);
+			}
+			else if (!(player.getLocation().getTileAtPosition(new Position(4, 4)).getGameObject() instanceof Player)) {
+				player.setTile(player.getLocation().getTileAtPosition(new Position(4,4)));
+				player.getTile().setGameObject(player);
+			}
+			else if (!(player.getLocation().getTileAtPosition(new Position(5, 4)).getGameObject() instanceof Player)) {
+				player.setTile(player.getLocation().getTileAtPosition(new Position(5,4)));
+				player.getTile().setGameObject(player);
+			}
+
 		}
 	}
 
