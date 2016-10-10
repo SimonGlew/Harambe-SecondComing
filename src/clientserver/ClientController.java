@@ -180,7 +180,6 @@ public class ClientController {
 
 	public void moveToPos(Tile t) {
 		Location loc = board.getPlayer(getName()).getLocation();
-		Direction d = loc.getDirDijkstras(board.getPlayer(getName()).getTile(), t);
 		
 		Tile from = null;
 		if(uDijkstras.oldTile == null){
@@ -189,6 +188,8 @@ public class ClientController {
 		}else{
 			from = uDijkstras.oldTile;
 		}
+		
+		Direction d = loc.getDirDijkstras(from, t);
 		
 		if (d != null) {
 			String command = "move " + getName() + " " + d.toString();
