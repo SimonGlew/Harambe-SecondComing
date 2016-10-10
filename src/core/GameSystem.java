@@ -128,10 +128,9 @@ public class GameSystem {
 			if (newTile.getGameObject() == null) {
 				if (newTile instanceof WaterTile) {
 					if (!p.getHasFloatingDevice()) {
-						return false;
-					} else {
 						serverController.broadcastPlayerMessage(
 								"It's a deep blue and cold as ice, perhaps something to float on?", p);
+						return false;
 					}
 				}
 				if (newTile instanceof DoorOutTile) {
@@ -223,7 +222,7 @@ public class GameSystem {
 			p.setLocation(door.getLocationID());
 			p.setTile(p.getLocation().getTileAtPosition(door.getDoorPosition()));
 			p.getTile().setGameObject(p);
-		} else if (object instanceof NPC){
+		} else if (object instanceof NPC) {
 			p.pickUpItem(new Banana("Banana"));
 		}
 	}
