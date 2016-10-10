@@ -143,7 +143,19 @@ public class ClientController {
 		sendMessage(new PlayerCommand(command));
 	}
 	
-	public void useItem(int i){}
+	public void useItem(int index){
+		String name = getName();
+		
+		String command = "use " + name + " " + index;
+		sendMessage(new PlayerCommand(command));
+	}
+	
+	public void siphonBananaPlayer(int index){
+		String name = getName();
+		
+		String command = "siphon " + name + " " + index;
+		sendMessage(new PlayerCommand(command));
+	}
 	
 	public Item getInventoryItem(int i){
 		return board.getPlayer(getName()).getInventory().get(i);
