@@ -38,7 +38,6 @@ public class GameSystem {
 	}
 
 	public void generateCodes() {
-		System.out.println("GENBERATIN");
 		ArrayList<Chest> chests = new ArrayList<Chest>();
 		ArrayList<Key> keys = new ArrayList<Key>();
 
@@ -66,6 +65,7 @@ public class GameSystem {
 			
 			keys.get(randy).setCode(i);
 			chests.get(orton).setCode(i);
+			chests.get(orton).setContents(new Banana("Banana"));
 			keys.remove(randy);
 			chests.remove(orton);
 		}
@@ -187,6 +187,7 @@ public class GameSystem {
 	public boolean playerSiphonBanana(Player p, Banana b) {
 		if (p != null && b != null) {
 			p.setNumOfBananas(p.getNumOfBananas() + 1);
+			p.getInventory().remove(b);
 			return p.getNumOfBananas() == WINNING_BANANA_COUNT;
 		}
 		return false;

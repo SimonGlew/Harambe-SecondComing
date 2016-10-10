@@ -40,15 +40,8 @@ public class Chest extends GameObject {
 		this.contents = contents;
 	}
 
-<<<<<<< HEAD
-
-
-	public String getDescription(){
-		return "A locked Chest, " + "Code: "+code;
-=======
 	public String getDescription() {
-		return "Just a Chest";
->>>>>>> 47ff949c076250374467b713a31e3c25d720204d
+		return "A locked Chest, " + "Code: " + code;
 	}
 
 	public String toString() {
