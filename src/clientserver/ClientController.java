@@ -103,22 +103,13 @@ public class ClientController {
 	public void sendMessage(PlayerCommand msg) {
 		client.sendMessage(msg);
 	}
-<<<<<<< HEAD
 
-	
-	
-	public void drawBoard() {
-		if (board != null && gui != null) {
-			gui.showBoard(renderer.paintBoard(board, board.getPlayer(client.getUsername()), 1000, 800, time));
-=======
-	
 	/**
 	 * Method that draws the board using the renderer and showing it onto the GUI
 	 */
 	public void drawBoard() {
 		if (board != null && gui != null) {
-			gui.showBoard(renderer.paintBoard(board, board.getPlayer(client.getUsername()), 1000, 800));
->>>>>>> 07a5ccea4e81402e62d4e6822a20128ef97c41f9
+			gui.showBoard(renderer.paintBoard(board, board.getPlayer(client.getUsername()), 1000, 800, time));
 		}
 	}
 	
@@ -319,6 +310,11 @@ public class ClientController {
 	 */
 	public Player getPlayer() {
 		return board.getPlayer(client.getUsername());
+	}
+	
+	
+	public void showMessage(String s){
+		renderer.setMessage(s, time, 4);
 	}
 
 }
