@@ -60,13 +60,12 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		gameFrame.setSize(1150, 860);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setResizable(false);
-		gameFrame.addMouseListener(this);
-		gameFrame.addMouseMotionListener(this);
 		gameFrame.addKeyListener(this);
 
 		prepareGUI();
 		displayInventory();
-
+		gameLabel.addMouseListener(this);
+		gameLabel.addMouseMotionListener(this);
 		gameFrame.setVisible(true);
 	}
 
