@@ -113,13 +113,12 @@ public class GameSystem {
 		
 	}
 	
-	public void playerSiphonBanana(Player p, Banana b){
+	public boolean playerSiphonBanana(Player p, Banana b){
 		if(p != null && b != null){
 			p.setNumOfBananas(p.getNumOfBananas()+1);
-			if(p.getNumOfBananas() == WINNING_BANANA_COUNT){
-				//end game show winner
-			}
+			return p.getNumOfBananas() == WINNING_BANANA_COUNT;
 		}
+		return false;
 	}
 	
 	public void playerUseItem(Player player, Item item){

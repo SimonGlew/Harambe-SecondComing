@@ -150,7 +150,9 @@ public class ServerController {
 			Item item = player.getInventory().get(indexOfItem);
 			
 			Banana  b = (Banana)item;
-			gameSystem.playerSiphonBanana(player,b);
+			if(gameSystem.playerSiphonBanana(player,b)){
+				return "endgame";
+			}
 			return "true";
 		}
 		catch(Exception e){

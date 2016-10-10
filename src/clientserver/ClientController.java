@@ -45,8 +45,7 @@ public class ClientController {
 	}
 
 	public int getBananaCount() {
-		// get player banana count
-		return 0;
+		return board.getPlayer(getName()).getNumOfBananas();
 	}
 
 	public void rotateLeft() {
@@ -181,6 +180,10 @@ public class ClientController {
 			sendMessage(new PlayerCommand(command));
 		}
 		drawBoard();
+	}
+	
+	public void showEndGameScreen(String playerName){
+		Player p = board.getPlayer(playerName);
 	}
 	
 	public Player getPlayer(){
