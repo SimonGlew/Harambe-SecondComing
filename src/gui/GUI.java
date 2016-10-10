@@ -293,7 +293,6 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	public void showBoard(BufferedImage i) {
 		gameLabel.setIcon(new ImageIcon(i));
-		System.out.println(controller.getBananaCount());
 		bananaCount.setText("x " + controller.getBananaCount());
 		displayInventory();
 	}

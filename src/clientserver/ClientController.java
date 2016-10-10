@@ -45,15 +45,9 @@ public class ClientController {
 	}
 
 	public int getBananaCount() {
-<<<<<<< HEAD
 		if(board == null)return 0;
 		return board.getPlayer(getName()).getNumOfBananas();
-=======
-		if (board != null) {
-			return board.getPlayer(getName()).getNumOfBananas();
-		}
-		return 0;
->>>>>>> 99ed367f7327865801f2ca4e12ce22aa871748f2
+		
 	}
 
 	public void rotateLeft() {
