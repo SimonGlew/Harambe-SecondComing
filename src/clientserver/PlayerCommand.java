@@ -1,24 +1,32 @@
 package clientserver;
 import java.io.*;
-/*
- * Current class holding the things needed to get send from the server to client and vice versa\
- * 
- * 
- * This is gonna turn into something with changing board state
- * 
- */
 
+/**
+ * Class that holds all the information for the object that gets sent from the client to the server
+ * 
+ * @author Simon Glew
+ *
+ */
 public class PlayerCommand implements Serializable {
 
 	protected static final long serialVersionUID = 1112122200L;
 	private String message;
 	
-	// constructor
+	/**
+	 * Constructor that gets called every time a message is sent from the client to the server
+	 * 
+	 * @param message - Message being sent across
+	 */
 	public PlayerCommand(String message) {
 		this.message = message;
 	}
 	
-	String getMessage() {
+	/**
+	 * Getter for the message held within the object
+	 * 
+	 * @return message - Message being sent along with the object
+	 */
+	public String getMessage() {
 		return message;
 	}
 }
