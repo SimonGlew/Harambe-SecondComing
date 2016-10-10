@@ -180,6 +180,7 @@ public class GameSystem {
 					}
 				}
 			}
+		
 
 		} else if (object instanceof Door) {
 			Door door = (Door) object;
@@ -205,7 +206,7 @@ public class GameSystem {
 			p.setNumOfBananas(p.getNumOfBananas() + 1);
 			p.getInventory().remove(b);
 			
-			serverController.broadcastMessage(p + " has siphoned his "+ p.getNumOfBananas() + " banana, step it up soldier!");
+			serverController.broadcastMessage(p.getUserName() + " has siphoned "+ p.getNumOfBananas() + " banana/s, step it up soldier!");
 			return p.getNumOfBananas() == WINNING_BANANA_COUNT;
 		}
 		return false;
