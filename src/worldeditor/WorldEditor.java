@@ -94,6 +94,9 @@ public class WorldEditor {
 				&& j < board.getLocationById(currentLocation).getTiles()[0].length) {
 			Tile tile = board.getLocationById(currentLocation).getTiles()[i][j];
 			if (tile.getGameObject() instanceof Door) {
+				System.out.println("Yay?");
+				currentLocation = ((Door) tile.getGameObject()).getLocationID();
+				System.out.print(currentLocation);
 				currentLocation = ((Door) tile.getGameObject()).getLocationID();
 				update();
 				return;
@@ -156,6 +159,7 @@ public class WorldEditor {
 					int id = createIndoorLocation();
 					DoorOutTile doorOut = new DoorOutTile(new Position(5, 9), null, currentLocation, board.getLocationById(currentLocation).getTileInDirection(new Position(i, j),  Direction.SOUTH).getPos());
 					System.out.println(currentLocation);
+
 					board.getLocationById(id).getTiles()[5][9] = doorOut;
 					tile.setGameObject(new Door(0, id));
 					

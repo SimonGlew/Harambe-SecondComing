@@ -14,14 +14,13 @@ import iohandling.BoardWriter;
 public class Server {
 	private Map<Integer, String> IDtoUsername;
 	private ArrayList<ClientThread> al;
-	
+
 	private ServerController serverController;
 	private TimeThread time;
-	
-	private static int uniqueId;	
+
+	private static int uniqueId;
 	private int port;
 	private boolean keepGoing;
-	
 
 	/*
 	 * Constructor that gets passed a port when starting the java file
@@ -47,13 +46,13 @@ public class Server {
 			time.start();
 			// infinite loop to wait for connections
 			while (keepGoing) {
-					Socket socket = serverSocket.accept(); // accept connection
-					if (!keepGoing)
-						break;
-					ClientThread t = new ClientThread(socket); // Make new thread
-																// and add to list
-					al.add(t);
-					t.start();
+				Socket socket = serverSocket.accept(); // accept connection
+				if (!keepGoing)
+					break;
+				ClientThread t = new ClientThread(socket); // Make new thread
+															// and add to list
+				al.add(t);
+				t.start();
 			}
 			// Close all connections to the server socket
 			try {
@@ -160,27 +159,30 @@ public class Server {
 		Server server = new Server(portNumber);
 		server.start();
 	}
-	
+
 	class TimeThread extends Thread {
 		int count;
-		
-		TimeThread(){
+
+		TimeThread() {
 			count = 0;
 		}
-		
-		public void run(){
-			count++;
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
+
+		public void run() {
+			while (true) {
+				broadcast(new Packet("time", null, null, getTime()), 0);
+				count++;
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+
+				}
 			}
 		}
-		
-		public int getTime(){
+
+		public int getTime() {
 			return count;
 		}
 	}
-	
 
 	/** One instance of this thread will run for each client */
 	class ClientThread extends Thread {
@@ -217,7 +219,7 @@ public class Server {
 				// read a String (which is an object)
 				try {
 					cm = (PlayerCommand) sInput.readObject();
-					if(cm.getMessage().equals("close")){
+					if (cm.getMessage().equals("close")) {
 						this.close();
 					}
 				} catch (IOException e) {
@@ -232,28 +234,35 @@ public class Server {
 					// Switch on the type of message receive
 					// TODO: Some way of sending a board back, change broadcast
 					// method
-					if(cm.getMessage().contains("login")){
-						if(al.size() < 4){
+					if (cm.getMessage().contains("login")) {
+						if (al.size() < 4) {
 							IDtoUsername.put(id, cm.getMessage().substring(6));
-							broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()), id);
-						}else{
+							broadcast(
+									new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()),
+											null, time.getTime()),
+									id);
+						} else {
 							broadcast(new Packet("string", null, "fail login", 0), id);
 							remove(id);
 							this.close();
 						}
-					}else{
-						broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()), id);
+					} else {
+						broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()),
+								null, time.getTime()), id);
 					}
 				} else if (parsed.equals("fail login")) {
 					broadcast(new Packet("string", null, "fail login", 0), id);
 					remove(id);
 					this.close();
-				} else if(parsed.equals("false") && cm.getMessage().contains("move")) {
-					broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()), id);
-				}else if(parsed.equals("endgame")){
+				} else if (parsed.equals("false") && cm.getMessage().contains("move")) {
+					broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null,
+							time.getTime()), id);
+				} else if (parsed.equals("endgame")) {
 					System.out.println("a");
-					broadcast(new Packet("string", null, "endgame " + serverController.getPlayerByUserName(IDtoUsername.get(id)), time.getTime()), id);
-				}else{
+					broadcast(new Packet("string", null,
+							"endgame " + serverController.getPlayerByUserName(IDtoUsername.get(id)), time.getTime()),
+							id);
+				} else {
 					System.out.println("fail");
 				}
 			}

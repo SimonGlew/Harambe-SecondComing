@@ -122,7 +122,7 @@ public class Client {
 							clientController.showGUI();
 							loggedIn = true;
 						}
-						clientController.sendBoard(BoardParser.parseBoardString(packet.getBoard()), packet.getTime());
+						clientController.sendBoard(BoardParser.parseBoardString(packet.getBoard()));
 					} else if (packet.getType().equals("string")) {
 						if (packet.getMessage().equals("fail login")) {
 							menu.dispose();
@@ -141,6 +141,8 @@ public class Client {
 								clientController.showEndGameScreen(playerName);
 							}
 						}
+					}else if(packet.getType().equals("time")){
+						clientController.updateTime(packet.getTime());
 					}
 				} catch (IOException e) {
 					clientController.hideGUI();

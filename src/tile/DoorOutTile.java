@@ -12,7 +12,10 @@ import util.Position;
 
 public class DoorOutTile extends Tile {
 
+	int LocationID;
+
 	int outLocationID;
+
 	Position doorPos;
 
 	final String IMG_PRE = "assets/tiles/doorOut/doorOut";
@@ -20,9 +23,24 @@ public class DoorOutTile extends Tile {
 
 	public DoorOutTile(Position pos, GameObject gameObject, int locationID, Position doorPos) {
 		super(pos, gameObject);
+		
+		this.locationID = this.locationID;
 		this.outLocationID = locationID;
 		this.doorPos = doorPos;
+<<<<<<< HEAD
 		fname = "assets/tiles/doorOut/doorOutNORTH.png";
+=======
+		
+		try {
+			double d = Math.random() * 100;
+			if (d >= 0) {
+				image = ImageIO.read(new File("assets/tiles/doorOutTile.png"));
+
+			} 
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+>>>>>>> refs/remotes/origin/master
 	}
 
 	public int getOutLocationID() {
@@ -37,6 +55,7 @@ public class DoorOutTile extends Tile {
 		String s = "DoorOut(" + outLocationID + "," + doorPos.getX() + "," + doorPos.getY() + ")";
 		if (gameObject != null) {
 			s += "(" + gameObject.toString() + ")";
+
 		}
 		return s;
 	}
