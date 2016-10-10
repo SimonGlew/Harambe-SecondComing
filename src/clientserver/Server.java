@@ -8,10 +8,16 @@ import core.GameSystem;
 import gameobjects.Player;
 import iohandling.BoardWriter;
 
-/*
- * The server that can be run both as a console application
+/**
+ * This is the class that holds all the information for the server, this holds all the exchanges of the clients, this holds all the information for the 
+ * streams connecting the client and server
+ * 
+ * @author Simon Glew
+ *
  */
 public class Server {
+	private final static int LOGIN_LIMIT = 4;
+	
 	private Map<Integer, String> IDtoUsername;
 	private ArrayList<ClientThread> al;
 
@@ -22,40 +28,38 @@ public class Server {
 	private int port;
 	private boolean keepGoing;
 
-	/*
-	 * Constructor that gets passed a port when starting the java file
-	 *
+	/**
+	 * Constructor for the server, this gets called when the main method of the class is called
+	 * 
+	 * @param port - The port of the server 
 	 */
 	public Server(int port) {
-		// the port
 		this.port = port;
-		// ArrayList for the Client list
 		al = new ArrayList<ClientThread>();
 		IDtoUsername = new HashMap<Integer, String>();
 	}
 
+	/**
+	 * Method that gets called that starts the server on a new server socket, creates the necessary objects to keep the server running and waits for connections
+	 * when a connection is found, it accepts the socket and creates and starts a new client thread 
+	 */
 	public void start() {
-
 		keepGoing = true;
-		/* create socket server and wait for connection requests */
 		try {
-			// the socket used by the server
 			ServerSocket serverSocket = new ServerSocket(port);
 			System.out.println("Waiting for clients on port " + port);
 			serverController = new ServerController(this, new GameSystem());
 			time = new TimeThread();
 			time.start();
-			// infinite loop to wait for connections
 			while (keepGoing) {
-				Socket socket = serverSocket.accept(); // accept connection
+				Socket socket = serverSocket.accept();
 				if (!keepGoing)
 					break;
-				ClientThread t = new ClientThread(socket); // Make new thread
-															// and add to list
+				ClientThread t = new ClientThread(socket);
 				al.add(t);
 				t.start();
 			}
-			// Close all connections to the server socket
+			/* If the server is closing */
 			try {
 				serverSocket.close();
 				for (int i = 0; i < al.size(); ++i) {
@@ -78,35 +82,25 @@ public class Server {
 		}
 	}
 
-	/*
-	 * Method that has the ability to stop the server by making a client socket
-	 * on the server socket
-	 */
-	@SuppressWarnings("resource")
-	protected void stop() {
-		keepGoing = false;
-		try {
-			new Socket("localhost", port);
-		} catch (Exception e) {
-
-		}
-	}
-
-	/*
-	 * Display an event (not a message) to the console
+	/**
+	 * Helper method for displaying something to the console
+	 * 
+	 * @param msg - Message to be displayed
 	 */
 	private void display(String msg) {
 		System.out.println(msg);
 	}
 
-	/*
-	 * to broadcast a message to all Clients
+	/**
+	 * Method that gets called when wanting to broadcast to all clients 
+	 * 
+	 * @param packet - the packet object to get broadcasted to clients
+	 * @param id - id of client thread that the broadcast is coming from
 	 */
 	private synchronized void broadcast(Packet packet, int id) {
 		for (int i = al.size(); --i >= 0;) {
 			ClientThread ct = al.get(i);
-			// try to write to the Client if it fails remove it from the
-			// list
+			/* If login fail we want to only call it on the id that broke */
 			if (packet.getMessage() == "fail login") {
 				if (ct.id == id) {
 					ct.writeToClient(packet);
@@ -120,15 +114,14 @@ public class Server {
 		}
 	}
 
-	/*
-	 * Method that removes the client from the list, due to client being
-	 * disconnected
+	/**
+	 * Method that removes the client from the list, due to client being disconnected
+	 * 
+	 * @param id - id that needs to be removed
 	 */
 	synchronized void remove(int id) {
-		// scan the array list until we found the Id
 		for (int i = 0; i < al.size(); ++i) {
 			ClientThread ct = al.get(i);
-			// found it
 			if (ct.id == id) {
 				al.remove(i);
 				return;
@@ -136,12 +129,12 @@ public class Server {
 		}
 	}
 
-	/*
-	 * > java Server > java Server portNumber If the port number is not
-	 * specified 1500 is used
+	/**
+	 * Main method of the server, this is the method that gets called that makes the server 
+	 * 
+	 * @param args - Should only be one argument with the server port number
 	 */
 	public static void main(String[] args) {
-		// start server on port 1500 unless a PortNumber is specified
 		int portNumber = 4515;
 		switch (args.length) {
 		case 1:
@@ -154,20 +147,28 @@ public class Server {
 			break;
 		default:
 			return;
-
 		}
-		// create a server object and start it
 		Server server = new Server(portNumber);
 		server.start();
 	}
-
+	/**
+	 * Class that is a thread that holds the current time of the server, this increments each second and broadcasts to clients
+	 * 
+	 * @author Simon Glew
+	 */
 	class TimeThread extends Thread {
 		int count;
-
+		
+		/**
+		 * Constructor that sets the initial time to 0
+		 */
 		TimeThread() {
 			count = 0;
 		}
-
+		
+		/**
+		 * Method that gets called on startup that broadcasts the current server time each second
+		 */
 		public void run() {
 			while (true) {
 				broadcast(new Packet("time", null, null, getTime()), 0);
@@ -179,32 +180,40 @@ public class Server {
 				}
 			}
 		}
-
+		
+		/**
+		 * Getter of the current time of the server
+		 * 
+		 * @return time - current time of the server
+		 */
 		public int getTime() {
 			return count;
 		}
 	}
 
-	/** One instance of this thread will run for each client */
+	/**
+	 * Class that is created whenever a new client is made within the server that creates the streams needed 
+	 * 
+	 * @author Simon Glew
+	 */
 	class ClientThread extends Thread {
-		// the socket where to listen/talk
 		Socket socket;
 		ObjectInputStream sInput;
 		ObjectOutputStream sOutput;
-		// my unique id (easier for disconnection)
+
 		int id;
-		// the only type of message a will receive
 		PlayerCommand cm;
 
-		// Constructor
+		/**
+		 * Constructor that takes in the socket and creates the streams needed for communication between the client and the server
+		 * 
+		 * @param socket - Socket of the client
+		 */
 		ClientThread(Socket socket) {
 			System.out.println("Client accepted");
-			// a unique id
 			id = ++uniqueId;
 			this.socket = socket;
-			/* Creating both Data Stream */
 			try {
-				// create output first
 				sOutput = new ObjectOutputStream(socket.getOutputStream());
 				sInput = new ObjectInputStream(socket.getInputStream());
 			} catch (IOException e) {
@@ -213,14 +222,16 @@ public class Server {
 			}
 		}
 
-		// what will run forever
+		/**
+		 * Method that gets called after client thread is created that listens on the stream, parses the player command and calls the broadcast method with
+		 * the right packet being created
+		 */
 		public void run() {
-			// to loop until LOGOUT
 			boolean keepGoing = true;
 			while (keepGoing) {
-				// read a String (which is an object)
 				try {
 					cm = (PlayerCommand) sInput.readObject();
+					/*For closing the client thread */
 					if (cm.getMessage().equals("close")) {
 						this.close();
 					}
@@ -232,43 +243,41 @@ public class Server {
 				}
 				String parsed = serverController.parseInput(cm);
 				if (parsed.equals("true")) {
-					// Switch on the type of message receive
-					// TODO: Some way of sending a board back, change broadcast
-					// method
 					if (cm.getMessage().contains("login")) {
-						if (al.size() < 4) {
+						/* Check for login limit */
+						if (al.size() < LOGIN_LIMIT) {
+							/* Updates map with username */
 							IDtoUsername.put(id, cm.getMessage().substring(6));
-							broadcast(
-									new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()),
-											null, time.getTime()),
-									id);
+							/* Broadcast new board */
+							broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()),id);
 						} else {
+							/* broadcast if you fail to login */
 							broadcast(new Packet("string", null, "fail login", 0), id);
 							remove(id);
 							this.close();
 						}
 					} else {
-						broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()),
-								null, time.getTime()), id);
+						/* Broadcast new board */
+						broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()), id);
 					}
+				/* broadcast if you fail to login */
 				} else if (parsed.equals("fail login")) {
 					broadcast(new Packet("string", null, "fail login", 0), id);
 					remove(id);
 					this.close();
+				/* If you cannot move due to something */
 				} else if (parsed.equals("false") && cm.getMessage().contains("move")) {
-					broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null,
-							time.getTime()), id);
+					broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null,  time.getTime()), id);
+				/* Broadcast endgame */	
 				} else if (parsed.equals("endgame")) {
 					System.out.println("a");
-					broadcast(new Packet("string", null,
-							"endgame " + serverController.getPlayerByUserName(IDtoUsername.get(id)), time.getTime()),
-							id);
+					broadcast(new Packet("string", null, "endgame " + serverController.getPlayerByUserName(IDtoUsername.get(id)), time.getTime()), id);
+				/* Should not get here */
 				} else {
 					System.out.println("fail");
 				}
 			}
-			// remove myself from the arrayList containing the list of the
-			// connected Clients
+			/* remove myself from the arrayList containing the list of the connected Clients, and set you to logged out */
 			Player p = serverController.getPlayerByUserName(IDtoUsername.get(id));
 			if (p != null) {
 				p.setLoggedIn(false);
@@ -278,9 +287,10 @@ public class Server {
 			remove(id);
 		}
 
-		// try to close everything
+		/**
+		 * Method that attempts to close all the connections to the server
+		 */
 		private void close() {
-			// try to close the connection
 			try {
 				if (sOutput != null)
 					sOutput.close();
@@ -301,20 +311,22 @@ public class Server {
 			}
 		}
 
-		/*
-		 * Write a String to the Client output stream
+		/**
+		 * Method that attempts to write a packet to the client
+		 * 
+		 * @param packet - Packet to send
+		 * 
+		 * @return boolean - If sending was successful
 		 */
 		private boolean writeToClient(Packet packet) {
-			// if Client is still connected send the message to it
+			/* If client is still connected send the packet to it */
 			if (!socket.isConnected()) {
 				close();
 				return false;
 			}
-			// write the message to the stream
 			try {
 				sOutput.writeObject(packet);
 			}
-			// if an error occurs, do not abort just inform the user
 			catch (IOException e) {
 				display("Error sending message to " + id);
 				display(e.toString());
