@@ -318,7 +318,10 @@ public class ClientController {
 	 * @param s - String to be shown
 	 */
 	public void showMessage(String s){
+		gui.beginHarambeAnimation();
 		renderer.setMessage(s, time, 4);
 	}
+
+
 
 }
