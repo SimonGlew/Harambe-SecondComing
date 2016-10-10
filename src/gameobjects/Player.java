@@ -132,7 +132,7 @@ public class Player extends GameObject {
 	}
 
 	public String toSaveString() {
-		String s = "Player\n{\n" + userName + "," + locationID + "," + pos.getX() + "," + pos.getY() + ","
+		String s = "Player\n{\n" + userName + "," + numOfBananas + "," + locationID + "," + pos.getX() + "," + pos.getY() + ","
 				+ facing.toString() + "," + loggedIn + "," + hasFloatingDevice + ",Inventory(";
 		for(Item i: inventory){
 			s += i.toString();
