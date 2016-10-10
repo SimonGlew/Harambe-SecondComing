@@ -8,7 +8,7 @@ public class Teleporter extends Item{
 	}
 	
 	public String toString(){
-		return "teleporter";
+		return "Teleporter";
 	}
 
 }
