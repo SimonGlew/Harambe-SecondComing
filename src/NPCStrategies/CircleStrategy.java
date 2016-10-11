@@ -4,7 +4,7 @@ import core.GameSystem.Direction;
 import gameobjects.NPC;
 
 /**
- * Class implementing the NPC.Strategy interface providing a strategy for the NPC to walk in a circle based upon the NPCscurrect facing direction
+ * Class implementing the NPC.Strategy interface providing a strategy for the NPC to walk in a circle based upon the NPCs current facing direction
  * @author Jack Slater
  *
  */
