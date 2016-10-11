@@ -274,7 +274,7 @@ public class Server {
 				if (parsed.equals("true")) {
 					if (cm.getMessage().contains("login")) {
 						/* Check for login limit */
-						if (al.size() < LOGIN_LIMIT) {
+						if (al.size() <= LOGIN_LIMIT) {
 							/* Updates map with username */
 							IDtoUsername.put(id, cm.getMessage().substring(6));
 							/* Broadcast new board */
