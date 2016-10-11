@@ -29,7 +29,7 @@ public class ToolSelectionFrame {
 	 * Constructor for ToolSelectionFrame sets up tool frame for selecting tools
 	 * and components.
 	 *
-	 * @param editor
+	 * @param editor - the world editor object
 	 */
 	public ToolSelectionFrame(WorldEditor editor) {
 		this.editor = editor;

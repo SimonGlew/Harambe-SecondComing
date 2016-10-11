@@ -26,7 +26,7 @@ import clientserver.Client;
 /**
  * Class for creating the menu to the game which allows the user to select
  * connection port through the use of swing.
- * 
+ *
  * @author Kyal Bond
  *
  */
@@ -164,9 +164,9 @@ public class Menu implements MouseListener, ActionListener {
 
 	/**
 	 * Helper method for loading image icons.
-	 * 
-	 * @param filename
-	 * @return
+	 *
+	 * @param filename - filename of icon
+	 * @return ImageIcon - icon of the filename
 	 */
 	public static ImageIcon makeImageIcon(String filename) {
 		BufferedImage myPicture = null;
@@ -180,8 +180,8 @@ public class Menu implements MouseListener, ActionListener {
 
 	/**
 	 * Show port selecter
-	 * 
-	 * @param arg0
+	 *
+	 * @param arg0 - argument of the mouse listener
 	 */
 	@Override
 	public void mouseReleased(MouseEvent arg0) {

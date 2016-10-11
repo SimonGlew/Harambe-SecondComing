@@ -36,7 +36,7 @@ public class EditorFrame extends JFrame {
 	 * Constructor for EditorFrame sets up basic graphical components and
 	 * listeners.
 	 *
-	 * @param editor
+	 * @param editor - the world editor object
 	 */
 	public EditorFrame(WorldEditor editor) {
 		this.editor = editor;
@@ -59,7 +59,7 @@ public class EditorFrame extends JFrame {
 	/**
 	 * Paints rendered image onto panel
 	 *
-	 * @param g
+	 * @param g - Graphics object
 	 */
 	public void paintPanel(Graphics2D g) {
 		if (image != null) {
@@ -70,7 +70,7 @@ public class EditorFrame extends JFrame {
 	/**
 	 * Set image to new rendered image
 	 *
-	 * @param image
+	 * @param image - image to be drawn
 	 */
 	public void setImage(BufferedImage image) {
 		this.image = image;

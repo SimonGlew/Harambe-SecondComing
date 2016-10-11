@@ -72,7 +72,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	/**
 	 * Constructor for initializing the game window, fields and timer
 	 *
-	 * @param controller
+	 * @param controller - controller of the GUI/Client
 	 */
 	public GUI(ClientController controller) {
 		this.controller = controller;
@@ -252,7 +252,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		quit.setActionCommand("quit");
 		quit.addActionListener(this);
 		gameBar.add(quit);
-		
+
 		// Shortcuts setup
 		JMenuItem shortcuts = new JMenuItem("Shortcuts");
 		shortcuts.setActionCommand("shortcuts");
@@ -517,8 +517,8 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	/**
 	 * Get image of an item
 	 *
-	 * @param i
-	 * @return
+	 * @param i - item
+	 * @return - image icon for the item passed in
 	 */
 	public ImageIcon getInventoryImage(Item i) {
 		if (i instanceof items.Key) {
@@ -576,7 +576,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	/**
 	 * Update board displayed
 	 *
-	 * @param i
+	 * @param i - Buffered image of board
 	 */
 	public void showBoard(BufferedImage i) {
 		gameLabel.setIcon(new ImageIcon(i));

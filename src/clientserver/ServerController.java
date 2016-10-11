@@ -320,7 +320,7 @@ public class ServerController {
 	/**
 	 * Calls the broadcast method with giving it a board to send
 	 *
-	 * @param board - board that you want to send
+	 * @param b - board that you want to send
 	 */
 	public void broadcastBoard(Board b){
 		server.broadcast(new Packet("board", BoardWriter.writeBoardToString(b), null, getServerTime()), 0);

@@ -19,8 +19,9 @@ public class BoardWriter {
 
 	/**
 	 * Write a board object to a text file.
-	 * @param board
-	 * @param filename
+	 *
+	 * @param b - board to be written
+	 * @param fname - file to be written to
 	 */
 	public static void writeBoard(Board b, String fname) {
 		try {
@@ -67,8 +68,9 @@ public class BoardWriter {
 
 	/**
 	 * Write board object to a String for server sending purposes
-	 * @param board
-	 * @return string
+	 *
+	 * @param b - board to be written
+	 * @return string - string that holds the board
 	 */
 	public static String writeBoardToString(Board b) {
 		//Create StringBuilder

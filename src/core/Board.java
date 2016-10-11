@@ -9,7 +9,7 @@ import gameobjects.Player;
 
 /**
  * Board holds a collection players and locations.
- * 
+ *
  * @author Jonathan, Jack
  *
  */
@@ -29,7 +29,7 @@ public class Board {
 
 	/**
 	 * Get map of locations
-	 * 
+	 *
 	 * @return map of locations
 	 */
 	public Map<Integer, Location> getLocations() {
@@ -38,8 +38,8 @@ public class Board {
 
 	/**
 	 * Set map of locations
-	 * 
-	 * @param locations
+	 *
+	 * @param locations - locations to be set
 	 */
 	public void setLocations(Map<Integer, Location> locations) {
 		this.locations = locations;
@@ -47,7 +47,7 @@ public class Board {
 
 	/**
 	 * Get location by id
-	 * 
+	 *
 	 * @param id
 	 *            of location
 	 * @return location object
@@ -58,7 +58,7 @@ public class Board {
 
 	/**
 	 * Add location to map
-	 * 
+	 *
 	 * @param id
 	 *            of location
 	 * @param location
@@ -70,7 +70,7 @@ public class Board {
 
 	/**
 	 * Get next integer not yet used by a location as an id
-	 * 
+	 *
 	 * @return next unique id
 	 */
 	public int getNextUniqueId() {
@@ -84,7 +84,7 @@ public class Board {
 	/**
 	 * Take a map of locations and make sure all locations link to adjacent
 	 * locations via their neighbours maps
-	 * 
+	 *
 	 * @param map
 	 *            of locations
 	 */
@@ -120,7 +120,7 @@ public class Board {
 	/**
 	 * Recursively create a map of the relative positions of locations based on
 	 * neighbours
-	 * 
+	 *
 	 * @param id
 	 *            of current location
 	 * @param x
@@ -129,7 +129,7 @@ public class Board {
 	 *            coordinate relative to start
 	 * @param map
 	 *            of points to locations
-	 *            
+	 *
 	 * @return map of points to locations
 	 */
 	public Map<Point, Integer> mapLocations(int id, int x, int y, Map<Point, Integer> map) {
@@ -151,8 +151,8 @@ public class Board {
 
 	/**
 	 * Get point representation of offset of direction
-	 * @param direction
-	 * @return direction
+	 * @param d - direction to be offset
+	 * @return direction - direction that is offset
 	 */
 	public Point getOffset(Direction d) {
 		switch (d) {
@@ -169,9 +169,9 @@ public class Board {
 	}
 
 	/**
-	 * Add player to voard
-	 * @param userName
-	 * @param player
+	 * Add player to board
+	 * @param userName - name of the player
+	 * @param player - Player object of the client
 	 */
 	public void addPlayer(String userName, Player player) {
 		players.put(userName, player);
@@ -179,8 +179,8 @@ public class Board {
 
 	/**
 	 * Get player by username
-	 * @param username
-	 * @return player
+	 * @param username - username which to find the player with
+	 * @return player - player object that is returned from the username
 	 */
 	public Player getPlayer(String username) {
 		return players.get(username);

@@ -12,7 +12,8 @@ import util.Position;
  * Location objects store a map of directions to neighbours and a 2D array of
  * Tile objects.
  *
- * @authors Jonathan, Jack, Kyal
+
+ * @author Jonathan Carr, Jack Slater and Kyal Bond
  *
  */
 
@@ -64,7 +65,7 @@ public class Location {
 	/**
 	 * Get neighbours of location
 	 *
-	 * @return
+	 * @return map - gets neighbors of location
 	 */
 	public Map<GameSystem.Direction, Integer> getNeighbours() {
 		return neighbours;
@@ -88,8 +89,8 @@ public class Location {
 	/**
 	 * Get neighbour location in direction
 	 *
-	 * @param direction
-	 * @return location
+	 * @param d - direction to find location with
+	 * @return location - location returned from the direction
 	 */
 	public Location getLocationfromDirection(GameSystem.Direction d) {
 		return board.getLocationById(neighbours.get(d));
@@ -98,7 +99,7 @@ public class Location {
 	/**
 	 * Set neighbours map of location
 	 *
-	 * @param neighbours
+	 * @param neighbours - locations around current location
 	 */
 	public void setNeighbours(Map<GameSystem.Direction, Integer> neighbours) {
 		this.neighbours = neighbours;
@@ -107,7 +108,7 @@ public class Location {
 	/**
 	 * Get id of location
 	 *
-	 * @return
+	 * @return id - id of location
 	 */
 	public int getId() {
 		return id;
@@ -116,7 +117,7 @@ public class Location {
 	/**
 	 * Get board of location
 	 *
-	 * @return
+	 * @return board - board of location
 	 */
 	public Board getBoard() {
 		return board;
@@ -126,9 +127,9 @@ public class Location {
 	 * Get the tile in the direction d from position p. Takes into account
 	 * location edges.
 	 *
-	 * @param position
-	 * @param direction
-	 * @return tile
+	 * @param pos - current pos
+	 * @param d - direction to be moved
+	 * @return tile - returned tile
 	 */
 	public Tile getTileInDirection(Position pos, Direction d) {
 		Position p = null;
@@ -180,8 +181,8 @@ public class Location {
 	/**
 	 * Returns true if position is within bounds of tiles array
 	 *
-	 * @param position
-	 * @return boolean true if within bounds
+	 * @param pos - position to check
+	 * @return boolean - true if within bounds
 	 */
 	public boolean withinBounds(Position pos) {
 		return pos.getX() >= 0 && pos.getY() >= 0 && pos.getX() < getTiles().length
@@ -191,8 +192,8 @@ public class Location {
 	/**
 	 * Get position of tile in location
 	 *
-	 * @param tile
-	 * @return position
+	 * @param tile - tile to find position of
+	 * @return position - position of the tile
 	 */
 	public Position getPositionOfTile(Tile tile) {
 		for (int i = 0; i < tiles.length; i++) {
@@ -209,8 +210,8 @@ public class Location {
 	 * Get tile at position, allows indexes out of bounds, getting tiles from
 	 * neighbouring locations
 	 *
-	 * @param position
-	 * @return tile
+	 * @param pos - position to find tile of
+	 * @return tile - tile that is at the required position
 	 */
 	public Tile getTileAtPosition(Position pos) {
 		Point p = new Point(pos.getX() / 10, -1 * (pos.getY() / 10));
@@ -249,9 +250,9 @@ public class Location {
 	/**
 	 * Get direction for dijkstra's algorithm from player to position.
 	 *
-	 * @param player
-	 * @param position
-	 * @return direction
+	 * @param player - Tile of the current player
+	 * @param position - Tile of current position
+	 * @return direction - direction to move too
 	 */
 	public static Direction getDirDijkstras(Tile player, Tile position) {
 		Position from = player.getPos();

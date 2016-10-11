@@ -60,7 +60,7 @@ public class BoardParser {
 
 	/**
 	 * Parses a board object from a String
-	 * @param boardString
+	 * @param boardString - String of the board
 	 * @return board
 	 */
 	public static Board parseBoardString(String boardString) {
@@ -69,8 +69,8 @@ public class BoardParser {
 
 	/**
 	 * Parse board object from Scanner
-	 * @param scanner
-	 * @return board
+	 * @param s - scanner
+	 * @return board - board
 	 */
 	public static Board parseBoard(Scanner s) {
 		s.useDelimiter("\\s+|(?=[{}(),;])|(?<=[{}(),;])");
@@ -91,9 +91,9 @@ public class BoardParser {
 
 	/**
 	 * Parse player object from Scanner
-	 * @param scanner
-	 * @param board
-	 * @return player
+	 * @param s - scanner
+	 * @param board - board
+	 * @return player - player
 	 */
 	public static Player parsePlayer(Scanner s, Board board) {
 		require("\\{", s);
@@ -133,8 +133,8 @@ public class BoardParser {
 
 	/**
 	 * Parse Direction from Scanner
-	 * @param scanner
-	 * @return Direction
+	 * @param s - scanner
+	 * @return Direction - direction
 	 */
 	public static Direction parseDirection(Scanner s) {
 		if (checkFor("NORTH", s)) {
@@ -153,9 +153,9 @@ public class BoardParser {
 
 	/**
 	 * Parse Location from Scanner
-	 * @param scanner
-	 * @param board
-	 * @return location
+	 * @param s - scanner
+	 * @param board - board
+	 * @return location - location
 	 */
 	public static Location parseLocation(Scanner s, Board board) {
 		require("\\{", s);
@@ -205,11 +205,11 @@ public class BoardParser {
 
 	/**
 	 * Parse tile from Scanner
-	 * @param scanner
-	 * @param i x component of position
-	 * @param j y component of position
-	 * @param board
-	 * @return tile
+	 * @param s - scanner
+	 * @param i - x component of position
+	 * @param j - y component of position
+	 * @param board - board
+	 * @return tile - tile
 	 */
 	public static Tile parseTile(Scanner s, int i, int j, Board board) {
 		require("\\(", s);
@@ -246,10 +246,10 @@ public class BoardParser {
 
 	/**
 	 * Parse DoorOutTile from Scanner
-	 * @param scanner
-	 * @param i x coordinate of position
-	 * @param j y coordinate of position
-	 * @return DoorOutTile
+	 * @param s - scanner
+	 * @param i - x coordinate of position
+	 * @param j - y coordinate of position
+	 * @return DoorOutTile - tile
 	 */
 	public static DoorOutTile parseDoorOut(Scanner s, int i, int j) {
 		require("\\(", s);
@@ -265,9 +265,9 @@ public class BoardParser {
 
 	/**
 	 * Parse Game Object from Scanner
-	 * @param scanner
-	 * @param board
-	 * @return game object
+	 * @param s - scanner
+	 * @param board - board
+	 * @return game object - gameObject
 	 */
 	public static GameObject parseGameObject(Scanner s, Board board) {
 		if (checkFor("Tree", s)) {
@@ -306,9 +306,9 @@ public class BoardParser {
 
 	/**
 	 * Parse NPCfrom Scanner
-	 * @param scanner
-	 * @param board
-	 * @return NPC
+	 * @param s - scanner
+	 * @param board - board
+	 * @return NPC - NPC
 	 */
 	public static GameObject parseNPC(Scanner s, Board board) {
 		require("\\(", s);
@@ -321,9 +321,9 @@ public class BoardParser {
 
 	/**
 	 * Parse Door from Scanner
-	 * @param scanner
-	 * @param board
-	 * @return door
+	 * @param s - scanner
+	 * @param b - board
+	 * @return door - door
 	 */
 	public static Door parseDoor(Scanner s, Board b) {
 		require("\\(", s);
@@ -342,9 +342,9 @@ public class BoardParser {
 
 	/**
 	 * Parse player object on baord
-	 * @param scanner
-	 * @param board
-	 * @return player
+	 * @param s - scanner
+	 * @param board - board
+	 * @return player - player
 	 */
 	public static Player parsePlayerOnBoard(Scanner s, Board board) {
 		require("\\(", s);
@@ -355,9 +355,9 @@ public class BoardParser {
 
 	/**
 	 * Parse chest from Scanner
-	 * @param scanner
-	 * @param board
-	 * @return chest
+	 * @param s - scanner
+	 * @param board - board
+	 * @return chest - chest
 	 */
 	public static Chest parseChest(Scanner s, Board board) {
 		Chest chest = new Chest();
@@ -373,8 +373,8 @@ public class BoardParser {
 
 	/**
 	 * Parse Item from Scanner
-	 * @param scanner
-	 * @return item
+	 * @param s - scanner
+	 * @return item - item
 	 */
 	public static Item parseItem(Scanner s) {
 		if (checkFor("Key", s)) {
@@ -397,8 +397,8 @@ public class BoardParser {
 
 	/**
 	 * Parse key from Scanner
-	 * @param scanner
-	 * @return key
+	 * @param s - scanner
+	 * @return key - key
 	 */
 	public static Key parseKey(Scanner s) {
 		require("\\(", s);
@@ -411,9 +411,9 @@ public class BoardParser {
 
 	/**
 	 * Requires next token to be equal to p, otherwise fails parsing
-	 * @param p string
-	 * @param s scanner
-	 * @return
+	 * @param p - string
+	 * @param s - scanner
+	 * @return string - string
 	 */
 	public static String require(String p, Scanner s) {
 		if (s.hasNext(p)) {
@@ -425,9 +425,9 @@ public class BoardParser {
 
 	/**
 	 * Check for next token to be equal to p. If so, consume it and return true.
-	 * @param p string
-	 * @param s scanner
-	 * @return
+	 * @param p - string
+	 * @param s - scanner
+	 * @return String - string
 	 */
 	static boolean checkFor(String p, Scanner s) {
 		if (s.hasNext(p)) {

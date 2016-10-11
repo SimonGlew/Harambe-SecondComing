@@ -19,8 +19,8 @@ import util.Position;
 /**
  * Class that is the controller between the client and GUI of the program, this holds the link between three main parts of the program, the client, GUI and
  * renderer of the GUI
- * 
- * @author Kyal Bond & Simon Glew
+ *
+ * @author Simon Glew and Kyal Bond
  */
 public class ClientController {
 	private Client client;
@@ -31,8 +31,8 @@ public class ClientController {
 	private UltimateDijkstras uDijkstras;
 
 	/**
-	 * Constructor that gets called when the client is called, that makes this controller object 
-	 * 
+	 * Constructor that gets called when the client is called, that makes this controller object
+	 *
 	 * @param c - Client connected to the controller
 	 */
 	public ClientController(Client c) {
@@ -44,7 +44,7 @@ public class ClientController {
 	}
 
 	/**
-	 * Method that creates a new GUI object when called within the client, this allows us to wait for a successful login message before creating a GUI  
+	 * Method that creates a new GUI object when called within the client, this allows us to wait for a successful login message before creating a GUI
 	 */
 	public void showGUI() {
 		gui = new GUI(this);
@@ -61,7 +61,7 @@ public class ClientController {
 
 	/**
 	 * Method that returns the name of client that the controller is connected to
-	 * 
+	 *
 	 * @return username - Client/Players username
 	 */
 	public String getName() {
@@ -70,13 +70,13 @@ public class ClientController {
 
 	/**
 	 * Method that returns the amount of bananas of the player joined to the client
-	 * 
+	 *
 	 * @return bananaCount - Players number of bananas
 	 */
 	public int getBananaCount() {
 		if(board == null)return 0;
 		return board.getPlayer(getName()).getNumOfBananas();
-		
+
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class ClientController {
 		renderer.rotateCounterClockwise();
 		drawBoard();
 	}
-	
+
 	/**
 	 * Method that calls the rotate right method within the renderer, this rotates the view clockwise
 	 */
@@ -97,7 +97,7 @@ public class ClientController {
 
 	/**
 	 * Method that calls the sendMessage method within the client, this calls a method that sends a method to the server
-	 * 
+	 *
 	 * @param msg - Message to be send through the server
 	 */
 	public void sendMessage(PlayerCommand msg) {
@@ -112,10 +112,10 @@ public class ClientController {
 			gui.showBoard(renderer.paintBoard(board, board.getPlayer(client.getUsername()), 1000, 800, time));
 		}
 	}
-	
+
 	/**
 	 * Method that stores the current board in a local variable board within the controller
-	 * 
+	 *
 	 * @param board - Current state of the board
 	 */
 	public void sendBoard(Board board) {
@@ -125,9 +125,9 @@ public class ClientController {
 
 	/**
 	 * Method that highlights the tile at x,y on the gameFrame in GUI
-	 * 
-	 * @param x
-	 * @param y
+	 *
+	 * @param x - x-pos
+	 * @param y - y-pos
 	 */
 	public void selectTile(int x, int y) {
 		if (board != null) {
@@ -140,10 +140,10 @@ public class ClientController {
 
 	/**
 	 * Gets tile at x,y on the gameFrame in GUI
-	 * 
-	 * @param x
-	 * @param y
-	 * @return
+	 *
+	 * @param x x-pos
+	 * @param y y-pos
+	 * @return tile - Tile to get from the position
 	 */
 	public Tile getTile(int x, int y) {
 		Position p = renderer.isoToIndex(x, y);
@@ -152,14 +152,14 @@ public class ClientController {
 
 	/**
 	 * Moves the player in the given direction once
-	 * 
-	 * @param dir
+	 *
+	 * @param dir - direction to move
 	 */
 	public void moveSinglePos(String dir) {
 		if(uDijkstras != null ){
 			uDijkstras.setPath(null);
 		}
-		
+
 		//Get real direction from string input
 		Direction d = null;
 		if (dir.equals("N"))
@@ -190,9 +190,9 @@ public class ClientController {
 
 	/**
 	 * Move player to select position from current position using dijkstras algorithm
-	 * 
-	 * @param x
-	 * @param y
+	 *
+	 * @param x - x-pos to move
+	 * @param y - y-pos to move
 	 */
 	public void moveWithUltimateDijkstras(int x, int y) {
 		//Reset path if moving
@@ -205,7 +205,7 @@ public class ClientController {
 			Location loc = board.getPlayer(getName()).getLocation();
 			Tile t = loc.getTileAtPosition(p);
 			renderer.selectTile(t);
-			
+
 			//Create path to destination and start timer to move
 			if (t != null) {
 				uDijkstras = new UltimateDijkstras(this, board.getPlayer(getName()).getTile(), loc, t);
@@ -215,15 +215,15 @@ public class ClientController {
 			}
 		}
 	}
-	
+
 	/**
 	 * Moves Player to tile (for dijkstras algorithm)
-	 * 
-	 * @param t
+	 *
+	 * @param t - tile to move to
 	 */
 	public void moveToPos(Tile t) {
 		Tile from = null;
-		
+
 		//Checks that players position is the correct position
 		if(uDijkstras.oldTile == null){
 			from = board.getPlayer(getName()).getTile();
@@ -231,9 +231,9 @@ public class ClientController {
 		}else{
 			from = uDijkstras.oldTile;
 		}
-		
+
 		Direction d = Location.getDirDijkstras(from, t);
-		
+
 		//Move player to tile
 		if (d != null) {
 			String command = "move " + getName() + " " + d.toString();
@@ -242,10 +242,10 @@ public class ClientController {
 		uDijkstras.oldTile = t;
 		drawBoard();
 	}
-	
+
 	/**
 	 * Gets the inventory using the board and the name of the player and returns it
-	 * 
+	 *
 	 * @return inventory - Players inventory
 	 */
 	public ArrayList<Item> getInventory() {
@@ -254,29 +254,29 @@ public class ClientController {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Method that updates the time variable when called from the server, this method gets called every second
-	 * 
+	 *
 	 * @param time - Current time of the server
 	 */
 	public void updateTime(int time){
 		this.time = time;
 		sendBoard(board);
 	}
-	
+
 	/**
-	 * Gets and returns the current time 
-	 * 
+	 * Gets and returns the current time
+	 *
 	 * @return time - Current time of the server
 	 */
 	public int getTime(){
 		return this.time;
 	}
-	
+
 	/**
-	 * Method that gets called from within GUI that will drop an item, this constructs a Player Command to be sent over the server 
-	 * 
+	 * Method that gets called from within GUI that will drop an item, this constructs a Player Command to be sent over the server
+	 *
 	 * @param index - index of item you want to drop
 	 */
 	public void dropItemPlayer(int index) {
@@ -285,10 +285,10 @@ public class ClientController {
 		String command = "drop " + name + " " + index;
 		sendMessage(new PlayerCommand(command));
 	}
-	
+
 	/**
-	 * Method that gets called from within GUI that will use an item, this constructs a Player Command to be sent over the server 
-	 * 
+	 * Method that gets called from within GUI that will use an item, this constructs a Player Command to be sent over the server
+	 *
 	 * @param index - index of item you want to use
 	 */
 	public void useItem(int index) {
@@ -297,10 +297,10 @@ public class ClientController {
 		String command = "use " + name + " " + index;
 		sendMessage(new PlayerCommand(command));
 	}
-	
+
 	/**
 	 * Method that gets called from within GUI that will siphon a banana in your inventory, this constructs a Player Command to be sent over the server
-	 * 
+	 *
 	 * @param index - index of banana you want to siphon
 	 */
 	public void siphonBananaPlayer(int index) {
@@ -309,20 +309,20 @@ public class ClientController {
 		String command = "siphon " + name + " " + index;
 		sendMessage(new PlayerCommand(command));
 	}
-	
+
 	/**
 	 * Gets the inventory item at the required index and returns it
-	 * 
+	 *
 	 * @param i - index of item you want
 	 * @return item at index i - either item or a null if no item is there
 	 */
 	public Item getInventoryItem(int i) {
 		return board.getPlayer(getName()).getInventory().get(i);
 	}
-	
+
 	/**
 	 * Method that gets passed in a tile and if there is an item on that tile it constructs a Player Command to be sent over the server
-	 * 
+	 *
 	 * @param t - Tile that you want to pickup from
 	 */
 	public void pickupItemPlayer(Tile t) {
@@ -332,29 +332,29 @@ public class ClientController {
 			sendMessage(new PlayerCommand(command));
 		}
 	}
-	
+
 	/**
 	 * Method that gets called from the client when a player has won, and creates a new game over window
-	 * 
+	 *
 	 * @param playerName - Name of winning player
 	 */
 	public void showEndGameScreen(String playerName) {
 		new GameOver(playerName);
 		sendMessage(new PlayerCommand("close"));
 	}
-	
+
 	/**
 	 * Returns the current player which the client is connected too
-	 * 
+	 *
 	 * @return currentPlayer - Player that is connected to the client
 	 */
 	public Player getPlayer() {
 		return board.getPlayer(client.getUsername());
 	}
-	
+
 	/**
 	 * Shows a message onto the popup on the renderer screen
-	 * 
+	 *
 	 * @param s - String to be shown
 	 */
 	public void showMessage(String s){
