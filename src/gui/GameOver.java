@@ -22,7 +22,7 @@ public class GameOver implements ActionListener{
 	
 	public GameOver(String name){
 		gameFrame = new JFrame("Harambe, Second Coming: WINNER");
-		gameFrame.setSize(1150, 810);
+		gameFrame.setSize(1150, 850);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setResizable(false);
 		
