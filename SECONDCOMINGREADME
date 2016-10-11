@@ -1,5 +1,14 @@
 HARAMBE SECONDCOMING README
 
+IMPORTANT NOTE ABOUT IMPORTING PROJECT:
+######################################################################################
+we did not export this properly. In order to import the project properly, assets, doc,
+and the map-new.txt file need to be in the project directory (not the SRC directory), but
+all other packages need to be within \src
+
+Sorry
+######################################################################################
+
 Running The Game
 
 Step 1: Run the clientserver.Server class as J Application (console will print out the port that is being listened on)
@@ -27,5 +36,5 @@ Once a player has reached 5 bananas the game will end and the name of the winnin
 If you walk into the door of a house, you will be transported within the house, if you the walk back onto the doortile (visible from within the house) you will be transported back out of the house.
 
 NPCs will walk around with two possible strategies, talking to them during the day will either result in you getting a banana or no action, at night time the NPCs will become uncontactable and no longer move.
- 
+
 Happy Exploring!!
