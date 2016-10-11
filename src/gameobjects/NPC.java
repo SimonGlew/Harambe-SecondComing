@@ -1,12 +1,17 @@
 package gameobjects;
 
+import NPCStrategies.CircleStrategy;
 import NPCStrategies.RandomStrategy;
 import core.GameSystem;
 import core.Location;
 import core.GameSystem.Direction;
 import tile.WaterTile;
 import util.Position;
-
+/**
+ * Class that holds all the information for an NPC within the game, using a strategy interface it selects a strategy to use during the game and 
+ * 
+ * @author Jack Slater
+ */
 public class NPC extends GameObject {
 
 	String strategyType;
@@ -19,11 +24,16 @@ public class NPC extends GameObject {
 	public NPC(String s, Direction d) {
 		this.strategyType = s;
 		facing = d;
-		this.strategy = new RandomStrategy();
+		if(strategyType.equals("random")){
+			this.strategy = new RandomStrategy();
+		}
+		if(strategyType.equals("circle")){
+			this.strategy = new CircleStrategy();
+		}
 	}
 	
 	public GameSystem.Direction getDirection(){
-		return strategy.getNextDirection();
+		return strategy.getNextDirection(this);
 	}
 	
 
@@ -48,7 +58,7 @@ public class NPC extends GameObject {
 	}
 	
 	public interface Strategy {		
-		public GameSystem.Direction getNextDirection();
+		public GameSystem.Direction getNextDirection(NPC npc);
 	}
 }
 

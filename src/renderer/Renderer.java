@@ -24,7 +24,6 @@ import util.Position;
 
 public class Renderer {
 
-	TempWindow window;
 	private Tile selected;
 	BufferedImage highlightTile;
 	BufferedImage highlightLocation;

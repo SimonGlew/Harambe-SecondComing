@@ -179,6 +179,7 @@ public class Server {
 		Server server = new Server(portNumber);
 		server.start();
 	}
+	
 	/**
 	 * Class that is a thread that holds the current time of the server, this increments each second and broadcasts to clients
 	 * 

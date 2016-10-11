@@ -7,7 +7,7 @@ import gameobjects.NPC;
 public class RandomStrategy implements NPC.Strategy{
 	
 	@Override
-	public Direction getNextDirection() {
+	public Direction getNextDirection(NPC npc) {
 		int randy = (int)(Math.random()*4);
 		
 		if(randy == 0){
