@@ -11,7 +11,7 @@ import util.Position;
 /**
  * Location objects store a map of directions to neighbours and a 2D array of
  * Tile objects.
- * 
+ *
  * @authors Jonathan, Jack, Kyal
  *
  */
@@ -25,7 +25,7 @@ public class Location {
 
 	/**
 	 * Constructor for location class
-	 * 
+	 *
 	 * @param id
 	 *            of location
 	 * @param name
@@ -45,7 +45,7 @@ public class Location {
 
 	/**
 	 * Get tiles of location
-	 * 
+	 *
 	 * @return tiles
 	 */
 	public Tile[][] getTiles() {
@@ -54,7 +54,7 @@ public class Location {
 
 	/**
 	 * Get name of location
-	 * 
+	 *
 	 * @return name
 	 */
 	public String getName() {
@@ -63,7 +63,7 @@ public class Location {
 
 	/**
 	 * Get neighbours of location
-	 * 
+	 *
 	 * @return
 	 */
 	public Map<GameSystem.Direction, Integer> getNeighbours() {
@@ -72,7 +72,7 @@ public class Location {
 
 	/**
 	 * Get direction of neighbour location
-	 * 
+	 *
 	 * @param id
 	 *            of location
 	 * @return direction of location
@@ -87,7 +87,7 @@ public class Location {
 
 	/**
 	 * Get neighbour location in direction
-	 * 
+	 *
 	 * @param direction
 	 * @return location
 	 */
@@ -97,7 +97,7 @@ public class Location {
 
 	/**
 	 * Set neighbours map of location
-	 * 
+	 *
 	 * @param neighbours
 	 */
 	public void setNeighbours(Map<GameSystem.Direction, Integer> neighbours) {
@@ -106,7 +106,7 @@ public class Location {
 
 	/**
 	 * Get id of location
-	 * 
+	 *
 	 * @return
 	 */
 	public int getId() {
@@ -115,7 +115,7 @@ public class Location {
 
 	/**
 	 * Get board of location
-	 * 
+	 *
 	 * @return
 	 */
 	public Board getBoard() {
@@ -125,7 +125,7 @@ public class Location {
 	/**
 	 * Get the tile in the direction d from position p. Takes into account
 	 * location edges.
-	 * 
+	 *
 	 * @param position
 	 * @param direction
 	 * @return tile
@@ -179,7 +179,7 @@ public class Location {
 
 	/**
 	 * Returns true if position is within bounds of tiles array
-	 * 
+	 *
 	 * @param position
 	 * @return boolean true if within bounds
 	 */
@@ -190,7 +190,7 @@ public class Location {
 
 	/**
 	 * Get position of tile in location
-	 * 
+	 *
 	 * @param tile
 	 * @return position
 	 */
@@ -208,7 +208,7 @@ public class Location {
 	/**
 	 * Get tile at position, allows indexes out of bounds, getting tiles from
 	 * neighbouring locations
-	 * 
+	 *
 	 * @param position
 	 * @return tile
 	 */
@@ -234,7 +234,7 @@ public class Location {
 
 	/**
 	 * Get tile at position pos
-	 * 
+	 *
 	 * @param pos
 	 *            position
 	 * @return tile at position
@@ -248,7 +248,7 @@ public class Location {
 
 	/**
 	 * Get direction for dijkstra's algorithm from player to position.
-	 * 
+	 *
 	 * @param player
 	 * @param position
 	 * @return direction
@@ -283,7 +283,7 @@ public class Location {
 	/**
 	 * Get direction of tile t from position from. Returns null if tile is not
 	 * adjacent to position
-	 * 
+	 *
 	 * @param from
 	 *            position
 	 * @param t
@@ -308,7 +308,7 @@ public class Location {
 
 	/**
 	 * Get direction relative to the observers viewing angle
-	 * 
+	 *
 	 * @param d
 	 *            diection
 	 * @param viewing
@@ -340,7 +340,7 @@ public class Location {
 
 	/**
 	 * Get relative direction from viewing direction in the other direction
-	 * 
+	 *
 	 * @param d
 	 *            direction
 	 * @param viewing
@@ -372,7 +372,7 @@ public class Location {
 
 	/**
 	 * Get direction clockwise of direction
-	 * 
+	 *
 	 * @param d
 	 *            direction input
 	 * @return direction
@@ -395,7 +395,7 @@ public class Location {
 
 	/**
 	 * Gets direction in counter clockwise direction
-	 * 
+	 *
 	 * @param d
 	 *            direction input
 	 * @return counter clockwise direction
@@ -418,7 +418,7 @@ public class Location {
 
 	/**
 	 * Returns the direction in the opposite direction
-	 * 
+	 *
 	 * @param d
 	 *            direction input
 	 * @return opposite direction
