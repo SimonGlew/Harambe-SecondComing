@@ -25,7 +25,7 @@ import util.Position;
 /**
  * Renderer object takes in a board and play and returns an image to be
  * displayed by the aplpication window.
- * 
+ *
  * @author Jonathan Carr
  *
  */
@@ -84,8 +84,11 @@ public class Renderer {
 	 * Set message to be delivered by Harambe in speech bubble.
 	 *
 	 * @param msg
+	 *            - message to be sent
 	 * @param currentTime
+	 *            - currentTime
 	 * @param duration
+	 *            - duration to last for
 	 */
 	public void setMessage(String msg, int currentTime, int duration) {
 		message = msg;
@@ -97,10 +100,15 @@ public class Renderer {
 	 * rendered image.
 	 *
 	 * @param board
+	 *            - board
 	 * @param player
-	 * @param width
-	 * @param height
+	 *            - player based on
+	 * @param w
+	 *            - width of board
+	 * @param h
+	 *            - height of board
 	 * @param time
+	 *            - curent time
 	 * @return rendered board image
 	 */
 	public BufferedImage paintBoard(Board board, Player player, int w, int h, int time) {
@@ -217,10 +225,9 @@ public class Renderer {
 	 * This method of painting is only used within the world editor, not the
 	 * game itself.
 	 *
-	 * @param location
-	 *            to be centered
-	 * @param width
-	 * @param height
+	 * @param loc - location to be centered
+	 * @param w - width
+	 * @param h - height
 	 * @return rendered board image
 	 */
 	public BufferedImage paintLocation(Location loc, int w, int h) {
@@ -267,13 +274,13 @@ public class Renderer {
 	/**
 	 * Draw board object from the correct perspective.
 	 *
-	 * @param g
-	 * @param board
-	 * @param map
-	 * @param w
-	 * @param h
-	 * @param p
-	 * @param player
+	 * @param g - graphics object
+	 * @param board - board to be drawn
+	 * @param map - map
+	 * @param w - width
+	 * @param h - height
+	 * @param p - poit
+	 * @param player - player
 	 */
 	public void drawBoard(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p, Player player) {
 		if (!map.containsKey(p)) {
@@ -300,15 +307,14 @@ public class Renderer {
 
 	/**
 	 * Draw location (all tiles and objects) from North perspective.
-	 * 
-	 * @param graphics
-	 * @param board
-	 * @param map
-	 * @param width
-	 * @param height
-	 * @param position
-	 *            relative to
-	 * @param player
+	 *
+	 * @param g - graphics object
+	 * @param board - board
+	 * @param map - map
+	 * @param w - width
+	 * @param h - height
+	 * @param p - point
+	 * @param player - player
 	 */
 	public void drawBoardFromNorth(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p,
 			Player player) {
@@ -330,15 +336,14 @@ public class Renderer {
 
 	/**
 	 * Draw location (all tiles and objects) from East perspective.
-	 * 
-	 * @param graphics
-	 * @param board
-	 * @param map
-	 * @param width
-	 * @param height
-	 * @param position
-	 *            relative to
-	 * @param player
+	 *
+	 * @param g - graphics
+	 * @param board - board
+	 * @param map - map
+	 * @param w - width
+	 * @param h - height
+	 * @param p - point
+	 * @param player - player
 	 */
 	public void drawBoardFromEast(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p,
 			Player player) {
@@ -360,15 +365,14 @@ public class Renderer {
 
 	/**
 	 * Draw location (all tiles and objects) from South perspective.
-	 * 
-	 * @param graphics
-	 * @param board
-	 * @param map
-	 * @param width
-	 * @param height
-	 * @param position
-	 *            relative to
-	 * @param player
+	 *
+	 * @param g - graphics
+	 * @param board - board
+	 * @param map - map
+	 * @param w - width
+	 * @param h - height
+	 * @param p - point
+	 * @param player - player
 	 */
 	public void drawBoardFromSouth(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p,
 			Player player) {
@@ -390,15 +394,14 @@ public class Renderer {
 
 	/**
 	 * Draw location (all tiles and objects) from West perspective.
-	 * 
-	 * @param graphics
-	 * @param board
-	 * @param map
-	 * @param width
-	 * @param height
-	 * @param position
-	 *            relative to
-	 * @param player
+	 *
+	 * @param g - graphics
+	 * @param board - board
+	 * @param map - map
+	 * @param w - width
+	 * @param h - height
+	 * @param p - point
+	 * @param player - player
 	 */
 	public void drawBoardFromWest(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p,
 			Player player) {
@@ -420,15 +423,13 @@ public class Renderer {
 
 	/**
 	 * Draw object of tile at position
-	 * 
-	 * @param graphics
-	 * @param tile
-	 * @param iso
-	 *            position
-	 * @param location
-	 * @param position
-	 *            on location
-	 * @param player
+	 *
+	 * @param g - graphics
+	 * @param tile - tile
+	 * @param iso - iso
+	 * @param loc - location
+	 * @param pos - position
+	 * @param player - player
 	 */
 	private void drawObject(Graphics2D g, Tile tile, Point iso, Location loc, Position pos, Player player) {
 		if (tile.getGameObject() != null) {
@@ -466,13 +467,11 @@ public class Renderer {
 	/**
 	 * Draw tile at position
 	 *
-	 * @param graphics
-	 * @param tile
-	 * @param iso
-	 *            position
-	 * @param location
-	 * @param position
-	 *            of tile in location
+	 * @param g - graphics
+	 * @param tile - tile
+	 * @param iso - iso
+	 * @param loc - location
+	 * @param pos - position
 	 */
 	private void drawTile(Graphics2D g, Tile tile, Point iso, Location loc, Position pos) {
 		BufferedImage floor = getImage(tile.getImage(viewingDir));
@@ -488,7 +487,7 @@ public class Renderer {
 	/**
 	 * Highlight the tile selected
 	 *
-	 * @param graphics
+	 * @param g - graphics
 	 */
 	public void drawSelected(Graphics2D g) {
 		if (selectedPoint != null) {
@@ -500,7 +499,7 @@ public class Renderer {
 	/**
 	 * Highlight the location selected
 	 *
-	 * @param graphics
+	 * @param g - graphics
 	 */
 	public void drawSelectedLocation(Graphics2D g) {
 		if (selectedLocation != null) {
@@ -530,9 +529,9 @@ public class Renderer {
 	/**
 	 * Calculate x and y offsets to display location centered in screen
 	 *
-	 * @param location
-	 * @param width
-	 * @param height
+	 * @param loc - location
+	 * @param w - width
+	 * @param h - height
 	 */
 	public void calculateOffsets(Location loc, int w, int h) {
 		int boardHeight = (int) ((loc.getTiles().length + loc.getTiles()[0].length - 1) * TILE_WIDTH
@@ -544,8 +543,8 @@ public class Renderer {
 	/**
 	 * Return point (x,y) position on screen to display tile at index (i, j)
 	 *
-	 * @param i
-	 * @param j
+	 * @param i - x
+	 * @param j - y
 	 * @return point on screen
 	 */
 	public Point twoDToIso(int i, int j) {
@@ -577,8 +576,8 @@ public class Renderer {
 	/**
 	 * Return index of tile at the position x, y on the game screen
 	 *
-	 * @param x
-	 * @param y
+	 * @param x - x
+	 * @param y - y
 	 * @return poistion of tile
 	 */
 	public Position isoToIndex(int x, int y) {
@@ -611,7 +610,7 @@ public class Renderer {
 	/**
 	 * Select tile t
 	 *
-	 * @param t
+	 * @param t - t
 	 */
 	public void selectTile(Tile t) {
 		setSelected(t);
@@ -620,8 +619,8 @@ public class Renderer {
 	/**
 	 * Select tile pos of location loc
 	 *
-	 * @param pos
-	 * @param loc
+	 * @param pos - position
+	 * @param loc - location
 	 */
 	public void selectTile(Position pos, Location loc) {
 		setSelected(getTileAtPos(pos, loc));
@@ -630,8 +629,8 @@ public class Renderer {
 	/**
 	 * Get tile at position pos in Location loc
 	 *
-	 * @param pos
-	 * @param loc
+	 * @param pos - position
+	 * @param loc - location
 	 * @return tile
 	 */
 	public Tile getTileAtPos(Position pos, Location loc) {
@@ -645,7 +644,7 @@ public class Renderer {
 	/**
 	 * Return selected tile
 	 *
-	 * @return
+	 * @return tile
 	 */
 	public Tile getSelected() {
 		return selected;
@@ -654,7 +653,7 @@ public class Renderer {
 	/**
 	 * Select tile to be highlighed
 	 *
-	 * @param selected
+	 * @param selected - selected
 	 */
 	public void setSelected(Tile selected) {
 		this.selected = selected;
@@ -663,7 +662,7 @@ public class Renderer {
 	/**
 	 * Highlight location in direction dir from centered location
 	 *
-	 * @param dir
+	 * @param dir - direction
 	 */
 	public void selectLocation(Direction dir) {
 		this.selectedLocation = dir;
