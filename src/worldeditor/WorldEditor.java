@@ -33,6 +33,12 @@ import tile.WaterTile;
 import tile.WoodTile;
 import util.Position;
 
+/**
+ * World Editor class used to create the board that the game world is played on.
+ *
+ * @author Jonathan Carr
+ *
+ */
 public class WorldEditor {
 
 	Board board;
@@ -45,21 +51,24 @@ public class WorldEditor {
 	String floor = "grass";
 	private String gameObject = "tree";
 
+	/**
+	 * Constructor for WorldEditor, creates frame and toolselection windows.
+	 */
 	public WorldEditor() {
 		renderer = new Renderer();
-		// LOAD BOARD
 		board = BoardParser.parseBoardFName("map-new.txt");
-		// board = BoardCreator.loadBoard("map.txt");
-		// String s = BoardWriter.writeBoardToString(board);
-		// board = BoardCreator.loadBoardFromString(s);
-		// currentLocation = createBlankLocation();
 		currentLocation = 0;
-
 		frame = new EditorFrame(this);
 		toolSelect = new ToolSelectionFrame(this);
 		update();
 	}
 
+	/**
+	 * Creates a location consisting of only grass squares, adds it to the board
+	 * and returns the int id of the location.
+	 *
+	 * @return id of location
+	 */
 	public int createBlankLocation() {
 		Location loc = new Location(board.getNextUniqueId(), "", new Tile[10][10], board);
 		for (int i = 0; i < loc.getTiles().length; i++) {
@@ -71,6 +80,11 @@ public class WorldEditor {
 		return loc.getId();
 	}
 
+	/**
+	 * Create blank location of only wooden tiles. Returns location id.
+	 *
+	 * @return
+	 */
 	public int createIndoorLocation() {
 		Location loc = new Location(board.getNextUniqueId(), "", new Tile[10][10], board);
 		for (int i = 0; i < loc.getTiles().length; i++) {
@@ -82,6 +96,9 @@ public class WorldEditor {
 		return loc.getId();
 	}
 
+	/**
+	 * Updates image in EditorFrame by rendering a new bard.
+	 */
 	public void update() {
 		if (board.getLocationById(currentLocation) != null) {
 			frame.setImage(renderer.paintLocation(board.getLocationById(currentLocation), frame.panel.getWidth(),
@@ -89,10 +106,25 @@ public class WorldEditor {
 		}
 	}
 
+	/**
+	 * Main method for running world editor.
+	 *
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		new WorldEditor();
 	}
 
+	/**
+	 * Process a tile depending on the tool selected. Set tile, game object
+	 * accordingly. also processes moving the world editor into and out of
+	 * rooms.
+	 *
+	 * @param i
+	 *            x position of tile
+	 * @param j
+	 *            y position of tile
+	 */
 	public void processTile(int i, int j) {
 		if (i >= 0 && j >= 0 && i < board.getLocationById(currentLocation).getTiles().length
 				&& j < board.getLocationById(currentLocation).getTiles()[0].length) {
@@ -184,24 +216,45 @@ public class WorldEditor {
 					tile.setGameObject(new FishingRod("Fishing Rod"));
 					break;
 				}
-				
+
 			}
 			update();
 		}
 	}
 
+	/**
+	 * Set floor type to string input
+	 *
+	 * @param string
+	 */
 	public void setFloorType(String string) {
 		this.floor = string;
 	}
 
+	/**
+	 * Set tool type to string input
+	 *
+	 * @param string
+	 */
 	public void setTool(String string) {
 		this.tool = string;
 	}
 
+	/**
+	 * Set object type to string input
+	 *
+	 * @param string
+	 */
 	public void setObjectType(String string) {
 		this.gameObject = string;
 	}
 
+	/**
+	 * set game object on tile to null
+	 *
+	 * @param i
+	 * @param j
+	 */
 	public void clearTile(int i, int j) {
 		if (i >= 0 && j >= 0 && i < board.getLocationById(currentLocation).getTiles().length
 				&& j < board.getLocationById(currentLocation).getTiles()[0].length) {
@@ -210,6 +263,11 @@ public class WorldEditor {
 		update();
 	}
 
+	/**
+	 * Set tile to selected in renderer (will show as highlighted white tile)
+	 *
+	 * @param selected
+	 */
 	public void selectTile(Position selected) {
 		if (selected != null) {
 			renderer.selectTile(new Position((int) selected.getX(), (int) selected.getY()),
@@ -219,11 +277,23 @@ public class WorldEditor {
 		selected = null;
 	}
 
+	/**
+	 * Set location to selected i nrenderer (will show as highlighted white
+	 * location)
+	 *
+	 * @param dir
+	 */
 	public void selectLocation(GameSystem.Direction dir) {
 		renderer.selectLocation(dir);
 		update();
 	}
 
+	/**
+	 * When clicking in direction adjacent to centered location, if no location
+	 * exists add one. If location exists, center editor in that location.
+	 *
+	 * @param dir
+	 */
 	public void clickLocation(Direction dir) {
 		if (dir != null) {
 			if (board.getLocationById(currentLocation).getNeighbours().get(dir) == null) {
@@ -239,6 +309,12 @@ public class WorldEditor {
 		update();
 	}
 
+	/**
+	 * Merge two maps of points to locations.
+	 * @param map1
+	 * @param map2
+	 * @return merged map
+	 */
 	public Map<Point, Location> mergeMaps(Map<Point, Location> map1, Map<Point, Location> map2) {
 		Map<Point, Location> mergedMap = new HashMap<Point, Location>();
 		for (Point p : map1.keySet()) {
@@ -250,6 +326,12 @@ public class WorldEditor {
 		return mergedMap;
 	}
 
+	/**
+	 * Get location in a series of directions from the starting location.
+	 * @param startingLoc
+	 * @param directions
+	 * @return target location
+	 */
 	public Location getLocationAt(int startingLoc, Direction[] directions) {
 		int finalLoc = startingLoc;
 		for (Direction d : directions) {
@@ -262,6 +344,9 @@ public class WorldEditor {
 		return board.getLocationById(finalLoc);
 	}
 
+	/**
+	 * Reset view to center on location 0.
+	 */
 	public void resetView() {
 		currentLocation = 0;
 		update();

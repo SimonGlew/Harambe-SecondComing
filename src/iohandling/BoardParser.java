@@ -2,7 +2,6 @@ package iohandling;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -38,7 +37,7 @@ import util.Position;
 /**
  * BoardParser parses a String or text file containing a board String and
  * returns a Board object.
- * 
+ *
  * @author Jonathan
  *
  */
@@ -47,7 +46,7 @@ public class BoardParser {
 
 	/**
 	 * Parses a board object from a text file
-	 * @param fname of text file 
+	 * @param fname of text file
 	 * @return board
 	 */
 	public static Board parseBoardFName(String fname) {
@@ -248,7 +247,7 @@ public class BoardParser {
 
 	/**
 	 * Parse DoorOutTile from Scanner
-	 * @param scanner 
+	 * @param scanner
 	 * @param i x coordinate of position
 	 * @param j y coordinate of position
 	 * @return DoorOutTile
@@ -442,7 +441,7 @@ public class BoardParser {
 
 	/**
 	 * Throw an error
-	 * 
+	 *
 	 */
 	private static void fail(String message, Scanner s) {
 		String msg = message + "\n   @ ...";
