@@ -233,7 +233,8 @@ public class GameSystem {
 					p.getInventory().remove(i);
 					p.pickUpItem(new Banana("Banana"));
 					serverController.broadcastPlayerMessage(
-							"The Pretty Penguin was overwhelmed as you handed her the fish, in response she gave you a golden reward!", p);
+							"The Pretty Penguin was overwhelmed as you handed her the fish, in response she gave you a golden reward!",
+							p);
 				}
 			}
 		}
@@ -252,10 +253,15 @@ public class GameSystem {
 		if (p != null && b != null) {
 			p.setNumOfBananas(p.getNumOfBananas() + 1);
 			p.getInventory().remove(b);
-			serverController.broadcastBarOnePlayer(
-					p.getUserName() + " has siphoned " + p.getNumOfBananas() + " banana/s, step it up soldier!",p);
-			serverController.broadcastPlayerMessage(
-					"You've siphoned a radiating banana, keep up the good work soldier!", p);
+			if (p.getNumOfBananas() == 1) {
+				serverController.broadcastBarOnePlayer(
+						p.getUserName() + " has siphoned " + p.getNumOfBananas() + " banana, step it up soldier!", p);
+			}else{
+				serverController.broadcastBarOnePlayer(
+						p.getUserName() + " has siphoned " + p.getNumOfBananas() + " bananas, step it up soldier!", p);
+			}
+			serverController
+					.broadcastPlayerMessage("You've siphoned a radiating banana, keep up the good work soldier!", p);
 			return p.getNumOfBananas() == WINNING_BANANA_COUNT;
 		}
 		return false;
@@ -325,7 +331,7 @@ public class GameSystem {
 			npc.setFacing(dir);
 			Tile newTile = NPCs.get(npc).getTileInDirection(npcTile.getPos(), dir);
 			if (newTile != null) {
-				if (newTile.getGameObject() == null) {
+				if (newTile.getGameObject() == null && !(newTile instanceof WaterTile)) {
 					npcTile.setGameObject(null);
 					newTile.setGameObject(npc);
 					NPCs.put(npc, board.getLocationById(newTile.getLocationID()));
