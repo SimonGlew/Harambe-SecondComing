@@ -22,6 +22,13 @@ import tile.DoorOutTile;
 import tile.Tile;
 import util.Position;
 
+/**
+ * Renderer object takes in a board and play and returns an image to be
+ * displayed by the aplpication window.
+ * 
+ * @author Jonathan Carr
+ *
+ */
 public class Renderer {
 
 	// Tile to be selected
@@ -106,7 +113,7 @@ public class Renderer {
 		Location loc = player.getLocation();
 		Map<Point, Integer> map = board.mapLocations(loc.getId(), 0, 0, new HashMap<Point, Integer>());
 
-		//Determine order to draw neighbouring locations
+		// Determine order to draw neighbouring locations
 		int[] drawOrderX = null;
 		int[] drawOrderY = null;
 		switch (viewingDir) {
@@ -136,7 +143,7 @@ public class Renderer {
 			break;
 		}
 
-		//Draw neighbouring locations in order
+		// Draw neighbouring locations in order
 		for (int i = 0; i < drawOrderX.length; i++) {
 			Point p = new Point(drawOrderX[i], drawOrderY[i]);
 			drawBoard(g, board, map, w, h, p, player);
@@ -157,7 +164,7 @@ public class Renderer {
 			}
 		}
 
-		//If player is outdoors, determine lighting based on time of day
+		// If player is outdoors, determine lighting based on time of day
 		if (!indoor) {
 			int dayPhase = time % dayCycle;
 			// One minutes of daytime
@@ -176,20 +183,21 @@ public class Renderer {
 			// System.out.println(time + "," + alpha);
 			g.fillRect(0, 0, w, h);
 		}
-		//If there is a message to be displayed, draw speech bubble and text
+		// If there is a message to be displayed, draw speech bubble and text
 		if (messageTimer >= time) {
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("Arial", Font.BOLD, 28));
 			g.drawImage(speechBubble, 0, 0, null);
 			String text = message;
-			//If text is too long, split it on appropriate spaces into new lines
+			// If text is too long, split it on appropriate spaces into new
+			// lines
 			for (int i = 45; i < text.length(); i++) {
 				if (text.charAt(i) == ' ') {
 					text = text.substring(0, i) + "\n" + text.substring(i + 1);
 					i += 45;
 				}
 			}
-			//Center each line
+			// Center each line
 			int linenum = 0;
 			for (String line : text.split("\n")) {
 				FontMetrics fm = g.getFontMetrics();
@@ -292,12 +300,14 @@ public class Renderer {
 
 	/**
 	 * Draw location (all tiles and objects) from North perspective.
+	 * 
 	 * @param graphics
 	 * @param board
 	 * @param map
 	 * @param width
 	 * @param height
-	 * @param position relative to
+	 * @param position
+	 *            relative to
 	 * @param player
 	 */
 	public void drawBoardFromNorth(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p,
@@ -320,12 +330,14 @@ public class Renderer {
 
 	/**
 	 * Draw location (all tiles and objects) from East perspective.
+	 * 
 	 * @param graphics
 	 * @param board
 	 * @param map
 	 * @param width
 	 * @param height
-	 * @param position relative to
+	 * @param position
+	 *            relative to
 	 * @param player
 	 */
 	public void drawBoardFromEast(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p,
@@ -348,12 +360,14 @@ public class Renderer {
 
 	/**
 	 * Draw location (all tiles and objects) from South perspective.
+	 * 
 	 * @param graphics
 	 * @param board
 	 * @param map
 	 * @param width
 	 * @param height
-	 * @param position relative to
+	 * @param position
+	 *            relative to
 	 * @param player
 	 */
 	public void drawBoardFromSouth(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p,
@@ -376,12 +390,14 @@ public class Renderer {
 
 	/**
 	 * Draw location (all tiles and objects) from West perspective.
+	 * 
 	 * @param graphics
 	 * @param board
 	 * @param map
 	 * @param width
 	 * @param height
-	 * @param position relative to
+	 * @param position
+	 *            relative to
 	 * @param player
 	 */
 	public void drawBoardFromWest(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p,
@@ -404,11 +420,14 @@ public class Renderer {
 
 	/**
 	 * Draw object of tile at position
+	 * 
 	 * @param graphics
 	 * @param tile
-	 * @param iso position
+	 * @param iso
+	 *            position
 	 * @param location
-	 * @param position on location
+	 * @param position
+	 *            on location
 	 * @param player
 	 */
 	private void drawObject(Graphics2D g, Tile tile, Point iso, Location loc, Position pos, Player player) {
