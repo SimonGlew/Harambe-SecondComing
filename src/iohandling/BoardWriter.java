@@ -9,15 +9,28 @@ import core.GameSystem.Direction;
 import core.Location;
 import gameobjects.Player;
 
+/**
+ * BoardWriter writes the board object to a String or text file.
+ * @author Jonathan
+ *
+ */
+
 public class BoardWriter {
 
+	/**
+	 * Write a board object to a text file.
+	 * @param board
+	 * @param filename
+	 */
 	public static void writeBoard(Board b, String fname) {
 		try {
+			//Create PrintWriter object
 			PrintWriter print = new PrintWriter(new File(fname));
+			//Write player information
 			for (Player player : b.getPlayers().values()) {
-				System.out.println(player.toSaveString());
 				print.println(player.toSaveString());
 			}
+			//Write location objects based on toString methods.
 			for (Location loc : b.getLocations().values()) {
 				print.println("Location{");
 				print.println("id: " + loc.getId());
@@ -52,14 +65,20 @@ public class BoardWriter {
 		}
 	}
 
+	/**
+	 * Write board object to a String for server sending purposes
+	 * @param board
+	 * @return string
+	 */
 	public static String writeBoardToString(Board b) {
-
+		//Create StringBuilder
 		StringBuilder print = new StringBuilder();
+		//Print player save strings
 		for (Player player : b.getPlayers().values()) {
 			print.append(player.toSaveString());
 			print.append("\n");
 		}
-		
+		//Print locations objects based on toString moethods.
 		for (Location loc : b.getLocations().values()) {
 			print.append("Location{" + "\n");
 			print.append("id: " + loc.getId() + "\n");

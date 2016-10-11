@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 /**
@@ -51,8 +52,9 @@ public class GameOver implements ActionListener {
 		winner.setPreferredSize(new Dimension(1150, 30));
 		winner.setForeground(Color.WHITE);
 		winner.setFont(new Font("title", Font.BOLD, 22));
-		winner.setText("                                  " + name
-				+ " is the WINNER!");
+		winner.setText(name + " is the WINNER!");
+		winner.setAlignmentX(SwingConstants.CENTER);
+		winner.setHorizontalAlignment(SwingConstants.CENTER);
 
 		// Image label for animation images
 		image = new JLabel();
