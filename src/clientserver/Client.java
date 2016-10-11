@@ -9,7 +9,7 @@ import gui.Menu;
 import iohandling.BoardParser;
 
 /**
- * This is the class that holds all the information for the client, for the client server exchange, this holds connection and the streams used for 
+ * This is the class that holds all the information for the client, for the client server exchange, this holds the connection and the streams used for 
  * communicating with the server
  * 
  * @author Simon Glew
