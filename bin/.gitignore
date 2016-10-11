@@ -1,9 +1,13 @@
+/exceptions/
+/gui/
+/items/
 /NPCStrategies/
 /clientserver/
+/core/
 /gameobjects/
-/gui/
+/iohandling/
+/renderer/
 /testing/
 /tile/
+/util/
 /worldeditor/
-/core/
-/items/
