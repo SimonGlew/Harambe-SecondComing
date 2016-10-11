@@ -213,7 +213,7 @@ public class GameLogicTesting {
 	/**
 	 * Checking that you cannot move to another tile that has terrain (game object) on it
 	 */
-	public @Test void checkParsingMovingFalseTerrian(){
+	public @Test void checkParsingMovingFalseTerrain(){
 		ServerController s = new ServerController(new Server(1000));
 		s.parseInput(new PlayerCommand("login Simon"));
 		s.parseInput(new PlayerCommand("move Simon south"));
