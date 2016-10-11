@@ -23,6 +23,12 @@ import tile.Tile;
 import tile.WaterTile;
 import util.Position;
 
+/**
+ * Main class for running the game, stored server side and used to alter the state of the game
+ * 
+ * @author Jack Slater
+ *
+ */
 public class GameSystem {
 
 	private Board board;
@@ -33,7 +39,13 @@ public class GameSystem {
 
 	public final Integer WINNING_BANANA_COUNT = 5;
 	public final Integer PLAYER_KEY_LIMIT = 3;
-
+	
+	/**
+	 * Enum used for Directions throughout the game
+	 * @author Jack Slater
+	 *
+	 *
+	 */
 	public enum Direction {
 		NORTH, SOUTH, EAST, WEST
 	}
@@ -44,11 +56,18 @@ public class GameSystem {
 		generateCodes();
 		storeNpcs();
 	}
-
+	
+	/**
+	 * Method to return the current board
+	 * @return Board
+	 */
 	public Board getBoard() {
 		return board;
 	}
-
+	
+	/**
+	 * Method used to store all of the NPCs from the board in a map 
+	 */
 	public void storeNpcs() {
 		NPCs = new HashMap<NPC, Location>();
 
@@ -61,9 +80,11 @@ public class GameSystem {
 				}
 			}
 		}
-
 	}
-
+	
+	/**
+	 * Method used to randomize the codes for all of the cests and keys int he game so that every key and chest has a matching pair
+	 */
 	public void generateCodes() {
 		ArrayList<Chest> chests = new ArrayList<Chest>();
 		ArrayList<Key> keys = new ArrayList<Key>();
@@ -97,7 +118,13 @@ public class GameSystem {
 		}
 
 	}
-
+	
+	/**
+	 * Method used to move a player in a given direction and returns whether the action was a success
+	 * @param player
+	 * @param direction
+	 * @return boolean
+	 */
 	public boolean movePlayer(Player p, Direction d) {
 
 		Location playerLoc = p.getLocation();
@@ -164,7 +191,11 @@ public class GameSystem {
 
 		return false;
 	}
-
+	
+	/**
+	 * Method called by the server every second, it will decide whether or not to move and npc and call the required methods
+	 * @param time
+	 */
 	public void tick(int time) {
 		for (NPC n : NPCs.keySet()) {
 			int randy = (int) (Math.random() * 4);
@@ -173,7 +204,12 @@ public class GameSystem {
 			}
 		}
 	}
-
+	
+	/**
+	 * Method called when a player is moving to an occupied tile to trigger an interaction between the player and the given object
+	 * @param player
+	 * @param newTile
+	 */
 	public void triggerInteraction(Player p, Tile newTile) {
 		Tile playerTil = p.getTile();
 		GameObject object = newTile.getGameObject();
@@ -243,7 +279,12 @@ public class GameSystem {
 					p);
 		}
 	}
-
+	
+	/**
+	 * Method called by the server controller to order a player to drop an item from their inventory
+	 * @param player
+	 * @param item
+	 */
 	public void playerDropItem(Player p, Item i) {
 		Tile tileInFront = p.getLocation().getTileInDirection(p.getPosition(), p.getFacing());
 		if (tileInFront.getGameObject() == null) {
@@ -252,7 +293,13 @@ public class GameSystem {
 		}
 
 	}
-
+	
+	/**
+	 * Method called by the server controller to order a player to siphon a banana from their inventory
+	 * @param player
+	 * @param banana
+	 * @return
+	 */
 	public boolean playerSiphonBanana(Player p, Banana b) {
 		if (p != null && b != null) {
 			p.setNumOfBananas(p.getNumOfBananas() + 1);
@@ -270,7 +317,12 @@ public class GameSystem {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Method called to order a player to use an item from their inventory
+	 * @param player
+	 * @param item
+	 */
 	public void playerUseItem(Player player, Item item) {
 		if (item instanceof FloatingDevice) {
 			player.setHasFloatingDevice(!player.getHasFloatingDevice());
@@ -321,7 +373,11 @@ public class GameSystem {
 			}
 		}
 	}
-
+	
+	/**
+	 * Method called to move an NPC in a direction which is gotten fromt he NPCs strategy
+	 * @param npc
+	 */
 	public void moveNPC(NPC npc) {
 		Tile npcTile = null;
 		outer: for (Tile[] ta : NPCs.get(npc).getTiles()) {
