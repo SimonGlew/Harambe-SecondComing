@@ -17,7 +17,7 @@ import javax.swing.Timer;
 /**
  * Class for the game over screen, displays small animation, the winning players
  * name and a close button.
- * 
+ *
  * @author Kyal Bond
  *
  */
@@ -29,7 +29,7 @@ public class GameOver implements ActionListener {
 
 	/**
 	 * Sets up all components and begins timer for animation
-	 * 
+	 *
 	 * @param name
 	 */
 	public GameOver(String name) {
@@ -51,7 +51,7 @@ public class GameOver implements ActionListener {
 		winner.setPreferredSize(new Dimension(1150, 30));
 		winner.setForeground(Color.WHITE);
 		winner.setFont(new Font("title", Font.BOLD, 22));
-		winner.setText("                                                                             " + name
+		winner.setText("                            " + name
 				+ " is the WINNER!");
 
 		// Image label for animation images
