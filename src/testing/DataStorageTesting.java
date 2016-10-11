@@ -48,8 +48,8 @@ public class DataStorageTesting {
 
 	/**
 	 * helper method to create scanner
-	 * @param string
-	 * @return
+	 * @param string - string to be scanned
+	 * @return Scanner - scanner
 	 */
 	public Scanner createScanner(String string) {
 		Scanner s = new Scanner(string);
