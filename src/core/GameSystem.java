@@ -26,7 +26,7 @@ import util.Position;
 /**
  * Main class for running the game, stored server side and used to alter the
  * state of the game
- * 
+ *
  * @author Jack Slater
  *
  */
@@ -45,7 +45,7 @@ public class GameSystem {
 
 	/**
 	 * Enum used for Directions throughout the game
-	 * 
+	 *
 	 * @author Jack Slater
 	 *
 	 *
@@ -63,7 +63,7 @@ public class GameSystem {
 
 	/**
 	 * Method to return the current board
-	 * 
+	 *
 	 * @return Board
 	 */
 	public Board getBoard() {
@@ -128,7 +128,7 @@ public class GameSystem {
 	/**
 	 * Method used to move a player in a given direction and returns whether the
 	 * action was a success
-	 * 
+	 *
 	 * @param player
 	 * @param direction
 	 * @return boolean
@@ -203,15 +203,18 @@ public class GameSystem {
 	/**
 	 * Method called by the server every second, it will decide whether or not
 	 * to move and npc and call the required methods if it is not night time
-	 * 
+	 *
 	 * @param time
 	 */
 	public void tick(int time) {
-		if ((90 < time % 300 && time % 300 < 150)) {
+
+		System.out.println(time);
+		if ((90 < time % 180 && time % 180 < 150)) {
 			nightTime = true;
 		}else{
 			nightTime = false;
 		}
+		System.out.println(nightTime);
 		for (NPC n : NPCs.keySet()) {
 			int randy = (int) (Math.random() * 4);
 			if (randy == 0) {
@@ -224,7 +227,7 @@ public class GameSystem {
 	/**
 	 * Method called when a player is moving to an occupied tile to trigger an
 	 * interaction between the player and the given object
-	 * 
+	 *
 	 * @param player
 	 * @param newTile
 	 */
@@ -305,7 +308,7 @@ public class GameSystem {
 	/**
 	 * Method called by the server controller to order a player to drop an item
 	 * from their inventory
-	 * 
+	 *
 	 * @param player
 	 * @param item
 	 */
@@ -321,7 +324,7 @@ public class GameSystem {
 	/**
 	 * Method called by the server controller to order a player to siphon a
 	 * banana from their inventory
-	 * 
+	 *
 	 * @param player
 	 * @param banana
 	 * @return
@@ -346,7 +349,7 @@ public class GameSystem {
 
 	/**
 	 * Method called to order a player to use an item from their inventory
-	 * 
+	 *
 	 * @param player
 	 * @param item
 	 */
@@ -404,7 +407,7 @@ public class GameSystem {
 	/**
 	 * Method called to move an NPC in a direction which is gotten fromt he NPCs
 	 * strategy
-	 * 
+	 *
 	 * @param npc
 	 */
 	public void moveNPC(NPC npc) {
