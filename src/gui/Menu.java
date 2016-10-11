@@ -27,7 +27,7 @@ import clientserver.Client;
  * Class for creating the menu to the game which allows the user to select
  * connection port through the use of swing.
  * 
- * @author Kyal
+ * @author Kyal Bond
  *
  */
 public class Menu implements MouseListener, ActionListener {

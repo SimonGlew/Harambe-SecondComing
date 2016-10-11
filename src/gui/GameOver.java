@@ -18,7 +18,7 @@ import javax.swing.Timer;
  * Class for the game over screen, displays small animation, the winning players
  * name and a close button.
  * 
- * @author Kyal
+ * @author Kyal Bond
  *
  */
 public class GameOver implements ActionListener {
