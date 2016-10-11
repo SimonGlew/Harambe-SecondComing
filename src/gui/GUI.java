@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -25,6 +26,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -47,7 +49,7 @@ import tile.Tile;
 import tile.WaterTile;
 
 /**
- * Class for creating the main window handling all input inlcuding mouse, keys.
+ * Class for creating the main window handling all input including mouse, keys.
  * Draws the UI and the game window for the renderer.
  * 
  * @author Kyal Bond
@@ -262,6 +264,72 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		shortcuts.setActionCommand("shortcuts");
 		shortcuts.addActionListener(this);
 		helpBar.add(shortcuts);
+	}
+
+	/**
+	 * Show shortcut dialog
+	 */
+	private void showShortCuts() {
+		//Create JDialog
+		JDialog pop = new JDialog();
+		pop.setTitle("Shortcut Keys");
+		pop.setSize(300,170);
+		pop.setLocationRelativeTo(gameFrame);
+		pop.setResizable(false);
+		pop.setModal(true);
+
+		//Title for panel
+		JLabel title = new JLabel("                 Shortcuts");
+		title.setFont(new Font("title", Font.BOLD, 20));
+
+		//Panel setup
+		GridLayout g = new GridLayout(6,0);
+		g.setVgap(5);
+		JPanel p = new JPanel(g);
+
+		//Add components to panel
+		p.add(title);
+		p.add(new JLabel("                          'W,A,S,D' = Move Player"));
+		p.add(new JLabel("                          'UP Arrow = 180 degree view change"));
+		p.add(new JLabel("                          'RIGHT Arrow' = 90 degree view change"));
+		p.add(new JLabel("                          'LEFT Arrow' = -90 degree view change"));
+
+		//Add panel to dialog and show, dispose when user closes window
+		pop.add(p);
+		pop.setVisible(true);
+		pop.dispose();
+	}
+
+	/**
+	 * Show help menu dialog
+	 */
+	private void showHelp() {
+		//Setup JDialog
+		JDialog pop = new JDialog();
+		pop.setTitle("Rules");
+		pop.setSize(450,400);
+		pop.setLocationRelativeTo(gameFrame);
+		pop.setResizable(false);
+		pop.setModal(true);
+
+		//Create title for pane
+		JLabel title = new JLabel("                        Help");
+		title.setFont(new Font("title", Font.BOLD, 20));
+		title.setPreferredSize(new Dimension(400,30));
+
+		//Create label for each rule
+		JLabel rule1 = new JLabel("");
+		rule1.setPreferredSize(new Dimension(450,30));
+
+		//Create pane and add labels to it
+		JPanel p = new JPanel(new FlowLayout());
+		p.add(title);
+		p.add(rule1);
+
+		//Add pane to dialog and show, dispose when user exits window
+		pop.add(p);
+		pop.setVisible(true);
+		pop.dispose();
 	}
 
 	/**
@@ -617,7 +685,11 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	public void actionPerformed(ActionEvent action) {
 		if ("quit".equals(action.getActionCommand())) {
 			System.exit(0);
-		} else {
+		} else if("help".equals(action.getActionCommand())){
+			showHelp();
+		}else if("shortcuts".equals(action.getActionCommand())){
+			showShortCuts();
+		}else {
 			changeHarambeImage();
 		}
 	}
