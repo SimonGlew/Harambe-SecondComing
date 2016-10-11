@@ -22,34 +22,52 @@ import tile.DoorOutTile;
 import tile.Tile;
 import util.Position;
 
+/**
+ * Renderer object takes in a board and play and returns an image to be
+ * displayed by the aplpication window.
+ * 
+ * @author Jonathan Carr
+ *
+ */
 public class Renderer {
 
+	// Tile to be selected
 	private Tile selected;
+	// Indices of selected tile
+	Point selectedPoint = null;
+
+	// Location to be selected
+	Direction selectedLocation = null;
+
+	// Renderer images
 	BufferedImage highlightTile;
 	BufferedImage highlightLocation;
 	BufferedImage playerSelect;
 	BufferedImage speechBubble;
 
-	Direction selectedLocation = null;
-
-	Point selectedPoint = null;
-
+	// Direction to be viewed from
 	public Direction viewingDir = Direction.NORTH;
 
 	final int TILE_WIDTH = 45;
+
+	// Offsets for drawing centered board
 	int xOffset;
 	int yOffset;
 
-	int xCenter;
-	int yCenter;
-
+	// Message to be delivered in Harambe's speech bubble.
 	String message = "";
+	// Message will be shown until this time is reached.
 	int messageTimer = -1;
 
+	// Seconds in one day night cycle.
 	int dayCycle = 180;
 
+	// Map of String (filenames of images) to the images themselves.
 	Map<String, BufferedImage> images;
 
+	/**
+	 * Constructor of renderer loads renderer images.
+	 */
 	public Renderer() {
 		images = new HashMap<String, BufferedImage>();
 		try {
@@ -62,11 +80,29 @@ public class Renderer {
 		}
 	}
 
+	/**
+	 * Set message to be delivered by Harambe in speech bubble.
+	 *
+	 * @param msg
+	 * @param currentTime
+	 * @param duration
+	 */
 	public void setMessage(String msg, int currentTime, int duration) {
 		message = msg;
 		messageTimer = currentTime + duration;
 	}
 
+	/**
+	 * Paint the baord based on the perspective of the player and return the
+	 * rendered image.
+	 *
+	 * @param board
+	 * @param player
+	 * @param width
+	 * @param height
+	 * @param time
+	 * @return rendered board image
+	 */
 	public BufferedImage paintBoard(Board board, Player player, int w, int h, int time) {
 		selectedPoint = null;
 		BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -76,6 +112,8 @@ public class Renderer {
 
 		Location loc = player.getLocation();
 		Map<Point, Integer> map = board.mapLocations(loc.getId(), 0, 0, new HashMap<Point, Integer>());
+
+		// Determine order to draw neighbouring locations
 		int[] drawOrderX = null;
 		int[] drawOrderY = null;
 		switch (viewingDir) {
@@ -105,6 +143,7 @@ public class Renderer {
 			break;
 		}
 
+		// Draw neighbouring locations in order
 		for (int i = 0; i < drawOrderX.length; i++) {
 			Point p = new Point(drawOrderX[i], drawOrderY[i]);
 			drawBoard(g, board, map, w, h, p, player);
@@ -124,7 +163,8 @@ public class Renderer {
 				}
 			}
 		}
-		// 3 minute day cycle
+
+		// If player is outdoors, determine lighting based on time of day
 		if (!indoor) {
 			int dayPhase = time % dayCycle;
 			// One minutes of daytime
@@ -140,20 +180,24 @@ public class Renderer {
 			if (dayPhase > 150 && dayPhase <= 180)
 				alpha = 127 - ((dayPhase - 150) * 127 / 30);
 			g.setColor(new Color(0, 0, 0, alpha));
-			//System.out.println(time + "," + alpha);
+			// System.out.println(time + "," + alpha);
 			g.fillRect(0, 0, w, h);
 		}
+		// If there is a message to be displayed, draw speech bubble and text
 		if (messageTimer >= time) {
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("Arial", Font.BOLD, 28));
 			g.drawImage(speechBubble, 0, 0, null);
 			String text = message;
+			// If text is too long, split it on appropriate spaces into new
+			// lines
 			for (int i = 45; i < text.length(); i++) {
 				if (text.charAt(i) == ' ') {
 					text = text.substring(0, i) + "\n" + text.substring(i + 1);
 					i += 45;
 				}
 			}
+			// Center each line
 			int linenum = 0;
 			for (String line : text.split("\n")) {
 				FontMetrics fm = g.getFontMetrics();
@@ -168,6 +212,17 @@ public class Renderer {
 		return image;
 	}
 
+	/**
+	 * Version of paint board that paints not based on a player, but a location.
+	 * This method of painting is only used within the world editor, not the
+	 * game itself.
+	 *
+	 * @param location
+	 *            to be centered
+	 * @param width
+	 * @param height
+	 * @return rendered board image
+	 */
 	public BufferedImage paintLocation(Location loc, int w, int h) {
 		BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = image.createGraphics();
@@ -202,16 +257,24 @@ public class Renderer {
 			drawOrderY = tempY4;
 			break;
 		}
-
 		for (int i = 0; i < drawOrderX.length; i++) {
 			Point p = new Point(drawOrderX[i], drawOrderY[i]);
 			drawBoard(g, loc.getBoard(), map, w, h, p, null);
 		}
-		xCenter = w / 2;
-		yCenter = h / 2;
 		return image;
 	}
 
+	/**
+	 * Draw board object from the correct perspective.
+	 *
+	 * @param g
+	 * @param board
+	 * @param map
+	 * @param w
+	 * @param h
+	 * @param p
+	 * @param player
+	 */
 	public void drawBoard(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p, Player player) {
 		if (!map.containsKey(p)) {
 			return;
@@ -235,6 +298,18 @@ public class Renderer {
 		drawSelectedLocation(g);
 	}
 
+	/**
+	 * Draw location (all tiles and objects) from North perspective.
+	 * 
+	 * @param graphics
+	 * @param board
+	 * @param map
+	 * @param width
+	 * @param height
+	 * @param position
+	 *            relative to
+	 * @param player
+	 */
 	public void drawBoardFromNorth(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p,
 			Player player) {
 		for (int i = 0; i < board.getLocationById(map.get(p)).getTiles().length; i++) {
@@ -253,6 +328,18 @@ public class Renderer {
 		}
 	}
 
+	/**
+	 * Draw location (all tiles and objects) from East perspective.
+	 * 
+	 * @param graphics
+	 * @param board
+	 * @param map
+	 * @param width
+	 * @param height
+	 * @param position
+	 *            relative to
+	 * @param player
+	 */
 	public void drawBoardFromEast(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p,
 			Player player) {
 		for (int j = 0; j < board.getLocationById(map.get(p)).getTiles()[0].length; j++) {
@@ -271,6 +358,18 @@ public class Renderer {
 		}
 	}
 
+	/**
+	 * Draw location (all tiles and objects) from South perspective.
+	 * 
+	 * @param graphics
+	 * @param board
+	 * @param map
+	 * @param width
+	 * @param height
+	 * @param position
+	 *            relative to
+	 * @param player
+	 */
 	public void drawBoardFromSouth(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p,
 			Player player) {
 		for (int i = 9; i >= 0; i--) {
@@ -289,6 +388,18 @@ public class Renderer {
 		}
 	}
 
+	/**
+	 * Draw location (all tiles and objects) from West perspective.
+	 * 
+	 * @param graphics
+	 * @param board
+	 * @param map
+	 * @param width
+	 * @param height
+	 * @param position
+	 *            relative to
+	 * @param player
+	 */
 	public void drawBoardFromWest(Graphics2D g, Board board, Map<Point, Integer> map, int w, int h, Point p,
 			Player player) {
 		for (int j = 9; j >= 0; j--) {
@@ -307,6 +418,18 @@ public class Renderer {
 		}
 	}
 
+	/**
+	 * Draw object of tile at position
+	 * 
+	 * @param graphics
+	 * @param tile
+	 * @param iso
+	 *            position
+	 * @param location
+	 * @param position
+	 *            on location
+	 * @param player
+	 */
 	private void drawObject(Graphics2D g, Tile tile, Point iso, Location loc, Position pos, Player player) {
 		if (tile.getGameObject() != null) {
 			if (tile.getGameObject() instanceof Player) {
@@ -319,6 +442,13 @@ public class Renderer {
 		}
 	}
 
+	/**
+	 * Get image object from map of fname to images. If image has not yet been
+	 * loaded, load it and return it.
+	 *
+	 * @param fname
+	 * @return image
+	 */
 	private BufferedImage getImage(String fname) {
 		if (images.containsKey(fname)) {
 			return images.get(fname);
@@ -333,6 +463,17 @@ public class Renderer {
 		return null;
 	}
 
+	/**
+	 * Draw tile at position
+	 *
+	 * @param graphics
+	 * @param tile
+	 * @param iso
+	 *            position
+	 * @param location
+	 * @param position
+	 *            of tile in location
+	 */
 	private void drawTile(Graphics2D g, Tile tile, Point iso, Location loc, Position pos) {
 		BufferedImage floor = getImage(tile.getImage(viewingDir));
 		if (tile == selected) {
@@ -344,6 +485,11 @@ public class Renderer {
 
 	}
 
+	/**
+	 * Highlight the tile selected
+	 *
+	 * @param graphics
+	 */
 	public void drawSelected(Graphics2D g) {
 		if (selectedPoint != null) {
 			g.drawImage(highlightTile, (int) selectedPoint.getX(),
@@ -351,6 +497,11 @@ public class Renderer {
 		}
 	}
 
+	/**
+	 * Highlight the location selected
+	 *
+	 * @param graphics
+	 */
 	public void drawSelectedLocation(Graphics2D g) {
 		if (selectedLocation != null) {
 			int locationSize = 10;
@@ -376,6 +527,13 @@ public class Renderer {
 		}
 	}
 
+	/**
+	 * Calculate x and y offsets to display location centered in screen
+	 *
+	 * @param location
+	 * @param width
+	 * @param height
+	 */
 	public void calculateOffsets(Location loc, int w, int h) {
 		int boardHeight = (int) ((loc.getTiles().length + loc.getTiles()[0].length - 1) * TILE_WIDTH
 				* Math.sin(Math.PI / 6));
@@ -383,13 +541,13 @@ public class Renderer {
 		yOffset = (int) ((h - boardHeight) / 2 + TILE_WIDTH * Math.cos(Math.PI / 6));
 	}
 
-	public Point isoTo2D(int x, int y) {
-		Point tempPt = new Point(0, 0);
-		tempPt.x = (2 * (y - yOffset) + (x - xOffset)) / 2;
-		tempPt.y = (2 * (y - yOffset) - (x - xOffset)) / 2;
-		return (tempPt);
-	}
-
+	/**
+	 * Return point (x,y) position on screen to display tile at index (i, j)
+	 *
+	 * @param i
+	 * @param j
+	 * @return point on screen
+	 */
 	public Point twoDToIso(int i, int j) {
 		int x = 0, y = 0;
 		switch (viewingDir) {
@@ -416,10 +574,13 @@ public class Renderer {
 		return (tempPt);
 	}
 
-	public static void main(String[] args) {
-		new Renderer();
-	}
-
+	/**
+	 * Return index of tile at the position x, y on the game screen
+	 *
+	 * @param x
+	 * @param y
+	 * @return poistion of tile
+	 */
 	public Position isoToIndex(int x, int y) {
 		double a = (x - xOffset) / 2 + y - yOffset;
 		double b = 2 * (y - yOffset) - a;
@@ -443,21 +604,36 @@ public class Renderer {
 			j = (int) Math.round(-1 * a / TILE_WIDTH + 9);
 			break;
 		}
-		// System.out.println(viewingDir.toString());
-		// System.out.println(i + ", " + j);
-
 		Position index = new Position(i, j);
 		return index;
 	}
 
+	/**
+	 * Select tile t
+	 *
+	 * @param t
+	 */
 	public void selectTile(Tile t) {
 		setSelected(t);
 	}
 
+	/**
+	 * Select tile pos of location loc
+	 *
+	 * @param pos
+	 * @param loc
+	 */
 	public void selectTile(Position pos, Location loc) {
 		setSelected(getTileAtPos(pos, loc));
 	}
 
+	/**
+	 * Get tile at position pos in Location loc
+	 *
+	 * @param pos
+	 * @param loc
+	 * @return tile
+	 */
 	public Tile getTileAtPos(Position pos, Location loc) {
 		if (pos.getX() >= 0 && pos.getY() >= 0 && pos.getX() < loc.getTiles().length
 				&& pos.getY() < loc.getTiles()[0].length) {
@@ -466,56 +642,45 @@ public class Renderer {
 		return null;
 	}
 
+	/**
+	 * Return selected tile
+	 *
+	 * @return
+	 */
 	public Tile getSelected() {
 		return selected;
 	}
 
+	/**
+	 * Select tile to be highlighed
+	 *
+	 * @param selected
+	 */
 	public void setSelected(Tile selected) {
 		this.selected = selected;
 	}
 
+	/**
+	 * Highlight location in direction dir from centered location
+	 *
+	 * @param dir
+	 */
 	public void selectLocation(Direction dir) {
 		this.selectedLocation = dir;
 	}
 
-	public Direction clockwiseDir(Direction d) {
-		if (d == Direction.NORTH) {
-			return Direction.EAST;
-		}
-		if (d == Direction.EAST) {
-			return Direction.SOUTH;
-		}
-		if (d == Direction.WEST) {
-			return Direction.NORTH;
-		}
-		if (d == Direction.SOUTH) {
-			return Direction.WEST;
-		}
-		return null;
-	}
-
-	public Direction counterClockwiseDir(Direction d) {
-		if (d == Direction.NORTH) {
-			return Direction.WEST;
-		}
-		if (d == Direction.EAST) {
-			return Direction.NORTH;
-		}
-		if (d == Direction.WEST) {
-			return Direction.SOUTH;
-		}
-		if (d == Direction.SOUTH) {
-			return Direction.EAST;
-		}
-		return null;
-	}
-
+	/**
+	 * Rotate counter clockwise
+	 */
 	public void rotateCounterClockwise() {
-		viewingDir = clockwiseDir(viewingDir);
+		viewingDir = Location.clockwiseDir(viewingDir);
 	}
 
+	/**
+	 * Rotate viewing direction clockwise
+	 */
 	public void rotateClockwise() {
-		viewingDir = counterClockwiseDir(viewingDir);
+		viewingDir = Location.counterClockwiseDir(viewingDir);
 
 	}
 }
