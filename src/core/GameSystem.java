@@ -208,13 +208,11 @@ public class GameSystem {
 	 */
 	public void tick(int time) {
 
-		System.out.println(time);
 		if ((90 < time % 180 && time % 180 < 150)) {
 			nightTime = true;
 		}else{
 			nightTime = false;
 		}
-		System.out.println(nightTime);
 		for (NPC n : NPCs.keySet()) {
 			int randy = (int) (Math.random() * 4);
 			if (randy == 0) {
