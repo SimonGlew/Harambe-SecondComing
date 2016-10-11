@@ -208,7 +208,7 @@ public class ClientController {
 			
 			//Create path to destination and start timer to move
 			if (t != null) {
-				uDijkstras = new UltimateDijkstras(this, board.getPlayer(getName()).getTile(), loc, t, board);
+				uDijkstras = new UltimateDijkstras(this, board.getPlayer(getName()).getTile(), loc, t);
 				uDijkstras.createPath();
 
 				uDijkstras.startTimer();

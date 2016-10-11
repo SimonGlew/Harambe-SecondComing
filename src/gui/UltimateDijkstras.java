@@ -12,7 +12,6 @@ import java.util.Stack;
 import javax.swing.Timer;
 
 import clientserver.ClientController;
-import core.Board;
 import core.GameSystem;
 import core.Location;
 import gameobjects.GameObject;
@@ -21,25 +20,40 @@ import tile.Tile;
 import tile.WaterTile;
 import util.Position;
 
+/**
+ * Implements a varied version of Dijkstra's algorithm, getting a path from one tile 
+ * to another using the 8 locations around the players current location.
+ * 
+ * @author Kyal Bond
+ *
+ */
 public class UltimateDijkstras implements ActionListener {
-	ClientController controller;
-	Tile start;
-	Tile end;
-	Location startLocation;
-	Node[][] nodes;
+	private ClientController controller;
+	private Tile start;
+	private Tile end;
+	private Location startLocation;
+	private Node[][] nodes;
 	private Stack<Tile> path;
-	Timer timer;
-	Board board;
-	int length;
-	Map<Integer, Integer> zoneLocId;
+	private Timer timer;
+	private int length;
+	private Map<Integer, Integer> zoneLocId;
+	
 	public Tile oldTile;
 
-	public UltimateDijkstras(ClientController controller, Tile start, Location startLocation, Tile end, Board board){
+	/**
+	 * Method that sets all fields, creates timer and then calls the setup method
+	 * 
+	 * @param controller
+	 * @param start
+	 * @param startLocation
+	 * @param end
+	 * @param board
+	 */
+	public UltimateDijkstras(ClientController controller, Tile start, Location startLocation, Tile end){
 		this.controller = controller;
 		this.start = start;
 		this.end = end;
 		this.startLocation = startLocation;
-		this.board = board;
 		this.setPath(null);
 		this.length = 30;
 		this.zoneLocId = new HashMap<Integer, Integer>();
@@ -49,31 +63,16 @@ public class UltimateDijkstras implements ActionListener {
 		setup();
 	}
 
-	private Node findRelativePosition(){
-		Integer endLocID = end.getLocationID();
-
-		for(Integer id: zoneLocId.keySet()){
-			if(id.equals(endLocID)){
-				Position p = this.end.getPos();
-				if(zoneLocId.get(id).equals(1)) return nodes[p.getX()][p.getY()];
-				else if(zoneLocId.get(id).equals(2)) return nodes[p.getX()+10][p.getY()];
-				else if(zoneLocId.get(id).equals(3)) return nodes[p.getX()+20][p.getY()];
-				else if(zoneLocId.get(id).equals(4)) return nodes[p.getX()][p.getY()+10];
-				else if(zoneLocId.get(id).equals(5)) return nodes[p.getX()+10][p.getY()+10];
-				else if(zoneLocId.get(id).equals(6)) return nodes[p.getX()+20][p.getY()+10];
-				else if(zoneLocId.get(id).equals(7)) return nodes[p.getX()][p.getY()+20];
-				else if(zoneLocId.get(id).equals(8)) return nodes[p.getX()+10][p.getY()+20];
-				else if(zoneLocId.get(id).equals(9)) return nodes[p.getX()+20][p.getY()+20];
-			}
-		}
-		return null;
-	}
-
+	/**
+	 * Actual Dijkstras algorithm using the node array that has been setup
+	 */
 	public void createPath(){
+		//Setup start and end nodes
 		Node start = nodes[this.start.getPos().getX()+10][this.start.getPos().getY()+10];
 		Node end = findRelativePosition();
 		Node found = null;
 
+		//Create queue for searching through nodes
 		Queue<SearchNode> fringe = new PriorityQueue<SearchNode>(nodeSorter);
 		fringe.offer(new SearchNode(0, start, null));
 
@@ -92,6 +91,8 @@ public class UltimateDijkstras implements ActionListener {
 					if(n != null){
 						GameObject o = n.t.getGameObject();
 						if(!n.visited){
+							
+							//Checks the different conditions for tiles
 							if(o == null || o instanceof Item){
 								if(!(n.t instanceof WaterTile) || controller.getPlayer().getHasFloatingDevice()){
 									int cost = searchNode.costToHere + 1;
@@ -227,6 +228,32 @@ public class UltimateDijkstras implements ActionListener {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Finds where the position the player wants to move is in respect to other
+	 * locations.
+	 * 
+	 * @return
+	 */
+	private Node findRelativePosition(){
+		Integer endLocID = end.getLocationID();
+
+		for(Integer id: zoneLocId.keySet()){
+			if(id.equals(endLocID)){
+				Position p = this.end.getPos();
+				if(zoneLocId.get(id).equals(1)) return nodes[p.getX()][p.getY()];
+				else if(zoneLocId.get(id).equals(2)) return nodes[p.getX()+10][p.getY()];
+				else if(zoneLocId.get(id).equals(3)) return nodes[p.getX()+20][p.getY()];
+				else if(zoneLocId.get(id).equals(4)) return nodes[p.getX()][p.getY()+10];
+				else if(zoneLocId.get(id).equals(5)) return nodes[p.getX()+10][p.getY()+10];
+				else if(zoneLocId.get(id).equals(6)) return nodes[p.getX()+20][p.getY()+10];
+				else if(zoneLocId.get(id).equals(7)) return nodes[p.getX()][p.getY()+20];
+				else if(zoneLocId.get(id).equals(8)) return nodes[p.getX()+10][p.getY()+20];
+				else if(zoneLocId.get(id).equals(9)) return nodes[p.getX()+20][p.getY()+20];
+			}
+		}
+		return null;
 	}
 
 	/**
