@@ -46,26 +46,37 @@ import items.Teleporter;
 import tile.Tile;
 import tile.WaterTile;
 
+/**
+ * Class for creating the main window handling all input inlcuding mouse, keys.
+ * Draws the UI and the game window for the renderer.
+ * 
+ * @author Kyal Bond
+ *
+ */
 public class GUI implements KeyListener, ActionListener, MouseListener, MouseMotionListener {
-	ClientController controller;
-	JFrame gameFrame;
-	JLabel gameLabel;
-	JPanel UIPanel;
-	public static final Color MAINCOLOR = new Color(5, 26, 37);
-	public static final Color SECONDARYCOLOR = new Color(255, 182, 0);
-	public static final Color MAINCOLOR2 = new Color(2, 13, 18);
-	ArrayList<JLabel> inventory;
-	JPanel inventorySlots;
-	JPopupMenu popup;
-	JLabel bananaCount;
-	JLabel harambeImage;
-	Timer harambeTimer;
-	int harambeCount;
+	private ClientController controller;
+	private JFrame gameFrame;
+	private JPanel UIPanel;
+	private JPanel inventorySlots;
+	private JLabel gameLabel;
+	private JLabel bananaCount;
+	private JLabel harambeImage;
+	private JPopupMenu popup;
 
-	public GUI(ClientController c) {
-		this.controller = c;
+	private ArrayList<JLabel> inventory;
+	private Timer harambeTimer;
+	private int harambeCount;
+
+	/**
+	 * Constructor for initializing the game window, fields and timer
+	 * 
+	 * @param controller
+	 */
+	public GUI(ClientController controller) {
+		this.controller = controller;
 		this.inventory = new ArrayList<JLabel>();
 
+		// Setup frame
 		gameFrame = new JFrame("Harambe, Second Coming");
 		gameFrame.setSize(1150, 860);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,6 +85,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 		prepareGUI();
 		displayInventory();
+
 		gameLabel.addMouseListener(this);
 		gameLabel.addMouseMotionListener(this);
 		gameFrame.setVisible(true);
@@ -84,11 +96,11 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		playSound();
 	}
 
-	public void hideGUI() {
-		gameFrame.dispose();
-	}
-
-	public void prepareGUI() {
+	/**
+	 * Prepares all the components within the frame, creating the renderer
+	 * window and the user interface.
+	 */
+	private void prepareGUI() {
 		// Prepare different areas on gui
 		JPanel windowPanel = new JPanel(new FlowLayout());
 		windowPanel.setBackground(MAINCOLOR);
@@ -126,6 +138,10 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		gameFrame.add(windowPanel);
 	}
 
+	/**
+	 * Setup the user interface, creating inventory slots, harambe face and
+	 * viewing arrows
+	 */
 	@SuppressWarnings("unchecked")
 	private void setupUI() {
 		// Setup up name panel
@@ -133,8 +149,11 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		namePanel.setPreferredSize(new Dimension(120, 160));
 		namePanel.setBackground(MAINCOLOR);
 
+		// Create harambe image label
 		harambeImage = new JLabel();
 		harambeImage.setIcon(closeImage);
+
+		// Displays username
 		JLabel playerName = new JLabel();
 		playerName.setText(controller.getName());
 		playerName.setForeground(Color.WHITE);
@@ -174,6 +193,8 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 		JLabel bananaImg = new JLabel();
 		bananaImg.setIcon(bananaImage);
+
+		// Create banana count
 		bananaCount = new JLabel();
 		bananaCount.setFont(new Font("title", Font.BOLD, 22));
 		bananaCount.setText("x " + controller.getBananaCount());
@@ -211,11 +232,18 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		viewPanel.add(leftArrowImg);
 		viewPanel.add(rightArrowImg);
 
+		// Add components to UI panel
 		UIPanel.add(namePanel);
 		UIPanel.add(inventoryPanel);
 		UIPanel.add(viewPanel);
 	}
 
+	/**
+	 * Creates jmenu bar and fills it the jmenu items.
+	 * 
+	 * @param gameBar
+	 * @param helpBar
+	 */
 	private void createMenuBar(JMenu gameBar, JMenu helpBar) {
 		// Game Bar setup
 		JMenuItem quit = new JMenuItem("Quit");
@@ -236,6 +264,9 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		helpBar.add(shortcuts);
 	}
 
+	/**
+	 * Show inventory items in inventory slots
+	 */
 	private void displayInventory() {
 		clearInventory();
 		ArrayList<Item> items = controller.getInventory();
@@ -246,7 +277,12 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		}
 	}
 
-	public void addItem(Item i) {
+	/**
+	 * Add item to a free inventory slot
+	 * 
+	 * @param i
+	 */
+	private void addItem(Item i) {
 		for (JLabel j : inventory) {
 			if (j.getToolTipText() == null) {
 				j.setToolTipText(i.getName() + ": " + i.getDescription());
@@ -256,6 +292,9 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		}
 	}
 
+	/**
+	 * Clear inventory setting them to null (free)
+	 */
 	private void clearInventory() {
 		for (JLabel j : inventory) {
 			j.setToolTipText(null);
@@ -263,6 +302,9 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		}
 	}
 
+	/**
+	 * Setup the inventory slots add mouse adapters to them for popups
+	 */
 	private void setupInventorySlots() {
 		int i = 0;
 		while (i < 10) {
@@ -270,6 +312,8 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			slot.setBorder(BorderFactory.createLineBorder(new Color(255, 182, 0), 4));
 			slot.setPreferredSize(new Dimension(50, 50));
 			slot.setName(i + "");
+
+			// Add listener for popup
 			slot.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseReleased(MouseEvent e) {
@@ -280,8 +324,11 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 					}
 				}
 			});
+
 			inventorySlots.add(slot);
 			inventory.add(slot);
+
+			// Filler label
 			JLabel slot2 = new JLabel();
 			slot2.setPreferredSize(new Dimension(100, 5));
 			slot2.setBackground(MAINCOLOR);
@@ -291,33 +338,22 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		}
 	}
 
-	private void checkClicked(int x, int y) {
-		if (x < 1000) {
-			controller.moveWithUltimateDijkstras(x, y);
-		}
-
-	}
-
-	private void checkMoved(int x, int y) {
-		if (x < 1000) {
-			controller.selectTile(x, y);
-		}
-	}
-
-	public void showBoard(BufferedImage i) {
-		gameLabel.setIcon(new ImageIcon(i));
-		bananaCount.setText("x " + controller.getBananaCount());
-		displayInventory();
-	}
-
-	protected void createPopupUI(int x, int y, int parseInt) {
+	/**
+	 * Create popup for inventory items and position
+	 * 
+	 * @param x
+	 * @param y
+	 * @param parseInt
+	 */
+	private void createPopupUI(int x, int y, int parseInt) {
 		JLabel label = inventory.get(parseInt);
 		if (label.getToolTipText() != null) {
+
 			Item i = controller.getInventoryItem(parseInt);
-
 			popup = new JPopupMenu("tile");
-
 			String desc;
+
+			// Get key code if key and add to description
 			if (i instanceof Key) {
 				Key k = (Key) i;
 				desc = k.getDescription() + " Code: " + k.getCode();
@@ -325,6 +361,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 				desc = i.getDescription();
 			}
 
+			// Create examine option
 			JMenuItem examineObject = new JMenuItem("Examine");
 			examineObject.addActionListener(new ActionListener() {
 				@Override
@@ -334,9 +371,12 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			});
 			popup.add(examineObject);
 
+			// If a usable item add an option
 			if (i.isUsable()) {
 
 				JMenuItem useObject;
+
+				// Check if it is a floating device and add option
 				if (i instanceof FloatingDevice) {
 
 					if (controller.getPlayer().getHasFloatingDevice()) {
@@ -347,18 +387,20 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 				} else {
 					useObject = new JMenuItem("Use");
 				}
-
 				useObject.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						controller.useItem(parseInt);
 					}
 				});
+
+				// Check the user isn't in water
 				if (!(i instanceof FloatingDevice && controller.getPlayer().getTile() instanceof WaterTile)) {
 					popup.add(useObject);
 				}
 			}
 
+			// If a banana, add option to siphon
 			if (i instanceof Banana) {
 				JMenuItem siphonObject = new JMenuItem("Siphon");
 				siphonObject.addActionListener(new ActionListener() {
@@ -370,6 +412,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 				popup.add(siphonObject);
 			}
 
+			// Add drop option
 			JMenuItem dropObject = new JMenuItem("Drop");
 			dropObject.addActionListener(new ActionListener() {
 				@Override
@@ -377,6 +420,8 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 					controller.dropItemPlayer(parseInt);
 				}
 			});
+
+			// Only add drop if floating device
 			if (!(i instanceof FloatingDevice && controller.getPlayer().getHasFloatingDevice())) {
 				popup.add(dropObject);
 			}
@@ -384,12 +429,21 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		}
 	}
 
+	/**
+	 * Create popup in game renderer window at position
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	private void createPopupGame(int x, int y) {
 		if (x < 1020) {
 			popup = new JPopupMenu("tile");
 			Tile t = controller.getTile(x, y);
 
+			// Check tile at position
 			if (t != null) {
+
+				// Check if there is a game object and add
 				if (t.getGameObject() != null) {
 					JMenuItem examineObject = new JMenuItem("Examine " + t.getGameObject().getClass().getSimpleName());
 					examineObject.addActionListener(new ActionListener() {
@@ -412,6 +466,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 				});
 				popup.add(examineItem);
 
+				// Add move to option
 				if (t.getGameObject() == null) {
 					popup.addSeparator();
 					JMenuItem move = new JMenuItem("Move");
@@ -429,28 +484,12 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		}
 	}
 
-	public void beginHarambeAnimation() {
-		harambeTimer.start();
-	}
-
-	public void changeHarambeImage() {
-		harambeCount++;
-		int temp = harambeCount % 2;
-		if (temp == 1)
-			harambeImage.setIcon(openImage);
-		else
-			harambeImage.setIcon(closeImage);
-
-		if (harambeCount == 16)
-			endHarambeAnimation();
-	}
-
-	public void endHarambeAnimation() {
-		harambeTimer.stop();
-		harambeImage.setIcon(closeImage);
-		harambeCount = 0;
-	}
-
+	/**
+	 * Get image of an item
+	 * 
+	 * @param i
+	 * @return
+	 */
 	public ImageIcon getInventoryImage(Item i) {
 		if (i instanceof items.Key) {
 			return keyInventoryImage;
@@ -473,19 +512,83 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		return null;
 	}
 
-	public static ImageIcon keyInventoryImage = Menu.makeImageIcon("gui/inventory/key.png");
-	public static ImageIcon floatingDeviceInventoryImage = Menu.makeImageIcon("gui/inventory/floatingDevice.png");
-	public static ImageIcon bananaInventoryImage = Menu.makeImageIcon("gui/inventory/banana.png");
-	public static ImageIcon teleporterInventoryImage = Menu.makeImageIcon("gui/inventory/teleporter.png");
-	public static ImageIcon fishInventoryImage = Menu.makeImageIcon("gui/inventory/fish.png");
-	public static ImageIcon fishingRodInventoryImage = Menu.makeImageIcon("gui/inventory/fishingRod.png");
+	/**
+	 * Begin talking animation
+	 */
+	public void beginHarambeAnimation() {
+		harambeTimer.start();
+	}
 
-	public static ImageIcon leftArrowImage = Menu.makeImageIcon("gui/leftArrow.png");
-	public static ImageIcon rightArrowImage = Menu.makeImageIcon("gui/rightArrow.png");
-	public static ImageIcon closeImage = Menu.makeImageIcon("gui/closeMouth.png");
-	public static ImageIcon openImage = Menu.makeImageIcon("gui/openMouth.png");
-	public static ImageIcon bananaImage = Menu.makeImageIcon("gui/banaga.png");
+	/**
+	 * Change the image depending on count
+	 */
+	public void changeHarambeImage() {
+		harambeCount++;
+		int temp = harambeCount % 2;
+		if (temp == 1)
+			harambeImage.setIcon(openImage);
+		else
+			harambeImage.setIcon(closeImage);
 
+		if (harambeCount == 16)
+			endHarambeAnimation();
+	}
+
+	/**
+	 * End talking animation
+	 */
+	public void endHarambeAnimation() {
+		harambeTimer.stop();
+		harambeImage.setIcon(closeImage);
+		harambeCount = 0;
+	}
+
+	/**
+	 * Update board displayed
+	 * 
+	 * @param i
+	 */
+	public void showBoard(BufferedImage i) {
+		gameLabel.setIcon(new ImageIcon(i));
+		bananaCount.setText("x " + controller.getBananaCount());
+		displayInventory();
+	}
+
+	/**
+	 * Dispose of frame
+	 */
+	public void hideGUI() {
+		gameFrame.dispose();
+	}
+
+	/**
+	 * Moving to tile using dijkstras
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	private void checkClicked(int x, int y) {
+		if (x < 1000) {
+			controller.moveWithUltimateDijkstras(x, y);
+		}
+
+	}
+
+	/**
+	 * Highlight tile that user is currently hovered over
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	private void checkMoved(int x, int y) {
+		if (x < 1000) {
+			controller.selectTile(x, y);
+		}
+	}
+
+	/**
+	 * Shortcut keys setup
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		String key = KeyEvent.getKeyText(e.getKeyCode());
@@ -506,6 +609,10 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			controller.moveSinglePos("E");
 	}
 
+	/**
+	 * Action listener for quiting from jmenuitem and changing talking animation
+	 * image
+	 */
 	@Override
 	public void actionPerformed(ActionEvent action) {
 		if ("quit".equals(action.getActionCommand())) {
@@ -515,6 +622,9 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		}
 	}
 
+	/**
+	 * Checking if popup or movement command
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (e.getSource() != gameLabel) {
@@ -524,7 +634,8 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			else
 				controller.rotateRight();
 		} else {
-			if (SwingUtilities.isRightMouseButton(e) || (e.getX() >= 1025 && e.getX() <= 1135 && e.getY() >= 270 && e.getY() <= 585)) {
+			if (SwingUtilities.isRightMouseButton(e)
+					|| (e.getX() >= 1025 && e.getX() <= 1135 && e.getY() >= 270 && e.getY() <= 585)) {
 				createPopupGame(e.getX(), e.getY());
 				if (popup != null) {
 					popup.show(e.getComponent(), e.getX(), e.getY());
@@ -535,6 +646,17 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		}
 	}
 
+	/**
+	 * For highlighting tile the user is currently hovering over
+	 */
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		checkMoved(e.getX(), e.getY());
+	}
+
+	/**
+	 * Plays sound while ingame
+	 */
 	public static synchronized void playSound() {
 		try {
 			File file = new File("assets/audio/audio.wav");
@@ -548,10 +670,28 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	}
 
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		checkMoved(e.getX(), e.getY());
-	}
+	/**
+	 * Import images for frame
+	 */
+	public static ImageIcon keyInventoryImage = Menu.makeImageIcon("gui/inventory/key.png");
+	public static ImageIcon floatingDeviceInventoryImage = Menu.makeImageIcon("gui/inventory/floatingDevice.png");
+	public static ImageIcon bananaInventoryImage = Menu.makeImageIcon("gui/inventory/banana.png");
+	public static ImageIcon teleporterInventoryImage = Menu.makeImageIcon("gui/inventory/teleporter.png");
+	public static ImageIcon fishInventoryImage = Menu.makeImageIcon("gui/inventory/fish.png");
+	public static ImageIcon fishingRodInventoryImage = Menu.makeImageIcon("gui/inventory/fishingRod.png");
+
+	public static ImageIcon leftArrowImage = Menu.makeImageIcon("gui/leftArrow.png");
+	public static ImageIcon rightArrowImage = Menu.makeImageIcon("gui/rightArrow.png");
+	public static ImageIcon closeImage = Menu.makeImageIcon("gui/closeMouth.png");
+	public static ImageIcon openImage = Menu.makeImageIcon("gui/openMouth.png");
+	public static ImageIcon bananaImage = Menu.makeImageIcon("gui/banaga.png");
+
+	/**
+	 * Main colors used in frame
+	 */
+	public static final Color MAINCOLOR = new Color(5, 26, 37);
+	public static final Color SECONDARYCOLOR = new Color(255, 182, 0);
+	public static final Color MAINCOLOR2 = new Color(2, 13, 18);
 
 	@Override
 	public void keyPressed(KeyEvent e) {
