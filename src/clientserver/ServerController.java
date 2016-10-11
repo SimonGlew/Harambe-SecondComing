@@ -293,7 +293,7 @@ public class ServerController {
 	 * @param p - Player that you want to send the message to
 	 */
 	public void broadcastPlayerMessage(String message, Player p){
-		server.broadcast(new Packet("popup", null ,message, 0), server.getID(p.getUserName()));
+		server.broadcast(new Packet("popupOne", null ,message, 0), server.getID(p.getUserName()));
 	}
 	
 	/**
@@ -305,6 +305,21 @@ public class ServerController {
 		server.broadcast(new Packet("popup", null ,message, 0), 0);
 	} 
 	
+	/**
+	 * Calls the broadcast method with giving it a message to send, this is used for the popups
+	 * 
+	 * @param message - message that you want to send
+	 * @param p - message you do not want sent to the player
+	 */
+	public void broadcastBarOnePlayer(String message, Player p){
+		server.broadcast(new Packet("popupBarOne", null, message, 0), server.getID(p.getUserName()));
+	}
+	
+	/**
+	 * Calls the broadcast method with giving it a board to send
+	 * 
+	 * @param board - board that you want to send
+	 */
 	public void broadcastBoard(Board b){
 		server.broadcast(new Packet("board", BoardWriter.writeBoardToString(b), null, getServerTime()), 0);
 	}

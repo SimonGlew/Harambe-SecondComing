@@ -143,7 +143,7 @@ public class Client {
 						}
 					}else if(packet.getType().equals("time")){ //Updates the time of the server in client controller
 						clientController.updateTime(packet.getTime());
-					}else if(packet.getType().equals("popup")){ //Creates a popup with the correct message
+					}else if(packet.getType().equals("popup") || packet.getType().equals("popupOne") || packet.getType().equals("popupBarOne")){ //Creates a popup with the correct message
 						clientController.showMessage(packet.getMessage());
 					}
 				} catch (IOException e) {

@@ -101,11 +101,15 @@ public class Server {
 		for (int i = al.size(); --i >= 0;) {
 			ClientThread ct = al.get(i);
 			/* If login fail we want to only call it on the id that broke */
-			if (packet.getMessage() == "fail login" || packet.getType() == "popup") {
+			if (packet.getMessage() == "fail login" || packet.getType() == "popupOne") {
 				if (ct.id == id) {
 					ct.writeToClient(packet);
 				}
-			} else {
+			}else if(packet.getType() == "popupBarOne"){ 
+				if(ct.id != id){
+					ct.writeToClient(packet);
+				}
+			}else {
 				if (!ct.writeToClient(packet)) {
 					al.remove(i);
 					display("Disconnected Client " + ct.id + " removed from list.");
