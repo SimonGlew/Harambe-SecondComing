@@ -51,7 +51,7 @@ import tile.WaterTile;
 /**
  * Class for creating the main window handling all input including mouse, keys.
  * Draws the UI and the game window for the renderer.
- * 
+ *
  * @author Kyal Bond
  *
  */
@@ -71,7 +71,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	/**
 	 * Constructor for initializing the game window, fields and timer
-	 * 
+	 *
 	 * @param controller
 	 */
 	public GUI(ClientController controller) {
@@ -242,7 +242,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	/**
 	 * Creates jmenu bar and fills it the jmenu items.
-	 * 
+	 *
 	 * @param gameBar
 	 * @param helpBar
 	 */
@@ -289,10 +289,10 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 		//Add components to panel
 		p.add(title);
-		p.add(new JLabel("                          'W,A,S,D' = Move Player"));
-		p.add(new JLabel("                          'UP Arrow = 180 degree view change"));
-		p.add(new JLabel("                          'RIGHT Arrow' = 90 degree view change"));
-		p.add(new JLabel("                          'LEFT Arrow' = -90 degree view change"));
+		p.add(new JLabel("              'W,A,S,D' = Move Player"));
+		p.add(new JLabel("              'UP Arrow = 180 degree view change"));
+		p.add(new JLabel("              'RIGHT Arrow' = 90 degree view change"));
+		p.add(new JLabel("              'LEFT Arrow' = -90 degree view change"));
 
 		//Add panel to dialog and show, dispose when user closes window
 		pop.add(p);
@@ -347,7 +347,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	/**
 	 * Add item to a free inventory slot
-	 * 
+	 *
 	 * @param i
 	 */
 	private void addItem(Item i) {
@@ -408,7 +408,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	/**
 	 * Create popup for inventory items and position
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @param parseInt
@@ -499,7 +499,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	/**
 	 * Create popup in game renderer window at position
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 */
@@ -554,7 +554,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	/**
 	 * Get image of an item
-	 * 
+	 *
 	 * @param i
 	 * @return
 	 */
@@ -613,7 +613,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	/**
 	 * Update board displayed
-	 * 
+	 *
 	 * @param i
 	 */
 	public void showBoard(BufferedImage i) {
@@ -631,7 +631,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	/**
 	 * Moving to tile using dijkstras
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 */
@@ -644,7 +644,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	/**
 	 * Highlight tile that user is currently hovered over
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 */
@@ -747,7 +747,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	 */
 	public static ImageIcon keyInventoryImage = Menu.makeImageIcon("gui/inventory/key.png");
 	public static ImageIcon floatingDeviceInventoryImage = Menu.makeImageIcon("gui/inventory/floatingDevice.png");
-	public static ImageIcon bananaInventoryImage = Menu.makeImageIcon("gui/inventory/Banana.png");
+	public static ImageIcon bananaInventoryImage = Menu.makeImageIcon("gui/inventory/banana.png");
 	public static ImageIcon teleporterInventoryImage = Menu.makeImageIcon("gui/inventory/teleporter.png");
 	public static ImageIcon fishInventoryImage = Menu.makeImageIcon("gui/inventory/fish.png");
 	public static ImageIcon fishingRodInventoryImage = Menu.makeImageIcon("gui/inventory/fishingRod.png");
