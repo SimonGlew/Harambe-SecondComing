@@ -18,6 +18,8 @@ import gameobjects.NPC;
 import iohandling.BoardParser;
 import iohandling.BoardWriter;
 import items.Banana;
+import items.Fish;
+import items.FishingRod;
 import items.FloatingDevice;
 import items.Key;
 import items.Teleporter;
@@ -175,7 +177,14 @@ public class WorldEditor {
 				case "NPC":
 					tile.setGameObject(new NPC("random", Direction.NORTH));
 					break;
+				case "fish":
+					tile.setGameObject(new Fish("Fish"));
+					break;
+				case "fishingrod":
+					tile.setGameObject(new FishingRod("Fishing Rod"));
+					break;
 				}
+				
 			}
 			update();
 		}

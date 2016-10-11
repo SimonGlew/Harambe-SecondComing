@@ -20,6 +20,8 @@ import gameobjects.Player;
 import gameobjects.Tree;
 import gameobjects.Wall;
 import items.Banana;
+import items.Fish;
+import items.FishingRod;
 import items.FloatingDevice;
 import items.Item;
 import items.Key;
@@ -233,6 +235,10 @@ public class BoardParser {
 			return new Teleporter("Teleporter");
 		} else if (checkFor("NPC", s)) {
 			return parseNPC(s, board);
+		} else if (checkFor("Fish", s)) {
+			return new Fish("Fish");
+		} else if (checkFor("FishingRod", s)) {
+			return new FishingRod("Fishing Rod");
 		} else {
 			fail("Not a GameObject", s);
 		}
@@ -291,7 +297,11 @@ public class BoardParser {
 			return new Banana("Banana");
 		} else if (checkFor("Teleporter", s)) {
 			return new Teleporter("Teleporter");
-		} else {
+		} else if (checkFor("Fish", s)) {
+			return new Fish("Fish");
+		} else if (checkFor("FishingRod", s)) {
+			return new FishingRod("Fishing Rod");
+		}else{
 			fail("Not an Item", s);
 		}
 		return null;

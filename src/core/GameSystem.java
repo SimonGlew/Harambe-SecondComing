@@ -12,6 +12,8 @@ import gameobjects.NPC;
 import gameobjects.Player;
 import iohandling.BoardParser;
 import items.Banana;
+import items.Fish;
+import items.FishingRod;
 import items.FloatingDevice;
 import items.Item;
 import items.Key;
@@ -272,6 +274,19 @@ public class GameSystem {
 			}
 			player.getInventory().remove(item);
 
+		} else if (item instanceof FishingRod){
+			if(player.getLocation().getTileInDirection(player.getTile().getPos(), player.getFacing()) instanceof WaterTile){
+				int randy = (int)(Math.random()*5);
+				if(randy == 0){
+					serverController.broadcastPlayerMessage("You caught a fish against all odds, sadly your rod was lost in the process", player);
+					player.getInventory().remove(item);
+					player.pickUpItem(new Fish("Fish"));
+				}
+				else{
+					serverController.broadcastPlayerMessage("A nibble felt, however sometimes we just aren't that lucky", player);
+					
+				}
+			}
 		}
 	}
 

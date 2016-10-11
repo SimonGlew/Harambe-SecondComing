@@ -36,6 +36,8 @@ import javax.swing.Timer;
 
 import clientserver.ClientController;
 import items.Banana;
+import items.Fish;
+import items.FishingRod;
 import items.FloatingDevice;
 import items.Item;
 import items.Key;
@@ -74,10 +76,10 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		gameLabel.addMouseListener(this);
 		gameLabel.addMouseMotionListener(this);
 		gameFrame.setVisible(true);
-		
+
 		harambeTimer = new Timer(250, this);
 		harambeCount = 0;
-		
+
 		playSound();
 	}
 
@@ -315,11 +317,10 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			popup = new JPopupMenu("tile");
 
 			String desc;
-			if(i instanceof Key){
-				Key k = (Key)i;
-				desc = k.getDescription() +" Code: "+ k.getCode();
-			}
-			else{
+			if (i instanceof Key) {
+				Key k = (Key) i;
+				desc = k.getDescription() + " Code: " + k.getCode();
+			} else {
 				desc = i.getDescription();
 			}
 
@@ -331,7 +332,6 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 				}
 			});
 			popup.add(examineObject);
-			
 
 			if (i.isUsable()) {
 
@@ -427,21 +427,24 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			}
 		}
 	}
-	
+
 	public void beginHarambeAnimation() {
 		harambeTimer.start();
 	}
-	
-	public void changeHarambeImage(){
+
+	public void changeHarambeImage() {
 		harambeCount++;
-		int temp = harambeCount%2;
-		if(temp == 1) harambeImage.setIcon(openImage);
-		else harambeImage.setIcon(closeImage);
-		
-		if(harambeCount == 16) endHarambeAnimation();
+		int temp = harambeCount % 2;
+		if (temp == 1)
+			harambeImage.setIcon(openImage);
+		else
+			harambeImage.setIcon(closeImage);
+
+		if (harambeCount == 16)
+			endHarambeAnimation();
 	}
-	
-	public void endHarambeAnimation(){
+
+	public void endHarambeAnimation() {
 		harambeTimer.stop();
 		harambeImage.setIcon(closeImage);
 		harambeCount = 0;
@@ -454,11 +457,17 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		if (i instanceof FloatingDevice) {
 			return floatingDeviceInventoryImage;
 		}
-		if(i instanceof Banana){
+		if (i instanceof Banana) {
 			return bananaInventoryImage;
 		}
-		if(i instanceof Teleporter){
+		if (i instanceof Teleporter) {
 			return teleporterInventoryImage;
+		}
+		if (i instanceof Fish) {
+			return fishInventoryImage;
+		}
+		if (i instanceof FishingRod) {
+			return fishingRodInventoryImage;
 		}
 		return null;
 	}
@@ -467,7 +476,9 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	public static ImageIcon floatingDeviceInventoryImage = Menu.makeImageIcon("gui/inventory/floatingDevice.png");
 	public static ImageIcon bananaInventoryImage = Menu.makeImageIcon("gui/inventory/banana.png");
 	public static ImageIcon teleporterInventoryImage = Menu.makeImageIcon("gui/inventory/teleporter.png");
-	
+	public static ImageIcon fishInventoryImage = Menu.makeImageIcon("gui/inventory/fish.png");
+	public static ImageIcon fishingRodInventoryImage = Menu.makeImageIcon("gui/inventory/fishingRod.png");
+
 	public static ImageIcon leftArrowImage = Menu.makeImageIcon("gui/leftArrow.png");
 	public static ImageIcon rightArrowImage = Menu.makeImageIcon("gui/rightArrow.png");
 	public static ImageIcon closeImage = Menu.makeImageIcon("gui/closeMouth.png");
@@ -498,7 +509,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	public void actionPerformed(ActionEvent action) {
 		if ("quit".equals(action.getActionCommand())) {
 			System.exit(0);
-		}else{
+		} else {
 			changeHarambeImage();
 		}
 	}
@@ -522,18 +533,18 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			}
 		}
 	}
-	
-	public static synchronized void playSound(){
-		try{
-		File file = new File("assets/audio/audio.wav");
-		Clip clip = AudioSystem.getClip();
-		AudioInputStream Audio = AudioSystem.getAudioInputStream(file);
-		clip.open(Audio);
-		clip.loop(Clip.LOOP_CONTINUOUSLY);
-		}catch(Exception e){
+
+	public static synchronized void playSound() {
+		try {
+			File file = new File("assets/audio/audio.wav");
+			Clip clip = AudioSystem.getClip();
+			AudioInputStream Audio = AudioSystem.getAudioInputStream(file);
+			clip.open(Audio);
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
