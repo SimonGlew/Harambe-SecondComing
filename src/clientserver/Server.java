@@ -163,7 +163,7 @@ public class Server {
 	 * @param args - Should only be one argument with the server port number
 	 */
 	public static void main(String[] args) {
-		int portNumber = 4517;
+		int portNumber = 4518;
 		switch (args.length) {
 		case 1:
 			try {

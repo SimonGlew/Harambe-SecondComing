@@ -252,13 +252,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		quit.setActionCommand("quit");
 		quit.addActionListener(this);
 		gameBar.add(quit);
-
-		// Help Bar setup
-		JMenuItem rules = new JMenuItem("Help");
-		rules.setActionCommand("help");
-		rules.addActionListener(this);
-		helpBar.add(rules);
-
+		
 		// Shortcuts setup
 		JMenuItem shortcuts = new JMenuItem("Shortcuts");
 		shortcuts.setActionCommand("shortcuts");
@@ -295,38 +289,6 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		p.add(new JLabel("              'LEFT Arrow' = -90 degree view change"));
 
 		//Add panel to dialog and show, dispose when user closes window
-		pop.add(p);
-		pop.setVisible(true);
-		pop.dispose();
-	}
-
-	/**
-	 * Show help menu dialog
-	 */
-	private void showHelp() {
-		//Setup JDialog
-		JDialog pop = new JDialog();
-		pop.setTitle("Rules");
-		pop.setSize(450,400);
-		pop.setLocationRelativeTo(gameFrame);
-		pop.setResizable(false);
-		pop.setModal(true);
-
-		//Create title for pane
-		JLabel title = new JLabel("                        Help");
-		title.setFont(new Font("title", Font.BOLD, 20));
-		title.setPreferredSize(new Dimension(400,30));
-
-		//Create label for each rule
-		JLabel rule1 = new JLabel("");
-		rule1.setPreferredSize(new Dimension(450,30));
-
-		//Create pane and add labels to it
-		JPanel p = new JPanel(new FlowLayout());
-		p.add(title);
-		p.add(rule1);
-
-		//Add pane to dialog and show, dispose when user exits window
 		pop.add(p);
 		pop.setVisible(true);
 		pop.dispose();
@@ -685,8 +647,6 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 	public void actionPerformed(ActionEvent action) {
 		if ("quit".equals(action.getActionCommand())) {
 			System.exit(0);
-		} else if("help".equals(action.getActionCommand())){
-			showHelp();
 		}else if("shortcuts".equals(action.getActionCommand())){
 			showShortCuts();
 		}else {

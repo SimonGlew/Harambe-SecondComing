@@ -38,7 +38,7 @@ public class Menu implements MouseListener, ActionListener {
 	private JTextField playerName;
 	private JDialog serverDialog;
 	private int imageCount = 0;
-	private int portNumber = 4517;
+	private int portNumber = 4518;
 	private boolean change;
 	private Timer imageTimer;
 
