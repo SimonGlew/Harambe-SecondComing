@@ -236,7 +236,7 @@ EAST: 6
 WEST: 4
 SOUTH: 1
 (Grass)(Grass(Tree))(Grass)(Grass)(Stone)(Stone)(Water)(Grass)(Grass(Tree))(Grass)
-(Grass)(Grass(Tree))(Grass)(Grass)(Stone)(Stone)(Water)(Grass)(Grass)(Grass)
+(Grass)(Grass(Tree))(Grass)(Grass(FishingRod))(Stone)(Stone)(Water)(Grass)(Grass)(Grass)
 (Grass)(Grass(Tree))(Water)(Water)(Stone)(Stone)(Water)(Grass)(Grass(Tree))(Grass(Tree))
 (Grass)(Grass)(Water)(Water)(Stone)(Stone)(Water)(Water)(Water)(Water)
 (Grass)(Grass(Tree))(Grass(Key(name, 0)))(Water)(Stone)(Stone)(Stone)(Stone)(Stone)(Stone)

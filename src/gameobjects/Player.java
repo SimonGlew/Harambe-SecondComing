@@ -104,6 +104,7 @@ public class Player extends GameObject {
 
 	public boolean pickUpItem(Item item) {
 		return inventory.add(item);
+		
 	}
 
 	public String getImage(Location loc, Position pos, Direction viewingDir) {
