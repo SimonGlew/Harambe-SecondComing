@@ -524,7 +524,8 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			else
 				controller.rotateRight();
 		} else {
-			if (SwingUtilities.isRightMouseButton(e) || (e.getX() >= 1025 && e.getX() <= 1135 && e.getY() >= 270 && e.getY() <= 585)) {
+			if (SwingUtilities.isRightMouseButton(e)
+					|| (e.getX() >= 1025 && e.getX() <= 1135 && e.getY() >= 270 && e.getY() <= 585)) {
 				createPopupGame(e.getX(), e.getY());
 				if (popup != null) {
 					popup.show(e.getComponent(), e.getX(), e.getY());
