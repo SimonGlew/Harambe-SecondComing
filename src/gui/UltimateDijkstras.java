@@ -87,6 +87,8 @@ public class UltimateDijkstras implements ActionListener {
 					found = searchNode.node;
 					break;
 				}
+				
+				//Check neighbours to see if they have been visited/can be visited
 				for(Node n: searchNode.node.neighbours){
 					if(n != null){
 						GameObject o = n.t.getGameObject();
@@ -114,14 +116,23 @@ public class UltimateDijkstras implements ActionListener {
 			found = found.pathFrom;
 		}
 
+		//Pops the move the player is already on
 		if(!path.isEmpty()) path.pop();
+		
 		this.setPath(path);
 	}
 
+	/**
+	 * Begins timer
+	 */
 	public void startTimer(){
 		timer.start();
 	}
 
+	/**
+	 * Setup the node array that dijkstras uses, getting the 8 locations around the player locations
+	 * and loading the tiles into the array.
+	 */
 	private void setup() {
 		nodes = new Node[length][length];
 
@@ -201,6 +212,13 @@ public class UltimateDijkstras implements ActionListener {
 		setupNeighbours();
 	}
 
+	/**
+	 * Setup up the 10 by 10 location and a given point in node array
+	 * 
+	 * @param xStart
+	 * @param yStart
+	 * @param location
+	 */
 	private void setupPartition(int xStart, int yStart, Location location){
 		//Create nodes for tiles
 		int x = xStart;
@@ -216,6 +234,9 @@ public class UltimateDijkstras implements ActionListener {
 		}
 	}
 
+	/**
+	 * Adds neighbours to each node if possible
+	 */
 	private void setupNeighbours(){
 		for(int y = 0; y < length; y++){
 			for(int x = 0; x < length; x++){
@@ -268,6 +289,9 @@ public class UltimateDijkstras implements ActionListener {
 		}
 	};
 
+	/**
+	 * Action Listener for timer which pops a move
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if(getPath() != null){
@@ -279,6 +303,9 @@ public class UltimateDijkstras implements ActionListener {
 		}
 	}
 
+	/**
+	 * Draws the 9x9 location map
+	 */
 	public String toString(){
 		String map = "\n\n";
 		for(int y = 0; y < length; y++){
@@ -296,10 +323,20 @@ public class UltimateDijkstras implements ActionListener {
 		return map;
 	}
 
+	/**
+	 * Get path
+	 * 
+	 * @return
+	 */
 	public Stack<Tile> getPath() {
 		return path;
 	}
 
+	/**
+	 * Set path
+	 * 
+	 * @param path
+	 */
 	public void setPath(Stack<Tile> path) {
 		this.path = path;
 	}
