@@ -23,7 +23,7 @@ import util.Position;
 /**
  * Implements a varied version of Dijkstra's algorithm, getting a path from one
  * tile to another using the 8 locations around the players current location.
- * 
+ *
  * @author Kyal Bond
  *
  */
@@ -43,12 +43,11 @@ public class UltimateDijkstras implements ActionListener {
 	/**
 	 * Method that sets all fields, creates timer and then calls the setup
 	 * method
-	 * 
-	 * @param controller
-	 * @param start
-	 * @param startLocation
-	 * @param end
-	 * @param board
+	 *
+	 * @param controller - Controller of GUI/Client
+	 * @param start - start tile
+	 * @param startLocation - start location
+	 * @param end - end tile
 	 */
 	public UltimateDijkstras(ClientController controller, Tile start, Location startLocation, Tile end) {
 		this.controller = controller;
@@ -250,7 +249,7 @@ public class UltimateDijkstras implements ActionListener {
 
 	/**
 	 * Setup up the 10 by 10 location and a given point in node array
-	 * 
+	 *
 	 * @param xStart
 	 * @param yStart
 	 * @param location
@@ -302,7 +301,7 @@ public class UltimateDijkstras implements ActionListener {
 	/**
 	 * Finds where the position the player wants to move is in respect to other
 	 * locations.
-	 * 
+	 *
 	 * @return
 	 */
 	private Node findRelativePosition() {
@@ -390,8 +389,8 @@ public class UltimateDijkstras implements ActionListener {
 
 	/**
 	 * Get path
-	 * 
-	 * @return
+	 *
+	 * @return path - shows path of algorithm
 	 */
 	public Stack<Tile> getPath() {
 		return path;
@@ -399,8 +398,8 @@ public class UltimateDijkstras implements ActionListener {
 
 	/**
 	 * Set path
-	 * 
-	 * @param path
+	 *
+	 * @param path - sets path of algorithm
 	 */
 	public void setPath(Stack<Tile> path) {
 		this.path = path;

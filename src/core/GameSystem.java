@@ -129,9 +129,9 @@ public class GameSystem {
 	 * Method used to move a player in a given direction and returns whether the
 	 * action was a success
 	 *
-	 * @param player
-	 * @param direction
-	 * @return boolean
+	 * @param p - player to be moved
+	 * @param d - direction to be moved too
+	 * @return boolean - if move was successful
 	 */
 	public boolean movePlayer(Player p, Direction d) {
 
@@ -204,7 +204,7 @@ public class GameSystem {
 	 * Method called by the server every second, it will decide whether or not
 	 * to move and npc and call the required methods if it is not night time
 	 *
-	 * @param time
+	 * @param time - time of the server
 	 */
 	public void tick(int time) {
 
@@ -228,8 +228,8 @@ public class GameSystem {
 	 * Method called when a player is moving to an occupied tile to trigger an
 	 * interaction between the player and the given object
 	 *
-	 * @param player
-	 * @param newTile
+	 * @param p - player that is triggering interaction
+	 * @param newTile - tile that is used for interaction
 	 */
 	public void triggerInteraction(Player p, Tile newTile) {
 		Tile playerTil = p.getTile();
@@ -309,8 +309,8 @@ public class GameSystem {
 	 * Method called by the server controller to order a player to drop an item
 	 * from their inventory
 	 *
-	 * @param player
-	 * @param item
+	 * @param p - player that is dropping the item
+	 * @param i - item that is being dropped
 	 */
 	public void playerDropItem(Player p, Item i) {
 		Tile tileInFront = p.getLocation().getTileInDirection(p.getPosition(), p.getFacing());
@@ -325,9 +325,9 @@ public class GameSystem {
 	 * Method called by the server controller to order a player to siphon a
 	 * banana from their inventory
 	 *
-	 * @param player
-	 * @param banana
-	 * @return
+	 * @param p - player that is siphoning the banana
+	 * @param b - banana to be siphoned
+	 * @return boolean - if siphoning of the banana was successful
 	 */
 	public boolean playerSiphonBanana(Player p, Banana b) {
 		if (p != null && b != null) {
@@ -350,8 +350,8 @@ public class GameSystem {
 	/**
 	 * Method called to order a player to use an item from their inventory
 	 *
-	 * @param player
-	 * @param item
+	 * @param player - player that is using the item
+	 * @param item - item that is being used
 	 */
 	public void playerUseItem(Player player, Item item) {
 		if (item instanceof FloatingDevice) {
@@ -408,7 +408,7 @@ public class GameSystem {
 	 * Method called to move an NPC in a direction which is gotten fromt he NPCs
 	 * strategy
 	 *
-	 * @param npc
+	 * @param npc - npc that is getting moved
 	 */
 	public void moveNPC(NPC npc) {
 		if (!nightTime) {

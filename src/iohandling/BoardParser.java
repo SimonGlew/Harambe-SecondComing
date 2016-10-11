@@ -61,7 +61,7 @@ public class BoardParser {
 
 	/**
 	 * Parses a board object from a String
-	 * @param boardString
+	 * @param boardString - String of the board
 	 * @return board
 	 */
 	public static Board parseBoardString(String boardString) {

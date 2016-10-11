@@ -31,7 +31,7 @@ public class GameOver implements ActionListener {
 	/**
 	 * Sets up all components and begins timer for animation
 	 *
-	 * @param name
+	 * @param name - Name of player that won
 	 */
 	public GameOver(String name) {
 		// Setup gameframe for window

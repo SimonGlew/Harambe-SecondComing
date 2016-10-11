@@ -83,7 +83,7 @@ public class WorldEditor {
 	/**
 	 * Create blank location of only wooden tiles. Returns location id.
 	 *
-	 * @return
+	 * @return locID - location id
 	 */
 	public int createIndoorLocation() {
 		Location loc = new Location(board.getNextUniqueId(), "", new Tile[10][10], board);
@@ -109,7 +109,7 @@ public class WorldEditor {
 	/**
 	 * Main method for running world editor.
 	 *
-	 * @param args
+	 * @param args - arguments
 	 */
 	public static void main(String[] args) {
 		new WorldEditor();
@@ -225,7 +225,7 @@ public class WorldEditor {
 	/**
 	 * Set floor type to string input
 	 *
-	 * @param string
+	 * @param string - string of floor type
 	 */
 	public void setFloorType(String string) {
 		this.floor = string;
@@ -234,7 +234,7 @@ public class WorldEditor {
 	/**
 	 * Set tool type to string input
 	 *
-	 * @param string
+	 * @param string - string of tool type
 	 */
 	public void setTool(String string) {
 		this.tool = string;
@@ -243,7 +243,7 @@ public class WorldEditor {
 	/**
 	 * Set object type to string input
 	 *
-	 * @param string
+	 * @param string - object type
 	 */
 	public void setObjectType(String string) {
 		this.gameObject = string;
@@ -252,8 +252,8 @@ public class WorldEditor {
 	/**
 	 * set game object on tile to null
 	 *
-	 * @param i
-	 * @param j
+	 * @param i - x-pos of tile
+	 * @param j - y-pos of tile
 	 */
 	public void clearTile(int i, int j) {
 		if (i >= 0 && j >= 0 && i < board.getLocationById(currentLocation).getTiles().length
@@ -266,7 +266,7 @@ public class WorldEditor {
 	/**
 	 * Set tile to selected in renderer (will show as highlighted white tile)
 	 *
-	 * @param selected
+	 * @param selected - selected position
 	 */
 	public void selectTile(Position selected) {
 		if (selected != null) {
@@ -281,7 +281,7 @@ public class WorldEditor {
 	 * Set location to selected i nrenderer (will show as highlighted white
 	 * location)
 	 *
-	 * @param dir
+	 * @param dir - direction to select location from
 	 */
 	public void selectLocation(GameSystem.Direction dir) {
 		renderer.selectLocation(dir);
@@ -292,7 +292,7 @@ public class WorldEditor {
 	 * When clicking in direction adjacent to centered location, if no location
 	 * exists add one. If location exists, center editor in that location.
 	 *
-	 * @param dir
+	 * @param dir - direction to select location from
 	 */
 	public void clickLocation(Direction dir) {
 		if (dir != null) {
@@ -311,9 +311,9 @@ public class WorldEditor {
 
 	/**
 	 * Merge two maps of points to locations.
-	 * @param map1
-	 * @param map2
-	 * @return merged map
+	 * @param map1 - first map
+	 * @param map2 - second map
+	 * @return merged map - merged map
 	 */
 	public Map<Point, Location> mergeMaps(Map<Point, Location> map1, Map<Point, Location> map2) {
 		Map<Point, Location> mergedMap = new HashMap<Point, Location>();
@@ -328,9 +328,9 @@ public class WorldEditor {
 
 	/**
 	 * Get location in a series of directions from the starting location.
-	 * @param startingLoc
-	 * @param directions
-	 * @return target location
+	 * @param startingLoc - starting location
+	 * @param directions - array of directions
+	 * @return target location - location after going through array of directions
 	 */
 	public Location getLocationAt(int startingLoc, Direction[] directions) {
 		int finalLoc = startingLoc;
