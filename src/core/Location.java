@@ -8,6 +8,14 @@ import core.GameSystem.Direction;
 import tile.Tile;
 import util.Position;
 
+/**
+ * Location objects store a map of directions to neighbours and a 2D array of
+ * Tile objects.
+ * 
+ * @authors Jonathan, Jack, Kyal
+ *
+ */
+
 public class Location {
 	private Tile[][] tiles;
 	private int id;
@@ -15,6 +23,18 @@ public class Location {
 	private Board board;
 	private Map<GameSystem.Direction, Integer> neighbours;
 
+	/**
+	 * Constructor for location class
+	 * 
+	 * @param id
+	 *            of location
+	 * @param name
+	 *            of location
+	 * @param tiles
+	 *            of location
+	 * @param board
+	 *            of location
+	 */
 	public Location(int id, String name, Tile[][] tiles, Board board) {
 		this.tiles = tiles;
 		this.name = name;
@@ -23,41 +43,93 @@ public class Location {
 		this.board = board;
 	}
 
+	/**
+	 * Get tiles of location
+	 * 
+	 * @return tiles
+	 */
 	public Tile[][] getTiles() {
 		return tiles;
 	}
 
+	/**
+	 * Get name of location
+	 * 
+	 * @return name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Get neighbours of location
+	 * 
+	 * @return
+	 */
 	public Map<GameSystem.Direction, Integer> getNeighbours() {
 		return neighbours;
 	}
-	
-	public GameSystem.Direction getDirectionOfLocation(int id){
-		for(GameSystem.Direction d: neighbours.keySet()){
-			if(id == neighbours.get(d)) return d;
+
+	/**
+	 * Get direction of neighbour location
+	 * 
+	 * @param id
+	 *            of location
+	 * @return direction of location
+	 */
+	public GameSystem.Direction getDirectionOfLocation(int id) {
+		for (GameSystem.Direction d : neighbours.keySet()) {
+			if (id == neighbours.get(d))
+				return d;
 		}
 		return null;
 	}
-	
-	public Location getLocationfromDirection(GameSystem.Direction d){
+
+	/**
+	 * Get neighbour location in direction
+	 * 
+	 * @param direction
+	 * @return location
+	 */
+	public Location getLocationfromDirection(GameSystem.Direction d) {
 		return board.getLocationById(neighbours.get(d));
 	}
 
+	/**
+	 * Set neighbours map of location
+	 * 
+	 * @param neighbours
+	 */
 	public void setNeighbours(Map<GameSystem.Direction, Integer> neighbours) {
 		this.neighbours = neighbours;
 	}
 
+	/**
+	 * Get id of location
+	 * 
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Get board of location
+	 * 
+	 * @return
+	 */
 	public Board getBoard() {
 		return board;
 	}
 
+	/**
+	 * Get the tile in the direction d from position p. Takes into account
+	 * location edges.
+	 * 
+	 * @param position
+	 * @param direction
+	 * @return tile
+	 */
 	public Tile getTileInDirection(Position pos, Direction d) {
 		Position p = null;
 		if (d == Direction.NORTH) {
@@ -105,11 +177,23 @@ public class Location {
 		return null;
 	}
 
+	/**
+	 * Returns true if position is within bounds of tiles array
+	 * 
+	 * @param position
+	 * @return boolean true if within bounds
+	 */
 	public boolean withinBounds(Position pos) {
 		return pos.getX() >= 0 && pos.getY() >= 0 && pos.getX() < getTiles().length
 				&& pos.getY() < getTiles()[0].length;
 	}
 
+	/**
+	 * Get position of tile in location
+	 * 
+	 * @param tile
+	 * @return position
+	 */
 	public Position getPositionOfTile(Tile tile) {
 		for (int i = 0; i < tiles.length; i++) {
 			for (int j = 0; j < tiles[0].length; j++) {
@@ -121,8 +205,15 @@ public class Location {
 		return null;
 	}
 
+	/**
+	 * Get tile at position, allows indexes out of bounds, getting tiles from
+	 * neighbouring locations
+	 * 
+	 * @param position
+	 * @return tile
+	 */
 	public Tile getTileAtPosition(Position pos) {
-		Point p = new Point(pos.getX() / 10, -1*(pos.getY() / 10));
+		Point p = new Point(pos.getX() / 10, -1 * (pos.getY() / 10));
 		if (pos.getX() < 0) {
 			p.x = p.x - 1;
 		}
@@ -135,39 +226,70 @@ public class Location {
 		Map<Point, Integer> map = board.mapLocations(id, 0, 0, new HashMap<Point, Integer>());
 		Location newLoc = board.getLocationById(map.get(p));
 		if (newLoc != null) {
-			return newLoc
-					.getTileAtPositionInLoc(new Position((int) (-p.getX()*10 + pos.getX()), (int) (10*p.getY()+pos.getY())));
+			return newLoc.getTileAtPositionInLoc(
+					new Position((int) (-p.getX() * 10 + pos.getX()), (int) (10 * p.getY() + pos.getY())));
 		}
 		return null;
 	}
 
+	/**
+	 * Get tile at position pos
+	 * 
+	 * @param pos
+	 *            position
+	 * @return tile at position
+	 */
 	public Tile getTileAtPositionInLoc(Position pos) {
-		if(withinBounds(pos)){
+		if (withinBounds(pos)) {
 			return tiles[pos.getX()][pos.getY()];
 		}
 		return null;
-
-
 	}
 
-	public static Direction getDirDijkstras(Tile player, Tile position){
+	/**
+	 * Get direction for dijkstra's algorithm from player to position.
+	 * 
+	 * @param player
+	 * @param position
+	 * @return direction
+	 */
+	public static Direction getDirDijkstras(Tile player, Tile position) {
 		Position from = player.getPos();
 		Position to = position.getPos();
 
-		//Check boundry movement
-		if(from.getX() == 9 && to.getX() == 0) return Direction.EAST;
-		else if(from.getX() == 0 && to.getX() == 9) return Direction.WEST;
-		else if(from.getY() == 0 && to.getY() == 9) return Direction.NORTH;
-		else if(from.getY() == 9 && to.getY() == 0) return Direction.SOUTH;
+		// Check boundry movement
+		if (from.getX() == 9 && to.getX() == 0)
+			return Direction.EAST;
+		else if (from.getX() == 0 && to.getX() == 9)
+			return Direction.WEST;
+		else if (from.getY() == 0 && to.getY() == 9)
+			return Direction.NORTH;
+		else if (from.getY() == 9 && to.getY() == 0)
+			return Direction.SOUTH;
 
-		//Check normal movement
-		if(from.getX() > to.getX() && from.getY() == to.getY()) return Direction.WEST;
-		else if(from.getX() < to.getX() && from.getY() == to.getY()) return Direction.EAST;
-		else if(from.getY() > to.getY() && from.getX() == to.getX()) return Direction.NORTH;
-		else if(from.getY() < to.getY() && from.getX() == to.getX()) return Direction.SOUTH;
-		else return null;
+		// Check normal movement
+		if (from.getX() > to.getX() && from.getY() == to.getY())
+			return Direction.WEST;
+		else if (from.getX() < to.getX() && from.getY() == to.getY())
+			return Direction.EAST;
+		else if (from.getY() > to.getY() && from.getX() == to.getX())
+			return Direction.NORTH;
+		else if (from.getY() < to.getY() && from.getX() == to.getX())
+			return Direction.SOUTH;
+		else
+			return null;
 	}
 
+	/**
+	 * Get direction of tile t from position from. Returns null if tile is not
+	 * adjacent to position
+	 * 
+	 * @param from
+	 *            position
+	 * @param t
+	 *            tile
+	 * @return direction of tile from position
+	 */
 	public Direction getDirOfTile(Position from, Tile t) {
 		if (getTileInDirection(from, Direction.NORTH) == t) {
 			return Direction.NORTH;
@@ -184,6 +306,15 @@ public class Location {
 		return null;
 	}
 
+	/**
+	 * Get direction relative to the observers viewing angle
+	 * 
+	 * @param d
+	 *            diection
+	 * @param viewing
+	 *            direction
+	 * @return relative direction
+	 */
 	public static Direction getRelativeDirection(Direction d, Direction viewing) {
 		int turns = 0;
 		switch (viewing) {
@@ -207,6 +338,15 @@ public class Location {
 		return d;
 	}
 
+	/**
+	 * Get relative direction from viewing direction in the other direction
+	 * 
+	 * @param d
+	 *            direction
+	 * @param viewing
+	 *            direction
+	 * @return direction
+	 */
 	public static Direction getOtherRelativeDirection(Direction d, Direction viewing) {
 		int turns = 0;
 		switch (viewing) {
@@ -229,7 +369,14 @@ public class Location {
 		}
 		return d;
 	}
-	
+
+	/**
+	 * Get direction clockwise of direction
+	 * 
+	 * @param d
+	 *            direction input
+	 * @return direction
+	 */
 	public static Direction clockwiseDir(Direction d) {
 		if (d == Direction.NORTH) {
 			return Direction.EAST;
@@ -246,6 +393,13 @@ public class Location {
 		return null;
 	}
 
+	/**
+	 * Gets direction in counter clockwise direction
+	 * 
+	 * @param d
+	 *            direction input
+	 * @return counter clockwise direction
+	 */
 	public static Direction counterClockwiseDir(Direction d) {
 		if (d == Direction.NORTH) {
 			return Direction.WEST;
@@ -262,6 +416,13 @@ public class Location {
 		return null;
 	}
 
+	/**
+	 * Returns the direction in the opposite direction
+	 * 
+	 * @param d
+	 *            direction input
+	 * @return opposite direction
+	 */
 	public static Direction oppositeDir(Direction d) {
 		if (d == Direction.NORTH) {
 			return Direction.SOUTH;
