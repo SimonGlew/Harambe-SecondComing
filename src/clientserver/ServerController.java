@@ -12,29 +12,29 @@ import items.Item;
 import tile.Tile;
 import util.Position;
 /**
- * Class that is the controller between the server and game logic of the program, this holds the link between two main parts of the program, the server and 
- * the game logic, this class contains a parser that parses the message sent from the server, updates the game board in regards of what was sent from the 
+ * Class that is the controller between the server and game logic of the program, this holds the link between two main parts of the program, the server and
+ * the game logic, this class contains a parser that parses the message sent from the server, updates the game board in regards of what was sent from the
  * client and sends something back through the server
- * 
+ *
  * @author Simon Glew and Jack Slater
  */
 public class ServerController {
 	private GameSystem gameSystem;
 	private Server server;
-	
+
 	/**
 	 * Constructor that gets called when a server is made and creates a new game system object
-	 * 
+	 *
 	 * @param server - the server that the controller is connected to
 	 */
 	public ServerController(Server server) {
 		this.server = server;
 		this.gameSystem = new GameSystem(this);
 	}
-	
+
 	/**
 	 * Getter for getting the board from the game system to be send back through the server
-	 * 
+	 *
 	 * @return board - current board state of the game
 	 */
 	public Board requestBoard() {
@@ -43,7 +43,7 @@ public class ServerController {
 
 	/**
 	 * Start of the top down parser that is used for deciphering what was sent from the client
-	 * 
+	 *
 	 * @param message - Message sent from the server
 	 * @return String - action needed for sending correct information back to client from server
 	 */
@@ -73,11 +73,11 @@ public class ServerController {
 		s.close();
 		return "false";//shouldnt get here
 	}
-	
+
 	/**
 	 * Method that is called if pickup is the start of the player message, this finds the player and the tile the player is currently on and puts that item
 	 * on the tile into the the players inventory
-	 * 
+	 *
 	 * @param s - Scanner at current point along message
 	 * @return String - action needed for sending correct information back to client from server
 	 */
@@ -102,11 +102,11 @@ public class ServerController {
 			return "false";
 		}
 	}
-	
+
 	/**
-	 * Method that is called if login is the start of the player message, this checks if the player is already logged in and if not it puts the player at 
+	 * Method that is called if login is the start of the player message, this checks if the player is already logged in and if not it puts the player at
 	 * the correct spot, either in one of the spawn locations or in the position that the player was in before he disconnects
-	 * 
+	 *
 	 * @param s - Scanner at current point along message
 	 * @return String - action needed for sending correct information back to client from server
 	 */
@@ -135,6 +135,8 @@ public class ServerController {
 				} else if (!(gameSystem.getBoard().getLocationById(0).getTileAtPosition(new Position(5, 4))
 						.getGameObject() instanceof Player)) {
 					p = new Player(name, 0, new Position(5, 4), gameSystem.getBoard());
+				}else{
+					return "fail login";
 				}
 				gameSystem.getBoard().addPlayer(name, p);
 				gameSystem.getBoard().getLocationById(p.getLocation().getId()).getTileAtPosition(p.getPosition())
@@ -148,9 +150,9 @@ public class ServerController {
 	}
 
 	/**
-	 * Method that is called if move is the start of the player message, this finds the player and the direction that the player wants to move and moves the 
+	 * Method that is called if move is the start of the player message, this finds the player and the direction that the player wants to move and moves the
 	 * player on the board if it is allowe
-	 * 
+	 *
 	 * @param s - Scanner at current point along message
 	 * @return String - action needed for sending correct information back to client from server
 	 */
@@ -171,10 +173,10 @@ public class ServerController {
 			return "false";
 		}
 	}
-	
+
 	/**
 	 * Method that makes a string of the direction and returns it as a direction
-	 * 
+	 *
 	 * @param s - direction to convert to direction
 	 * @return direction that the string relates to
 	 */
@@ -197,7 +199,7 @@ public class ServerController {
 	/**
 	 * Method that is called if drop is the start of the player message, this finds the player and and the item you want to drop and drops the item onto the
 	 * board
-	 * 
+	 *
 	 * @param s - Scanner at current point along message
 	 * @return String - action needed for sending correct information back to client from server
 	 */
@@ -213,11 +215,11 @@ public class ServerController {
 			return "false";
 		}
 	}
-	
+
 	/**
-	 * Method that is called if siphon is the start of the player message, this finds the player and the banana you want to siphon and siphons the banana 
+	 * Method that is called if siphon is the start of the player message, this finds the player and the banana you want to siphon and siphons the banana
 	 * onto the board
-	 * 
+	 *
 	 * @param s - Scanner at current point along message
 	 * @return String - action needed for sending correct information back to client from server
 	 */
@@ -239,9 +241,9 @@ public class ServerController {
 	}
 
 	/**
-	 * Method that is called if use is the start of the player message, this finds the player and the item you want to use and uses the item 
+	 * Method that is called if use is the start of the player message, this finds the player and the item you want to use and uses the item
 	 * on the current player
-	 * 
+	 *
 	 * @param s - Scanner at current point along message
 	 * @return String - action needed for sending correct information back to client from server
 	 */
@@ -257,67 +259,67 @@ public class ServerController {
 			return "false";
 		}
 	}
-	
+
 	/**
 	 * Getter for a player when given a username of a player
-	 * 
-	 * @param name - username of player you want 
+	 *
+	 * @param name - username of player you want
 	 * @return player - player that uses that username
 	 */
 	public Player getPlayerByUserName(String name) {
 		return gameSystem.getBoard().getPlayer(name);
 	}
-	
+
 	/**
 	 * Method that gets called each second of the time thread and changes the npc movement
-	 * 
+	 *
 	 * @param time - current server time
 	 */
 	public void tick(int time){
 		gameSystem.tick(time);
 	}
-	
+
 	/**
 	 * Method that gets the current server time
-	 * 
+	 *
 	 * @return time - current Server time
 	 */
 	public int getServerTime(){
 		return server.getServerTime();
 	}
-	
+
 	/**
 	 * Calls the broadcast method with passing in the correct ID that you want send the message too, this is used for the popups
-	 * 
+	 *
 	 * @param message - message that you want to send
 	 * @param p - Player that you want to send the message to
 	 */
 	public void broadcastPlayerMessage(String message, Player p){
 		server.broadcast(new Packet("popupOne", null ,message, 0), server.getID(p.getUserName()));
 	}
-	
+
 	/**
 	 * Calls the broadcast method with giving it a message to send, this is used for the popups
-	 * 
+	 *
 	 * @param message - message that you want to send
 	 */
 	public void broadcastGameMessage(String message){
 		server.broadcast(new Packet("popup", null ,message, 0), 0);
-	} 
-	
+	}
+
 	/**
 	 * Calls the broadcast method with giving it a message to send, this is used for the popups
-	 * 
+	 *
 	 * @param message - message that you want to send
 	 * @param p - message you do not want sent to the player
 	 */
 	public void broadcastBarOnePlayer(String message, Player p){
 		server.broadcast(new Packet("popupBarOne", null, message, 0), server.getID(p.getUserName()));
 	}
-	
+
 	/**
 	 * Calls the broadcast method with giving it a board to send
-	 * 
+	 *
 	 * @param board - board that you want to send
 	 */
 	public void broadcastBoard(Board b){

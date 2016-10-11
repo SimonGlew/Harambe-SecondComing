@@ -1,9 +1,4 @@
-/NPCStrategies/
-/clientserver/
-/gameobjects/
-/gui/
-/testing/
-/tile/
-/worldeditor/
-/core/
 /items/
+/exceptions/
+/testing/
+/clientserver/
