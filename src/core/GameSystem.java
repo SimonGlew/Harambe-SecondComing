@@ -235,8 +235,12 @@ public class GameSystem {
 					serverController.broadcastPlayerMessage(
 							"The Pretty Penguin was overwhelmed as you handed her the fish, in response she gave you a golden reward!",
 							p);
+					return;
 				}
 			}
+			serverController.broadcastPlayerMessage(
+					"The Pretty Penguin did not offer a response, consider offering her a present",
+					p);
 		}
 	}
 
@@ -256,7 +260,7 @@ public class GameSystem {
 			if (p.getNumOfBananas() == 1) {
 				serverController.broadcastBarOnePlayer(
 						p.getUserName() + " has siphoned " + p.getNumOfBananas() + " banana, step it up soldier!", p);
-			}else{
+			} else {
 				serverController.broadcastBarOnePlayer(
 						p.getUserName() + " has siphoned " + p.getNumOfBananas() + " bananas, step it up soldier!", p);
 			}
@@ -311,6 +315,9 @@ public class GameSystem {
 							"A nibble felt, however sometimes we just aren't that lucky", player);
 
 				}
+			}else{
+				serverController.broadcastPlayerMessage(
+						"Harambe is disgusted with you incompetence, you can't fish on land fool!", player);
 			}
 		}
 	}

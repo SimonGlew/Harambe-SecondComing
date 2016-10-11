@@ -474,7 +474,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	public static ImageIcon keyInventoryImage = Menu.makeImageIcon("gui/inventory/key.png");
 	public static ImageIcon floatingDeviceInventoryImage = Menu.makeImageIcon("gui/inventory/floatingDevice.png");
-	public static ImageIcon bananaInventoryImage = Menu.makeImageIcon("gui/inventory/banana.png");
+	public static ImageIcon bananaInventoryImage = Menu.makeImageIcon("gui/inventory/Banana.png");
 	public static ImageIcon teleporterInventoryImage = Menu.makeImageIcon("gui/inventory/teleporter.png");
 	public static ImageIcon fishInventoryImage = Menu.makeImageIcon("gui/inventory/fish.png");
 	public static ImageIcon fishingRodInventoryImage = Menu.makeImageIcon("gui/inventory/fishingRod.png");
