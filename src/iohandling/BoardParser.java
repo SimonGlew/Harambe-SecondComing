@@ -54,7 +54,6 @@ public class BoardParser {
 			Scanner s = new Scanner(new File(fname));
 			return parseBoard(s);
 		} catch (IOException e) {
-			System.out.println("Unable to load file " + fname);
 			return null;
 		}
 	}

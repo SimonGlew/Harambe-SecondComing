@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import core.Board;
 import core.GameSystem.Direction;
+import gameobjects.Building;
 import gameobjects.Chest;
 import gameobjects.Door;
 import gameobjects.GameObject;
@@ -21,6 +22,7 @@ import tile.DoorOutTile;
 import tile.GrassTile;
 import tile.Tile;
 import tile.WaterTile;
+import util.Position;
 
 public class DataStorageTesting {
 
@@ -180,6 +182,69 @@ public class DataStorageTesting {
 	public @Test void testParseFishingRod() {
 		GameObject t = BoardParser.parseItem(createScanner(FISHINGROD_STRING));
 		assert (t instanceof FishingRod);
+	}
+
+	/**
+	 * Test saving player
+	 */
+	public @Test void testSavePlayer(){
+		Player p = new Player("Legendonger", 0, new Position(0,0), loadBoard());
+		String saveString = p.toSaveString();
+		assert(saveString.equals("Player\n{\nLegendonger,0,0,0,0,SOUTH,false,false,Inventory()\n}"));
+	}
+
+	/**
+	 * Test saving Building
+	 */
+	public @Test void testSavebuilding(){
+		Building p = new Building();
+		String saveString = p.toString();
+		assert(saveString.equals("Building"));
+	}
+
+	/**
+	 * Test saving Chest
+	 */
+	public @Test void testSaveChest(){
+		Chest p = new Chest(new Banana("Banana"));
+		String saveString = p.toString();
+		assert(saveString.equals("Chest(0,Banana)"));
+	}
+
+	/**
+	 * Test saving Door
+	 */
+	public @Test void testSaveDoor(){
+		Door p = new Door(0, 2);
+		String saveString = p.toString();
+		assert(saveString.equals("Door(0,2,5,9)"));
+	}
+
+	/**
+	 * Test saving NPC
+	 */
+	public @Test void testSaveNPC(){
+		NPC p = new NPC("circle", Direction.NORTH);
+		String saveString = p.toString();
+		assert(saveString.equals("NPC(circle,NORTH)"));
+	}
+
+	/**
+	 * Test saving Grass Tile
+	 */
+	public @Test void testSaveGrassTile(){
+		Tile p = new GrassTile(new Position(0, 0), null);
+		String saveString = p.toString();
+		assert(saveString.equals("Grass"));
+	}
+
+	/**
+	 * Test saving Key
+	 */
+	public @Test void testSaveKey(){
+		Key p = new Key("key", 0);
+		String saveString = p.toString();
+		assert(saveString.equals("Key(key, 0)"));
 	}
 
 }
