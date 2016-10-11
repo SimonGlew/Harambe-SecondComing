@@ -11,15 +11,29 @@ import core.Location;
 import tile.Tile;
 import util.Position;
 
+/**
+ * Class that holds all the information to do with the Fence object within the game, such as the location of the fence
+ * 
+ * @author Jack Slater
+ *
+ */
 public class Fence extends GameObject {
 	
 	final String IMG_PRE = "assets/game_objects/fence/fence";
 	final String IMG_POST = ".png";
 	
-	public Fence(){
+	//Calls super constructor
+	public Fence(){}
 
-	}
-
+	/**
+	 * Method that gets the file name of the fence to be drawn, the file name changes depending on what fences are around it
+	 * 
+	 * @param loc - Location of fence
+	 * @param pos - Position of fence
+	 * @param viewing - Direction that you are viewing
+	 * 
+	 * @return fname - File name of the fence
+	 */
 	public String getImage(Location loc, Position pos, Direction viewing){
 		
 		String fname = IMG_PRE;
@@ -54,6 +68,11 @@ public class Fence extends GameObject {
 		return fname;
 	}
 	
+	/**
+	 * Gets the description of the object
+	 * 
+	 * @return description - description of the object
+	 */
 	public String getDescription(){
 		return "Just a Fence";
 	}
