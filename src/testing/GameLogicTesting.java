@@ -15,6 +15,7 @@ import gameobjects.NPC;
 import gameobjects.Player;
 import iohandling.BoardParser;
 import items.*;
+import tile.WaterTile;
 import util.Position;
 
 /**
@@ -262,6 +263,22 @@ public class GameLogicTesting {
 	}
 
 	/**
+	 * Checking that you cannot pickup an item when inventory is full
+	 */
+	public @Test void checkingPickingUpItemFalseFullInventory(){
+		ServerController s = new ServerController(new Server(1000));
+		s.parseInput(new PlayerCommand("login Simon"));
+		s.requestBoard().getLocationById(0).getTileAtPosition(new Position(5,4)).setGameObject(new Banana("Banana"));
+		for(int i = 0; i < 10; i ++){
+			s.getPlayerByUserName("Simon").getInventory().add(new Banana("Banana"));
+		}
+		s.parseInput(new PlayerCommand("move Simon north"));
+		assertTrue(s.requestBoard().getLocationById(0).getTileAtPosition(new Position(5,5)).getGameObject() != null);
+		assertTrue(s.requestBoard().getLocationById(0).getTileAtPosition(new Position(5,4)).getGameObject() != null);
+
+	}
+
+	/**
 	 * Check of a correct siphon banana
 	 */
 	public @Test void checkSiphonBananaCorrect(){
@@ -369,6 +386,31 @@ public class GameLogicTesting {
 		}
 		assertTrue(s.getPlayerByUserName("Simon").getInventory().isEmpty());
 		assertEquals(parse, "endgame");
+	}
+
+	/**
+	 * Checking that you cannot move into water without a floaty on
+	 */
+	public @Test void checkMovingWaterNoFloaty(){
+		ServerController s = new ServerController(new Server(1000));
+		s.parseInput(new PlayerCommand("login Simon"));
+		s.requestBoard().getLocationById(0).getTiles()[5][4] = new WaterTile(new Position(5,4), null);
+		s.parseInput(new PlayerCommand("move Simon north"));
+		assertTrue(s.requestBoard().getLocationById(0).getTileAtPosition(new Position(5,5)).getGameObject() != null);
+	}
+
+	/**
+	 * Checking that you can move into water with a floaty on
+	 */
+	public @Test void checkMovingWaterFloaty(){
+		ServerController s = new ServerController(new Server(1000));
+		s.parseInput(new PlayerCommand("login Simon"));
+		s.requestBoard().getLocationById(0).getTiles()[5][4] = new WaterTile(new Position(5,4), null);
+		s.getPlayerByUserName("Simon").getInventory().add(new FloatingDevice("floaty"));
+		s.parseInput(new PlayerCommand("use Simon 0"));
+		s.parseInput(new PlayerCommand("move Simon north"));
+		assertFalse(s.requestBoard().getLocationById(0).getTileAtPosition(new Position(5,5)).getGameObject() != null);
+		assertTrue(s.requestBoard().getLocationById(0).getTileAtPosition(new Position(5,4)).getGameObject() != null);
 	}
 
 	/**
