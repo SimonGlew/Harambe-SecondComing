@@ -51,7 +51,7 @@ public class GameOver implements ActionListener {
 		winner.setPreferredSize(new Dimension(1150, 30));
 		winner.setForeground(Color.WHITE);
 		winner.setFont(new Font("title", Font.BOLD, 22));
-		winner.setText("                            " + name
+		winner.setText("                                  " + name
 				+ " is the WINNER!");
 
 		// Image label for animation images
