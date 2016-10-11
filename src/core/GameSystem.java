@@ -131,7 +131,7 @@ public class GameSystem {
 				if (newTile instanceof WaterTile) {
 					if (!p.getHasFloatingDevice()) {
 						serverController.broadcastPlayerMessage(
-								"It's a deep blue and cold as ice, perhaps something to float on?", p);
+								"It's deep blue and cold as ice, perhaps you require something to float on", p);
 						return false;
 					}
 				}
@@ -206,10 +206,12 @@ public class GameSystem {
 				if (i instanceof Key) {
 					Key k = ((Key) i);
 					if (k.getCode() == c.getCode()) {
-						if (!p.inventoryIsFull() && c.getContents() != null) {
+						if (c.getContents() != null) {
+							p.getInventory().remove(i);
 							p.pickUpItem(c.getContents());
 							c.setContents(null);
-							p.getInventory().remove(i);
+							serverController.broadcastPlayerMessage(
+									"With the chest you recognise a distinct glow, a Banana!", p);
 							return;
 						}
 					}
@@ -224,8 +226,16 @@ public class GameSystem {
 			p.setLocation(door.getLocationID());
 			p.setTile(p.getLocation().getTileAtPosition(door.getDoorPosition()));
 			p.getTile().setGameObject(p);
+
 		} else if (object instanceof NPC) {
-			p.pickUpItem(new Banana("Banana"));
+			for (Item i : p.getInventory()) {
+				if (i instanceof Fish) {
+					p.getInventory().remove(i);
+					p.pickUpItem(new Banana("Banana"));
+					serverController.broadcastPlayerMessage(
+							"The Pretty Penguin was overwhelmed as you handed her the fish, in response she gave you a golden reward!", p);
+				}
+			}
 		}
 	}
 
@@ -244,6 +254,8 @@ public class GameSystem {
 			p.getInventory().remove(b);
 			serverController.broadcastGameMessage(
 					p.getUserName() + " has siphoned " + p.getNumOfBananas() + " banana/s, step it up soldier!");
+			serverController.broadcastPlayerMessage(
+					"You've siphoned a radiating banana, keep up the good work soldier!", p);
 			return p.getNumOfBananas() == WINNING_BANANA_COUNT;
 		}
 		return false;
@@ -274,17 +286,24 @@ public class GameSystem {
 			}
 			player.getInventory().remove(item);
 
-		} else if (item instanceof FishingRod){
-			if(player.getLocation().getTileInDirection(player.getTile().getPos(), player.getFacing()) instanceof WaterTile){
-				int randy = (int)(Math.random()*5);
-				if(randy == 0){
-					serverController.broadcastPlayerMessage("You caught a fish against all odds, sadly your rod was lost in the process", player);
+		} else if (item instanceof FishingRod) {
+			if (player.getLocation().getTileInDirection(player.getTile().getPos(),
+					player.getFacing()) instanceof WaterTile) {
+				if (player.inventoryIsFull()) {
+					serverController.broadcastPlayerMessage("You can't fish now, you have no room for the spoils",
+							player);
+					return;
+				}
+				int randy = (int) (Math.random() * 5);
+				if (randy == 0) {
+					serverController.broadcastPlayerMessage(
+							"You caught a fish against all odds, sadly your rod was lost in the process", player);
 					player.getInventory().remove(item);
 					player.pickUpItem(new Fish("Fish"));
-				}
-				else{
-					serverController.broadcastPlayerMessage("A nibble felt, however sometimes we just aren't that lucky", player);
-					
+				} else {
+					serverController.broadcastPlayerMessage(
+							"A nibble felt, however sometimes we just aren't that lucky", player);
+
 				}
 			}
 		}

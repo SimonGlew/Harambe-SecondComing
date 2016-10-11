@@ -191,6 +191,7 @@ public class Player extends GameObject {
 	 */
 	public boolean pickUpItem(Item item) {
 		return inventory.add(item);
+		
 	}
 	
 	/**
