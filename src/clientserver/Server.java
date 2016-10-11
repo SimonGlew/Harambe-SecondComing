@@ -275,7 +275,6 @@ public class Server {
 							IDtoUsername.put(id, cm.getMessage().substring(6));
 							/* Broadcast new board */
 							broadcast(new Packet("board", BoardWriter.writeBoardToString(serverController.requestBoard()), null, time.getTime()),id);
-							broadcast(new Packet("popup", null, IDtoUsername.get(id) + ", has joined the game", time.getTime()), id);
 						} else {
 							/* broadcast if you fail to login */
 							broadcast(new Packet("string", null, "fail login", 0), id);

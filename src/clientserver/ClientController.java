@@ -321,7 +321,4 @@ public class ClientController {
 		gui.beginHarambeAnimation();
 		renderer.setMessage(s, time, 4);
 	}
-
-
-
 }
