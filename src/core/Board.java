@@ -7,31 +7,72 @@ import java.util.Map;
 import core.GameSystem.Direction;
 import gameobjects.Player;
 
+/**
+ * Board holds a collection players and locations.
+ * 
+ * @author Jonathan, Jack
+ *
+ */
+
 public class Board {
 	private Map<String, Player> players;
 	private Map<Integer, Location> locations;
 
+	/**
+	 * Constructor for board object Create new empty maps for locations and
+	 * players
+	 */
 	public Board() {
 		this.locations = new HashMap<Integer, Location>();
 		this.players = new HashMap<String, Player>();
 	}
 
+	/**
+	 * Get map of locations
+	 * 
+	 * @return map of locations
+	 */
 	public Map<Integer, Location> getLocations() {
 		return locations;
 	}
 
+	/**
+	 * Set map of locations
+	 * 
+	 * @param locations
+	 */
 	public void setLocations(Map<Integer, Location> locations) {
 		this.locations = locations;
 	}
 
+	/**
+	 * Get location by id
+	 * 
+	 * @param id
+	 *            of location
+	 * @return location object
+	 */
 	public Location getLocationById(Integer id) {
 		return locations.get(id);
 	}
 
+	/**
+	 * Add location to map
+	 * 
+	 * @param id
+	 *            of location
+	 * @param location
+	 *            object
+	 */
 	public void addLocation(Integer id, Location location) {
 		locations.put(id, location);
 	}
 
+	/**
+	 * Get next integer not yet used by a location as an id
+	 * 
+	 * @return next unique id
+	 */
 	public int getNextUniqueId() {
 		int i = 0;
 		while (locations.get(i) != null) {
@@ -40,6 +81,13 @@ public class Board {
 		return i;
 	}
 
+	/**
+	 * Take a map of locations and make sure all locations link to adjacent
+	 * locations via their neighbours maps
+	 * 
+	 * @param map
+	 *            of locations
+	 */
 	public void linkLocations(Map<Point, Integer> map) {
 		for (Point point : map.keySet()) {
 			for (Point point2 : map.keySet()) {
@@ -69,6 +117,21 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Recursively create a map of the relative positions of locations based on
+	 * neighbours
+	 * 
+	 * @param id
+	 *            of current location
+	 * @param x
+	 *            coordinate relative to start
+	 * @param y
+	 *            coordinate relative to start
+	 * @param map
+	 *            of points to locations
+	 *            
+	 * @return map of points to locations
+	 */
 	public Map<Point, Integer> mapLocations(int id, int x, int y, Map<Point, Integer> map) {
 		Location loc = getLocationById(id);
 		if (map.containsKey(new Point(x, y))) {
@@ -86,6 +149,11 @@ public class Board {
 		return map;
 	}
 
+	/**
+	 * Get point representation of offset of direction
+	 * @param direction
+	 * @return direction
+	 */
 	public Point getOffset(Direction d) {
 		switch (d) {
 		case NORTH:
@@ -100,14 +168,28 @@ public class Board {
 		return null;
 	}
 
+	/**
+	 * Add player to voard
+	 * @param userName
+	 * @param player
+	 */
 	public void addPlayer(String userName, Player player) {
 		players.put(userName, player);
 	}
 
+	/**
+	 * Get player by username
+	 * @param username
+	 * @return player
+	 */
 	public Player getPlayer(String username) {
 		return players.get(username);
 	}
 
+	/**
+	 * Get map of players
+	 * @return players
+	 */
 	public Map<String, Player> getPlayers() {
 		return players;
 	}
