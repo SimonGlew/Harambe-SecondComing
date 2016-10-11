@@ -20,7 +20,7 @@ import util.Position;
  * Class that is the controller between the client and GUI of the program, this holds the link between three main parts of the program, the client, GUI and
  * renderer of the GUI
  * 
- * @author Simon Glew and Kyal Bond
+ * @author Kyal Bond & Simon Glew
  */
 public class ClientController {
 	private Client client;
@@ -123,6 +123,12 @@ public class ClientController {
 		drawBoard();
 	}
 
+	/**
+	 * Method that highlights the tile at x,y on the gameFrame in GUI
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void selectTile(int x, int y) {
 		if (board != null) {
 			Position p = renderer.isoToIndex(x, y);
@@ -132,15 +138,29 @@ public class ClientController {
 		}
 	}
 
+	/**
+	 * Gets tile at x,y on the gameFrame in GUI
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public Tile getTile(int x, int y) {
 		Position p = renderer.isoToIndex(x, y);
 		return board.getPlayer(getName()).getLocation().getTileAtPosition(p);
 	}
 
+	/**
+	 * Moves the player in the given direction once
+	 * 
+	 * @param dir
+	 */
 	public void moveSinglePos(String dir) {
 		if(uDijkstras != null ){
 			uDijkstras.setPath(null);
 		}
+		
+		//Get real direction from string input
 		Direction d = null;
 		if (dir.equals("N"))
 			d = Direction.NORTH;
@@ -151,13 +171,15 @@ public class ClientController {
 		else if (dir.equals("W"))
 			d = Direction.WEST;
 
+		//Get direction if screen rotated
 		Direction temp = Location.getRelativeDirection(d, renderer.viewingDir);
 
 		Location loc = board.getPlayer(getName()).getLocation();
 		Tile t = loc.getTileInDirection(board.getPlayer(getName()).getPosition(), temp);
 
+		//Move player
 		if (t != null) {
-			Direction direction = loc.getDirDijkstras(board.getPlayer(getName()).getTile(), t);
+			Direction direction = Location.getDirDijkstras(board.getPlayer(getName()).getTile(), t);
 			if (direction != null) {
 				String command = "move " + getName() + " " + direction.toString();
 				sendMessage(new PlayerCommand(command));
@@ -166,15 +188,25 @@ public class ClientController {
 		}
 	}
 
+	/**
+	 * Move player to select position from current position using dijkstras algorithm
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void moveWithUltimateDijkstras(int x, int y) {
+		//Reset path if moving
 		if (uDijkstras != null)
 			uDijkstras.setPath(null);
 
+		//Get tile at player position and x,y coord
 		if (board != null) {
 			Position p = renderer.isoToIndex(x, y);
 			Location loc = board.getPlayer(getName()).getLocation();
 			Tile t = loc.getTileAtPosition(p);
 			renderer.selectTile(t);
+			
+			//Create path to destination and start timer to move
 			if (t != null) {
 				uDijkstras = new UltimateDijkstras(this, board.getPlayer(getName()).getTile(), loc, t, board);
 				uDijkstras.createPath();
@@ -182,6 +214,33 @@ public class ClientController {
 				uDijkstras.startTimer();
 			}
 		}
+	}
+	
+	/**
+	 * Moves Player to tile (for dijkstras algorithm)
+	 * 
+	 * @param t
+	 */
+	public void moveToPos(Tile t) {
+		Tile from = null;
+		
+		//Checks that players position is the correct position
+		if(uDijkstras.oldTile == null){
+			from = board.getPlayer(getName()).getTile();
+			uDijkstras.oldTile = from;
+		}else{
+			from = uDijkstras.oldTile;
+		}
+		
+		Direction d = Location.getDirDijkstras(from, t);
+		
+		//Move player to tile
+		if (d != null) {
+			String command = "move " + getName() + " " + d.toString();
+			sendMessage(new PlayerCommand(command));
+		}
+		uDijkstras.oldTile = t;
+		drawBoard();
 	}
 	
 	/**
@@ -272,25 +331,6 @@ public class ClientController {
 			String command = "pickup " + name;
 			sendMessage(new PlayerCommand(command));
 		}
-	}
-
-	public void moveToPos(Tile t) {
-		Tile from = null;
-		if(uDijkstras.oldTile == null){
-			from = board.getPlayer(getName()).getTile();
-			uDijkstras.oldTile = from;
-		}else{
-			from = uDijkstras.oldTile;
-		}
-		
-		Direction d = Location.getDirDijkstras(from, t);
-		
-		if (d != null) {
-			String command = "move " + getName() + " " + d.toString();
-			sendMessage(new PlayerCommand(command));
-		}
-		uDijkstras.oldTile = t;
-		drawBoard();
 	}
 	
 	/**
