@@ -11,15 +11,28 @@ import core.Location;
 import tile.Tile;
 import util.Position;
 
+/**
+ * Class that holds all the information to do with the wall object within the game, this is its file name and the code and its description
+ * 
+ * @author Jack Slater
+ *
+ */
 public class Wall extends GameObject {
 	
 	final String IMG_PRE = "assets/game_objects/wall/wall";
 	final String IMG_POST = ".png";
 	
-	public Wall(){
+	public Wall(){ }
 
-	}
-
+	/**
+	 * Method that gets the file name of the wall to be drawn, the file name changes depending on what wall are around it
+	 * 
+	 * @param loc - Location of wall
+	 * @param pos - Position of wall
+	 * @param viewing - Direction that you are viewing
+	 * 
+	 * @return fname - File name of the wall
+	 */
 	public String getImage(Location loc, Position pos, Direction viewing){
 		String fname = IMG_PRE;
 		Tile n = loc.getTileInDirection(pos, Direction.NORTH);
@@ -51,6 +64,11 @@ public class Wall extends GameObject {
 		return fname;
 	}
 	
+	/**
+	 * Getter for the description of the wall
+	 * 
+	 * @return description - Description of the object
+	 */
 	public String getDescription(){
 		return "Just a Wall";
 	}

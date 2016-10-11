@@ -153,7 +153,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 		JLabel inventory = new JLabel();
 		inventory.setText("Inventory");
 		inventory.setForeground(Color.WHITE);
-		inventory.setFont(new Font("title", Font.BOLD, 22));
+		inventory.setFont(new Font("title", Font.BOLD, 19));
 		Font font = inventory.getFont();
 		@SuppressWarnings("rawtypes")
 		Map attributes = font.getAttributes();
