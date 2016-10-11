@@ -32,6 +32,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import clientserver.ClientController;
@@ -272,7 +273,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			slot.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseReleased(MouseEvent e) {
-					if (e.isPopupTrigger()) {
+					if (SwingUtilities.isRightMouseButton(e)) {
 						JLabel src = (JLabel) e.getSource();
 						createPopupUI(e.getX(), e.getY(), Integer.parseInt(src.getName()));
 
@@ -474,7 +475,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 
 	public static ImageIcon keyInventoryImage = Menu.makeImageIcon("gui/inventory/key.png");
 	public static ImageIcon floatingDeviceInventoryImage = Menu.makeImageIcon("gui/inventory/floatingDevice.png");
-	public static ImageIcon bananaInventoryImage = Menu.makeImageIcon("gui/inventory/Banana.png");
+	public static ImageIcon bananaInventoryImage = Menu.makeImageIcon("gui/inventory/banana.png");
 	public static ImageIcon teleporterInventoryImage = Menu.makeImageIcon("gui/inventory/teleporter.png");
 	public static ImageIcon fishInventoryImage = Menu.makeImageIcon("gui/inventory/fish.png");
 	public static ImageIcon fishingRodInventoryImage = Menu.makeImageIcon("gui/inventory/fishingRod.png");
@@ -523,7 +524,7 @@ public class GUI implements KeyListener, ActionListener, MouseListener, MouseMot
 			else
 				controller.rotateRight();
 		} else {
-			if (e.isPopupTrigger() || (e.getX() >= 1025 && e.getX() <= 1135 && e.getY() >= 270 && e.getY() <= 585)) {
+			if (SwingUtilities.isRightMouseButton(e) || (e.getX() >= 1025 && e.getX() <= 1135 && e.getY() >= 270 && e.getY() <= 585)) {
 				createPopupGame(e.getX(), e.getY());
 				if (popup != null) {
 					popup.show(e.getComponent(), e.getX(), e.getY());
