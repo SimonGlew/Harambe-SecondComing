@@ -73,7 +73,7 @@ public class BoardParser {
 	 * @param scanner
 	 * @return board
 	 */
-	private static Board parseBoard(Scanner s) {
+	public static Board parseBoard(Scanner s) {
 		s.useDelimiter("\\s+|(?=[{}(),;])|(?<=[{}(),;])");
 		Board board = new Board();
 		// Parse Players
@@ -96,7 +96,7 @@ public class BoardParser {
 	 * @param board
 	 * @return player
 	 */
-	private static Player parsePlayer(Scanner s, Board board) {
+	public static Player parsePlayer(Scanner s, Board board) {
 		require("\\{", s);
 		String username = s.next().trim();
 		require(",", s);
@@ -137,7 +137,7 @@ public class BoardParser {
 	 * @param scanner
 	 * @return Direction
 	 */
-	private static Direction parseDirection(Scanner s) {
+	public static Direction parseDirection(Scanner s) {
 		if (checkFor("NORTH", s)) {
 			return Direction.NORTH;
 		} else if (checkFor("WEST", s)) {
@@ -158,7 +158,7 @@ public class BoardParser {
 	 * @param board
 	 * @return location
 	 */
-	private static Location parseLocation(Scanner s, Board board) {
+	public static Location parseLocation(Scanner s, Board board) {
 		require("\\{", s);
 		// Parse ID
 		require("id:", s);
@@ -212,7 +212,7 @@ public class BoardParser {
 	 * @param board
 	 * @return tile
 	 */
-	private static Tile parseTile(Scanner s, int i, int j, Board board) {
+	public static Tile parseTile(Scanner s, int i, int j, Board board) {
 		require("\\(", s);
 		Tile tile = null;
 
@@ -252,7 +252,7 @@ public class BoardParser {
 	 * @param j y coordinate of position
 	 * @return DoorOutTile
 	 */
-	private static DoorOutTile parseDoorOut(Scanner s, int i, int j) {
+	public static DoorOutTile parseDoorOut(Scanner s, int i, int j) {
 		require("\\(", s);
 		int locationID = s.nextInt();
 		require(",", s);
@@ -270,7 +270,7 @@ public class BoardParser {
 	 * @param board
 	 * @return game object
 	 */
-	private static GameObject parseGameObject(Scanner s, Board board) {
+	public static GameObject parseGameObject(Scanner s, Board board) {
 		if (checkFor("Tree", s)) {
 			return new Tree();
 		} else if (checkFor("Fence", s)) {
@@ -311,7 +311,7 @@ public class BoardParser {
 	 * @param board
 	 * @return NPC
 	 */
-	private static GameObject parseNPC(Scanner s, Board board) {
+	public static GameObject parseNPC(Scanner s, Board board) {
 		require("\\(", s);
 		String type = s.next();
 		require("\\,", s);
@@ -326,7 +326,7 @@ public class BoardParser {
 	 * @param board
 	 * @return door
 	 */
-	private static Door parseDoor(Scanner s, Board b) {
+	public static Door parseDoor(Scanner s, Board b) {
 		require("\\(", s);
 		int code = s.nextInt();
 		require(",", s);
@@ -347,7 +347,7 @@ public class BoardParser {
 	 * @param board
 	 * @return player
 	 */
-	private static Player parsePlayerOnBoard(Scanner s, Board board) {
+	public static Player parsePlayerOnBoard(Scanner s, Board board) {
 		require("\\(", s);
 		String name = s.next();
 		require("\\)", s);
@@ -360,7 +360,7 @@ public class BoardParser {
 	 * @param board
 	 * @return chest
 	 */
-	private static Chest parseChest(Scanner s, Board board) {
+	public static Chest parseChest(Scanner s, Board board) {
 		Chest chest = new Chest();
 		require("\\(", s);
 		int code = s.nextInt();
@@ -377,7 +377,7 @@ public class BoardParser {
 	 * @param scanner
 	 * @return item
 	 */
-	private static Item parseItem(Scanner s) {
+	public static Item parseItem(Scanner s) {
 		if (checkFor("Key", s)) {
 			return parseKey(s);
 		} else if (checkFor("FloatingDevice", s)) {
@@ -401,7 +401,7 @@ public class BoardParser {
 	 * @param scanner
 	 * @return key
 	 */
-	private static Key parseKey(Scanner s) {
+	public static Key parseKey(Scanner s) {
 		require("\\(", s);
 		String name = s.next();
 		require(",", s);
@@ -416,7 +416,7 @@ public class BoardParser {
 	 * @param s scanner
 	 * @return
 	 */
-	private static String require(String p, Scanner s) {
+	public static String require(String p, Scanner s) {
 		if (s.hasNext(p)) {
 			return s.next();
 		}
@@ -443,7 +443,7 @@ public class BoardParser {
 	 * Throw an error
 	 *
 	 */
-	private static void fail(String message, Scanner s) {
+	public static void fail(String message, Scanner s) {
 		String msg = message + "\n   @ ...";
 		for (int i = 0; i < 5 && s.hasNext(); i++) {
 			msg += " " + s.next();

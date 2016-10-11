@@ -12,7 +12,11 @@ import util.Position;
  * Location objects store a map of directions to neighbours and a 2D array of
  * Tile objects.
  *
+<<<<<<< HEAD
  * @author Jonathan Carr, Jack Slater and Kyal Bond
+=======
+ * @authors Jonathan, Jack, Kyal
+>>>>>>> f2383818a6c232b07a771b3fb2e9d0d099d6bc52
  *
  */
 
@@ -64,7 +68,11 @@ public class Location {
 	/**
 	 * Get neighbours of location
 	 *
+<<<<<<< HEAD
 	 * @return map - gets neighbors of location
+=======
+	 * @return
+>>>>>>> f2383818a6c232b07a771b3fb2e9d0d099d6bc52
 	 */
 	public Map<GameSystem.Direction, Integer> getNeighbours() {
 		return neighbours;
@@ -88,8 +96,13 @@ public class Location {
 	/**
 	 * Get neighbour location in direction
 	 *
+<<<<<<< HEAD
 	 * @param d - direction to find location with
 	 * @return location - location returned from the direction
+=======
+	 * @param direction
+	 * @return location
+>>>>>>> f2383818a6c232b07a771b3fb2e9d0d099d6bc52
 	 */
 	public Location getLocationfromDirection(GameSystem.Direction d) {
 		return board.getLocationById(neighbours.get(d));
@@ -98,7 +111,11 @@ public class Location {
 	/**
 	 * Set neighbours map of location
 	 *
+<<<<<<< HEAD
 	 * @param neighbours - locations around current location
+=======
+	 * @param neighbours
+>>>>>>> f2383818a6c232b07a771b3fb2e9d0d099d6bc52
 	 */
 	public void setNeighbours(Map<GameSystem.Direction, Integer> neighbours) {
 		this.neighbours = neighbours;
@@ -107,7 +124,11 @@ public class Location {
 	/**
 	 * Get id of location
 	 *
+<<<<<<< HEAD
 	 * @return id - id of location
+=======
+	 * @return
+>>>>>>> f2383818a6c232b07a771b3fb2e9d0d099d6bc52
 	 */
 	public int getId() {
 		return id;
@@ -116,7 +137,11 @@ public class Location {
 	/**
 	 * Get board of location
 	 *
+<<<<<<< HEAD
 	 * @return board - board of location
+=======
+	 * @return
+>>>>>>> f2383818a6c232b07a771b3fb2e9d0d099d6bc52
 	 */
 	public Board getBoard() {
 		return board;
@@ -126,9 +151,15 @@ public class Location {
 	 * Get the tile in the direction d from position p. Takes into account
 	 * location edges.
 	 *
+<<<<<<< HEAD
 	 * @param pos - current pos
 	 * @param d - direction to be moved
 	 * @return tile - returned tile
+=======
+	 * @param position
+	 * @param direction
+	 * @return tile
+>>>>>>> f2383818a6c232b07a771b3fb2e9d0d099d6bc52
 	 */
 	public Tile getTileInDirection(Position pos, Direction d) {
 		Position p = null;
@@ -180,8 +211,13 @@ public class Location {
 	/**
 	 * Returns true if position is within bounds of tiles array
 	 *
+<<<<<<< HEAD
 	 * @param pos - position to check
 	 * @return boolean - true if within bounds
+=======
+	 * @param position
+	 * @return boolean true if within bounds
+>>>>>>> f2383818a6c232b07a771b3fb2e9d0d099d6bc52
 	 */
 	public boolean withinBounds(Position pos) {
 		return pos.getX() >= 0 && pos.getY() >= 0 && pos.getX() < getTiles().length
@@ -191,8 +227,13 @@ public class Location {
 	/**
 	 * Get position of tile in location
 	 *
+<<<<<<< HEAD
 	 * @param tile - tile to find position of
 	 * @return position - position of the tile
+=======
+	 * @param tile
+	 * @return position
+>>>>>>> f2383818a6c232b07a771b3fb2e9d0d099d6bc52
 	 */
 	public Position getPositionOfTile(Tile tile) {
 		for (int i = 0; i < tiles.length; i++) {
@@ -209,8 +250,13 @@ public class Location {
 	 * Get tile at position, allows indexes out of bounds, getting tiles from
 	 * neighbouring locations
 	 *
+<<<<<<< HEAD
 	 * @param pos - position to find tile of
 	 * @return tile - tile that is at the required position
+=======
+	 * @param position
+	 * @return tile
+>>>>>>> f2383818a6c232b07a771b3fb2e9d0d099d6bc52
 	 */
 	public Tile getTileAtPosition(Position pos) {
 		Point p = new Point(pos.getX() / 10, -1 * (pos.getY() / 10));
@@ -249,9 +295,15 @@ public class Location {
 	/**
 	 * Get direction for dijkstra's algorithm from player to position.
 	 *
+<<<<<<< HEAD
 	 * @param player - Tile of the current player
 	 * @param position - Tile of current position
 	 * @return direction - direction to move too
+=======
+	 * @param player
+	 * @param position
+	 * @return direction
+>>>>>>> f2383818a6c232b07a771b3fb2e9d0d099d6bc52
 	 */
 	public static Direction getDirDijkstras(Tile player, Tile position) {
 		Position from = player.getPos();
