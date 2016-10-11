@@ -6,7 +6,11 @@ import core.Location;
 import core.GameSystem.Direction;
 import tile.WaterTile;
 import util.Position;
-
+/**
+ * Class that holds all the information for an NPC within the game, using a strategy interface it selects a strategy to use during the game and 
+ * 
+ * @author Jack Slater
+ */
 public class NPC extends GameObject {
 
 	String strategyType;
